@@ -1,2 +1,15 @@
+GENERATOR=/opt/atricore/tools/openapitools/openapi-generator-cli.sh
+SWAGGER_FILE=~/.m2/repository/com/atricore/idbus/console/console-api/1.4.3-SNAPSHOT/console-api-1.4.3-SNAPSHOT-swagger.yaml
+PGK_NAME=jossoappi
+
+default: build
+
+build:
+	go install
+
+dep: # Download required dependencies
+	go mod tidy
+	go mod vendor
+
 generate:
-	/opt/atricore/tools/openapitools/openapi-generator-cli.sh generate -i ~/wa/git/atricore-console/master/console-remote/console-api/target/console-api-1.4.3-SNAPSHOT-swagger.yaml -g go -o ~/wa/git/go/src/josso-api-go --additional-properties=packageName=jossoapi --additional-properties=disallowAdditionalPropertiesIfNotPresent=false --git-repo-id=josso-api-go --git-user-id=atricore
+	$(GENERATOR) generate -i $(SWAGGER_FILE) -g go -o . --additional-properties=packageName=$(PGK_NAME) --additional-properties=disallowAdditionalPropertiesIfNotPresent=false --git-repo-id=josso-api-go --git-user-id=atricore

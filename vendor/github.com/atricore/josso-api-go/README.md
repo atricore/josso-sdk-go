@@ -1,4 +1,4 @@
-# Go API client for jossoapi
+# Go API client for jossoappi
 
 # Atricore Console API
 
@@ -23,7 +23,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./jossoapi"
+import sw "./jossoappi"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -80,6 +80,7 @@ All URIs are relative to *http://localhost:8081/atricore-res/services*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**CreateAppliance**](docs/DefaultApi.md#createappliance) | **Post** /iam-deploy/appliance | 
+*DefaultApi* | [**CreateIdP**](docs/DefaultApi.md#createidp) | **Post** /iam-deploy/idp | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
@@ -99,6 +100,8 @@ Class | Method | HTTP request | Description
  - [AuthenticationServiceDTO](docs/AuthenticationServiceDTO.md)
  - [CreateApplianceReq](docs/CreateApplianceReq.md)
  - [CreateApplianceRes](docs/CreateApplianceRes.md)
+ - [CreateIdPReq](docs/CreateIdPReq.md)
+ - [CreateIdPRes](docs/CreateIdPRes.md)
  - [DelegatedAuthenticationDTO](docs/DelegatedAuthenticationDTO.md)
  - [DeleteApplianceReq](docs/DeleteApplianceReq.md)
  - [DeleteApplianceRes](docs/DeleteApplianceRes.md)
@@ -110,6 +113,7 @@ Class | Method | HTTP request | Description
  - [FederatedProviderDTO](docs/FederatedProviderDTO.md)
  - [GetApplianceReq](docs/GetApplianceReq.md)
  - [GetApplianceRes](docs/GetApplianceRes.md)
+ - [GetAppliancesReq](docs/GetAppliancesReq.md)
  - [GetAppliancesRes](docs/GetAppliancesRes.md)
  - [GroupDTO](docs/GroupDTO.md)
  - [IdentityApplianceDefinitionDTO](docs/IdentityApplianceDefinitionDTO.md)

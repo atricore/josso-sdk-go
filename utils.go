@@ -1,13 +1,29 @@
 package cli
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 
 	api "github.com/atricore/josso-api-go"
 )
+
+func PtrString(s interface{}) *string {
+	if _, ok := s.(string); ok {
+		return api.PtrString(s.(string))
+	}
+	return nil
+}
+
+func PtrBool(s interface{}) *bool {
+	if _, ok := s.(bool); ok {
+		return api.PtrBool(s.(bool))
+	}
+	return nil
+}
 
 func LocationToStr(l *api.LocationDTO) string {
 
@@ -86,4 +102,48 @@ func StrToPort(v string) (*int32, error) {
 	i, err := strconv.Atoi(v)
 	y := int32(i)
 	return &y, err
+}
+
+var ErrEnvVarEmpty = errors.New("getenv: environment variable empty")
+
+func GetenvStr(key string) (string, error) {
+	v := os.Getenv(key)
+	if v == "" {
+		return v, ErrEnvVarEmpty
+	}
+	return v, nil
+}
+
+func GetenvInt(key string) (int, error) {
+	s, err := GetenvStr(key)
+	if err != nil {
+		return 0, err
+	}
+	v, err := strconv.Atoi(s)
+	if err != nil {
+		return 0, err
+	}
+	return v, nil
+}
+
+func GetenvBool(key string) (bool, error) {
+	s, err := GetenvStr(key)
+	if err != nil {
+		return false, err
+	}
+	v, err := strconv.ParseBool(s)
+	if err != nil {
+		return false, err
+	}
+	return v, nil
+}
+
+func buildErrorMsg(err string, valErrors []string) string {
+	var msg string
+	if valErrors != nil && len(valErrors) > 0 {
+		msg = fmt.Sprintf("%s : %#v", err, valErrors)
+	} else {
+		msg = err
+	}
+	return msg
 }

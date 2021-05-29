@@ -25,7 +25,6 @@ type FederatedProviderDTO struct {
 	ElementId *string `json:"elementId,omitempty"`
 	Id *int64 `json:"id,omitempty"`
 	IdentityAppliance *IdentityApplianceDefinitionDTO `json:"identityAppliance,omitempty"`
-	IdentityLookups *[]IdentityLookupDTO `json:"identityLookups,omitempty"`
 	IsRemote *bool `json:"isRemote,omitempty"`
 	Location *LocationDTO `json:"location,omitempty"`
 	Metadata *ResourceDTO `json:"metadata,omitempty"`
@@ -312,38 +311,6 @@ func (o *FederatedProviderDTO) SetIdentityAppliance(v IdentityApplianceDefinitio
 	o.IdentityAppliance = &v
 }
 
-// GetIdentityLookups returns the IdentityLookups field value if set, zero value otherwise.
-func (o *FederatedProviderDTO) GetIdentityLookups() []IdentityLookupDTO {
-	if o == nil || o.IdentityLookups == nil {
-		var ret []IdentityLookupDTO
-		return ret
-	}
-	return *o.IdentityLookups
-}
-
-// GetIdentityLookupsOk returns a tuple with the IdentityLookups field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FederatedProviderDTO) GetIdentityLookupsOk() (*[]IdentityLookupDTO, bool) {
-	if o == nil || o.IdentityLookups == nil {
-		return nil, false
-	}
-	return o.IdentityLookups, true
-}
-
-// HasIdentityLookups returns a boolean if a field has been set.
-func (o *FederatedProviderDTO) HasIdentityLookups() bool {
-	if o != nil && o.IdentityLookups != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIdentityLookups gets a reference to the given []IdentityLookupDTO and assigns it to the IdentityLookups field.
-func (o *FederatedProviderDTO) SetIdentityLookups(v []IdentityLookupDTO) {
-	o.IdentityLookups = &v
-}
-
 // GetIsRemote returns the IsRemote field value if set, zero value otherwise.
 func (o *FederatedProviderDTO) GetIsRemote() bool {
 	if o == nil || o.IsRemote == nil {
@@ -626,9 +593,6 @@ func (o FederatedProviderDTO) MarshalJSON() ([]byte, error) {
 	if o.IdentityAppliance != nil {
 		toSerialize["identityAppliance"] = o.IdentityAppliance
 	}
-	if o.IdentityLookups != nil {
-		toSerialize["identityLookups"] = o.IdentityLookups
-	}
 	if o.IsRemote != nil {
 		toSerialize["isRemote"] = o.IsRemote
 	}
@@ -679,7 +643,6 @@ func (o *FederatedProviderDTO) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "elementId")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "identityAppliance")
-		delete(additionalProperties, "identityLookups")
 		delete(additionalProperties, "isRemote")
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "metadata")

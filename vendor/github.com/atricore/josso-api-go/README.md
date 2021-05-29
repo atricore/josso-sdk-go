@@ -82,10 +82,14 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**CreateAppliance**](docs/DefaultApi.md#createappliance) | **Post** /iam-deploy/appliance | 
 *DefaultApi* | [**CreateIdP**](docs/DefaultApi.md#createidp) | **Post** /iam-deploy/idp | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
+*DefaultApi* | [**DeleteIdP**](docs/DefaultApi.md#deleteidp) | **Delete** /iam-deploy/idp | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
+*DefaultApi* | [**GetIdP**](docs/DefaultApi.md#getidp) | **Get** /iam-deploy/idp | 
+*DefaultApi* | [**GetIdPs**](docs/DefaultApi.md#getidps) | **Get** /iam-deploy/idps | 
 *DefaultApi* | [**SignOn**](docs/DefaultApi.md#signon) | **Post** /iam-authn/sign-on | 
 *DefaultApi* | [**UpdateAppliance**](docs/DefaultApi.md#updateappliance) | **Put** /iam-deploy/appliance | 
+*DefaultApi* | [**UpdateIdP**](docs/DefaultApi.md#updateidp) | **Put** /iam-deploy/idp | 
 
 
 ## Documentation For Models
@@ -105,6 +109,8 @@ Class | Method | HTTP request | Description
  - [DelegatedAuthenticationDTO](docs/DelegatedAuthenticationDTO.md)
  - [DeleteApplianceReq](docs/DeleteApplianceReq.md)
  - [DeleteApplianceRes](docs/DeleteApplianceRes.md)
+ - [DeleteIdPReq](docs/DeleteIdPReq.md)
+ - [DeleteIdPRes](docs/DeleteIdPRes.md)
  - [EntitySelectionStrategyDTO](docs/EntitySelectionStrategyDTO.md)
  - [ExecutionEnvironmentDTO](docs/ExecutionEnvironmentDTO.md)
  - [ExtensionDTO](docs/ExtensionDTO.md)
@@ -115,6 +121,10 @@ Class | Method | HTTP request | Description
  - [GetApplianceRes](docs/GetApplianceRes.md)
  - [GetAppliancesReq](docs/GetAppliancesReq.md)
  - [GetAppliancesRes](docs/GetAppliancesRes.md)
+ - [GetIdPReq](docs/GetIdPReq.md)
+ - [GetIdPRes](docs/GetIdPRes.md)
+ - [GetIdPsReq](docs/GetIdPsReq.md)
+ - [GetIdPsRes](docs/GetIdPsRes.md)
  - [GroupDTO](docs/GroupDTO.md)
  - [IdentityApplianceDefinitionDTO](docs/IdentityApplianceDefinitionDTO.md)
  - [IdentityApplianceSecurityConfigDTO](docs/IdentityApplianceSecurityConfigDTO.md)
@@ -132,6 +142,7 @@ Class | Method | HTTP request | Description
  - [ProviderConfigDTO](docs/ProviderConfigDTO.md)
  - [ProviderDTO](docs/ProviderDTO.md)
  - [ResourceDTO](docs/ResourceDTO.md)
+ - [SamlR2IDPConfigDTO](docs/SamlR2IDPConfigDTO.md)
  - [ServerContext](docs/ServerContext.md)
  - [ServiceConnectionDTO](docs/ServiceConnectionDTO.md)
  - [ServiceResourceDTO](docs/ServiceResourceDTO.md)
@@ -140,6 +151,8 @@ Class | Method | HTTP request | Description
  - [SubjectNameIdentifierPolicyDTO](docs/SubjectNameIdentifierPolicyDTO.md)
  - [UpdateApplianceReq](docs/UpdateApplianceReq.md)
  - [UpdateApplianceRes](docs/UpdateApplianceRes.md)
+ - [UpdateIdPReq](docs/UpdateIdPReq.md)
+ - [UpdateIdPRes](docs/UpdateIdPRes.md)
  - [UserDTO](docs/UserDTO.md)
  - [UserDashboardBrandingDTO](docs/UserDashboardBrandingDTO.md)
 

@@ -1,6 +1,8 @@
 package cli
 
-import api "github.com/atricore/josso-api-go"
+import (
+	api "github.com/atricore/josso-api-go"
+)
 
 func (s *AccTestSuite) TestAccCliIdP_crud() {
 	var t = s.T()
@@ -14,8 +16,9 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 
 	var created api.IdentityProviderDTO
 	orig := api.IdentityProviderDTO{
-		Name: api.PtrString("idp-2"),
-		Id:   api.PtrInt64(-1),
+		Name:                  api.PtrString("idp-2"),
+		Id:                    api.PtrInt64(-1),
+		UserDashboardBranding: api.PtrString("josso25-branding"),
 	}
 
 	created, err = s.client.CreateIdp(*appliance.Name, orig)
@@ -78,6 +81,12 @@ func IdPFieldTestUpdate(
 		{
 			name:     "location",
 			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
+			expected: e.Name,
+			received: r.Name,
+		},
+		{
+			name:     "brandign",
+			cmp:      func() bool { return StrPtrEquals(e.UserDashboardBranding, r.UserDashboardBranding) },
 			expected: e.Name,
 			received: r.Name,
 		},

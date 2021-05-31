@@ -30,15 +30,15 @@ type DefaultApiService service
 type ApiCreateApplianceRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	createApplianceReq *CreateApplianceReq
+	storeApplianceReq *StoreApplianceReq
 }
 
-func (r ApiCreateApplianceRequest) CreateApplianceReq(createApplianceReq CreateApplianceReq) ApiCreateApplianceRequest {
-	r.createApplianceReq = &createApplianceReq
+func (r ApiCreateApplianceRequest) StoreApplianceReq(storeApplianceReq StoreApplianceReq) ApiCreateApplianceRequest {
+	r.storeApplianceReq = &storeApplianceReq
 	return r
 }
 
-func (r ApiCreateApplianceRequest) Execute() (CreateApplianceRes, *_nethttp.Response, error) {
+func (r ApiCreateApplianceRequest) Execute() (StoreApplianceRes, *_nethttp.Response, error) {
 	return r.ApiService.CreateApplianceExecute(r)
 }
 
@@ -56,16 +56,16 @@ func (a *DefaultApiService) CreateAppliance(ctx _context.Context) ApiCreateAppli
 
 /*
  * Execute executes the request
- * @return CreateApplianceRes
+ * @return StoreApplianceRes
  */
-func (a *DefaultApiService) CreateApplianceExecute(r ApiCreateApplianceRequest) (CreateApplianceRes, *_nethttp.Response, error) {
+func (a *DefaultApiService) CreateApplianceExecute(r ApiCreateApplianceRequest) (StoreApplianceRes, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  CreateApplianceRes
+		localVarReturnValue  StoreApplianceRes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateAppliance")
@@ -97,7 +97,7 @@ func (a *DefaultApiService) CreateApplianceExecute(r ApiCreateApplianceRequest) 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createApplianceReq
+	localVarPostBody = r.storeApplianceReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -120,7 +120,7 @@ func (a *DefaultApiService) CreateApplianceExecute(r ApiCreateApplianceRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v CreateApplianceRes
+			var v StoreApplianceRes
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -145,15 +145,15 @@ func (a *DefaultApiService) CreateApplianceExecute(r ApiCreateApplianceRequest) 
 type ApiCreateIdPRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	createIdPReq *CreateIdPReq
+	storeIdPReq *StoreIdPReq
 }
 
-func (r ApiCreateIdPRequest) CreateIdPReq(createIdPReq CreateIdPReq) ApiCreateIdPRequest {
-	r.createIdPReq = &createIdPReq
+func (r ApiCreateIdPRequest) StoreIdPReq(storeIdPReq StoreIdPReq) ApiCreateIdPRequest {
+	r.storeIdPReq = &storeIdPReq
 	return r
 }
 
-func (r ApiCreateIdPRequest) Execute() (CreateIdPRes, *_nethttp.Response, error) {
+func (r ApiCreateIdPRequest) Execute() (StoreIdPRes, *_nethttp.Response, error) {
 	return r.ApiService.CreateIdPExecute(r)
 }
 
@@ -171,16 +171,16 @@ func (a *DefaultApiService) CreateIdP(ctx _context.Context) ApiCreateIdPRequest 
 
 /*
  * Execute executes the request
- * @return CreateIdPRes
+ * @return StoreIdPRes
  */
-func (a *DefaultApiService) CreateIdPExecute(r ApiCreateIdPRequest) (CreateIdPRes, *_nethttp.Response, error) {
+func (a *DefaultApiService) CreateIdPExecute(r ApiCreateIdPRequest) (StoreIdPRes, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  CreateIdPRes
+		localVarReturnValue  StoreIdPRes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateIdP")
@@ -212,7 +212,7 @@ func (a *DefaultApiService) CreateIdPExecute(r ApiCreateIdPRequest) (CreateIdPRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createIdPReq
+	localVarPostBody = r.storeIdPReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -235,7 +235,122 @@ func (a *DefaultApiService) CreateIdPExecute(r ApiCreateIdPRequest) (CreateIdPRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v CreateIdPRes
+			var v StoreIdPRes
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateIdVaultRequest struct {
+	ctx _context.Context
+	ApiService *DefaultApiService
+	storeIdVaultReq *StoreIdVaultReq
+}
+
+func (r ApiCreateIdVaultRequest) StoreIdVaultReq(storeIdVaultReq StoreIdVaultReq) ApiCreateIdVaultRequest {
+	r.storeIdVaultReq = &storeIdVaultReq
+	return r
+}
+
+func (r ApiCreateIdVaultRequest) Execute() (StoreIdVaultRes, *_nethttp.Response, error) {
+	return r.ApiService.CreateIdVaultExecute(r)
+}
+
+/*
+ * CreateIdVault Method for CreateIdVault
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiCreateIdVaultRequest
+ */
+func (a *DefaultApiService) CreateIdVault(ctx _context.Context) ApiCreateIdVaultRequest {
+	return ApiCreateIdVaultRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return StoreIdVaultRes
+ */
+func (a *DefaultApiService) CreateIdVaultExecute(r ApiCreateIdVaultRequest) (StoreIdVaultRes, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  StoreIdVaultRes
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateIdVault")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/iam-deploy/idvault"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.storeIdVaultReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+			var v StoreIdVaultRes
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -260,15 +375,15 @@ func (a *DefaultApiService) CreateIdPExecute(r ApiCreateIdPRequest) (CreateIdPRe
 type ApiDeleteApplianceRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	deleteApplianceReq *DeleteApplianceReq
+	deleteReq *DeleteReq
 }
 
-func (r ApiDeleteApplianceRequest) DeleteApplianceReq(deleteApplianceReq DeleteApplianceReq) ApiDeleteApplianceRequest {
-	r.deleteApplianceReq = &deleteApplianceReq
+func (r ApiDeleteApplianceRequest) DeleteReq(deleteReq DeleteReq) ApiDeleteApplianceRequest {
+	r.deleteReq = &deleteReq
 	return r
 }
 
-func (r ApiDeleteApplianceRequest) Execute() (DeleteApplianceRes, *_nethttp.Response, error) {
+func (r ApiDeleteApplianceRequest) Execute() (DeleteRes, *_nethttp.Response, error) {
 	return r.ApiService.DeleteApplianceExecute(r)
 }
 
@@ -286,16 +401,16 @@ func (a *DefaultApiService) DeleteAppliance(ctx _context.Context) ApiDeleteAppli
 
 /*
  * Execute executes the request
- * @return DeleteApplianceRes
+ * @return DeleteRes
  */
-func (a *DefaultApiService) DeleteApplianceExecute(r ApiDeleteApplianceRequest) (DeleteApplianceRes, *_nethttp.Response, error) {
+func (a *DefaultApiService) DeleteApplianceExecute(r ApiDeleteApplianceRequest) (DeleteRes, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  DeleteApplianceRes
+		localVarReturnValue  DeleteRes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteAppliance")
@@ -327,7 +442,7 @@ func (a *DefaultApiService) DeleteApplianceExecute(r ApiDeleteApplianceRequest) 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.deleteApplianceReq
+	localVarPostBody = r.deleteReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -350,7 +465,7 @@ func (a *DefaultApiService) DeleteApplianceExecute(r ApiDeleteApplianceRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v DeleteApplianceRes
+			var v DeleteRes
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -375,15 +490,15 @@ func (a *DefaultApiService) DeleteApplianceExecute(r ApiDeleteApplianceRequest) 
 type ApiDeleteIdPRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	deleteIdPReq *DeleteIdPReq
+	deleteReq *DeleteReq
 }
 
-func (r ApiDeleteIdPRequest) DeleteIdPReq(deleteIdPReq DeleteIdPReq) ApiDeleteIdPRequest {
-	r.deleteIdPReq = &deleteIdPReq
+func (r ApiDeleteIdPRequest) DeleteReq(deleteReq DeleteReq) ApiDeleteIdPRequest {
+	r.deleteReq = &deleteReq
 	return r
 }
 
-func (r ApiDeleteIdPRequest) Execute() (DeleteIdPRes, *_nethttp.Response, error) {
+func (r ApiDeleteIdPRequest) Execute() (DeleteRes, *_nethttp.Response, error) {
 	return r.ApiService.DeleteIdPExecute(r)
 }
 
@@ -401,16 +516,16 @@ func (a *DefaultApiService) DeleteIdP(ctx _context.Context) ApiDeleteIdPRequest 
 
 /*
  * Execute executes the request
- * @return DeleteIdPRes
+ * @return DeleteRes
  */
-func (a *DefaultApiService) DeleteIdPExecute(r ApiDeleteIdPRequest) (DeleteIdPRes, *_nethttp.Response, error) {
+func (a *DefaultApiService) DeleteIdPExecute(r ApiDeleteIdPRequest) (DeleteRes, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  DeleteIdPRes
+		localVarReturnValue  DeleteRes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteIdP")
@@ -442,7 +557,7 @@ func (a *DefaultApiService) DeleteIdPExecute(r ApiDeleteIdPRequest) (DeleteIdPRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.deleteIdPReq
+	localVarPostBody = r.deleteReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -465,7 +580,122 @@ func (a *DefaultApiService) DeleteIdPExecute(r ApiDeleteIdPRequest) (DeleteIdPRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v DeleteIdPRes
+			var v DeleteRes
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiDeleteIdVaultRequest struct {
+	ctx _context.Context
+	ApiService *DefaultApiService
+	deleteReq *DeleteReq
+}
+
+func (r ApiDeleteIdVaultRequest) DeleteReq(deleteReq DeleteReq) ApiDeleteIdVaultRequest {
+	r.deleteReq = &deleteReq
+	return r
+}
+
+func (r ApiDeleteIdVaultRequest) Execute() (DeleteRes, *_nethttp.Response, error) {
+	return r.ApiService.DeleteIdVaultExecute(r)
+}
+
+/*
+ * DeleteIdVault Method for DeleteIdVault
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiDeleteIdVaultRequest
+ */
+func (a *DefaultApiService) DeleteIdVault(ctx _context.Context) ApiDeleteIdVaultRequest {
+	return ApiDeleteIdVaultRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return DeleteRes
+ */
+func (a *DefaultApiService) DeleteIdVaultExecute(r ApiDeleteIdVaultRequest) (DeleteRes, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  DeleteRes
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteIdVault")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/iam-deploy/idvault"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.deleteReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+			var v DeleteRes
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -605,11 +835,11 @@ func (a *DefaultApiService) GetApplianceExecute(r ApiGetApplianceRequest) (GetAp
 type ApiGetAppliancesRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	getAppliancesReq *GetAppliancesReq
+	getApplianceReq *GetApplianceReq
 }
 
-func (r ApiGetAppliancesRequest) GetAppliancesReq(getAppliancesReq GetAppliancesReq) ApiGetAppliancesRequest {
-	r.getAppliancesReq = &getAppliancesReq
+func (r ApiGetAppliancesRequest) GetApplianceReq(getApplianceReq GetApplianceReq) ApiGetAppliancesRequest {
+	r.getApplianceReq = &getApplianceReq
 	return r
 }
 
@@ -672,7 +902,7 @@ func (a *DefaultApiService) GetAppliancesExecute(r ApiGetAppliancesRequest) (Get
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.getAppliancesReq
+	localVarPostBody = r.getApplianceReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -835,11 +1065,11 @@ func (a *DefaultApiService) GetIdPExecute(r ApiGetIdPRequest) (GetIdPRes, *_neth
 type ApiGetIdPsRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	getIdPsReq *GetIdPsReq
+	getIdPReq *GetIdPReq
 }
 
-func (r ApiGetIdPsRequest) GetIdPsReq(getIdPsReq GetIdPsReq) ApiGetIdPsRequest {
-	r.getIdPsReq = &getIdPsReq
+func (r ApiGetIdPsRequest) GetIdPReq(getIdPReq GetIdPReq) ApiGetIdPsRequest {
+	r.getIdPReq = &getIdPReq
 	return r
 }
 
@@ -902,7 +1132,7 @@ func (a *DefaultApiService) GetIdPsExecute(r ApiGetIdPsRequest) (GetIdPsRes, *_n
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.getIdPsReq
+	localVarPostBody = r.getIdPReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -926,6 +1156,236 @@ func (a *DefaultApiService) GetIdPsExecute(r ApiGetIdPsRequest) (GetIdPsRes, *_n
 			error: localVarHTTPResponse.Status,
 		}
 			var v GetIdPsRes
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetIdVaultRequest struct {
+	ctx _context.Context
+	ApiService *DefaultApiService
+	getIdVaultReq *GetIdVaultReq
+}
+
+func (r ApiGetIdVaultRequest) GetIdVaultReq(getIdVaultReq GetIdVaultReq) ApiGetIdVaultRequest {
+	r.getIdVaultReq = &getIdVaultReq
+	return r
+}
+
+func (r ApiGetIdVaultRequest) Execute() (GetIdVaultRes, *_nethttp.Response, error) {
+	return r.ApiService.GetIdVaultExecute(r)
+}
+
+/*
+ * GetIdVault Method for GetIdVault
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiGetIdVaultRequest
+ */
+func (a *DefaultApiService) GetIdVault(ctx _context.Context) ApiGetIdVaultRequest {
+	return ApiGetIdVaultRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return GetIdVaultRes
+ */
+func (a *DefaultApiService) GetIdVaultExecute(r ApiGetIdVaultRequest) (GetIdVaultRes, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  GetIdVaultRes
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetIdVault")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/iam-deploy/idvault"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.getIdVaultReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+			var v GetIdVaultRes
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetIdVaultsRequest struct {
+	ctx _context.Context
+	ApiService *DefaultApiService
+	getIdVaultReq *GetIdVaultReq
+}
+
+func (r ApiGetIdVaultsRequest) GetIdVaultReq(getIdVaultReq GetIdVaultReq) ApiGetIdVaultsRequest {
+	r.getIdVaultReq = &getIdVaultReq
+	return r
+}
+
+func (r ApiGetIdVaultsRequest) Execute() (GetIdVaultsRes, *_nethttp.Response, error) {
+	return r.ApiService.GetIdVaultsExecute(r)
+}
+
+/*
+ * GetIdVaults Method for GetIdVaults
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiGetIdVaultsRequest
+ */
+func (a *DefaultApiService) GetIdVaults(ctx _context.Context) ApiGetIdVaultsRequest {
+	return ApiGetIdVaultsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return GetIdVaultsRes
+ */
+func (a *DefaultApiService) GetIdVaultsExecute(r ApiGetIdVaultsRequest) (GetIdVaultsRes, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  GetIdVaultsRes
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetIdVaults")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/iam-deploy/idvaults"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.getIdVaultReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+			var v GetIdVaultsRes
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1065,15 +1525,15 @@ func (a *DefaultApiService) SignOnExecute(r ApiSignOnRequest) (OIDCSignOnRespons
 type ApiUpdateApplianceRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	updateApplianceReq *UpdateApplianceReq
+	storeApplianceReq *StoreApplianceReq
 }
 
-func (r ApiUpdateApplianceRequest) UpdateApplianceReq(updateApplianceReq UpdateApplianceReq) ApiUpdateApplianceRequest {
-	r.updateApplianceReq = &updateApplianceReq
+func (r ApiUpdateApplianceRequest) StoreApplianceReq(storeApplianceReq StoreApplianceReq) ApiUpdateApplianceRequest {
+	r.storeApplianceReq = &storeApplianceReq
 	return r
 }
 
-func (r ApiUpdateApplianceRequest) Execute() (UpdateApplianceRes, *_nethttp.Response, error) {
+func (r ApiUpdateApplianceRequest) Execute() (StoreApplianceRes, *_nethttp.Response, error) {
 	return r.ApiService.UpdateApplianceExecute(r)
 }
 
@@ -1091,16 +1551,16 @@ func (a *DefaultApiService) UpdateAppliance(ctx _context.Context) ApiUpdateAppli
 
 /*
  * Execute executes the request
- * @return UpdateApplianceRes
+ * @return StoreApplianceRes
  */
-func (a *DefaultApiService) UpdateApplianceExecute(r ApiUpdateApplianceRequest) (UpdateApplianceRes, *_nethttp.Response, error) {
+func (a *DefaultApiService) UpdateApplianceExecute(r ApiUpdateApplianceRequest) (StoreApplianceRes, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  UpdateApplianceRes
+		localVarReturnValue  StoreApplianceRes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateAppliance")
@@ -1132,7 +1592,7 @@ func (a *DefaultApiService) UpdateApplianceExecute(r ApiUpdateApplianceRequest) 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateApplianceReq
+	localVarPostBody = r.storeApplianceReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1155,7 +1615,7 @@ func (a *DefaultApiService) UpdateApplianceExecute(r ApiUpdateApplianceRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v UpdateApplianceRes
+			var v StoreApplianceRes
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1180,15 +1640,15 @@ func (a *DefaultApiService) UpdateApplianceExecute(r ApiUpdateApplianceRequest) 
 type ApiUpdateIdPRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	updateIdPReq *UpdateIdPReq
+	storeIdPReq *StoreIdPReq
 }
 
-func (r ApiUpdateIdPRequest) UpdateIdPReq(updateIdPReq UpdateIdPReq) ApiUpdateIdPRequest {
-	r.updateIdPReq = &updateIdPReq
+func (r ApiUpdateIdPRequest) StoreIdPReq(storeIdPReq StoreIdPReq) ApiUpdateIdPRequest {
+	r.storeIdPReq = &storeIdPReq
 	return r
 }
 
-func (r ApiUpdateIdPRequest) Execute() (UpdateIdPRes, *_nethttp.Response, error) {
+func (r ApiUpdateIdPRequest) Execute() (StoreIdPRes, *_nethttp.Response, error) {
 	return r.ApiService.UpdateIdPExecute(r)
 }
 
@@ -1206,16 +1666,16 @@ func (a *DefaultApiService) UpdateIdP(ctx _context.Context) ApiUpdateIdPRequest 
 
 /*
  * Execute executes the request
- * @return UpdateIdPRes
+ * @return StoreIdPRes
  */
-func (a *DefaultApiService) UpdateIdPExecute(r ApiUpdateIdPRequest) (UpdateIdPRes, *_nethttp.Response, error) {
+func (a *DefaultApiService) UpdateIdPExecute(r ApiUpdateIdPRequest) (StoreIdPRes, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  UpdateIdPRes
+		localVarReturnValue  StoreIdPRes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateIdP")
@@ -1247,7 +1707,7 @@ func (a *DefaultApiService) UpdateIdPExecute(r ApiUpdateIdPRequest) (UpdateIdPRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateIdPReq
+	localVarPostBody = r.storeIdPReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1270,7 +1730,122 @@ func (a *DefaultApiService) UpdateIdPExecute(r ApiUpdateIdPRequest) (UpdateIdPRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v UpdateIdPRes
+			var v StoreIdPRes
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateIdVaultRequest struct {
+	ctx _context.Context
+	ApiService *DefaultApiService
+	storeIdVaultReq *StoreIdVaultReq
+}
+
+func (r ApiUpdateIdVaultRequest) StoreIdVaultReq(storeIdVaultReq StoreIdVaultReq) ApiUpdateIdVaultRequest {
+	r.storeIdVaultReq = &storeIdVaultReq
+	return r
+}
+
+func (r ApiUpdateIdVaultRequest) Execute() (StoreIdVaultRes, *_nethttp.Response, error) {
+	return r.ApiService.UpdateIdVaultExecute(r)
+}
+
+/*
+ * UpdateIdVault Method for UpdateIdVault
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiUpdateIdVaultRequest
+ */
+func (a *DefaultApiService) UpdateIdVault(ctx _context.Context) ApiUpdateIdVaultRequest {
+	return ApiUpdateIdVaultRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return StoreIdVaultRes
+ */
+func (a *DefaultApiService) UpdateIdVaultExecute(r ApiUpdateIdVaultRequest) (StoreIdVaultRes, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  StoreIdVaultRes
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateIdVault")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/iam-deploy/idvault"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.storeIdVaultReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+			var v StoreIdVaultRes
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

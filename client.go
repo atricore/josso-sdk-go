@@ -3,6 +3,7 @@ package cli
 import (
 	"context"
 	"fmt"
+	"log"
 
 	api "github.com/atricore/josso-api-go"
 )
@@ -43,17 +44,15 @@ type (
 )
 
 func NewIdbusApiClientWithDefaults() *IdbusApiClient {
-	cfg := config(false)
-	cli := &IdbusApiClient{
-		config:    cfg,
-		apiClient: api.NewAPIClient(cfg),
-		servers:   make(map[string]*ServerConnection),
-		logger:    &DefaultLogger{debug: true},
-	}
-	return cli
+	return NewIdbusApiClient(&DefaultLogger{debug: true}, false)
 }
 
 func NewIdbusApiClient(l Logger, trace bool) *IdbusApiClient {
+	l.Infof("newIdbusApiClient TRACE: %t", trace)
+
+	if trace {
+		log.Print("Using client TRACE ON")
+	}
 	cfg := config(trace)
 	cli := &IdbusApiClient{
 		config:    cfg,

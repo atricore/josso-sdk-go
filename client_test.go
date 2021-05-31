@@ -101,7 +101,9 @@ func createClient() (*IdbusApiClient, error) {
 		trace = false
 	}
 
-	c := NewIdbusApiClient(&DefaultLogger{debug: true}, trace)
+	l := DefaultLogger{debug: true}
+
+	c := NewIdbusApiClient(&l, trace)
 	err = c.RegisterServer(s, "")
 	if err != nil {
 		return nil, err
@@ -181,16 +183,16 @@ func createTestAppliance(t *testing.T, client *IdbusApiClient) (api.IdentityAppl
 }
 
 func (s *AccTestSuite) accClearData() error {
-	s.T().Logf("clearing test data")
-	as, err := s.client.GetAppliances()
-	if err != nil {
-		return err
-	}
+	/*
+		s.T().Logf("clearing test data")
+		as, err := s.client.GetAppliances()
+		if err != nil {
+			return err
+		}
 
-	for _, a := range as {
-		if *a.Name == testApplianceName {
-			s.T().Log("COMMENTED DELETE")
-			/*
+		for _, a := range as {
+			if *a.Name == testApplianceName {
+
 				s.T().Logf("deleting appliance %d", a.GetId())
 				r, err1 := s.client.DeleteAppliance(strconv.FormatInt(a.GetId(), 10))
 				if err1 != nil {
@@ -199,11 +201,11 @@ func (s *AccTestSuite) accClearData() error {
 				if !r {
 					s.T().Logf("appliance not found %s", *a.Name)
 					return nil
-				}*/
-
+				}
+			}
 		}
-	}
-
+	*/
+	s.T().Logf("ENABLE DELETE")
 	return nil
 
 }

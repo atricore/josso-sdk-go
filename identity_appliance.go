@@ -15,7 +15,7 @@ func (c *IdbusApiClient) CreateAppliance(appliance api.IdentityApplianceDefiniti
 	if appliance.Name == nil || appliance.Namespace == nil {
 		return result, errors.New("appliance name and namespace are required")
 	}
-	c.logger.Debugf("creating identity appliance : %s %s", *appliance.Name, *appliance.Namespace)
+	c.logger.Debugf("createAppliance : %s %s", *appliance.Name, *appliance.Namespace)
 
 	sc, err := c.IdbusServerForOperation("DefaultApiService.CreateAppliance") // Also hard-coded in generated client
 	if err != nil {
@@ -23,7 +23,7 @@ func (c *IdbusApiClient) CreateAppliance(appliance api.IdentityApplianceDefiniti
 	}
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateAppliance(ctx)
-	req = req.CreateApplianceReq(api.CreateApplianceReq{Appliance: &appliance})
+	req = req.StoreApplianceReq(api.StoreApplianceReq{Appliance: &appliance})
 	res, _, err := c.apiClient.DefaultApi.CreateApplianceExecute(req)
 	if err != nil {
 		c.logger.Errorf("createAppliance. Error %v", err)
@@ -48,7 +48,7 @@ func (c *IdbusApiClient) UpdateAppliance(appliance api.IdentityApplianceDefiniti
 
 	var result api.IdentityApplianceDefinitionDTO
 
-	c.logger.Debugf("updating identity appliance : %s %s", *appliance.Name, *appliance.Namespace)
+	c.logger.Debugf("updateAppliance : %s %s", *appliance.Name, *appliance.Namespace)
 
 	sc, err := c.IdbusServerForOperation("DefaultApiService.UpdateAppliance") // Also hard-coded in generated client
 	if err != nil {
@@ -56,7 +56,7 @@ func (c *IdbusApiClient) UpdateAppliance(appliance api.IdentityApplianceDefiniti
 	}
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateAppliance(ctx)
-	req = req.UpdateApplianceReq(api.UpdateApplianceReq{Appliance: &appliance})
+	req = req.StoreApplianceReq(api.StoreApplianceReq{Appliance: &appliance})
 	res, _, err := c.apiClient.DefaultApi.UpdateApplianceExecute(req)
 
 	if err != nil {
@@ -94,7 +94,7 @@ func (c *IdbusApiClient) GetAppliances() ([]api.IdentityApplianceDefinitionDTO, 
 		return nil, errors.New(*res.Error)
 	}
 
-	c.logger.Debugf("found appliances %d", len(*res.Appliances))
+	c.logger.Debugf("getAppliances. found appliances %d", len(*res.Appliances))
 	return *res.Appliances, nil
 
 }
@@ -126,9 +126,9 @@ func (c *IdbusApiClient) GetAppliance(idOrName string) (api.IdentityApplianceDef
 
 	if res.Appliance != nil {
 		result = *res.Appliance
-		c.logger.Debugf("appliance ID %d found for ID/name %s", *result.Id, idOrName)
+		c.logger.Debugf("getAppliance. %d found for ID/name %s", *result.Id, idOrName)
 	} else {
-		c.logger.Debugf("appliance ID not found for ID/name %s", idOrName)
+		c.logger.Debugf("getAppliance. not found for ID/name %s", idOrName)
 	}
 
 	return result, err
@@ -136,7 +136,7 @@ func (c *IdbusApiClient) GetAppliance(idOrName string) (api.IdentityApplianceDef
 
 func (c *IdbusApiClient) DeleteAppliance(id string) (bool, error) {
 
-	c.logger.Debugf("delete appliance id: %s", id)
+	c.logger.Debugf("deleteAppliance id: %s", id)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.DeleteAppliance") // Also hard-coded in generated client
 	if err != nil {
 		c.logger.Errorf("deleteAppliance. Error %v", err)
@@ -145,7 +145,7 @@ func (c *IdbusApiClient) DeleteAppliance(id string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteAppliance(ctx)
-	req = req.DeleteApplianceReq(api.DeleteApplianceReq{Id: &id})
+	req = req.DeleteReq(api.DeleteReq{Name: &id})
 	res, _, err := c.apiClient.DefaultApi.DeleteApplianceExecute(req)
 
 	if err != nil {

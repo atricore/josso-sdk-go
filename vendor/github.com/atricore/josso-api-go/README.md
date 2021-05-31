@@ -81,15 +81,20 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**CreateAppliance**](docs/DefaultApi.md#createappliance) | **Post** /iam-deploy/appliance | 
 *DefaultApi* | [**CreateIdP**](docs/DefaultApi.md#createidp) | **Post** /iam-deploy/idp | 
+*DefaultApi* | [**CreateIdVault**](docs/DefaultApi.md#createidvault) | **Post** /iam-deploy/idvault | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
 *DefaultApi* | [**DeleteIdP**](docs/DefaultApi.md#deleteidp) | **Delete** /iam-deploy/idp | 
+*DefaultApi* | [**DeleteIdVault**](docs/DefaultApi.md#deleteidvault) | **Delete** /iam-deploy/idvault | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
 *DefaultApi* | [**GetIdP**](docs/DefaultApi.md#getidp) | **Get** /iam-deploy/idp | 
 *DefaultApi* | [**GetIdPs**](docs/DefaultApi.md#getidps) | **Get** /iam-deploy/idps | 
+*DefaultApi* | [**GetIdVault**](docs/DefaultApi.md#getidvault) | **Get** /iam-deploy/idvault | 
+*DefaultApi* | [**GetIdVaults**](docs/DefaultApi.md#getidvaults) | **Get** /iam-deploy/idvaults | 
 *DefaultApi* | [**SignOn**](docs/DefaultApi.md#signon) | **Post** /iam-authn/sign-on | 
 *DefaultApi* | [**UpdateAppliance**](docs/DefaultApi.md#updateappliance) | **Put** /iam-deploy/appliance | 
 *DefaultApi* | [**UpdateIdP**](docs/DefaultApi.md#updateidp) | **Put** /iam-deploy/idp | 
+*DefaultApi* | [**UpdateIdVault**](docs/DefaultApi.md#updateidvault) | **Put** /iam-deploy/idvault | 
 
 
 ## Documentation For Models
@@ -102,15 +107,10 @@ Class | Method | HTTP request | Description
  - [AuthenticationContractDTO](docs/AuthenticationContractDTO.md)
  - [AuthenticationMechanismDTO](docs/AuthenticationMechanismDTO.md)
  - [AuthenticationServiceDTO](docs/AuthenticationServiceDTO.md)
- - [CreateApplianceReq](docs/CreateApplianceReq.md)
- - [CreateApplianceRes](docs/CreateApplianceRes.md)
- - [CreateIdPReq](docs/CreateIdPReq.md)
- - [CreateIdPRes](docs/CreateIdPRes.md)
  - [DelegatedAuthenticationDTO](docs/DelegatedAuthenticationDTO.md)
- - [DeleteApplianceReq](docs/DeleteApplianceReq.md)
- - [DeleteApplianceRes](docs/DeleteApplianceRes.md)
- - [DeleteIdPReq](docs/DeleteIdPReq.md)
- - [DeleteIdPRes](docs/DeleteIdPRes.md)
+ - [DeleteReq](docs/DeleteReq.md)
+ - [DeleteRes](docs/DeleteRes.md)
+ - [EmbeddedIdentityVaultDTO](docs/EmbeddedIdentityVaultDTO.md)
  - [EntitySelectionStrategyDTO](docs/EntitySelectionStrategyDTO.md)
  - [ExecutionEnvironmentDTO](docs/ExecutionEnvironmentDTO.md)
  - [ExtensionDTO](docs/ExtensionDTO.md)
@@ -119,12 +119,13 @@ Class | Method | HTTP request | Description
  - [FederatedProviderDTO](docs/FederatedProviderDTO.md)
  - [GetApplianceReq](docs/GetApplianceReq.md)
  - [GetApplianceRes](docs/GetApplianceRes.md)
- - [GetAppliancesReq](docs/GetAppliancesReq.md)
  - [GetAppliancesRes](docs/GetAppliancesRes.md)
  - [GetIdPReq](docs/GetIdPReq.md)
  - [GetIdPRes](docs/GetIdPRes.md)
- - [GetIdPsReq](docs/GetIdPsReq.md)
  - [GetIdPsRes](docs/GetIdPsRes.md)
+ - [GetIdVaultReq](docs/GetIdVaultReq.md)
+ - [GetIdVaultRes](docs/GetIdVaultRes.md)
+ - [GetIdVaultsRes](docs/GetIdVaultsRes.md)
  - [GroupDTO](docs/GroupDTO.md)
  - [IdentityApplianceDefinitionDTO](docs/IdentityApplianceDefinitionDTO.md)
  - [IdentityApplianceSecurityConfigDTO](docs/IdentityApplianceSecurityConfigDTO.md)
@@ -147,12 +148,14 @@ Class | Method | HTTP request | Description
  - [ServiceConnectionDTO](docs/ServiceConnectionDTO.md)
  - [ServiceResourceDTO](docs/ServiceResourceDTO.md)
  - [SessionManagerFactoryDTO](docs/SessionManagerFactoryDTO.md)
+ - [StoreApplianceReq](docs/StoreApplianceReq.md)
+ - [StoreApplianceRes](docs/StoreApplianceRes.md)
+ - [StoreIdPReq](docs/StoreIdPReq.md)
+ - [StoreIdPRes](docs/StoreIdPRes.md)
+ - [StoreIdVaultReq](docs/StoreIdVaultReq.md)
+ - [StoreIdVaultRes](docs/StoreIdVaultRes.md)
  - [SubjectAuthenticationPolicyDTO](docs/SubjectAuthenticationPolicyDTO.md)
  - [SubjectNameIdentifierPolicyDTO](docs/SubjectNameIdentifierPolicyDTO.md)
- - [UpdateApplianceReq](docs/UpdateApplianceReq.md)
- - [UpdateApplianceRes](docs/UpdateApplianceRes.md)
- - [UpdateIdPReq](docs/UpdateIdPReq.md)
- - [UpdateIdPRes](docs/UpdateIdPRes.md)
  - [UserDTO](docs/UserDTO.md)
  - [UserDashboardBrandingDTO](docs/UserDashboardBrandingDTO.md)
 

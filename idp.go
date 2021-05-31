@@ -12,7 +12,7 @@ func (c *IdbusApiClient) CreateIdp(ida string, idp api.IdentityProviderDTO) (api
 	var result api.IdentityProviderDTO
 	l := c.Logger()
 
-	l.Debugf("create idp : %s [%s]", *idp.Name, ida)
+	l.Debugf("createIdP : %s [%s]", *idp.Name, ida)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.CreateIdp") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateIdp(ida string, idp api.IdentityProviderDTO) (api
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIdP(ctx)
-	req = req.CreateIdPReq(api.CreateIdPReq{IdaName: &ida, Idp: &idp})
+	req = req.StoreIdPReq(api.StoreIdPReq{IdaName: &ida, Idp: &idp})
 	res, _, err := c.apiClient.DefaultApi.CreateIdPExecute(req)
 	if err != nil {
 		c.logger.Errorf("createIdP. Error %v", err)
@@ -49,7 +49,7 @@ func (c *IdbusApiClient) UpdateIdp(ida string, idp api.IdentityProviderDTO) (api
 	var result api.IdentityProviderDTO
 	l := c.Logger()
 
-	l.Debugf("update idp : %s [%s]", *idp.Name, ida)
+	l.Debugf("updateIdP. : %s [%s]", *idp.Name, ida)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.UpdateIdp") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
@@ -59,7 +59,7 @@ func (c *IdbusApiClient) UpdateIdp(ida string, idp api.IdentityProviderDTO) (api
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIdP(ctx)
-	req = req.UpdateIdPReq(api.UpdateIdPReq{IdaName: &ida, Idp: &idp})
+	req = req.StoreIdPReq(api.StoreIdPReq{IdaName: &ida, Idp: &idp})
 	res, _, err := c.apiClient.DefaultApi.UpdateIdPExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateIdP. Error %v", err)
@@ -83,7 +83,7 @@ func (c *IdbusApiClient) UpdateIdp(ida string, idp api.IdentityProviderDTO) (api
 }
 
 func (c *IdbusApiClient) DeleteIdp(ida string, idp string) (bool, error) {
-	c.logger.Debugf("delete idp: %s [%s]", idp, ida)
+	c.logger.Debugf("deleteIdp. %s [%s]", idp, ida)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.DeleteIdp") // Also hard-coded in generated client
 	if err != nil {
 		c.logger.Errorf("deleteIdp. Error %v", err)
@@ -92,7 +92,7 @@ func (c *IdbusApiClient) DeleteIdp(ida string, idp string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIdP(ctx)
-	req = req.DeleteIdPReq(api.DeleteIdPReq{IdaName: &ida, Name: &idp})
+	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &idp})
 	res, _, err := c.apiClient.DefaultApi.DeleteIdPExecute(req)
 
 	if err != nil {
@@ -111,11 +111,9 @@ func (c *IdbusApiClient) DeleteIdp(ida string, idp string) (bool, error) {
 }
 
 func (c *IdbusApiClient) GetIdp(ida string, idp string) (api.IdentityProviderDTO, error) {
-	c.logger.Debugf("get idp: %s [%s]", idp, ida)
+	c.logger.Debugf("getIdp. %s [%s]", idp, ida)
 	var result api.IdentityProviderDTO
-	l := c.Logger()
 
-	l.Debugf("getting idp : [%s] %s", ida, idp)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.GetIdp") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
@@ -123,7 +121,7 @@ func (c *IdbusApiClient) GetIdp(ida string, idp string) (api.IdentityProviderDTO
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdP(ctx)
-	req = req.GetIdPReq(api.GetIdPReq{IdaName: &ida, IdpName: &idp})
+	req = req.GetIdPReq(api.GetIdPReq{IdaName: &ida, Name: &idp})
 	res, _, err := c.apiClient.DefaultApi.GetIdPExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdP. Error %v", err)
@@ -131,14 +129,21 @@ func (c *IdbusApiClient) GetIdp(ida string, idp string) (api.IdentityProviderDTO
 	}
 
 	if res.Error != nil {
+		c.logger.Errorf("getIdP. Error %v", err)
 		return result, errors.New(*res.Error)
 	}
 
 	if res.Idp == nil {
+		c.logger.Debugf("getIdP. NOT FOUND %s", idp)
 		return result, nil
 	}
 
-	result = *res.Idp
+	if res.Idp != nil {
+		result = *res.Idp
+		c.logger.Debugf("getIdP. %d found for ID/name %s", *result.Name, idp)
+	} else {
+		c.logger.Debugf("getIdP. not found for ID/name %s", idp)
+	}
 
 	return result, nil
 
@@ -147,9 +152,7 @@ func (c *IdbusApiClient) GetIdp(ida string, idp string) (api.IdentityProviderDTO
 func (c *IdbusApiClient) GetIdps(ida string) ([]api.IdentityProviderDTO, error) {
 	c.logger.Debugf("get idps: all [%s]", ida)
 	var result []api.IdentityProviderDTO
-	l := c.Logger()
 
-	l.Debugf("getting idps : [%s]", ida)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.GetIdps") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
@@ -157,7 +160,7 @@ func (c *IdbusApiClient) GetIdps(ida string) ([]api.IdentityProviderDTO, error) 
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdPs(ctx)
-	req = req.GetIdPsReq(api.GetIdPsReq{IdaName: &ida})
+	req = req.GetIdPReq(api.GetIdPReq{IdaName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIdPsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdPs. Error %v", err)

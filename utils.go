@@ -25,6 +25,32 @@ func PtrBool(s interface{}) *bool {
 	return nil
 }
 
+func StrDeref(p *string) string {
+	result := ""
+	if p != nil {
+		result = *p
+	}
+	return result
+}
+
+func BoolDeref(p *bool) bool {
+	result := false
+	if p != nil {
+		result = *p
+	}
+	return result
+
+}
+
+func Int64Deref(p *int64) int64 {
+	var result int64
+	if p != nil {
+		result = *p
+	}
+	return result
+
+}
+
 func LocationToStr(l *api.LocationDTO) string {
 
 	url := strings.ToLower(*l.Protocol) + "://" + *l.Host

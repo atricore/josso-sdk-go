@@ -94,20 +94,3 @@ func StrPtrEquals(a *string, b *string) bool {
 
 	return *a == *b
 }
-
-func StrDeref(p *string) string {
-	result := ""
-	if p != nil {
-		result = *p
-	}
-	return result
-}
-
-func Int64Deref(p *int64) int64 {
-	var result int64
-	if p != nil {
-		result = *p
-	}
-	return result
-
-}

@@ -81,19 +81,24 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**CreateAppliance**](docs/DefaultApi.md#createappliance) | **Post** /iam-deploy/appliance | 
 *DefaultApi* | [**CreateIdP**](docs/DefaultApi.md#createidp) | **Post** /iam-deploy/idp | 
+*DefaultApi* | [**CreateIdSourceLdap**](docs/DefaultApi.md#createidsourceldap) | **Post** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**CreateIdVault**](docs/DefaultApi.md#createidvault) | **Post** /iam-deploy/idvault | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
 *DefaultApi* | [**DeleteIdP**](docs/DefaultApi.md#deleteidp) | **Delete** /iam-deploy/idp | 
+*DefaultApi* | [**DeleteIdSourceLdap**](docs/DefaultApi.md#deleteidsourceldap) | **Delete** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**DeleteIdVault**](docs/DefaultApi.md#deleteidvault) | **Delete** /iam-deploy/idvault | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
 *DefaultApi* | [**GetIdP**](docs/DefaultApi.md#getidp) | **Get** /iam-deploy/idp | 
 *DefaultApi* | [**GetIdPs**](docs/DefaultApi.md#getidps) | **Get** /iam-deploy/idps | 
+*DefaultApi* | [**GetIdSourceLdap**](docs/DefaultApi.md#getidsourceldap) | **Get** /iam-deploy/idsourceldap | 
+*DefaultApi* | [**GetIdSourceLdaps**](docs/DefaultApi.md#getidsourceldaps) | **Get** /iam-deploy/idsourceldaps | 
 *DefaultApi* | [**GetIdVault**](docs/DefaultApi.md#getidvault) | **Get** /iam-deploy/idvault | 
 *DefaultApi* | [**GetIdVaults**](docs/DefaultApi.md#getidvaults) | **Get** /iam-deploy/idvaults | 
 *DefaultApi* | [**SignOn**](docs/DefaultApi.md#signon) | **Post** /iam-authn/sign-on | 
 *DefaultApi* | [**UpdateAppliance**](docs/DefaultApi.md#updateappliance) | **Put** /iam-deploy/appliance | 
 *DefaultApi* | [**UpdateIdP**](docs/DefaultApi.md#updateidp) | **Put** /iam-deploy/idp | 
+*DefaultApi* | [**UpdateIdSourceLdap**](docs/DefaultApi.md#updateidsourceldap) | **Put** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**UpdateIdVault**](docs/DefaultApi.md#updateidvault) | **Put** /iam-deploy/idvault | 
 
 
@@ -107,6 +112,8 @@ Class | Method | HTTP request | Description
  - [AuthenticationContractDTO](docs/AuthenticationContractDTO.md)
  - [AuthenticationMechanismDTO](docs/AuthenticationMechanismDTO.md)
  - [AuthenticationServiceDTO](docs/AuthenticationServiceDTO.md)
+ - [CustomClassDTO](docs/CustomClassDTO.md)
+ - [CustomClassPropertyDTO](docs/CustomClassPropertyDTO.md)
  - [DelegatedAuthenticationDTO](docs/DelegatedAuthenticationDTO.md)
  - [DeleteReq](docs/DeleteReq.md)
  - [DeleteRes](docs/DeleteRes.md)
@@ -123,6 +130,9 @@ Class | Method | HTTP request | Description
  - [GetIdPReq](docs/GetIdPReq.md)
  - [GetIdPRes](docs/GetIdPRes.md)
  - [GetIdPsRes](docs/GetIdPsRes.md)
+ - [GetIdSourceLdapReq](docs/GetIdSourceLdapReq.md)
+ - [GetIdSourceLdapRes](docs/GetIdSourceLdapRes.md)
+ - [GetIdSourceLdapsRes](docs/GetIdSourceLdapsRes.md)
  - [GetIdVaultReq](docs/GetIdVaultReq.md)
  - [GetIdVaultRes](docs/GetIdVaultRes.md)
  - [GetIdVaultsRes](docs/GetIdVaultsRes.md)
@@ -135,6 +145,7 @@ Class | Method | HTTP request | Description
  - [IdentitySourceDTO](docs/IdentitySourceDTO.md)
  - [InternalSaml2ServiceProviderDTO](docs/InternalSaml2ServiceProviderDTO.md)
  - [KeystoreDTO](docs/KeystoreDTO.md)
+ - [LdapIdentitySourceDTO](docs/LdapIdentitySourceDTO.md)
  - [LocationDTO](docs/LocationDTO.md)
  - [OAuth2ClientDTO](docs/OAuth2ClientDTO.md)
  - [OIDCSignOnRequest](docs/OIDCSignOnRequest.md)
@@ -152,6 +163,8 @@ Class | Method | HTTP request | Description
  - [StoreApplianceRes](docs/StoreApplianceRes.md)
  - [StoreIdPReq](docs/StoreIdPReq.md)
  - [StoreIdPRes](docs/StoreIdPRes.md)
+ - [StoreIdSourceLdapReq](docs/StoreIdSourceLdapReq.md)
+ - [StoreIdSourceLdapRes](docs/StoreIdSourceLdapRes.md)
  - [StoreIdVaultReq](docs/StoreIdVaultReq.md)
  - [StoreIdVaultRes](docs/StoreIdVaultRes.md)
  - [SubjectAuthenticationPolicyDTO](docs/SubjectAuthenticationPolicyDTO.md)

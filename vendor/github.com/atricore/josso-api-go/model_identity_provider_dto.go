@@ -38,13 +38,13 @@ type IdentityProviderDTO struct {
 	FederatedConnectionsA *[]FederatedConnectionDTO `json:"federatedConnectionsA,omitempty"`
 	FederatedConnectionsB *[]FederatedConnectionDTO `json:"federatedConnectionsB,omitempty"`
 	Id *int64 `json:"id,omitempty"`
+	IdentityLookups *[]IdentityLookupDTO `json:"identityLookups,omitempty"`
 	IdentityAppliance *IdentityApplianceDefinitionDTO `json:"identityAppliance,omitempty"`
 	IdentityConfirmationEnabled *bool `json:"identityConfirmationEnabled,omitempty"`
 	IdentityConfirmationOAuth2AuthorizationServerEndpoint *string `json:"identityConfirmationOAuth2AuthorizationServerEndpoint,omitempty"`
 	IdentityConfirmationOAuth2ClientId *string `json:"identityConfirmationOAuth2ClientId,omitempty"`
 	IdentityConfirmationOAuth2ClientSecret *string `json:"identityConfirmationOAuth2ClientSecret,omitempty"`
 	IdentityConfirmationPolicy *ExtensionDTO `json:"identityConfirmationPolicy,omitempty"`
-	IdentityLookups *[]IdentityLookupDTO `json:"identityLookups,omitempty"`
 	IgnoreRequestedNameIDPolicy *bool `json:"ignoreRequestedNameIDPolicy,omitempty"`
 	IsRemote *bool `json:"isRemote,omitempty"`
 	Location *LocationDTO `json:"location,omitempty"`
@@ -775,6 +775,38 @@ func (o *IdentityProviderDTO) SetId(v int64) {
 	o.Id = &v
 }
 
+// GetIdentityLookups returns the IdentityLookups field value if set, zero value otherwise.
+func (o *IdentityProviderDTO) GetIdentityLookups() []IdentityLookupDTO {
+	if o == nil || o.IdentityLookups == nil {
+		var ret []IdentityLookupDTO
+		return ret
+	}
+	return *o.IdentityLookups
+}
+
+// GetIdentityLookupsOk returns a tuple with the IdentityLookups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProviderDTO) GetIdentityLookupsOk() (*[]IdentityLookupDTO, bool) {
+	if o == nil || o.IdentityLookups == nil {
+		return nil, false
+	}
+	return o.IdentityLookups, true
+}
+
+// HasIdentityLookups returns a boolean if a field has been set.
+func (o *IdentityProviderDTO) HasIdentityLookups() bool {
+	if o != nil && o.IdentityLookups != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIdentityLookups gets a reference to the given []IdentityLookupDTO and assigns it to the IdentityLookups field.
+func (o *IdentityProviderDTO) SetIdentityLookups(v []IdentityLookupDTO) {
+	o.IdentityLookups = &v
+}
+
 // GetIdentityAppliance returns the IdentityAppliance field value if set, zero value otherwise.
 func (o *IdentityProviderDTO) GetIdentityAppliance() IdentityApplianceDefinitionDTO {
 	if o == nil || o.IdentityAppliance == nil {
@@ -965,38 +997,6 @@ func (o *IdentityProviderDTO) HasIdentityConfirmationPolicy() bool {
 // SetIdentityConfirmationPolicy gets a reference to the given ExtensionDTO and assigns it to the IdentityConfirmationPolicy field.
 func (o *IdentityProviderDTO) SetIdentityConfirmationPolicy(v ExtensionDTO) {
 	o.IdentityConfirmationPolicy = &v
-}
-
-// GetIdentityLookups returns the IdentityLookups field value if set, zero value otherwise.
-func (o *IdentityProviderDTO) GetIdentityLookups() []IdentityLookupDTO {
-	if o == nil || o.IdentityLookups == nil {
-		var ret []IdentityLookupDTO
-		return ret
-	}
-	return *o.IdentityLookups
-}
-
-// GetIdentityLookupsOk returns a tuple with the IdentityLookups field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetIdentityLookupsOk() (*[]IdentityLookupDTO, bool) {
-	if o == nil || o.IdentityLookups == nil {
-		return nil, false
-	}
-	return o.IdentityLookups, true
-}
-
-// HasIdentityLookups returns a boolean if a field has been set.
-func (o *IdentityProviderDTO) HasIdentityLookups() bool {
-	if o != nil && o.IdentityLookups != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIdentityLookups gets a reference to the given []IdentityLookupDTO and assigns it to the IdentityLookups field.
-func (o *IdentityProviderDTO) SetIdentityLookups(v []IdentityLookupDTO) {
-	o.IdentityLookups = &v
 }
 
 // GetIgnoreRequestedNameIDPolicy returns the IgnoreRequestedNameIDPolicy field value if set, zero value otherwise.
@@ -2216,6 +2216,9 @@ func (o IdentityProviderDTO) MarshalJSON() ([]byte, error) {
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
+	if o.IdentityLookups != nil {
+		toSerialize["identityLookups"] = o.IdentityLookups
+	}
 	if o.IdentityAppliance != nil {
 		toSerialize["identityAppliance"] = o.IdentityAppliance
 	}
@@ -2233,9 +2236,6 @@ func (o IdentityProviderDTO) MarshalJSON() ([]byte, error) {
 	}
 	if o.IdentityConfirmationPolicy != nil {
 		toSerialize["identityConfirmationPolicy"] = o.IdentityConfirmationPolicy
-	}
-	if o.IdentityLookups != nil {
-		toSerialize["identityLookups"] = o.IdentityLookups
 	}
 	if o.IgnoreRequestedNameIDPolicy != nil {
 		toSerialize["ignoreRequestedNameIDPolicy"] = o.IgnoreRequestedNameIDPolicy
@@ -2384,13 +2384,13 @@ func (o *IdentityProviderDTO) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "federatedConnectionsA")
 		delete(additionalProperties, "federatedConnectionsB")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "identityLookups")
 		delete(additionalProperties, "identityAppliance")
 		delete(additionalProperties, "identityConfirmationEnabled")
 		delete(additionalProperties, "identityConfirmationOAuth2AuthorizationServerEndpoint")
 		delete(additionalProperties, "identityConfirmationOAuth2ClientId")
 		delete(additionalProperties, "identityConfirmationOAuth2ClientSecret")
 		delete(additionalProperties, "identityConfirmationPolicy")
-		delete(additionalProperties, "identityLookups")
 		delete(additionalProperties, "ignoreRequestedNameIDPolicy")
 		delete(additionalProperties, "isRemote")
 		delete(additionalProperties, "location")

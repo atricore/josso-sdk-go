@@ -83,10 +83,12 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**CreateIdP**](docs/DefaultApi.md#createidp) | **Post** /iam-deploy/idp | 
 *DefaultApi* | [**CreateIdSourceLdap**](docs/DefaultApi.md#createidsourceldap) | **Post** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**CreateIdVault**](docs/DefaultApi.md#createidvault) | **Post** /iam-deploy/idvault | 
+*DefaultApi* | [**CreateOidcRp**](docs/DefaultApi.md#createoidcrp) | **Post** /iam-deploy/oidcrp | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
 *DefaultApi* | [**DeleteIdP**](docs/DefaultApi.md#deleteidp) | **Delete** /iam-deploy/idp | 
 *DefaultApi* | [**DeleteIdSourceLdap**](docs/DefaultApi.md#deleteidsourceldap) | **Delete** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**DeleteIdVault**](docs/DefaultApi.md#deleteidvault) | **Delete** /iam-deploy/idvault | 
+*DefaultApi* | [**DeleteOidcRp**](docs/DefaultApi.md#deleteoidcrp) | **Delete** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
 *DefaultApi* | [**GetIdP**](docs/DefaultApi.md#getidp) | **Get** /iam-deploy/idp | 
@@ -95,11 +97,14 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetIdSourceLdaps**](docs/DefaultApi.md#getidsourceldaps) | **Get** /iam-deploy/idsourceldaps | 
 *DefaultApi* | [**GetIdVault**](docs/DefaultApi.md#getidvault) | **Get** /iam-deploy/idvault | 
 *DefaultApi* | [**GetIdVaults**](docs/DefaultApi.md#getidvaults) | **Get** /iam-deploy/idvaults | 
+*DefaultApi* | [**GetOidcRp**](docs/DefaultApi.md#getoidcrp) | **Get** /iam-deploy/oidcrp | 
+*DefaultApi* | [**GetOidcRps**](docs/DefaultApi.md#getoidcrps) | **Get** /iam-deploy/oidcrps | 
 *DefaultApi* | [**SignOn**](docs/DefaultApi.md#signon) | **Post** /iam-authn/sign-on | 
 *DefaultApi* | [**UpdateAppliance**](docs/DefaultApi.md#updateappliance) | **Put** /iam-deploy/appliance | 
 *DefaultApi* | [**UpdateIdP**](docs/DefaultApi.md#updateidp) | **Put** /iam-deploy/idp | 
 *DefaultApi* | [**UpdateIdSourceLdap**](docs/DefaultApi.md#updateidsourceldap) | **Put** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**UpdateIdVault**](docs/DefaultApi.md#updateidvault) | **Put** /iam-deploy/idvault | 
+*DefaultApi* | [**UpdateOidcRp**](docs/DefaultApi.md#updateoidcrp) | **Put** /iam-deploy/oidcrp | 
 
 
 ## Documentation For Models
@@ -121,6 +126,7 @@ Class | Method | HTTP request | Description
  - [EntitySelectionStrategyDTO](docs/EntitySelectionStrategyDTO.md)
  - [ExecutionEnvironmentDTO](docs/ExecutionEnvironmentDTO.md)
  - [ExtensionDTO](docs/ExtensionDTO.md)
+ - [ExternalOpenIDConnectRelayingPartyDTO](docs/ExternalOpenIDConnectRelayingPartyDTO.md)
  - [FederatedChannelDTO](docs/FederatedChannelDTO.md)
  - [FederatedConnectionDTO](docs/FederatedConnectionDTO.md)
  - [FederatedProviderDTO](docs/FederatedProviderDTO.md)
@@ -136,6 +142,9 @@ Class | Method | HTTP request | Description
  - [GetIdVaultReq](docs/GetIdVaultReq.md)
  - [GetIdVaultRes](docs/GetIdVaultRes.md)
  - [GetIdVaultsRes](docs/GetIdVaultsRes.md)
+ - [GetOidcRpReq](docs/GetOidcRpReq.md)
+ - [GetOidcRpRes](docs/GetOidcRpRes.md)
+ - [GetOidcRpsRes](docs/GetOidcRpsRes.md)
  - [GroupDTO](docs/GroupDTO.md)
  - [IdentityApplianceDefinitionDTO](docs/IdentityApplianceDefinitionDTO.md)
  - [IdentityApplianceSecurityConfigDTO](docs/IdentityApplianceSecurityConfigDTO.md)
@@ -167,6 +176,8 @@ Class | Method | HTTP request | Description
  - [StoreIdSourceLdapRes](docs/StoreIdSourceLdapRes.md)
  - [StoreIdVaultReq](docs/StoreIdVaultReq.md)
  - [StoreIdVaultRes](docs/StoreIdVaultRes.md)
+ - [StoreOidcRpReq](docs/StoreOidcRpReq.md)
+ - [StoreOidcRpRes](docs/StoreOidcRpRes.md)
  - [SubjectAuthenticationPolicyDTO](docs/SubjectAuthenticationPolicyDTO.md)
  - [SubjectNameIdentifierPolicyDTO](docs/SubjectNameIdentifierPolicyDTO.md)
  - [UserDTO](docs/UserDTO.md)

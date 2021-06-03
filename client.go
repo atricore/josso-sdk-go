@@ -48,7 +48,7 @@ func NewIdbusApiClientWithDefaults() *IdbusApiClient {
 }
 
 func NewIdbusApiClient(l Logger, trace bool) *IdbusApiClient {
-	l.Infof("newIdbusApiClient TRACE: %t", trace)
+	l.Debugf("newIdbusApiClient TRACE: %t", trace)
 
 	if trace {
 		log.Print("Using client TRACE ON")

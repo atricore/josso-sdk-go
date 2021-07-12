@@ -18,8 +18,8 @@ func (c *IdbusApiClient) CreateExtSaml2Sp(ida string, sp api.ExternalSaml2Servic
 		return result, err
 	}
 
-	// TODO : si this necessary for ext. SPs ?
-	// initSP(&sp)
+	// TODO : implement for ext saml2 sp
+	// initExtSaml2Sp(&sp)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateExtSaml2Sp(ctx)

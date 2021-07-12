@@ -80,17 +80,21 @@ All URIs are relative to *http://localhost:8081/atricore-res/services*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**CreateAppliance**](docs/DefaultApi.md#createappliance) | **Post** /iam-deploy/appliance | 
+*DefaultApi* | [**CreateExtSaml2Sp**](docs/DefaultApi.md#createextsaml2sp) | **Post** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**CreateIdP**](docs/DefaultApi.md#createidp) | **Post** /iam-deploy/idp | 
 *DefaultApi* | [**CreateIdSourceLdap**](docs/DefaultApi.md#createidsourceldap) | **Post** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**CreateIdVault**](docs/DefaultApi.md#createidvault) | **Post** /iam-deploy/idvault | 
 *DefaultApi* | [**CreateOidcRp**](docs/DefaultApi.md#createoidcrp) | **Post** /iam-deploy/oidcrp | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
+*DefaultApi* | [**DeleteExtSaml2Sp**](docs/DefaultApi.md#deleteextsaml2sp) | **Delete** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**DeleteIdP**](docs/DefaultApi.md#deleteidp) | **Delete** /iam-deploy/idp | 
 *DefaultApi* | [**DeleteIdSourceLdap**](docs/DefaultApi.md#deleteidsourceldap) | **Delete** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**DeleteIdVault**](docs/DefaultApi.md#deleteidvault) | **Delete** /iam-deploy/idvault | 
 *DefaultApi* | [**DeleteOidcRp**](docs/DefaultApi.md#deleteoidcrp) | **Delete** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
+*DefaultApi* | [**GetExtSaml2Sp**](docs/DefaultApi.md#getextsaml2sp) | **Get** /iam-deploy/extsaml2sp | 
+*DefaultApi* | [**GetExtSaml2Sps**](docs/DefaultApi.md#getextsaml2sps) | **Get** /iam-deploy/extsaml2sps | 
 *DefaultApi* | [**GetIdP**](docs/DefaultApi.md#getidp) | **Get** /iam-deploy/idp | 
 *DefaultApi* | [**GetIdPs**](docs/DefaultApi.md#getidps) | **Get** /iam-deploy/idps | 
 *DefaultApi* | [**GetIdSourceLdap**](docs/DefaultApi.md#getidsourceldap) | **Get** /iam-deploy/idsourceldap | 
@@ -99,7 +103,9 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetIdVaults**](docs/DefaultApi.md#getidvaults) | **Get** /iam-deploy/idvaults | 
 *DefaultApi* | [**GetOidcRp**](docs/DefaultApi.md#getoidcrp) | **Get** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetOidcRps**](docs/DefaultApi.md#getoidcrps) | **Get** /iam-deploy/oidcrps | 
+*DefaultApi* | [**ImportAppliance**](docs/DefaultApi.md#importappliance) | **Post** /iam-deploy/appliance/import | 
 *DefaultApi* | [**SignOn**](docs/DefaultApi.md#signon) | **Post** /iam-authn/sign-on | 
+*DefaultApi* | [**UdpateExtSaml2Sp**](docs/DefaultApi.md#udpateextsaml2sp) | **Put** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**UpdateAppliance**](docs/DefaultApi.md#updateappliance) | **Put** /iam-deploy/appliance | 
 *DefaultApi* | [**UpdateIdP**](docs/DefaultApi.md#updateidp) | **Put** /iam-deploy/idp | 
 *DefaultApi* | [**UpdateIdSourceLdap**](docs/DefaultApi.md#updateidsourceldap) | **Put** /iam-deploy/idsourceldap | 
@@ -127,12 +133,16 @@ Class | Method | HTTP request | Description
  - [ExecutionEnvironmentDTO](docs/ExecutionEnvironmentDTO.md)
  - [ExtensionDTO](docs/ExtensionDTO.md)
  - [ExternalOpenIDConnectRelayingPartyDTO](docs/ExternalOpenIDConnectRelayingPartyDTO.md)
+ - [ExternalSaml2ServiceProviderDTO](docs/ExternalSaml2ServiceProviderDTO.md)
  - [FederatedChannelDTO](docs/FederatedChannelDTO.md)
  - [FederatedConnectionDTO](docs/FederatedConnectionDTO.md)
  - [FederatedProviderDTO](docs/FederatedProviderDTO.md)
  - [GetApplianceReq](docs/GetApplianceReq.md)
  - [GetApplianceRes](docs/GetApplianceRes.md)
  - [GetAppliancesRes](docs/GetAppliancesRes.md)
+ - [GetExtSaml2SpReq](docs/GetExtSaml2SpReq.md)
+ - [GetExtSaml2SpRes](docs/GetExtSaml2SpRes.md)
+ - [GetExtSaml2SpsRes](docs/GetExtSaml2SpsRes.md)
  - [GetIdPReq](docs/GetIdPReq.md)
  - [GetIdPRes](docs/GetIdPRes.md)
  - [GetIdPsRes](docs/GetIdPsRes.md)
@@ -152,6 +162,8 @@ Class | Method | HTTP request | Description
  - [IdentityMappingPolicyDTO](docs/IdentityMappingPolicyDTO.md)
  - [IdentityProviderDTO](docs/IdentityProviderDTO.md)
  - [IdentitySourceDTO](docs/IdentitySourceDTO.md)
+ - [ImportApplianceReq](docs/ImportApplianceReq.md)
+ - [ImportApplianceRes](docs/ImportApplianceRes.md)
  - [InternalSaml2ServiceProviderDTO](docs/InternalSaml2ServiceProviderDTO.md)
  - [KeystoreDTO](docs/KeystoreDTO.md)
  - [LdapIdentitySourceDTO](docs/LdapIdentitySourceDTO.md)
@@ -164,12 +176,15 @@ Class | Method | HTTP request | Description
  - [ProviderDTO](docs/ProviderDTO.md)
  - [ResourceDTO](docs/ResourceDTO.md)
  - [SamlR2IDPConfigDTO](docs/SamlR2IDPConfigDTO.md)
+ - [SamlR2SPConfigDTO](docs/SamlR2SPConfigDTO.md)
  - [ServerContext](docs/ServerContext.md)
  - [ServiceConnectionDTO](docs/ServiceConnectionDTO.md)
  - [ServiceResourceDTO](docs/ServiceResourceDTO.md)
  - [SessionManagerFactoryDTO](docs/SessionManagerFactoryDTO.md)
  - [StoreApplianceReq](docs/StoreApplianceReq.md)
  - [StoreApplianceRes](docs/StoreApplianceRes.md)
+ - [StoreExtSaml2SpReq](docs/StoreExtSaml2SpReq.md)
+ - [StoreExtSaml2SpRes](docs/StoreExtSaml2SpRes.md)
  - [StoreIdPReq](docs/StoreIdPReq.md)
  - [StoreIdPRes](docs/StoreIdPRes.md)
  - [StoreIdSourceLdapReq](docs/StoreIdSourceLdapReq.md)

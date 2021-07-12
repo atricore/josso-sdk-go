@@ -41,6 +41,21 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 		t.Errorf("creating idp : %v", err)
 		return
 	}
+
+	// TODO : implement Update and Delete tests
+
+}
+
+func (s *AccTestSuite) TestAccCliIdP_createFailOnDupName() {
+
+	// TODO ! implement me!
+
+}
+
+func (s *AccTestSuite) TestAccCliIdP_updateFailOnDupName() {
+
+	// TODO ! implement me!
+
 }
 
 // --------------------------------------------------------

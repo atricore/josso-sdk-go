@@ -27,7 +27,6 @@ func (c *IdbusApiClient) CreateIdp(ida string, idp api.IdentityProviderDTO) (api
 	if err != nil {
 		c.logger.Errorf("createIdP. Error %v", err)
 		return result, err
-
 	}
 
 	if res.Error != nil {
@@ -110,6 +109,7 @@ func (c *IdbusApiClient) DeleteIdp(ida string, idp string) (bool, error) {
 	return *res.Removed, err
 }
 
+// Gets an IdP based on the appliance name and idp name
 func (c *IdbusApiClient) GetIdp(ida string, idp string) (api.IdentityProviderDTO, error) {
 	c.logger.Debugf("getIdp. %s [%s]", idp, ida)
 	var result api.IdentityProviderDTO

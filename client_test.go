@@ -3,6 +3,7 @@ package cli
 import (
 	"errors"
 	"os"
+	"strconv"
 	"testing"
 
 	api "github.com/atricore/josso-api-go"
@@ -183,7 +184,15 @@ func createTestAppliance(t *testing.T, client *IdbusApiClient) (api.IdentityAppl
 }
 
 func (s *AccTestSuite) accClearData() error {
-	/*
+
+	v := os.Getenv("ACCTEST_CLEAR_DATA")
+	s.T().Logf("ACCTEST_CLEAR_DATA: %s", v)
+	if v == "" {
+		v = "true"
+	}
+	clearData, _ := strconv.ParseBool(v)
+
+	if clearData {
 		s.T().Logf("clearing test data")
 		as, err := s.client.GetAppliances()
 		if err != nil {
@@ -204,8 +213,11 @@ func (s *AccTestSuite) accClearData() error {
 				}
 			}
 		}
-	*/
-	s.T().Logf("ENABLE DELETE")
+
+	} else {
+		s.T().Logf("ENABLE DELETE")
+	}
+
 	return nil
 
 }

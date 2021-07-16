@@ -1,6 +1,9 @@
 package cli
 
 import (
+	"sort"
+	"strings"
+
 	api "github.com/atricore/josso-api-go"
 )
 
@@ -20,7 +23,7 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 		Id:                    api.PtrInt64(-1),
 		UserDashboardBranding: api.PtrString("josso25-branding"),
 	}
-
+	// Test CREATE
 	created, err = s.client.CreateIdp(*appliance.Name, orig)
 	if err != nil {
 		t.Error(err)
@@ -31,6 +34,7 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 		return
 	}
 
+	// Test READ
 	var read api.IdentityProviderDTO
 	read, err = s.client.GetIdp(*appliance.Name, "idp-2")
 	if err != nil {
@@ -42,7 +46,82 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 		return
 	}
 
-	// TODO : implement Update and Delete tests
+	// Test Update
+	read.Description = api.PtrString("Updated description")
+	read.DashboardUrl = api.PtrString("12345")
+	read.DisplayName = api.PtrString("Atricore")
+	updated, err := s.client.UpdateIdp(*appliance.Name, read)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if err = IdPValidateUpdate(&read, &updated); err != nil {
+		t.Error(err)
+		return
+	}
+
+	//Test Delete
+	toDelete := "idp-2"
+	deleted, err := s.client.DeleteIdp(*appliance.Name, toDelete)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if !deleted {
+		t.Errorf("Not deleted! %s", toDelete)
+		return
+	}
+
+	// ------------------------------------------------------------------------------------------------------------------
+	// Test empty list
+	listOfAll, err := s.client.GetIdps(*appliance.Name)
+	if len(listOfAll) != 0 {
+		// The list should be emtpy
+		t.Errorf("Invalid number of elements found %d, expeted 0", len(listOfAll))
+		return
+	}
+
+	// ------------------------
+	// List of created elements, order by Name
+	var listOfCreated [2]api.IdentityProviderDTO
+	// Test list of #2 elements
+	element1 := api.IdentityProviderDTO{
+		Name: api.PtrString("idp-1"),
+		Id:   api.PtrInt64(-1),
+	}
+	listOfCreated[0], _ = s.client.CreateIdp(*appliance.Name, element1)
+
+	element2 := api.IdentityProviderDTO{
+		Name: api.PtrString("idp-2"),
+		Id:   api.PtrInt64(-1),
+	}
+	listOfCreated[1], _ = s.client.CreateIdp(*appliance.Name, element2)
+
+	// ------------------------
+	// Get list from server
+	listOfRead, err := s.client.GetIdps(*appliance.Name)
+
+	// The list should have 2 elemetns
+	if len(listOfRead) != 2 {
+		// The list should be emtpy
+		t.Errorf("Invalid number of elements found %d, expected 2", len(listOfAll))
+		return
+	}
+
+	// Order list of read by Name
+	sort.SliceStable(listOfRead,
+		func(i, j int) bool {
+			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) > 0
+		},
+	)
+
+	// Validate each element from the list of created with the list of read
+	for idx, r := range listOfCreated {
+		if err = IdPValidateUpdate(&r, &listOfRead[idx]); err != nil {
+			t.Error(err)
+			return
+		}
+	}
 
 }
 
@@ -104,6 +183,18 @@ func IdPFieldTestUpdate(
 			cmp:      func() bool { return StrPtrEquals(e.UserDashboardBranding, r.UserDashboardBranding) },
 			expected: e.Name,
 			received: r.Name,
+		},
+		{
+			name:     "DashboardUrl",
+			cmp:      func() bool { return StrPtrEquals(e.DashboardUrl, r.DashboardUrl) },
+			expected: e.DashboardUrl,
+			received: r.DashboardUrl,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
 		},
 	}
 

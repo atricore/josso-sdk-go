@@ -1,6 +1,9 @@
 package cli
 
 import (
+	"sort"
+	"strings"
+
 	api "github.com/atricore/josso-api-go"
 )
 
@@ -45,7 +48,96 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 	if err = IdVaultValidateUpdate(&read, &created); err != nil {
 		t.Errorf("creating idVault : %v", err)
 		return
+
 	}
+
+	// Test Update
+	read.Description = api.PtrString("Updated description")
+	read.ElementId = api.PtrString("12345")
+	//read.Name = api.PtrString("connector-default-updated") //Not found
+	updated, err := s.client.UpdateIdVault(*appliance.Name, read)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if err = IdVaultValidateUpdate(&read, &updated); err != nil {
+		t.Error(err)
+		return
+	}
+
+	//Test Delete
+	toDelete := "idVault-2"
+	deleted, err := s.client.DeleteIdVault(*appliance.Name, toDelete)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if !deleted {
+		t.Errorf("Not deleted! %s", toDelete)
+		return
+	}
+	// ----------------------------------------------------------------------------------------------------------------------
+	// Test empty list
+	listOfAll, err := s.client.GetIdVaults(*appliance.Name)
+	if len(listOfAll) != 0 {
+		// The list should be emtpy
+		t.Errorf("Invalid number of elements found %d, expeted 0", len(listOfAll))
+		return
+	}
+
+	// List of created elements, order by Name
+	var listOfCreated [2]api.EmbeddedIdentityVaultDTO
+	// Test list of #2 elements
+	element1 := api.EmbeddedIdentityVaultDTO{
+		Name: api.PtrString("idVault-1"),
+		Id:   api.PtrInt64(-1),
+	}
+	listOfCreated[0], _ = s.client.CreateIdVault(*appliance.Name, element1)
+
+	element2 := api.EmbeddedIdentityVaultDTO{
+		Name: api.PtrString("idVault-2"),
+		Id:   api.PtrInt64(-1),
+	}
+	listOfCreated[1], _ = s.client.CreateIdVault(*appliance.Name, element2)
+
+	// ------------------------
+	// Get list from server
+	listOfRead, err := s.client.GetIdVaults(*appliance.Name)
+
+	// The list should have 2 elemetns
+	if len(listOfRead) != 2 {
+		// The list should be emtpy
+		t.Errorf("Invalid number of elements found %d, expected 2", len(listOfAll))
+		return
+	}
+
+	// Order list of read by Name
+	sort.SliceStable(listOfRead,
+		func(i, j int) bool {
+			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) > 0
+		},
+	)
+
+	// Validate each element from the list of created with the list of read
+	for idx, r := range listOfCreated {
+		if err = IdVaultValidateUpdate(&r, &listOfRead[idx]); err != nil {
+			t.Error(err)
+			return
+		}
+	}
+	//TODO: GETS
+}
+
+func (s *AccTestSuite) TestAccCliIdVault_createFailOnDupName() {
+
+	// TODO ! implement me!
+
+}
+
+func (s *AccTestSuite) TestAccCliIdVault_updateFailOnDupName() {
+
+	// TODO ! implement me!
+
 }
 
 // --------------------------------------------------------
@@ -80,6 +172,12 @@ func IdVaultFieldTestUpdate(
 		{
 			name:     "name",
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
+			expected: e.Name,
+			received: r.Name,
+		},
+		{
+			name:     "ElementId",
+			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
 			expected: e.Name,
 			received: r.Name,
 		},

@@ -72,7 +72,7 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 		t.Error(err)
 		return
 	}
-
+	//.
 	//Test Delete
 	toDelete := "ids-2"
 	deleted, err := s.client.DeleteIdSourceLdap(*appliance.Name, toDelete)
@@ -84,9 +84,13 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 		t.Errorf("Not deleted! %s", toDelete)
 		return
 	}
-		
+
 	// Test empty list
 	listOfAll, err := s.client.GetIdSourceLdaps(*appliance.Name)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	if len(listOfAll) != 0 {
 		// The list should be emtpy
 		t.Errorf("Invalid number of elements found %d, expeted 0", len(listOfAll))
@@ -95,7 +99,7 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 
 	// List of created elements, order by Name, (these elements must have all the variables of the structure)
 	var listOfCreated [2]api.LdapIdentitySourceDTO
-	
+
 	element1 := api.LdapIdentitySourceDTO{
 		Name:                      api.PtrString("ids-1"),
 		Id:                        api.PtrInt64(-1),
@@ -140,7 +144,10 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 
 	// Get list from server
 	listOfRead, err := s.client.GetIdSourceLdaps(*appliance.Name)
-
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	// The list should have 2 elemetns
 	if len(listOfRead) != 2 {
 		// The list should be emtpy

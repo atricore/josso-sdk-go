@@ -79,6 +79,10 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 	// ----------------------------------------------------------------------------------------------------------------------
 	// Test empty list
 	listOfAll, err := s.client.GetIdVaults(*appliance.Name)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	if len(listOfAll) != 0 {
 		// The list should be emtpy
 		t.Errorf("Invalid number of elements found %d, expeted 0", len(listOfAll))
@@ -103,7 +107,10 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 	// ------------------------
 	// Get list from server
 	listOfRead, err := s.client.GetIdVaults(*appliance.Name)
-
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	// The list should have 2 elemetns
 	if len(listOfRead) != 2 {
 		// The list should be emtpy

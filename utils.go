@@ -166,7 +166,7 @@ func GetenvBool(key string) (bool, error) {
 
 func buildErrorMsg(err string, valErrors []string) string {
 	var msg string
-	if valErrors != nil && len(valErrors) > 0 {
+	if len(valErrors) > 0 {
 		msg = fmt.Sprintf("%s : %#v", err, valErrors)
 	} else {
 		msg = err

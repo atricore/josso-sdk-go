@@ -1755,11 +1755,11 @@ func (a *DefaultApiService) GetExtSaml2SpExecute(r ApiGetExtSaml2SpRequest) (Get
 type ApiGetExtSaml2SpsRequest struct {
 	ctx _context.Context
 	ApiService *DefaultApiService
-	storeExtSaml2SpReq *StoreExtSaml2SpReq
+	getExtSaml2SpReq *GetExtSaml2SpReq
 }
 
-func (r ApiGetExtSaml2SpsRequest) StoreExtSaml2SpReq(storeExtSaml2SpReq StoreExtSaml2SpReq) ApiGetExtSaml2SpsRequest {
-	r.storeExtSaml2SpReq = &storeExtSaml2SpReq
+func (r ApiGetExtSaml2SpsRequest) GetExtSaml2SpReq(getExtSaml2SpReq GetExtSaml2SpReq) ApiGetExtSaml2SpsRequest {
+	r.getExtSaml2SpReq = &getExtSaml2SpReq
 	return r
 }
 
@@ -1822,7 +1822,7 @@ func (a *DefaultApiService) GetExtSaml2SpsExecute(r ApiGetExtSaml2SpsRequest) (G
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.storeExtSaml2SpReq
+	localVarPostBody = r.getExtSaml2SpReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

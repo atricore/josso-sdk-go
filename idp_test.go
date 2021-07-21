@@ -19,9 +19,34 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 
 	var created api.IdentityProviderDTO
 	orig := api.IdentityProviderDTO{
-		Name:                  api.PtrString("idp-2"),
-		Id:                    api.PtrInt64(-1),
-		UserDashboardBranding: api.PtrString("josso25-branding"),
+		Name:                          api.PtrString("idp-1"),
+		Description:                   api.PtrString(""),
+		DashboardUrl:                  api.PtrString(""),
+		ElementId:                     api.PtrString("_BFD218B4-0F7A-4C7A-AAF9-41883AAE3598"),
+		DestroyPreviousSession:        api.PtrBool(-1),
+		EncryptAssertion:              api.PtrBool(-1),
+		EncryptAssertionAlgorithm:     api.PtrString(""),
+		ErrorBinding:                  api.PtrString(""),
+		MaxSessionsPerUser:            api.PtrInt32(1),
+		MessageTtl:                    api.PtrInt32(1),
+		MessageTtlTolerance:           api.PtrInt32(1),
+		Oauth2Clients:                 api.NewIdentityProviderDTO().Oauth2Clients,
+		Oauth2ClientsConfig:           api.PtrString(""),
+		Oauth2Enabled:                 api.PtrBool(),
+		Oauth2Key:                     api.PtrString(""),
+		Oauth2RememberMeTokenValidity: api.PtrInt64(-1),
+		Oauth2TokenValidity:           appliance.Id,
+		OidcAccessTokenTimeToLive:     api.PtrInt32(-1),
+		OidcAuthzCodeTimeToLive:       api.PtrInt32(-1),
+		OidcIdTokenTimeToLive:         api.PtrInt32(-1),
+		OpenIdEnabled:                 api.PtrBool(-1),
+		PwdlessAuthnEnabled:           api.PtrBool(),
+		PwdlessAuthnFrom:              api.PtrString(""),
+		PwdlessAuthnSubject:           api.PtrString(""),
+		PwdlessAuthnTemplate:          api.PtrString(""),
+		PwdlessAuthnTo:                api.PtrString(""),
+		Id:                            api.PtrInt64(-1),
+		UserDashboardBranding:         api.PtrString("josso25-branding"),
 	}
 	// Test CREATE
 	created, err = s.client.CreateIdp(*appliance.Name, orig)
@@ -49,7 +74,7 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 	// Test Update
 	read.Description = api.PtrString("Updated description")
 	read.DashboardUrl = api.PtrString("12345")
-	read.DisplayName = api.PtrString("Atricore")
+	read.DisplayName = api.PtrString("null")
 	updated, err := s.client.UpdateIdp(*appliance.Name, read)
 	if err != nil {
 		t.Error(err)
@@ -196,6 +221,90 @@ func IdPFieldTestUpdate(
 			cmp:      func() bool { return StrPtrEquals(e.DashboardUrl, r.DashboardUrl) },
 			expected: e.DashboardUrl,
 			received: r.DashboardUrl,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
+		},
+		{
+			name:     "Description",
+			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
+			expected: e.Description,
+			received: r.Description,
+		},
+		{
+			name:     "ElementId",
+			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
+			expected: e.ElementId,
+			received: r.ElementId,
+		},
+		{
+			name:     "DestroyPreviousSession",
+			cmp:      func() bool { return PtrBool(e.DestroyPreviousSession, r.DestroyPreviousSession) },
+			expected: e.DestroyPreviousSession,
+			received: r.DestroyPreviousSession,
+		},
+		{
+			name:     "EncryptAssertion",
+			cmp:      func() bool { return PtrBool(e.EncryptAssertion, r.EncryptAssertion) },
+			expected: e.EncryptAssertion,
+			received: r.EncryptAssertion,
+		},
+		{
+			name:     "EncryptAssertionAlgorithm",
+			cmp:      func() bool { StrPtrEquals(e.EncryptAssertionAlgorithm, r.EncryptAssertionAlgorithm) },
+			expected: e.EncryptAssertionAlgorithm,
+			received: r.EncryptAssertionAlgorithm,
+		},
+		{
+			name:     "ErrorBinding",
+			cmp:      func() bool { StrPtrEquals(e.ErrorBinding, r.ErrorBinding) },
+			expected: e.ErrorBinding,
+			received: r.ErrorBinding,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: e.DisplayName,
+			received: r.DisplayName,
 		},
 		{
 			name:     "DisplayName",

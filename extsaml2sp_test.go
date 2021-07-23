@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"encoding/base64"
 	"sort"
 	"strings"
 
@@ -9,90 +10,26 @@ import (
 
 const (
 	metadata = `<?xml version="1.0" encoding="UTF-8"?>
-				<ns6:EntityDescriptor 
-					xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-					xmlns:ns7="urn:org:atricore:idbus:common:sso:1.0:protocol" 
-					xmlns:ns6="urn:oasis:names:tc:SAML:2.0:metadata" 
-					xmlns:ns5="urn:oasis:names:tc:SAML:2.0:idbus" 
-					xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" 
-					xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" 
-					xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
-					xmlns:enc="http://www.w3.org/2001/04/xmlenc#" 
-					ID="_D21F6A50-6C94-4E1B-B416-08A26E996882" 
-					entityID="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/MD">
-					<ns6:SPSSODescriptor 
-						WantAssertionsSigned="false" 
-						AuthnRequestsSigned="false" 
-						protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" 
-						ID="_D21F6A50-6C94-4E1B-B416-08A26E996882sp">
-						<ns6:KeyDescriptor use="signing">
-							<ds:KeyInfo>
-								<ds:X509Data>
-									<ds:X509Certificate>MIIDojCCAooCCQCVTd3p5WnWmjANBgkqhkiG9w0BAQsFADCBkjELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAkNBMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2NvMREwDwYDVQQKDAhhdHJpY29yZTENMAsGA1UECwwEZGVtbzEXMBUGA1UEAwwOam9zc28tcHJvdmlkZXIxIzAhBgkqhkiG9w0BCQEWFHN1cHBvcnRAYXRyaWNvcmUuY29tMB4XDTE2MDIwMjE3MDIwM1oXDTI2MDEzMDE3MDIwM1owgZIxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzERMA8GA1UECgwIYXRyaWNvcmUxDTALBgNVBAsMBGRlbW8xFzAVBgNVBAMMDmpvc3NvLXByb3ZpZGVyMSMwIQYJKoZIhvcNAQkBFhRzdXBwb3J0QGF0cmljb3JlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKCBJiMEjYh2Id50qMGGuZzivqFy7t3IwsJgjbS+xV3Jf5MmPyXh1AsYpk8eKSYDb+H8+hROeqxbSneXjAi5msrD+oCJnMwz0/uMUPsmntjlrbWSe2P2vGfLWLp708YLh2RyAA3Iz2Vx5fdbN+14zPfdMF/uNuD4e8XTU7PJcX4cIPna58P1ko3mCMVoPFI2KLess/EafBvc5OBBmTo3KeQ59hGRdNtCe5oeuLHapfLWnl36MHHkV/sdV+xVV/NsO5lVJ4al/n7snOsqBvUm++Zbey1OI3CWp9+q1CnnqFxzRiJySahYF5FoSiWJKpw7tXHkyU93FCVeBV5c5zxqVykCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAU27Ag+jrg+xVbRZc3Dqk40PitlvLiT619U8eyt0LHAhX+ZGy/Ao+pJAxSWHLP6YofG+EO3Fl4sgJ5S9py+PZwDgRQR1xfUsZ5a8tk6c0NPHpcHBU2pMuYQA+OoE7g5EIeAhPsmMeM2IH4Yz6qmzhvYBAvbDvGJYHi+Udxp8JHlKYjkieVw+9kI580YKeUIKXng4XXSuFHspYRLS2iDRfmeJsveOUYr9y7L4XrbLJIG/kVcpFiLkzsWJp1j6hwqPe748wekASae/+96l3NjT1AyNnD7rzyskUiNI6wb28OZeJoPczgzIedKXYdmFqLRuLeSLDJK2EiUATRUqE3ys7Fw==</ds:X509Certificate>
-								</ds:X509Data>
-							</ds:KeyInfo>
-						</ns6:KeyDescriptor>
-						<ns6:KeyDescriptor 
-							use="encryption">
-						<ds:KeyInfo>
-							<ds:X509Data>
-								<ds:X509Certificate>MIIDojCCAooCCQCVTd3p5WnWmjANBgkqhkiG9w0BAQsFADCBkjELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAkNBMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2NvMREwDwYDVQQKDAhhdHJpY29yZTENMAsGA1UECwwEZGVtbzEXMBUGA1UEAwwOam9zc28tcHJvdmlkZXIxIzAhBgkqhkiG9w0BCQEWFHN1cHBvcnRAYXRyaWNvcmUuY29tMB4XDTE2MDIwMjE3MDIwM1oXDTI2MDEzMDE3MDIwM1owgZIxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzERMA8GA1UECgwIYXRyaWNvcmUxDTALBgNVBAsMBGRlbW8xFzAVBgNVBAMMDmpvc3NvLXByb3ZpZGVyMSMwIQYJKoZIhvcNAQkBFhRzdXBwb3J0QGF0cmljb3JlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKCBJiMEjYh2Id50qMGGuZzivqFy7t3IwsJgjbS+xV3Jf5MmPyXh1AsYpk8eKSYDb+H8+hROeqxbSneXjAi5msrD+oCJnMwz0/uMUPsmntjlrbWSe2P2vGfLWLp708YLh2RyAA3Iz2Vx5fdbN+14zPfdMF/uNuD4e8XTU7PJcX4cIPna58P1ko3mCMVoPFI2KLess/EafBvc5OBBmTo3KeQ59hGRdNtCe5oeuLHapfLWnl36MHHkV/sdV+xVV/NsO5lVJ4al/n7snOsqBvUm++Zbey1OI3CWp9+q1CnnqFxzRiJySahYF5FoSiWJKpw7tXHkyU93FCVeBV5c5zxqVykCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAU27Ag+jrg+xVbRZc3Dqk40PitlvLiT619U8eyt0LHAhX+ZGy/Ao+pJAxSWHLP6YofG+EO3Fl4sgJ5S9py+PZwDgRQR1xfUsZ5a8tk6c0NPHpcHBU2pMuYQA+OoE7g5EIeAhPsmMeM2IH4Yz6qmzhvYBAvbDvGJYHi+Udxp8JHlKYjkieVw+9kI580YKeUIKXng4XXSuFHspYRLS2iDRfmeJsveOUYr9y7L4XrbLJIG/kVcpFiLkzsWJp1j6hwqPe748wekASae/+96l3NjT1AyNnD7rzyskUiNI6wb28OZeJoPczgzIedKXYdmFqLRuLeSLDJK2EiUATRUqE3ys7Fw==</ds:X509Certificate>
-							</ds:X509Data>
-						</ds:KeyInfo>
-					<ns6:EncryptionMethod 
-						Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc">
-						<enc:KeySize>128</enc:KeySize>
-				</ns6:EncryptionMethod>
-				<ns6:EncryptionMethod 
-					Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc">
-					<enc:KeySize>256</enc:KeySize>
-				</ns6:EncryptionMethod>
-				<ns6:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc">
-					<enc:KeySize>192</enc:KeySize>
-				</ns6:EncryptionMethod>
-			</ns6:KeyDescriptor>
-			<ns6:ArtifactResolutionService 
-				isDefault="true" 
-				index="0" 
-				Location="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/ARTIFACT/SOAP"
-				Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"/>
-			<ns6:SingleLogoutService 
-				ResponseLocation="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/SLO_RESPONSE/POST"
-				Location="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/SLO/POST"
-				Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"/>
-			<ns6:SingleLogoutService 
-				Location="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/SLO/SOAP" 
-				Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"/>
-			<ns6:ManageNameIDService 
-				Location="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/MNI/SOAP" 
-				Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"/>
-			<ns6:ManageNameIDService 
-				ResponseLocation="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/MNI_RESPONSE/POST" 
-				Location="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/MNI/POST" 
-				Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"/>
-			<ns6:ManageNameIDService 
-				ResponseLocation="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/MNI_RESPONSE/REDIR" 
-				Location="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/MNI/REDIR" 
-				Binding="urn:oasis:n				protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" ames:tc:SAML:2.0:bindings:HTTP-Redirect"/>
-			<ns6:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</ns6:NameIDFormat>
-			<ns6:AssertionConsumerService 
-				isDefault="true" 
-				index="0" 
-				Location="http://cloudsso:8082/IDBUS/ACCT-03C/SP-1/SAML2/ACS/POST" 
-				Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"/>
-			</ns6:SPSSODescriptor>
-			<ns6:Organization>
-				<ns6:OrganizationName xml:lang="en">Atricore IDBUs SAMLR2 JOSSO SP Sample</ns6:OrganizationName>
-				<ns6:OrganizationDisplayName xml:lang="en">Atricore, Inc.</ns6:OrganizationDisplayName>
-				<ns6:OrganizationURL xml:lang="en">http://www.atricore.org</ns6:OrganizationURL>
-			</ns6:Organization>
-			<ns6:ContactPerson contactType="other"/>
-		</ns6:EntityDescriptor>`
+	<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="http://www.webex.com"><md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIC5jCCAc6gAwIBAgIGATtZlyKOMA0GCSqGSIb3DQEBBQUAMDQxCzAJBgNVBAYTAlVTMSUwIwYDVQQDExxXZWJFeCBDb21tdW5pY2F0aW9ucyBJbmMuIENBMB4XDTEyMTIwMjAzMDkzNVoXDTIyMTEzMDAzMDkzNVowNDELMAkGA1UEBhMCVVMxJTAjBgNVBAMTHFdlYkV4IENvbW11bmljYXRpb25zIEluYy4gQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCM925ZnQNyrYX2jyI+x+AEswI5hT8Ueyc4ignaYdFdwfOuUVBOk/fLUW9XbVKCqKxALyXmf1tdzvPM/PHJMIG8YK+EsZ7OCeVmDpO7obMHpcZk+sSF8CAUkwVmWi5bhypec+7tdtCvdnxJEOcNP2URXHMgxOFETXXo+WQ6hAqG92TpaL1V3w515OAixhDXfOlDGqxgrDgM59ChVherdCuwOilTNWFWdSoOpZi1niyuG1ukDsefl2YfAT6d3fj7UFkvr7n68EyqlFmmksDglEN0PSybw3ZFOBaSYwhF0S6orPBZAupIG6UZvJoSeOzsRSTbvNpBtwmIlCIGqA3srRnlAgMBAAEwDQYJKoZIhvcNAQEFBQADggEBABVY4TH/jajsE+dOFNL8sq3PIN/ZpRww7bskTNQKy9mpqCu4Rp5UpCbgz6VDAdBRyQo1jlyWMUltyVJugOeXyw7ebgB73iVM8F7Dl5hym6kJwB6TGa5IZnabHQQHWXH1zWdeflbcgv06yDKOszCmVLJskcnRmDisA4xs4FGBYZ+Dn4nI8DltQtDTt4yW6Clc3ZU+3VJUiKOxaM887adlBR6nUAkvEvXgr918AEmGHWIX6/yLnN+CFQoa3Gg/InKRCXJmgCAD6g/4yaDatB78M7BrXtm6cSFQ8ub+xGqvBIJ/H17dXiDC+x6TJmlwPghGNNkkP8jxz0QG5781sDbY7nY=</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:entity</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat><md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://shrm.webex.com/dispatcher/SAML2AuthService?siteurl=shrm" index="0" isDefault="true"/></md:SPSSODescriptor><md:Organization><md:OrganizationName xml:lang="en">Cisco WebEx</md:OrganizationName><md:OrganizationDisplayName xml:lang="en">Cisco WebEx</md:OrganizationDisplayName><md:OrganizationURL xml:lang="en"/></md:Organization><md:ContactPerson contactType="technical"><md:Company>Cisco WebEx</md:Company><md:GivenName/><md:SurName/><md:EmailAddress/><md:TelephoneNumber/></md:ContactPerson></md:EntityDescriptor>`
 )
 
-func toStringArr(s string) *[]string {
-	v := []string{s} // Creates array with string in first position
-	return &v        // retunrs pointer to array
+func (s *AccTestSuite) TestAccCliExtSaml2_read() {
+	var t = s.T()
+	listOfAll, err := s.client.GetExtSaml2Sps("gcsso")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if len(listOfAll) != 3 {
+		// The list should be emtpy
+		t.Errorf("Invalid number of elements found %d, expeted 0", len(listOfAll))
+		return
+	}
+
+	for i, sp := range listOfAll {
+		t.Logf("Service provider #%d %s\n", i, sp.GetName())
+		t.Logf("Service provider #%d %#v\n", i, sp.Metadata.GetValue())
+	}
 }
 
 func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
@@ -104,6 +41,10 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 		t.Error(err)
 		return
 	}
+	// base64 metadata encoding
+	encMetadata := base64.StdEncoding.EncodeToString([]byte(metadata))
+	//encMetadata := metadata
+	t.Logf("Encoded MD\n------ BEGIN -----\n%s\n------ END -----\n", encMetadata)
 
 	var created api.ExternalSaml2ServiceProviderDTO
 	orig := api.ExternalSaml2ServiceProviderDTO{
@@ -111,8 +52,8 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 		Id:          api.PtrInt64(-1),
 		Description: api.PtrString("My SP 2"),
 		Metadata: &api.ResourceDTO{
-			Value: toStringArr(metadata),
-			Uri:   api.PtrString("metadata-a.xml"),
+			Value: &encMetadata,
+			//			Uri:   api.PtrString("metadata-a.xml"),
 		},
 	}
 	// Test CREATE
@@ -140,7 +81,6 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 
 	// Test Update
 	read.Description = api.PtrString("Updated description")
-	//read.DashboardUrl = api.PtrString("12345")
 	read.DisplayName = api.PtrString("Atricore")
 	updated, err := s.client.UpdateExtSaml2Sp(*appliance.Name, read)
 	if err != nil {
@@ -185,12 +125,18 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 	element1 := api.ExternalSaml2ServiceProviderDTO{
 		Name: api.PtrString("Extsmal2-1"),
 		Id:   api.PtrInt64(-1),
+		Metadata: &api.ResourceDTO{
+			Value: &encMetadata,
+		},
 	}
 	listOfCreated[0], _ = s.client.CreateExtSaml2Sp(*appliance.Name, element1)
 
 	element2 := api.ExternalSaml2ServiceProviderDTO{
 		Name: api.PtrString("Extsmal2-2"),
 		Id:   api.PtrInt64(-1),
+		Metadata: &api.ResourceDTO{
+			Value: &encMetadata,
+		},
 	}
 	listOfCreated[1], _ = s.client.CreateExtSaml2Sp(*appliance.Name, element2)
 

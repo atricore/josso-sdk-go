@@ -22,7 +22,7 @@ type ResourceDTO struct {
 	Id *int64 `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Uri *string `json:"uri,omitempty"`
-	Value *[]string `json:"value,omitempty"`
+	Value *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -206,9 +206,9 @@ func (o *ResourceDTO) SetUri(v string) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *ResourceDTO) GetValue() []string {
+func (o *ResourceDTO) GetValue() string {
 	if o == nil || o.Value == nil {
-		var ret []string
+		var ret string
 		return ret
 	}
 	return *o.Value
@@ -216,7 +216,7 @@ func (o *ResourceDTO) GetValue() []string {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceDTO) GetValueOk() (*[]string, bool) {
+func (o *ResourceDTO) GetValueOk() (*string, bool) {
 	if o == nil || o.Value == nil {
 		return nil, false
 	}
@@ -232,8 +232,8 @@ func (o *ResourceDTO) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given []string and assigns it to the Value field.
-func (o *ResourceDTO) SetValue(v []string) {
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *ResourceDTO) SetValue(v string) {
 	o.Value = &v
 }
 

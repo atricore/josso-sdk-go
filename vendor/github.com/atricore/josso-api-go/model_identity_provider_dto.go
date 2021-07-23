@@ -17,71 +17,70 @@ import (
 
 // IdentityProviderDTO struct for IdentityProviderDTO
 type IdentityProviderDTO struct {
-	ActiveBindings                                        *[]string                                 `json:"activeBindings,omitempty"`
-	ActiveProfiles                                        *[]string                                 `json:"activeProfiles,omitempty"`
-	AttributeProfile                                      *AttributeProfileDTO                      `json:"attributeProfile,omitempty"`
-	AuthenticationContract                                *AuthenticationContractDTO                `json:"authenticationContract,omitempty"`
-	AuthenticationMechanisms                              *[]AuthenticationMechanismDTO             `json:"authenticationMechanisms,omitempty"`
-	Config                                                *ProviderConfigDTO                        `json:"config,omitempty"`
-	DashboardUrl                                          *string                                   `json:"dashboardUrl,omitempty"`
-	DelegatedAuthentications                              *[]DelegatedAuthenticationDTO             `json:"delegatedAuthentications,omitempty"`
-	Description                                           *string                                   `json:"description,omitempty"`
-	DestroyPreviousSession                                *bool                                     `json:"destroyPreviousSession,omitempty"`
-	DisplayName                                           *string                                   `json:"displayName,omitempty"`
-	ElementId                                             *string                                   `json:"elementId,omitempty"`
-	EmissionPolicy                                        *AuthenticationAssertionEmissionPolicyDTO `json:"emissionPolicy,omitempty"`
-	EnableMetadataEndpoint                                *bool                                     `json:"enableMetadataEndpoint,omitempty"`
-	EncryptAssertion                                      *bool                                     `json:"encryptAssertion,omitempty"`
-	EncryptAssertionAlgorithm                             *string                                   `json:"encryptAssertionAlgorithm,omitempty"`
-	ErrorBinding                                          *string                                   `json:"errorBinding,omitempty"`
-	ExternallyHostedIdentityConfirmationTokenService      *bool                                     `json:"externallyHostedIdentityConfirmationTokenService,omitempty"`
-	FederatedConnectionsA                                 *[]FederatedConnectionDTO                 `json:"federatedConnectionsA,omitempty"`
-	FederatedConnectionsB                                 *[]FederatedConnectionDTO                 `json:"federatedConnectionsB,omitempty"`
-	Id                                                    *int64                                    `json:"id,omitempty"`
-	IdentityLookups                                       *[]IdentityLookupDTO                      `json:"identityLookups,omitempty"`
-	IdentityAppliance                                     *IdentityApplianceDefinitionDTO           `json:"identityAppliance,omitempty"`
-	IdentityConfirmationEnabled                           *bool                                     `json:"identityConfirmationEnabled,omitempty"`
-	IdentityConfirmationOAuth2AuthorizationServerEndpoint *string                                   `json:"identityConfirmationOAuth2AuthorizationServerEndpoint,omitempty"`
-	IdentityConfirmationOAuth2ClientId                    *string                                   `json:"identityConfirmationOAuth2ClientId,omitempty"`
-	IdentityConfirmationOAuth2ClientSecret                *string                                   `json:"identityConfirmationOAuth2ClientSecret,omitempty"`
-	IdentityConfirmationPolicy                            *ExtensionDTO                             `json:"identityConfirmationPolicy,omitempty"`
-	IgnoreRequestedNameIDPolicy                           *bool                                     `json:"ignoreRequestedNameIDPolicy,omitempty"`
-	IsRemote                                              *bool                                     `json:"isRemote,omitempty"`
-	Location                                              *LocationDTO                              `json:"location,omitempty"`
-	MaxSessionsPerUser                                    *int32                                    `json:"maxSessionsPerUser,omitempty"`
-	MessageTtl                                            *int32                                    `json:"messageTtl,omitempty"`
-	MessageTtlTolerance                                   *int32                                    `json:"messageTtlTolerance,omitempty"`
-	Metadata                                              *ResourceDTO                              `json:"metadata,omitempty"`
-	Name                                                  *string                                   `json:"name,omitempty"`
-	Oauth2Clients                                         *[]OAuth2ClientDTO                        `json:"oauth2Clients,omitempty"`
-	Oauth2ClientsConfig                                   *string                                   `json:"oauth2ClientsConfig,omitempty"`
-	Oauth2Enabled                                         *bool                                     `json:"oauth2Enabled,omitempty"`
-	Oauth2Key                                             *string                                   `json:"oauth2Key,omitempty"`
-	Oauth2RememberMeTokenValidity                         *int64                                    `json:"oauth2RememberMeTokenValidity,omitempty"`
-	Oauth2TokenValidity                                   *int64                                    `json:"oauth2TokenValidity,omitempty"`
-	OidcAccessTokenTimeToLive                             *int32                                    `json:"oidcAccessTokenTimeToLive,omitempty"`
-	OidcAuthzCodeTimeToLive                               *int32                                    `json:"oidcAuthzCodeTimeToLive,omitempty"`
-	OidcIdTokenTimeToLive                                 *int32                                    `json:"oidcIdTokenTimeToLive,omitempty"`
-	OpenIdEnabled                                         *bool                                     `json:"openIdEnabled,omitempty"`
-	PwdlessAuthnEnabled                                   *bool                                     `json:"pwdlessAuthnEnabled,omitempty"`
-	PwdlessAuthnFrom                                      *string                                   `json:"pwdlessAuthnFrom,omitempty"`
-	PwdlessAuthnSubject                                   *string                                   `json:"pwdlessAuthnSubject,omitempty"`
-	PwdlessAuthnTemplate                                  *string                                   `json:"pwdlessAuthnTemplate,omitempty"`
-	PwdlessAuthnTo                                        *string                                   `json:"pwdlessAuthnTo,omitempty"`
-	Remote                                                *bool                                     `json:"remote,omitempty"`
-	Role                                                  *string                                   `json:"role,omitempty"`
-	SessionManagerFactory                                 *SessionManagerFactoryDTO                 `json:"sessionManagerFactory,omitempty"`
-	SignRequests                                          *bool                                     `json:"signRequests,omitempty"`
-	SignatureHash                                         *string                                   `json:"signatureHash,omitempty"`
-	SsoSessionTimeout                                     *int32                                    `json:"ssoSessionTimeout,omitempty"`
-	SubjectAuthnPolicies                                  *[]SubjectAuthenticationPolicyDTO         `json:"subjectAuthnPolicies,omitempty"`
-	SubjectNameIDPolicy                                   *SubjectNameIdentifierPolicyDTO           `json:"subjectNameIDPolicy,omitempty"`
-	UserDashboardBranding                                 *string                                   `json:"userDashboardBranding,omitempty"`
-	WantAuthnRequestsSigned                               *bool                                     `json:"wantAuthnRequestsSigned,omitempty"`
-	WantSignedRequests                                    *bool                                     `json:"wantSignedRequests,omitempty"`
-	X                                                     *float64                                  `json:"x,omitempty"`
-	Y                                                     *float64                                  `json:"y,omitempty"`
-	AdditionalProperties                                  map[string]interface{}
+	ActiveBindings *[]string `json:"activeBindings,omitempty"`
+	ActiveProfiles *[]string `json:"activeProfiles,omitempty"`
+	AttributeProfile *AttributeProfileDTO `json:"attributeProfile,omitempty"`
+	AuthenticationContract *AuthenticationContractDTO `json:"authenticationContract,omitempty"`
+	AuthenticationMechanisms *[]AuthenticationMechanismDTO `json:"authenticationMechanisms,omitempty"`
+	Config *ProviderConfigDTO `json:"config,omitempty"`
+	DashboardUrl *string `json:"dashboardUrl,omitempty"`
+	DelegatedAuthentications *[]DelegatedAuthenticationDTO `json:"delegatedAuthentications,omitempty"`
+	Description *string `json:"description,omitempty"`
+	DestroyPreviousSession *bool `json:"destroyPreviousSession,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	ElementId *string `json:"elementId,omitempty"`
+	EmissionPolicy *AuthenticationAssertionEmissionPolicyDTO `json:"emissionPolicy,omitempty"`
+	EnableMetadataEndpoint *bool `json:"enableMetadataEndpoint,omitempty"`
+	EncryptAssertion *bool `json:"encryptAssertion,omitempty"`
+	EncryptAssertionAlgorithm *string `json:"encryptAssertionAlgorithm,omitempty"`
+	ErrorBinding *string `json:"errorBinding,omitempty"`
+	ExternallyHostedIdentityConfirmationTokenService *bool `json:"externallyHostedIdentityConfirmationTokenService,omitempty"`
+	FederatedConnectionsA *[]FederatedConnectionDTO `json:"federatedConnectionsA,omitempty"`
+	FederatedConnectionsB *[]FederatedConnectionDTO `json:"federatedConnectionsB,omitempty"`
+	Id *int64 `json:"id,omitempty"`
+	IdentityAppliance *IdentityApplianceDefinitionDTO `json:"identityAppliance,omitempty"`
+	IdentityConfirmationEnabled *bool `json:"identityConfirmationEnabled,omitempty"`
+	IdentityConfirmationOAuth2AuthorizationServerEndpoint *string `json:"identityConfirmationOAuth2AuthorizationServerEndpoint,omitempty"`
+	IdentityConfirmationOAuth2ClientId *string `json:"identityConfirmationOAuth2ClientId,omitempty"`
+	IdentityConfirmationOAuth2ClientSecret *string `json:"identityConfirmationOAuth2ClientSecret,omitempty"`
+	IdentityConfirmationPolicy *ExtensionDTO `json:"identityConfirmationPolicy,omitempty"`
+	IgnoreRequestedNameIDPolicy *bool `json:"ignoreRequestedNameIDPolicy,omitempty"`
+	IsRemote *bool `json:"isRemote,omitempty"`
+	Location *LocationDTO `json:"location,omitempty"`
+	MaxSessionsPerUser *int32 `json:"maxSessionsPerUser,omitempty"`
+	MessageTtl *int32 `json:"messageTtl,omitempty"`
+	MessageTtlTolerance *int32 `json:"messageTtlTolerance,omitempty"`
+	Metadata *ResourceDTO `json:"metadata,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Oauth2Clients *[]OAuth2ClientDTO `json:"oauth2Clients,omitempty"`
+	Oauth2ClientsConfig *string `json:"oauth2ClientsConfig,omitempty"`
+	Oauth2Enabled *bool `json:"oauth2Enabled,omitempty"`
+	Oauth2Key *string `json:"oauth2Key,omitempty"`
+	Oauth2RememberMeTokenValidity *int64 `json:"oauth2RememberMeTokenValidity,omitempty"`
+	Oauth2TokenValidity *int64 `json:"oauth2TokenValidity,omitempty"`
+	OidcAccessTokenTimeToLive *int32 `json:"oidcAccessTokenTimeToLive,omitempty"`
+	OidcAuthzCodeTimeToLive *int32 `json:"oidcAuthzCodeTimeToLive,omitempty"`
+	OidcIdTokenTimeToLive *int32 `json:"oidcIdTokenTimeToLive,omitempty"`
+	OpenIdEnabled *bool `json:"openIdEnabled,omitempty"`
+	PwdlessAuthnEnabled *bool `json:"pwdlessAuthnEnabled,omitempty"`
+	PwdlessAuthnFrom *string `json:"pwdlessAuthnFrom,omitempty"`
+	PwdlessAuthnSubject *string `json:"pwdlessAuthnSubject,omitempty"`
+	PwdlessAuthnTemplate *string `json:"pwdlessAuthnTemplate,omitempty"`
+	PwdlessAuthnTo *string `json:"pwdlessAuthnTo,omitempty"`
+	Remote *bool `json:"remote,omitempty"`
+	Role *string `json:"role,omitempty"`
+	SessionManagerFactory *SessionManagerFactoryDTO `json:"sessionManagerFactory,omitempty"`
+	SignRequests *bool `json:"signRequests,omitempty"`
+	SignatureHash *string `json:"signatureHash,omitempty"`
+	SsoSessionTimeout *int32 `json:"ssoSessionTimeout,omitempty"`
+	SubjectAuthnPolicies *[]SubjectAuthenticationPolicyDTO `json:"subjectAuthnPolicies,omitempty"`
+	SubjectNameIDPolicy *SubjectNameIdentifierPolicyDTO `json:"subjectNameIDPolicy,omitempty"`
+	UserDashboardBranding *string `json:"userDashboardBranding,omitempty"`
+	WantAuthnRequestsSigned *bool `json:"wantAuthnRequestsSigned,omitempty"`
+	WantSignedRequests *bool `json:"wantSignedRequests,omitempty"`
+	X *float64 `json:"x,omitempty"`
+	Y *float64 `json:"y,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IdentityProviderDTO IdentityProviderDTO
@@ -2119,37 +2118,6 @@ func (o *IdentityProviderDTO) SetY(v float64) {
 	o.Y = &v
 }
 
-// GetIdentityLookups returns the IdentityLookups field value if set, zero value otherwise.
-func (o *IdentityProviderDTO) GetIdentityLookups() []IdentityLookupDTO {
-	if o == nil || o.IdentityLookups == nil {
-		var ret []IdentityLookupDTO
-		return ret
-	}
-	return *o.IdentityLookups
-}
-
-// GetIdentityLookupsOk returns a tuple with the IdentityLookups field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetIdentityLookupsOk() (*[]IdentityLookupDTO, bool) {
-	if o == nil || o.IdentityLookups == nil {
-		return nil, false
-	}
-	return o.IdentityLookups, true
-}
-
-// HasIdentityLookups returns a boolean if a field has been set.
-func (o *IdentityProviderDTO) HasIdentityLookups() bool {
-	if o != nil && o.IdentityLookups != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIdentityLookups gets a reference to the given []IdentityLookupDTO and assigns it to the IdentityLookups field.
-func (o *IdentityProviderDTO) SetIdentityLookups(v []IdentityLookupDTO) {
-	o.IdentityLookups = &v
-}
 func (o IdentityProviderDTO) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ActiveBindings != nil {
@@ -2463,3 +2431,5 @@ func (v *NullableIdentityProviderDTO) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

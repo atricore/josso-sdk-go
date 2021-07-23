@@ -23,8 +23,8 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 		Description:                   api.PtrString(""),
 		DashboardUrl:                  api.PtrString(""),
 		ElementId:                     api.PtrString("_BFD218B4-0F7A-4C7A-AAF9-41883AAE3598"),
-		DestroyPreviousSession:        api.PtrBool(-1),
-		EncryptAssertion:              api.PtrBool(-1),
+		DestroyPreviousSession:        api.PtrBool(true),
+		EncryptAssertion:              api.PtrBool(true),
 		EncryptAssertionAlgorithm:     api.PtrString(""),
 		ErrorBinding:                  api.PtrString(""),
 		MaxSessionsPerUser:            api.PtrInt32(1),
@@ -32,15 +32,15 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 		MessageTtlTolerance:           api.PtrInt32(1),
 		Oauth2Clients:                 api.NewIdentityProviderDTO().Oauth2Clients,
 		Oauth2ClientsConfig:           api.PtrString(""),
-		Oauth2Enabled:                 api.PtrBool(),
+		Oauth2Enabled:                 api.PtrBool(true),
 		Oauth2Key:                     api.PtrString(""),
 		Oauth2RememberMeTokenValidity: api.PtrInt64(-1),
 		Oauth2TokenValidity:           appliance.Id,
 		OidcAccessTokenTimeToLive:     api.PtrInt32(-1),
 		OidcAuthzCodeTimeToLive:       api.PtrInt32(-1),
 		OidcIdTokenTimeToLive:         api.PtrInt32(-1),
-		OpenIdEnabled:                 api.PtrBool(-1),
-		PwdlessAuthnEnabled:           api.PtrBool(),
+		OpenIdEnabled:                 api.PtrBool(true),
+		PwdlessAuthnEnabled:           api.PtrBool(true),
 		PwdlessAuthnFrom:              api.PtrString(""),
 		PwdlessAuthnSubject:           api.PtrString(""),
 		PwdlessAuthnTemplate:          api.PtrString(""),
@@ -186,6 +186,7 @@ func IdPFieldTestCreate(
 	}
 }
 
+// TODO
 //Fields to validate after IdP update
 func IdPFieldTestUpdate(
 	e *api.IdentityProviderDTO,
@@ -242,25 +243,25 @@ func IdPFieldTestUpdate(
 		},
 		{
 			name:     "DestroyPreviousSession",
-			cmp:      func() bool { return PtrBool(e.DestroyPreviousSession, r.DestroyPreviousSession) },
-			expected: e.DestroyPreviousSession,
-			received: r.DestroyPreviousSession,
+			cmp:      func() bool { return BoolPtrEquals(e.DestroyPreviousSession, r.DestroyPreviousSession) },
+			expected: PtrString("e.DestroyPreviousSession"), // TODO : Convert type to bool
+			received: PtrString("r.DestroyPreviousSession"), // TODO : Convert type to bool
 		},
 		{
 			name:     "EncryptAssertion",
-			cmp:      func() bool { return PtrBool(e.EncryptAssertion, r.EncryptAssertion) },
-			expected: e.EncryptAssertion,
-			received: r.EncryptAssertion,
+			cmp:      func() bool { return BoolPtrEquals(e.EncryptAssertion, r.EncryptAssertion) },
+			expected: PtrString("e.EncryptAssertion"), // TODO : Convert type to bool
+			received: PtrString("r.EncryptAssertion"), // TODO : Convert type to bool
 		},
 		{
 			name:     "EncryptAssertionAlgorithm",
-			cmp:      func() bool { StrPtrEquals(e.EncryptAssertionAlgorithm, r.EncryptAssertionAlgorithm) },
+			cmp:      func() bool { return StrPtrEquals(e.EncryptAssertionAlgorithm, r.EncryptAssertionAlgorithm) },
 			expected: e.EncryptAssertionAlgorithm,
 			received: r.EncryptAssertionAlgorithm,
 		},
 		{
 			name:     "ErrorBinding",
-			cmp:      func() bool { StrPtrEquals(e.ErrorBinding, r.ErrorBinding) },
+			cmp:      func() bool { return StrPtrEquals(e.ErrorBinding, r.ErrorBinding) },
 			expected: e.ErrorBinding,
 			received: r.ErrorBinding,
 		},

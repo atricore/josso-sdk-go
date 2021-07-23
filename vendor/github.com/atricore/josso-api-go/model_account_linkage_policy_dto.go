@@ -17,11 +17,11 @@ import (
 
 // AccountLinkagePolicyDTO struct for AccountLinkagePolicyDTO
 type AccountLinkagePolicyDTO struct {
-	CustomLinkEmitter    *string `json:"customLinkEmitter,omitempty"`
-	ElementId            *string `json:"elementId,omitempty"`
-	Id                   *int64  `json:"id,omitempty"`
-	LinkEmitterType      *string `json:"linkEmitterType,omitempty"`
-	Name                 *string `json:"name,omitempty"`
+	CustomLinkEmitter *string `json:"customLinkEmitter,omitempty"`
+	ElementId *string `json:"elementId,omitempty"`
+	Id *int64 `json:"id,omitempty"`
+	LinkEmitterType *string `json:"linkEmitterType,omitempty"`
+	Name *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -285,3 +285,5 @@ func (v *NullableAccountLinkagePolicyDTO) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -3,7 +3,6 @@ package cli
 import (
 	"errors"
 	"fmt"
-	"strings"
 
 	api "github.com/atricore/josso-api-go"
 )
@@ -89,7 +88,8 @@ func FromIdPConfig(config *api.SamlR2IDPConfigDTO) (api.ProviderConfigDTO, error
 		resourceProps["elementId"] = &store.Store.ElementId
 		resourceProps["name"] = &store.Store.Name
 		resourceProps["uri"] = &store.Store.Uri
-		resourceProps["value"] = strings.Join(*store.Store.Value, "")
+		//resourceProps["value"] = strings.Join(*store.Store.Value, "")
+		resourceProps["value"] = &store.Store.Value
 
 	}
 
@@ -166,7 +166,8 @@ func ToIdPConfig(config *api.ProviderConfigDTO) (api.SamlR2IDPConfigDTO, error) 
 		store.Store.Uri = PtrString(resourceProps["uri"])
 
 		// TODO : Check for nil
-		store.Store.Value = &[]string{resourceProps["value"].(string)}
+		//store.Store.Value = &[]string{resourceProps["value"].(string)}
+		store.Store.Value = PtrString(resourceProps["value"])
 
 		result.Signer = store
 		result.Encrypter = store

@@ -94,3 +94,19 @@ func StrPtrEquals(a *string, b *string) bool {
 
 	return *a == *b
 }
+
+// Compares if ptrs are nil, then compares values
+func BoolPtrEquals(a *bool, b *bool) bool {
+
+	// a == nil means be must b nil
+	if a == nil {
+		return b == nil
+	}
+
+	// a != nil
+	if b == nil {
+		return false
+	}
+
+	return *a == *b
+}

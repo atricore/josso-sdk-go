@@ -110,3 +110,28 @@ func BoolPtrEquals(a *bool, b *bool) bool {
 
 	return *a == *b
 }
+
+// Returns true if a and b have the same elements
+func Oauth2ClientsEquals(a *[]api.OAuth2ClientDTO, b *[]api.OAuth2ClientDTO) bool {
+	// Check both a and b are nil -> true
+
+	// TODO  code
+
+	// If len(a) != len(b) -> false
+
+	// TODO code
+
+	// We know both lists have values and the same lenght
+	// Compare elements, list may have different sort
+
+	// TODO code use Oauth2ClientEquals
+
+	return false // TODO
+
+}
+
+func Oauth2ClientEquals(a *api.OAuth2ClientDTO, b api.OAuth2ClientDTO) bool {
+	// Compare each field of a wiht b:
+	return StrPtrEquals(a.Secret, b.Secret) // TODO : add more fields: BaseUrl and Id
+
+}

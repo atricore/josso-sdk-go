@@ -20,43 +20,63 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 	}
 
 	var created api.IdentityProviderDTO
-	orig := api.IdentityProviderDTO{
-		Name:                      api.PtrString(idpName),
-		Description:               api.PtrString("IdP one"),
-		DashboardUrl:              api.PtrString("http://localhost:8080/myapp"),
-		ElementId:                 api.PtrString("_BFD218B4-0F7A-4C7A-AAF9-41883AAE3598"),
-		DestroyPreviousSession:    api.PtrBool(true),
-		EncryptAssertion:          api.PtrBool(false),
-		EncryptAssertionAlgorithm: api.PtrString("http://www.w3.org/2001/04/xmlenc#aes128-cbc"),
-		ErrorBinding:              api.PtrString("ARTIFACT"),
-		MaxSessionsPerUser:        api.PtrInt32(-1),
-		MessageTtl:                api.PtrInt32(300),
-		MessageTtlTolerance:       api.PtrInt32(300),
-		Oauth2Clients:             api.NewIdentityProviderDTO().Oauth2Clients,
-		//		Oauth2ClientsConfig:           api.PtrString("null"),
-		Oauth2Enabled:                 api.PtrBool(false),
-		Oauth2Key:                     api.PtrString("secret"),
-		Oauth2RememberMeTokenValidity: api.PtrInt64(43200),
-		Oauth2TokenValidity:           api.PtrInt64(300),
-		OidcAccessTokenTimeToLive:     api.PtrInt32(3600),
-		OidcAuthzCodeTimeToLive:       api.PtrInt32(300),
-		OidcIdTokenTimeToLive:         api.PtrInt32(3600),
-		OpenIdEnabled:                 api.PtrBool(false),
-		PwdlessAuthnEnabled:           api.PtrBool(false),
-		//		PwdlessAuthnFrom:              api.PtrString("null"),
-		//		PwdlessAuthnSubject:           api.PtrString("null"),
-		//		PwdlessAuthnTemplate:          api.PtrString("null"),
-		//		PwdlessAuthnTo:                api.PtrString("null"),
-		Id:                    api.PtrInt64(-1),
-		UserDashboardBranding: api.PtrString("josso25-branding"),
-	}
+
+	var oac []api.OAuth2ClientDTO
+
+	oac1 := api.NewOAuth2ClientDTO()
+	oac1.SetBaseURL("http://host1:80/")
+	oac1.SetSecret("my-secret1")
+	oac = append(oac, *oac1)
+
+	oac2 := api.NewOAuth2ClientDTO()
+	oac2.SetBaseURL("http://host2:80/")
+	oac2.SetSecret("my-secret2")
+	oac = append(oac, *oac1)
+
+	orig := api.NewIdentityProviderDTO()
+	orig.SetName(idpName)
+	orig.SetDescription("IdP One")
+	orig.SetOauth2Clients(oac)
+
+	/*
+		orig := api.IdentityProviderDTO{
+			Name:                      api.PtrString(idpName),
+			Description:               api.PtrString("IdP one"),
+			DashboardUrl:              api.PtrString("http://localhost:8080/myapp"),
+			ElementId:                 api.PtrString("_BFD218B4-0F7A-4C7A-AAF9-41883AAE3598"),
+			DestroyPreviousSession:    api.PtrBool(true),
+			EncryptAssertion:          api.PtrBool(false),
+			EncryptAssertionAlgorithm: api.PtrString("http://www.w3.org/2001/04/xmlenc#aes128-cbc"),
+			ErrorBinding:              api.PtrString("ARTIFACT"),
+			MaxSessionsPerUser:        api.PtrInt32(-1),
+			MessageTtl:                api.PtrInt32(300),
+			MessageTtlTolerance:       api.PtrInt32(300),
+			Oauth2Clients:             api.NewIdentityProviderDTO().Oauth2Clients,
+			//		Oauth2ClientsConfig:           api.PtrString("null"),
+			Oauth2Enabled:                 api.PtrBool(false),
+			Oauth2Key:                     api.PtrString("secret"),
+			Oauth2RememberMeTokenValidity: api.PtrInt64(43200),
+			Oauth2TokenValidity:           api.PtrInt64(300),
+			OidcAccessTokenTimeToLive:     api.PtrInt32(3600),
+			OidcAuthzCodeTimeToLive:       api.PtrInt32(300),
+			OidcIdTokenTimeToLive:         api.PtrInt32(3600),
+			OpenIdEnabled:                 api.PtrBool(false),
+			PwdlessAuthnEnabled:           api.PtrBool(false),
+			//		PwdlessAuthnFrom:              api.PtrString("null"),
+			//		PwdlessAuthnSubject:           api.PtrString("null"),
+			//		PwdlessAuthnTemplate:          api.PtrString("null"),
+			//		PwdlessAuthnTo:                api.PtrString("null"),
+			Id:                    api.PtrInt64(-1),
+			UserDashboardBranding: api.PtrString("josso25-branding"),
+		}
+	*/
 	// Test CREATE
-	created, err = s.client.CreateIdp(*appliance.Name, orig)
+	created, err = s.client.CreateIdp(*appliance.Name, *orig)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err := IdPValidateCreate(&orig, &created); err != nil {
+	if err := IdPValidateCreate(orig, &created); err != nil {
 		t.Errorf("creating idp : %v", err)
 		return
 	}

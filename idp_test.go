@@ -307,12 +307,6 @@ func IdPFieldTestUpdate(
 			expected: e.DisplayName,
 			received: r.DisplayName,
 		},
-		{
-			name:     "DisplayName",
-			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
-			expected: e.DisplayName,
-			received: r.DisplayName,
-		},
 	}
 
 	return append(t, IdPFieldTestCreate(e, r)...)

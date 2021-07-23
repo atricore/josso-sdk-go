@@ -10,6 +10,8 @@ import (
 func (s *AccTestSuite) TestAccCliIdP_crud() {
 	var t = s.T()
 
+	idpName := "idp-1"
+
 	appliance, err := getTestAppliance(s.T(), s.client)
 	if err != nil {
 		s.client.Logger().Errorf("cannot get test appliance %v", err)
@@ -19,21 +21,21 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 
 	var created api.IdentityProviderDTO
 	orig := api.IdentityProviderDTO{
-		Name:                          api.PtrString("idp-1"),
-		Description:                   api.PtrString("null"),
-		DashboardUrl:                  api.PtrString("null"),
-		ElementId:                     api.PtrString("_BFD218B4-0F7A-4C7A-AAF9-41883AAE3598"),
-		DestroyPreviousSession:        api.PtrBool(true),
-		EncryptAssertion:              api.PtrBool(false),
-		EncryptAssertionAlgorithm:     api.PtrString("http://www.w3.org/2001/04/xmlenc#aes128-cbc"),
-		ErrorBinding:                  api.PtrString("null"),
-		MaxSessionsPerUser:            api.PtrInt32(-1),
-		MessageTtl:                    api.PtrInt32(300),
-		MessageTtlTolerance:           api.PtrInt32(300),
-		Oauth2Clients:                 api.NewIdentityProviderDTO().Oauth2Clients,
-		Oauth2ClientsConfig:           api.PtrString("null"),
+		Name:                      api.PtrString(idpName),
+		Description:               api.PtrString("IdP one"),
+		DashboardUrl:              api.PtrString("http://localhost:8080/myapp"),
+		ElementId:                 api.PtrString("_BFD218B4-0F7A-4C7A-AAF9-41883AAE3598"),
+		DestroyPreviousSession:    api.PtrBool(true),
+		EncryptAssertion:          api.PtrBool(false),
+		EncryptAssertionAlgorithm: api.PtrString("http://www.w3.org/2001/04/xmlenc#aes128-cbc"),
+		ErrorBinding:              api.PtrString("ARTIFACT"),
+		MaxSessionsPerUser:        api.PtrInt32(-1),
+		MessageTtl:                api.PtrInt32(300),
+		MessageTtlTolerance:       api.PtrInt32(300),
+		Oauth2Clients:             api.NewIdentityProviderDTO().Oauth2Clients,
+		//		Oauth2ClientsConfig:           api.PtrString("null"),
 		Oauth2Enabled:                 api.PtrBool(false),
-		Oauth2Key:                     api.PtrString("null"),
+		Oauth2Key:                     api.PtrString("secret"),
 		Oauth2RememberMeTokenValidity: api.PtrInt64(43200),
 		Oauth2TokenValidity:           api.PtrInt64(300),
 		OidcAccessTokenTimeToLive:     api.PtrInt32(3600),
@@ -41,12 +43,12 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 		OidcIdTokenTimeToLive:         api.PtrInt32(3600),
 		OpenIdEnabled:                 api.PtrBool(false),
 		PwdlessAuthnEnabled:           api.PtrBool(false),
-		PwdlessAuthnFrom:              api.PtrString("null"),
-		PwdlessAuthnSubject:           api.PtrString("null"),
-		PwdlessAuthnTemplate:          api.PtrString("null"),
-		PwdlessAuthnTo:                api.PtrString("null"),
-		Id:                            api.PtrInt64(-1),
-		UserDashboardBranding:         api.PtrString("josso25-branding"),
+		//		PwdlessAuthnFrom:              api.PtrString("null"),
+		//		PwdlessAuthnSubject:           api.PtrString("null"),
+		//		PwdlessAuthnTemplate:          api.PtrString("null"),
+		//		PwdlessAuthnTo:                api.PtrString("null"),
+		Id:                    api.PtrInt64(-1),
+		UserDashboardBranding: api.PtrString("josso25-branding"),
 	}
 	// Test CREATE
 	created, err = s.client.CreateIdp(*appliance.Name, orig)
@@ -61,13 +63,17 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 
 	// Test READ
 	var read api.IdentityProviderDTO
-	read, err = s.client.GetIdp(*appliance.Name, "idp-2")
+	read, err = s.client.GetIdp(*appliance.Name, idpName)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 	if err = IdPValidateUpdate(&read, &created); err != nil {
 		t.Errorf("creating idp : %v", err)
+		return
+	}
+	if read.Name == nil {
+		t.Errorf("IdP not found for name %s", idpName)
 		return
 	}
 
@@ -86,7 +92,7 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 	}
 
 	//Test Delete
-	toDelete := "idp-2"
+	toDelete := idpName
 	deleted, err := s.client.DeleteIdp(*appliance.Name, toDelete)
 	if err != nil {
 		t.Error(err)
@@ -115,7 +121,7 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 	var listOfCreated [2]api.IdentityProviderDTO
 	// Test list of #2 elements
 	element1 := api.IdentityProviderDTO{
-		Name: api.PtrString("idp-1"),
+		Name: api.PtrString(idpName),
 		Id:   api.PtrInt64(-1),
 	}
 	listOfCreated[0], _ = s.client.CreateIdp(*appliance.Name, element1)

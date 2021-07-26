@@ -132,7 +132,7 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 			return
 		}
 	}
-	//TODO: GETS
+
 }
 
 func (s *AccTestSuite) TestAccCliIdVault_createFailOnDupName() {

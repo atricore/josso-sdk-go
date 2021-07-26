@@ -24,18 +24,18 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 
 	// Create
 	l, _ := StrToLocation("http://localhost/IDBUS/IDA-B")
-	orig := api.IdentityApplianceDefinitionDTO{
-		Name:        api.PtrString("ida-b"),
-		Namespace:   api.PtrString("com.atricore.idbus.ida.b"),
-		Location:    l,
-		Description: api.PtrString("IDA-B TEST !"),
-	}
-	created, err := s.client.CreateAppliance(orig)
+	orig := api.NewIdentityApplianceDefinitionDTO()
+	orig.SetName("ida-b")
+	orig.SetNamespace("com.atricore.idbus.ida.b")
+	orig.SetLocation(*l)
+	orig.SetDescription("IDA-B TEST !")
+
+	created, err := s.client.CreateAppliance(*orig)
 	if err != nil {
 		t.Errorf("creating identity appliance : %v", err)
 		return
 	}
-	if err := IdApplianceValidateCreate(&orig, &created); err != nil {
+	if err := IdApplianceValidateCreate(orig, &created); err != nil {
 		t.Errorf("creating identity appliance : %v", err)
 		return
 	}

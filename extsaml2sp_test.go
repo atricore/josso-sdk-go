@@ -26,22 +26,21 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 	encMetadata := base64.StdEncoding.EncodeToString([]byte(metadata))
 	//encMetadata := metadata
 	var created api.ExternalSaml2ServiceProviderDTO
-	orig := api.ExternalSaml2ServiceProviderDTO{
-		Name:        api.PtrString("Extsmal2-2"),
-		Id:          api.PtrInt64(-1),
-		Description: api.PtrString("My SP 2"),
-		Metadata: &api.ResourceDTO{
-			Value: &encMetadata,
-			//			Uri:   api.PtrString("metadata-a.xml"),
-		},
-	}
+	orig := api.NewExternalSaml2ServiceProviderDTO()
+	orig.SetName("Extsmal2-2")
+	orig.SetId(-1)
+	orig.SetDescription("My Sp 2")
+	metadata := api.NewResourceDTO()
+	metadata.SetValue(encMetadata)
+	orig.SetMetadata(*metadata)
+
 	// Test CREATE
-	created, err = s.client.CreateExtSaml2Sp(*appliance.Name, orig)
+	created, err = s.client.CreateExtSaml2Sp(*appliance.Name, *orig)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err := SpValidateCreate(&orig, &created); err != nil {
+	if err := SpValidateCreate(orig, &created); err != nil {
 		t.Errorf("creating sp : %v", err)
 		return
 	}

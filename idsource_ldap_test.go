@@ -18,32 +18,31 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 	}
 
 	var created api.LdapIdentitySourceDTO
-	orig := api.LdapIdentitySourceDTO{
-		Name:                      api.PtrString("ids-2"),
-		Id:                        api.PtrInt64(-1),
-		ElementId:                 api.PtrString("air"),
-		ProviderUrl:               api.PtrString("ldap://192.168.0.97:389"),
-		SecurityPrincipal:         api.PtrString("CN=Administrator,CN=Users,DC=mycompany,DC=com"),
-		SecurityCredential:        api.PtrString("@WSX3edc"),
-		UsersCtxDN:                api.PtrString("CN=Users,DC=mycompany,DC=com"),
-		RolesCtxDN:                api.PtrString("CN=Users,DC=mycompany,DC=com"),
-		UidAttributeID:            api.PtrString("member"),
-		PrincipalUidAttributeID:   api.PtrString("sAMAccountName"),
-		RoleAttributeID:           api.PtrString("sAMAccountName"),
-		Referrals:                 api.PtrString("follow"),
-		LdapSearchScope:           api.PtrString("subtree"),
-		InitialContextFactory:     api.PtrString("true"),
-		RoleMatchingMode:          api.PtrString("manager"),
-		UserPropertiesQueryString: api.PtrString("space"),
-		SecurityAuthentication:    api.PtrString("authenticated"),
-	}
+	orig := api.NewLdapIdentitySourceDTO()
+	orig.SetName("ids-2")
+	orig.SetId(-1)
+	orig.SetProviderUrl("ldap://192.168.0.97:389")
+	orig.SetSecurityPrincipal("CN=Administrator,CN=Users,DC=mycompany,DC=com")
+	orig.SetSecurityCredential("@WSX3edc")
+	orig.SetUsersCtxDN("CN=Users,DC=mycompany,DC=com")
+	orig.SetRolesCtxDN("CN=Users,DC=mycompany,DC=com")
+	orig.SetUidAttributeID("member")
+	orig.SetPrincipalUidAttributeID("sAMAccountName")
+	orig.SetRoleAttributeID("sAMAccountName")
+	orig.SetReferrals("follow")
+	orig.SetLdapSearchScope("subtree")
+	orig.SetInitialContextFactory("true")
+	orig.SetRoleMatchingMode("manager")
+	orig.SetUserPropertiesQueryString("space")
+	orig.SetSecurityAuthentication("authenticated")
+
 	// Test CREATE
-	created, err = s.client.CreateIdSourceLdap(*appliance.Name, orig)
+	created, err = s.client.CreateIdSourceLdap(*appliance.Name, *orig)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err := IdSValidateUpdate(&orig, &created); err != nil {
+	if err := IdSValidateUpdate(orig, &created); err != nil {
 		t.Errorf("creating idp : %v", err)
 		return
 	}
@@ -118,7 +117,7 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 		RoleMatchingMode:          api.PtrString("manager"),
 		UserPropertiesQueryString: api.PtrString("space"),
 		SecurityAuthentication:    api.PtrString("authenticated"),
-	}
+	} // Modifi "CreateIdSourceLdap" Because not accept (orig := api.NewLdapIdentitySourceDTO())
 	listOfCreated[0], _ = s.client.CreateIdSourceLdap(*appliance.Name, element1)
 
 	element2 := api.LdapIdentitySourceDTO{

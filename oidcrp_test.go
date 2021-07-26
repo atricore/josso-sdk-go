@@ -18,18 +18,17 @@ func (s *AccTestSuite) TestAccCliOidcRp_crud() {
 	}
 
 	var created api.ExternalOpenIDConnectRelayingPartyDTO
-	orig := api.ExternalOpenIDConnectRelayingPartyDTO{
-		Name: api.PtrString("rp-2"),
-		Id:   api.PtrInt64(-1),
-	}
+	orig := api.NewExternalOpenIDConnectRelayingPartyDTO()
+	orig.SetName("rp-2")
+	orig.SetId(-1)
 
 	// Test CREATE
-	created, err = s.client.CreateOidcRp(*appliance.Name, orig)
+	created, err = s.client.CreateOidcRp(*appliance.Name, *orig)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err := OidcRpValidateCreate(&orig, &created); err != nil {
+	if err := OidcRpValidateCreate(orig, &created); err != nil {
 		t.Errorf("creating rp : %v", err)
 		return
 	}

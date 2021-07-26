@@ -1,6 +1,8 @@
 package cli
 
 import (
+	"fmt"
+
 	api "github.com/atricore/josso-api-go"
 	"github.com/hashicorp/go-multierror"
 	"github.com/pkg/errors"
@@ -9,15 +11,15 @@ import (
 type FiledTestStruct struct {
 	name     string
 	cmp      func() bool
-	expected *string
-	received *string
+	expected string
+	received string
 }
 
 func ValidateField(f FiledTestStruct) error {
 	var err error
 	if !f.cmp() {
 		err = errors.Errorf("invalid %s, expected [%s],  received[%s]",
-			f.name, StrDeref(f.expected), StrDeref(f.received))
+			f.name, f.expected, f.received)
 	}
 	return err
 }
@@ -25,10 +27,11 @@ func ValidateField(f FiledTestStruct) error {
 func ValidateFields(fts []FiledTestStruct) error {
 	var result error
 	for _, ft := range fts {
+		fmt.Printf("ValidateField: %s=%t\n", ft.name, ft.cmp())
 		if !ft.cmp() {
 			err := errors.Errorf("invalid %s, expected [%s],  received[%s]",
-				ft.name, StrDeref(ft.expected), StrDeref(ft.received))
-			multierror.Append(result, err)
+				ft.name, ft.expected, ft.received)
+			result = multierror.Append(result, err)
 		}
 	}
 

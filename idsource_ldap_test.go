@@ -1,7 +1,9 @@
 package cli
 
 import (
+	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 
 	api "github.com/atricore/josso-api-go"
@@ -17,24 +19,10 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 		return
 	}
 
+	crudName := "ids-a"
+	var orig *api.LdapIdentitySourceDTO
 	var created api.LdapIdentitySourceDTO
-	orig := api.NewLdapIdentitySourceDTO()
-	orig.SetName("ids-2")
-	orig.SetId(-1)
-	orig.SetProviderUrl("ldap://192.168.0.97:389")
-	orig.SetSecurityPrincipal("CN=Administrator,CN=Users,DC=mycompany,DC=com")
-	orig.SetSecurityCredential("@WSX3edc")
-	orig.SetUsersCtxDN("CN=Users,DC=mycompany,DC=com")
-	orig.SetRolesCtxDN("CN=Users,DC=mycompany,DC=com")
-	orig.SetUidAttributeID("member")
-	orig.SetPrincipalUidAttributeID("sAMAccountName")
-	orig.SetRoleAttributeID("sAMAccountName")
-	orig.SetReferrals("follow")
-	orig.SetLdapSearchScope("subtree")
-	orig.SetInitialContextFactory("true")
-	orig.SetRoleMatchingMode("manager")
-	orig.SetUserPropertiesQueryString("space")
-	orig.SetSecurityAuthentication("authenticated")
+	orig = createTestLdapIdentitySourceDTO(crudName)
 
 	// Test CREATE
 	created, err = s.client.CreateIdSourceLdap(*appliance.Name, *orig)
@@ -42,45 +30,43 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 		t.Error(err)
 		return
 	}
-	if err := IdSValidateUpdate(orig, &created); err != nil {
-		t.Errorf("creating idp : %v", err)
+	if err := LdapIdentitySourceValidateCreate(orig, &created); err != nil {
+		t.Errorf("creating IdSourceLDap : %v", err)
 		return
 	}
 
 	// Test READ
 	var read api.LdapIdentitySourceDTO
-	read, err = s.client.GetIdSourceLdap(*appliance.Name, "ids-2")
+	read, err = s.client.GetIdSourceLdap(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err = IdSValidateUpdate(&read, &created); err != nil {
-		t.Errorf("creating idp : %v", err)
+	if err = LdapIdentitySourceValidateUpdate(&read, &created); err != nil {
+		t.Errorf("creating IdSourceLDap : %v", err)
 		return
 	}
 
 	// Test Update
 	read.Description = api.PtrString("Updated description")
-	read.ElementId = api.PtrString("dirt")
 	updated, err := s.client.UpdateIdSourceLdap(*appliance.Name, read)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err = IdSValidateUpdate(&read, &updated); err != nil {
+	if err = LdapIdentitySourceValidateUpdate(&read, &updated); err != nil {
 		t.Error(err)
 		return
 	}
 	//.
 	//Test Delete
-	toDelete := "ids-2"
-	deleted, err := s.client.DeleteIdSourceLdap(*appliance.Name, toDelete)
+	deleted, err := s.client.DeleteIdSourceLdap(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 	if !deleted {
-		t.Errorf("Not deleted! %s", toDelete)
+		t.Errorf("Not deleted! %s", crudName)
 		return
 	}
 
@@ -99,47 +85,11 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 	// List of created elements, order by Name, (these elements must have all the variables of the structure)
 	var listOfCreated [2]api.LdapIdentitySourceDTO
 
-	element1 := api.LdapIdentitySourceDTO{
-		Name:                      api.PtrString("ids-1"),
-		Id:                        api.PtrInt64(-1),
-		ElementId:                 api.PtrString("air"),
-		ProviderUrl:               api.PtrString("ldap://192.168.0.97:389"),
-		SecurityPrincipal:         api.PtrString("CN=Administrator,CN=Users,DC=mycompany,DC=com"),
-		SecurityCredential:        api.PtrString("@WSX3edc"),
-		UsersCtxDN:                api.PtrString("CN=Users,DC=mycompany,DC=com"),
-		RolesCtxDN:                api.PtrString("CN=Users,DC=mycompany,DC=com"),
-		UidAttributeID:            api.PtrString("member"),
-		PrincipalUidAttributeID:   api.PtrString("sAMAccountName"),
-		RoleAttributeID:           api.PtrString("sAMAccountName"),
-		Referrals:                 api.PtrString("follow"),
-		LdapSearchScope:           api.PtrString("subtree"),
-		InitialContextFactory:     api.PtrString("true"),
-		RoleMatchingMode:          api.PtrString("manager"),
-		UserPropertiesQueryString: api.PtrString("space"),
-		SecurityAuthentication:    api.PtrString("authenticated"),
-	} // Modifi "CreateIdSourceLdap" Because not accept (orig := api.NewLdapIdentitySourceDTO())
-	listOfCreated[0], _ = s.client.CreateIdSourceLdap(*appliance.Name, element1)
+	element1 := createTestLdapIdentitySourceDTO("ids-1")
+	listOfCreated[0], _ = s.client.CreateIdSourceLdap(*appliance.Name, *element1)
 
-	element2 := api.LdapIdentitySourceDTO{
-		Name:                      api.PtrString("ids-2"),
-		Id:                        api.PtrInt64(-1),
-		ElementId:                 api.PtrString("air"),
-		ProviderUrl:               api.PtrString("ldap://192.168.0.97:389"),
-		SecurityPrincipal:         api.PtrString("CN=Administrator,CN=Users,DC=mycompany,DC=com"),
-		SecurityCredential:        api.PtrString("@WSX3edc"),
-		UsersCtxDN:                api.PtrString("CN=Users,DC=mycompany,DC=com"),
-		RolesCtxDN:                api.PtrString("CN=Users,DC=mycompany,DC=com"),
-		UidAttributeID:            api.PtrString("member"),
-		PrincipalUidAttributeID:   api.PtrString("sAMAccountName"),
-		RoleAttributeID:           api.PtrString("sAMAccountName"),
-		Referrals:                 api.PtrString("follow"),
-		LdapSearchScope:           api.PtrString("subtree"),
-		InitialContextFactory:     api.PtrString("true"),
-		RoleMatchingMode:          api.PtrString("manager"),
-		UserPropertiesQueryString: api.PtrString("space"),
-		SecurityAuthentication:    api.PtrString("authenticated"),
-	}
-	listOfCreated[1], _ = s.client.CreateIdSourceLdap(*appliance.Name, element2)
+	element2 := createTestLdapIdentitySourceDTO("ids-2")
+	listOfCreated[1], _ = s.client.CreateIdSourceLdap(*appliance.Name, *element2)
 
 	// Get list from server
 	listOfRead, err := s.client.GetIdSourceLdaps(*appliance.Name)
@@ -157,18 +107,40 @@ func (s *AccTestSuite) TestAccCliIdSourceLdap_crud() {
 	// Order list of read by Name
 	sort.SliceStable(listOfRead,
 		func(i, j int) bool {
-			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) > 0
+			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) < 0
 		},
 	)
 
 	// Validate each element from the list of created with the list of read
 	for idx, r := range listOfCreated {
-		if err = IdSValidateUpdate(&r, &listOfRead[idx]); err != nil {
+		if err = LdapIdentitySourceValidateUpdate(&r, &listOfRead[idx]); err != nil {
 			t.Error(err)
 			return
 		}
 	}
 
+}
+
+func createTestLdapIdentitySourceDTO(name string) *api.LdapIdentitySourceDTO {
+	orig := api.NewLdapIdentitySourceDTO()
+	orig.SetName(name)
+	orig.SetId(-1)
+	orig.SetProviderUrl("ldap://192.168.0.97:389")
+	orig.SetSecurityPrincipal(fmt.Sprintf("CN=%s,CN=Users,DC=mycompany,DC=com", name))
+	orig.SetSecurityCredential("@WSX3edc%s")
+	orig.SetUsersCtxDN(fmt.Sprintf("CN=%s,CN=Users,DC=mycompany,DC=com", name))
+	orig.SetRolesCtxDN(fmt.Sprintf("CN=%s,CN=Users,DC=mycompany,DC=com", name))
+	orig.SetUidAttributeID("member")
+	orig.SetPrincipalUidAttributeID("sAMAccountName")
+	orig.SetRoleAttributeID("sAMAccountName")
+	orig.SetReferrals("follow")
+	orig.SetLdapSearchScope("subtree")
+	orig.SetInitialContextFactory("true")
+	orig.SetRoleMatchingMode("manager")
+	orig.SetUserPropertiesQueryString("space")
+	orig.SetSecurityAuthentication("authenticated")
+
+	return orig
 }
 
 func (s *AccTestSuite) TestAccCliIdS_createFailOnDupName() {
@@ -192,8 +164,86 @@ func IdSFieldTestCreate(
 		{
 			name:     "name",
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
+		},
+		{
+			name:     "providerurl",
+			cmp:      func() bool { return StrPtrEquals(e.ProviderUrl, r.ProviderUrl) },
+			expected: StrDeref(e.ProviderUrl),
+			received: StrDeref(r.ProviderUrl),
+		},
+		{
+			name:     "securityprincipal",
+			cmp:      func() bool { return StrPtrEquals(e.SecurityPrincipal, r.SecurityPrincipal) },
+			expected: StrDeref(e.SecurityPrincipal),
+			received: StrDeref(r.SecurityPrincipal),
+		},
+		{
+			name:     "usersctxdn",
+			cmp:      func() bool { return StrPtrEquals(e.UsersCtxDN, r.UsersCtxDN) },
+			expected: StrDeref(e.UsersCtxDN),
+			received: StrDeref(r.UsersCtxDN),
+		},
+		{
+			name:     "rolesctxdn",
+			cmp:      func() bool { return StrPtrEquals(e.RolesCtxDN, r.RolesCtxDN) },
+			expected: StrDeref(e.RolesCtxDN),
+			received: StrDeref(r.RolesCtxDN),
+		},
+		{
+			name:     "uidattributeid",
+			cmp:      func() bool { return StrPtrEquals(e.UidAttributeID, r.UidAttributeID) },
+			expected: StrDeref(e.UidAttributeID),
+			received: StrDeref(r.UidAttributeID),
+		},
+		{
+			name:     "principaluiattributeid",
+			cmp:      func() bool { return StrPtrEquals(e.PrincipalUidAttributeID, r.PrincipalUidAttributeID) },
+			expected: StrDeref(e.PrincipalUidAttributeID),
+			received: StrDeref(r.PrincipalUidAttributeID),
+		},
+		{
+			name:     "roleattributeid",
+			cmp:      func() bool { return StrPtrEquals(e.RoleAttributeID, r.RoleAttributeID) },
+			expected: StrDeref(e.RoleAttributeID),
+			received: StrDeref(r.RoleAttributeID),
+		},
+		{
+			name:     "referrals",
+			cmp:      func() bool { return StrPtrEquals(e.Referrals, r.Referrals) },
+			expected: StrDeref(e.Referrals),
+			received: StrDeref(r.Referrals),
+		},
+		{
+			name:     "ldapsearchscope",
+			cmp:      func() bool { return StrPtrEquals(e.LdapSearchScope, r.LdapSearchScope) },
+			expected: StrDeref(e.LdapSearchScope),
+			received: StrDeref(r.LdapSearchScope),
+		},
+		{
+			name:     "initialcontextfactory",
+			cmp:      func() bool { return StrPtrEquals(e.InitialContextFactory, r.InitialContextFactory) },
+			expected: StrDeref(e.InitialContextFactory),
+			received: StrDeref(r.InitialContextFactory),
+		},
+		{
+			name:     "rolematchingmode",
+			cmp:      func() bool { return StrPtrEquals(e.RoleMatchingMode, r.RoleMatchingMode) },
+			expected: StrDeref(e.RoleMatchingMode),
+			received: StrDeref(r.RoleMatchingMode),
+		},
+		{
+			name:     "userpropertiesquerystring",
+			cmp:      func() bool { return StrPtrEquals(e.UserPropertiesQueryString, r.UserPropertiesQueryString) },
+			expected: StrDeref(e.UserPropertiesQueryString),
+			received: StrDeref(r.UserPropertiesQueryString),
+		},
+		{
+			name:     "securityauthentication",
+			cmp:      func() bool { return StrPtrEquals(e.SecurityAuthentication, r.SecurityAuthentication) },
+			expected: StrDeref(e.SecurityAuthentication),
+			received: StrDeref(r.SecurityAuthentication),
 		},
 	}
 }
@@ -207,114 +257,29 @@ func IdSFieldTestUpdate(
 		{
 			name:     "id",
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "name",
-			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
+			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
+			received: strconv.FormatInt(Int64Deref(r.Id), 10),
 		},
 		{
 			name:     "elementid",
 			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "providerurl",
-			cmp:      func() bool { return StrPtrEquals(e.ProviderUrl, r.ProviderUrl) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "securityprincipal",
-			cmp:      func() bool { return StrPtrEquals(e.SecurityPrincipal, r.SecurityPrincipal) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "usersctxdn",
-			cmp:      func() bool { return StrPtrEquals(e.UsersCtxDN, r.UsersCtxDN) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "rolesctxdn",
-			cmp:      func() bool { return StrPtrEquals(e.RolesCtxDN, r.RolesCtxDN) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "uidattributeid",
-			cmp:      func() bool { return StrPtrEquals(e.UidAttributeID, r.UidAttributeID) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "principaluiattributeid",
-			cmp:      func() bool { return StrPtrEquals(e.PrincipalUidAttributeID, r.PrincipalUidAttributeID) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "roleattributeid",
-			cmp:      func() bool { return StrPtrEquals(e.RoleAttributeID, r.RoleAttributeID) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "referrals",
-			cmp:      func() bool { return StrPtrEquals(e.Referrals, r.Referrals) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "ldapsearchscope",
-			cmp:      func() bool { return StrPtrEquals(e.LdapSearchScope, r.LdapSearchScope) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "initialcontextfactory",
-			cmp:      func() bool { return StrPtrEquals(e.InitialContextFactory, r.InitialContextFactory) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "rolematchingmode",
-			cmp:      func() bool { return StrPtrEquals(e.RoleMatchingMode, r.RoleMatchingMode) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "userpropertiesquerystring",
-			cmp:      func() bool { return StrPtrEquals(e.UserPropertiesQueryString, r.UserPropertiesQueryString) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "securityauthentication",
-			cmp:      func() bool { return StrPtrEquals(e.SecurityAuthentication, r.SecurityAuthentication) },
-			expected: e.Name,
-			received: r.Name,
+			expected: StrDeref(e.ElementId),
+			received: StrDeref(r.ElementId),
 		},
 	}
-
 	return append(t, IdSFieldTestCreate(e, r)...)
 }
 
-// Compares the expected IdP with the received one.
-func CreateIdSourceLdap(
+// Compares the expected IdSourceLDap with the received one.
+func LdapIdentitySourceValidateCreate(
 	e *api.LdapIdentitySourceDTO,
 	r *api.LdapIdentitySourceDTO) error {
 
 	return ValidateFields(IdSFieldTestCreate(e, r))
 }
 
-// Compares the expected IdP with the received one.
-func IdSValidateUpdate(
+// Compares the expected IdSourceLDap with the received one.
+func LdapIdentitySourceValidateUpdate(
 	e *api.LdapIdentitySourceDTO,
 	r *api.LdapIdentitySourceDTO) error {
 

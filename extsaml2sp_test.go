@@ -3,6 +3,7 @@ package cli
 import (
 	"encoding/base64"
 	"sort"
+	"strconv"
 	"strings"
 
 	api "github.com/atricore/josso-api-go"
@@ -22,17 +23,10 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 		t.Error(err)
 		return
 	}
-	// base64 metadata encoding
-	encMetadata := base64.StdEncoding.EncodeToString([]byte(metadata))
-	//encMetadata := metadata
+	crudName := "Extsmal2-a"
+	var orig *api.ExternalSaml2ServiceProviderDTO
 	var created api.ExternalSaml2ServiceProviderDTO
-	orig := api.NewExternalSaml2ServiceProviderDTO()
-	orig.SetName("Extsmal2-2")
-	orig.SetId(-1)
-	orig.SetDescription("My Sp 2")
-	metadata := api.NewResourceDTO()
-	metadata.SetValue(encMetadata)
-	orig.SetMetadata(*metadata)
+	orig = createTestExternalSaml2ServiceProviderDTO(crudName)
 
 	// Test CREATE
 	created, err = s.client.CreateExtSaml2Sp(*appliance.Name, *orig)
@@ -47,7 +41,7 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 
 	// Test READ
 	var read api.ExternalSaml2ServiceProviderDTO
-	read, err = s.client.GetExtSaml2Sp(*appliance.Name, "Extsmal2-2")
+	read, err = s.client.GetExtSaml2Sp(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
@@ -71,14 +65,13 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 	}
 
 	//Test Delete
-	toDelete := "Extsmal2-2"
-	deleted, err := s.client.DeleteExtSaml2Sp(*appliance.Name, toDelete)
+	deleted, err := s.client.DeleteExtSaml2Sp(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 	if !deleted {
-		t.Errorf("Not deleted! %s", toDelete)
+		t.Errorf("Not deleted! %s", crudName)
 		return
 	}
 
@@ -99,24 +92,13 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 	// ------------------------
 	// List of created elements, order by Name
 	var listOfCreated [2]api.ExternalSaml2ServiceProviderDTO
-	// Test list of #2 elements
-	element1 := api.ExternalSaml2ServiceProviderDTO{
-		Name: api.PtrString("Extsmal2-1"),
-		Id:   api.PtrInt64(-1),
-		Metadata: &api.ResourceDTO{
-			Value: &encMetadata,
-		},
-	}
-	listOfCreated[0], _ = s.client.CreateExtSaml2Sp(*appliance.Name, element1)
 
-	element2 := api.ExternalSaml2ServiceProviderDTO{
-		Name: api.PtrString("Extsmal2-2"),
-		Id:   api.PtrInt64(-1),
-		Metadata: &api.ResourceDTO{
-			Value: &encMetadata,
-		},
-	}
-	listOfCreated[1], _ = s.client.CreateExtSaml2Sp(*appliance.Name, element2)
+	// Test list of #2 elements
+	element1 := createTestExternalSaml2ServiceProviderDTO("Extsmal2-1")
+	listOfCreated[0], _ = s.client.CreateExtSaml2Sp(*appliance.Name, *element1)
+
+	element2 := createTestExternalSaml2ServiceProviderDTO("Extsmal2-2")
+	listOfCreated[1], _ = s.client.CreateExtSaml2Sp(*appliance.Name, *element2)
 
 	// ------------------------
 	// Get list from server
@@ -135,7 +117,7 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 	// Order list of read by Name
 	sort.SliceStable(listOfRead,
 		func(i, j int) bool {
-			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) > 0
+			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) < 0
 		},
 	)
 
@@ -147,6 +129,19 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 		}
 	}
 
+}
+
+func createTestExternalSaml2ServiceProviderDTO(name string) *api.ExternalSaml2ServiceProviderDTO {
+	encMetadata := base64.StdEncoding.EncodeToString([]byte(metadata))
+	//encMetadata := metadata
+	orig := api.NewExternalSaml2ServiceProviderDTO()
+	orig.SetName(name)
+	orig.SetId(-1)
+	orig.SetDescription("My Sp 2")
+	metadata := api.NewResourceDTO()
+	metadata.SetValue(encMetadata)
+	orig.SetMetadata(*metadata)
+	return orig
 }
 
 func (s *AccTestSuite) TestAccCliExtSaml2_crud_createFailOnDupName() {
@@ -172,8 +167,20 @@ func SpFieldTestCreate(
 		{
 			name:     "name",
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
+		},
+		{
+			name:     "location",
+			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
+			expected: LocationToStr(e.Location),
+			received: LocationToStr(r.Location),
+		},
+		{
+			name:     "DisplayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: StrDeref(e.DisplayName),
+			received: StrDeref(r.DisplayName),
 		},
 	}
 }
@@ -187,29 +194,10 @@ func SpFieldTestUpdate(
 		{
 			name:     "id",
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "name",
-			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "location",
-			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "DisplayName",
-			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
-			expected: e.DisplayName,
-			received: r.DisplayName,
+			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
+			received: strconv.FormatInt(Int64Deref(r.Id), 10),
 		},
 	}
-
 	return append(t, SpFieldTestCreate(e, r)...)
 }
 

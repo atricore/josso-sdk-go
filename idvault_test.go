@@ -2,6 +2,7 @@ package cli
 
 import (
 	"sort"
+	"strconv"
 	"strings"
 
 	api "github.com/atricore/josso-api-go"
@@ -23,24 +24,24 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 		return
 	}
 
-	orig := api.EmbeddedIdentityVaultDTO{
-		Name:                  api.PtrString("idVault-2"),
-		Id:                    api.PtrInt64(-1),
-		IdentityConnectorName: api.PtrString("connector-default"),
-	}
+	crudName := "idVault-A"
+	var orig *api.EmbeddedIdentityVaultDTO
+	var created api.EmbeddedIdentityVaultDTO
+	orig = createTestEmbeddedIdentityVaultDTO(crudName)
 
-	created, err := s.client.CreateIdVault(*appliance.Name, orig)
+	// Test CREATE
+	created, err = s.client.CreateIdVault(*appliance.Name, *orig)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err := IdVaultValidateCreate(&orig, &created); err != nil {
+	if err := IdVaultValidateCreate(orig, &created); err != nil {
 		t.Errorf("creating idVault : %v", err)
 		return
 	}
-
+	// Test READ
 	var read api.EmbeddedIdentityVaultDTO
-	read, err = s.client.GetIdVault(*appliance.Name, "idVault-2")
+	read, err = s.client.GetIdVault(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
@@ -54,7 +55,7 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 	// Test Update
 	read.Description = api.PtrString("Updated description")
 	read.ElementId = api.PtrString("12345")
-	//read.Name = api.PtrString("connector-default-updated") //Not found
+
 	updated, err := s.client.UpdateIdVault(*appliance.Name, read)
 	if err != nil {
 		t.Error(err)
@@ -66,17 +67,16 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 	}
 
 	//Test Delete
-	toDelete := "idVault-2"
-	deleted, err := s.client.DeleteIdVault(*appliance.Name, toDelete)
+	deleted, err := s.client.DeleteIdVault(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 	if !deleted {
-		t.Errorf("Not deleted! %s", toDelete)
+		t.Errorf("Not deleted! %s", crudName)
 		return
 	}
-	// ----------------------------------------------------------------------------------------------------------------------
+
 	// Test empty list
 	listOfAll, err := s.client.GetIdVaults(*appliance.Name)
 	if err != nil {
@@ -92,25 +92,19 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 	// List of created elements, order by Name
 	var listOfCreated [2]api.EmbeddedIdentityVaultDTO
 	// Test list of #2 elements
-	element1 := api.EmbeddedIdentityVaultDTO{
-		Name: api.PtrString("idVault-1"),
-		Id:   api.PtrInt64(-1),
-	}
-	listOfCreated[0], _ = s.client.CreateIdVault(*appliance.Name, element1)
+	element1 := createTestEmbeddedIdentityVaultDTO("IdVault-1")
+	listOfCreated[0], _ = s.client.CreateIdVault(*appliance.Name, *element1)
 
-	element2 := api.EmbeddedIdentityVaultDTO{
-		Name: api.PtrString("idVault-2"),
-		Id:   api.PtrInt64(-1),
-	}
-	listOfCreated[1], _ = s.client.CreateIdVault(*appliance.Name, element2)
+	element2 := createTestEmbeddedIdentityVaultDTO("IdVault-2")
+	listOfCreated[1], _ = s.client.CreateIdVault(*appliance.Name, *element2)
 
-	// ------------------------
 	// Get list from server
 	listOfRead, err := s.client.GetIdVaults(*appliance.Name)
 	if err != nil {
 		t.Error(err)
 		return
 	}
+
 	// The list should have 2 elemetns
 	if len(listOfRead) != 2 {
 		// The list should be emtpy
@@ -121,7 +115,7 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 	// Order list of read by Name
 	sort.SliceStable(listOfRead,
 		func(i, j int) bool {
-			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) > 0
+			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) < 0
 		},
 	)
 
@@ -132,7 +126,14 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 			return
 		}
 	}
+}
 
+func createTestEmbeddedIdentityVaultDTO(name string) *api.EmbeddedIdentityVaultDTO {
+	orig := api.NewEmbeddedIdentityVaultDTO()
+	orig.SetName(name)
+	orig.SetId(-1)
+	orig.SetIdentityConnectorName("connector-default")
+	return orig
 }
 
 func (s *AccTestSuite) TestAccCliIdVault_createFailOnDupName() {
@@ -158,8 +159,14 @@ func IdVaultFieldTestCreate(
 		{
 			name:     "name",
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
+		},
+		{
+			name:     "IdentityConnectorName",
+			cmp:      func() bool { return StrPtrEquals(e.IdentityConnectorName, r.IdentityConnectorName) },
+			expected: StrDeref(e.IdentityConnectorName),
+			received: StrDeref(r.IdentityConnectorName),
 		},
 	}
 }
@@ -173,20 +180,14 @@ func IdVaultFieldTestUpdate(
 		{
 			name:     "id",
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "name",
-			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
+			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
+			received: strconv.FormatInt(Int64Deref(r.Id), 10),
 		},
 		{
 			name:     "ElementId",
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: e.Name,
-			received: r.Name,
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
 		},
 	}
 

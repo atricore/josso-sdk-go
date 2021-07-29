@@ -2,6 +2,7 @@ package cli
 
 import (
 	"sort"
+	"strconv"
 	"strings"
 
 	api "github.com/atricore/josso-api-go"
@@ -17,10 +18,10 @@ func (s *AccTestSuite) TestAccCliOidcRp_crud() {
 		return
 	}
 
+	crudName := "rp-a"
+	var orig *api.ExternalOpenIDConnectRelayingPartyDTO
 	var created api.ExternalOpenIDConnectRelayingPartyDTO
-	orig := api.NewExternalOpenIDConnectRelayingPartyDTO()
-	orig.SetName("rp-2")
-	orig.SetId(-1)
+	orig = createTestExternalOpenIDConnectRelayingPartyDTO(crudName)
 
 	// Test CREATE
 	created, err = s.client.CreateOidcRp(*appliance.Name, *orig)
@@ -90,23 +91,15 @@ func (s *AccTestSuite) TestAccCliOidcRp_crud() {
 		return
 	}
 
-	// ------------------------
 	// List of created elements, order by Name
 	var listOfCreated [2]api.ExternalOpenIDConnectRelayingPartyDTO
 	// Test list of #2 elements
-	element1 := api.ExternalOpenIDConnectRelayingPartyDTO{
-		Name: api.PtrString("rp-1"),
-		Id:   api.PtrInt64(-1),
-	}
-	listOfCreated[0], _ = s.client.CreateOidcRp(*appliance.Name, element1)
+	element1 := createTestExternalOpenIDConnectRelayingPartyDTO("rp-1")
+	listOfCreated[0], _ = s.client.CreateOidcRp(*appliance.Name, *element1)
 
-	element2 := api.ExternalOpenIDConnectRelayingPartyDTO{
-		Name: api.PtrString("rp-2"),
-		Id:   api.PtrInt64(-1),
-	}
-	listOfCreated[1], _ = s.client.CreateOidcRp(*appliance.Name, element2)
+	element2 := createTestExternalOpenIDConnectRelayingPartyDTO("rp-2")
+	listOfCreated[1], _ = s.client.CreateOidcRp(*appliance.Name, *element2)
 
-	// ------------------------
 	// Get list from server
 	listOfRead, err := s.client.GetOidcRps(*appliance.Name)
 	if err != nil {
@@ -123,7 +116,7 @@ func (s *AccTestSuite) TestAccCliOidcRp_crud() {
 	// Order list of read by Name
 	sort.SliceStable(listOfRead,
 		func(i, j int) bool {
-			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) > 0
+			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) < 0
 		},
 	)
 
@@ -134,7 +127,13 @@ func (s *AccTestSuite) TestAccCliOidcRp_crud() {
 			return
 		}
 	}
+}
 
+func createTestExternalOpenIDConnectRelayingPartyDTO(name string) *api.ExternalOpenIDConnectRelayingPartyDTO {
+	orig := api.NewExternalOpenIDConnectRelayingPartyDTO()
+	orig.SetName("rp-2")
+	orig.SetId(-1)
+	return orig
 }
 
 func (s *AccTestSuite) TestAccCliOidcRp_createFailOnDupName() {
@@ -149,8 +148,6 @@ func (s *AccTestSuite) TestAccCliOidcRp_updateFailOnDupName() {
 
 }
 
-// --------------------------------------update------------------
-
 //Fields to validate after appliance creation
 func OidcRpFieldTestCreate(
 	e *api.ExternalOpenIDConnectRelayingPartyDTO,
@@ -160,8 +157,26 @@ func OidcRpFieldTestCreate(
 		{
 			name:     "name",
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
+		},
+		{
+			name:     "description",
+			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
+			expected: StrDeref(e.Description),
+			received: StrDeref(r.Description),
+		},
+		{
+			name:     "clientId",
+			cmp:      func() bool { return StrPtrEquals(e.ClientId, r.ClientId) },
+			expected: StrDeref(e.ClientId),
+			received: StrDeref(r.ClientId),
+		},
+		{
+			name:     "clientType",
+			cmp:      func() bool { return StrPtrEquals(e.ClientType, r.ClientType) },
+			expected: StrDeref(e.ClientType),
+			received: StrDeref(r.ClientType),
 		},
 	}
 }
@@ -175,32 +190,8 @@ func OidcRpFieldTestUpdate(
 		{
 			name:     "id",
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "name",
-			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "description",
-			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
-			expected: e.Description,
-			received: r.Description,
-		},
-		{
-			name:     "clientId",
-			cmp:      func() bool { return StrPtrEquals(e.ClientId, r.ClientId) },
-			expected: e.ClientId,
-			received: r.ClientId,
-		},
-		{
-			name:     "clientType",
-			cmp:      func() bool { return StrPtrEquals(e.ClientType, r.ClientType) },
-			expected: e.ClientType,
-			received: r.ClientType,
+			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
+			received: strconv.FormatInt(Int64Deref(r.Id), 10),
 		},
 	}
 

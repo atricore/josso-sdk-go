@@ -21,14 +21,11 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	var t = s.T()
 
 	// Test CRUD
-
+	crudName := "ida-a"
+	var orig *api.IdentityApplianceDefinitionDTO
+	var created api.IdentityApplianceDefinitionDTO
+	orig = createTestIdentityApplianceDefinitionDTO(crudName)
 	// Create
-	l, _ := StrToLocation("http://localhost/IDBUS/IDA-B")
-	orig := api.NewIdentityApplianceDefinitionDTO()
-	orig.SetName("ida-b")
-	orig.SetNamespace("com.atricore.idbus.ida.b")
-	orig.SetLocation(*l)
-	orig.SetDescription("IDA-B TEST !")
 
 	created, err := s.client.CreateAppliance(*orig)
 	if err != nil {
@@ -74,6 +71,48 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 		return
 	}
 
+	// Test empty list
+	listOfAll, err := s.client.GetAppliances()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if len(listOfAll) != 0 {
+		// The list should be emtpy
+		t.Errorf("Invalid number of elements found %d, expeted 0", len(listOfAll))
+		return
+	}
+
+	// List of created elements, order by Name, (these elements must have all the variables of the structure)
+	var listOfCreated [2]api.IdentityApplianceDefinitionDTO
+
+	element1 := createTestIdentityApplianceDefinitionDTO("ida-1")
+	listOfCreated[0], _ = s.client.CreateAppliance(*element1)
+
+	element2 := createTestIdentityApplianceDefinitionDTO("ida-2")
+	listOfCreated[1], _ = s.client.CreateAppliance(*element2)
+
+	// Get list from server
+	listOfRead, err := s.client.GetAppliances()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	// The list should have 2 elemetns
+	if len(listOfRead) != 2 {
+		// The list should be emtpy
+		t.Errorf("Invalid number of elements found %d, expected 2", len(listOfAll))
+		return
+	}
+}
+func createTestIdentityApplianceDefinitionDTO(name string) *api.IdentityApplianceDefinitionDTO {
+	l, _ := StrToLocation("http://localhost/IDBUS/IDA-B")
+	orig := api.NewIdentityApplianceDefinitionDTO()
+	orig.SetName(name)
+	orig.SetNamespace("com.atricore.idbus.ida.b")
+	orig.SetLocation(*l)
+	orig.SetDescription("IDA-B TEST !")
+	return orig
 }
 
 // -------------------------------------------------
@@ -87,20 +126,26 @@ func ApplianceFieldTestCreate(
 		{
 			name:     "name",
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: e.Name,
-			received: r.Name,
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
+		},
+		{
+			name:     "description",
+			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
+			expected: StrDeref(e.Description),
+			received: StrDeref(r.Description),
 		},
 		{
 			name:     "namespace",
 			cmp:      func() bool { return StrPtrEquals(e.Namespace, r.Namespace) },
-			expected: e.Namespace,
-			received: r.Namespace,
+			expected: StrDeref(e.Namespace),
+			received: StrDeref(r.Namespace),
 		},
 		{
 			name:     "location",
 			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
-			expected: e.Name,
-			received: r.Name,
+			expected: LocationToStr(e.Location),
+			received: LocationToStr(r.Location),
 		},
 	}
 }
@@ -114,17 +159,10 @@ func ApplianceFieldTestUpdate(
 		{
 			name:     "id",
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: e.Name,
-			received: r.Name,
-		},
-		{
-			name:     "elementId",
-			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
-			expected: e.Name,
-			received: r.Name,
+			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
+			received: strconv.FormatInt(Int64Deref(r.Id), 10),
 		},
 	}
-
 	return append(t, ApplianceFieldTestCreate(e, r)...)
 }
 

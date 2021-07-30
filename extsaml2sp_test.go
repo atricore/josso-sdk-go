@@ -170,18 +170,13 @@ func SpFieldTestCreate(
 			expected: StrDeref(e.Name),
 			received: StrDeref(r.Name),
 		},
+		/* TODO : Change for MD test
 		{
 			name:     "location",
 			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
 			expected: LocationToStr(e.Location),
 			received: LocationToStr(r.Location),
-		},
-		{
-			name:     "DisplayName",
-			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
-			expected: StrDeref(e.DisplayName),
-			received: StrDeref(r.DisplayName),
-		},
+		}, */
 	}
 }
 

@@ -6,22 +6,11 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-func (s *AccTestSuite) TestAccCliIdentityAppliance_basic() {
-	var t = s.T()
-	// Retrieve
-	retrieved, err := s.client.GetAppliance("ida-a")
-	if err != nil {
-		t.Errorf("retrieving identity appilance : %v", err)
-		return
-	}
-	t.Logf("Appliance: %#v", retrieved)
-}
-
 func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	var t = s.T()
 
 	// Test CRUD
-	crudName := "ida-a"
+	crudName := "ida-z"
 	var orig *api.IdentityApplianceDefinitionDTO
 	var created api.IdentityApplianceDefinitionDTO
 	orig = createTestIdentityApplianceDefinitionDTO(crudName)
@@ -38,7 +27,7 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	}
 
 	// Retrieve
-	retrieved, err := s.client.GetAppliance("ida-b")
+	retrieved, err := s.client.GetAppliance(crudName)
 	if err != nil {
 		t.Errorf("retrieving identity appilance : %v", err)
 		return

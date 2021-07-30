@@ -28,8 +28,6 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 		t.Error(err)
 		return
 	}
-	t.Logf("TTL %d", created.GetMessageTtl())
-	t.Logf("TTL %d", orig.GetMessageTtl())
 	if err := IdPValidateCreate(orig, &created); err != nil {
 		t.Errorf("creating idp : %v", err)
 		return
@@ -195,12 +193,6 @@ func IdPFieldTestCreate(
 			received: StrDeref(r.Name),
 		},
 		{
-			name:     "location",
-			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
-			expected: LocationToStr(e.Location),
-			received: LocationToStr(r.Location),
-		},
-		{
 			name:     "brandign",
 			cmp:      func() bool { return StrPtrEquals(e.UserDashboardBranding, r.UserDashboardBranding) },
 			expected: StrDeref(e.UserDashboardBranding),
@@ -211,12 +203,6 @@ func IdPFieldTestCreate(
 			cmp:      func() bool { return StrPtrEquals(e.DashboardUrl, r.DashboardUrl) },
 			expected: StrDeref(e.DashboardUrl),
 			received: StrDeref(r.DashboardUrl),
-		},
-		{
-			name:     "DisplayName",
-			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
-			expected: StrDeref(e.DisplayName),
-			received: StrDeref(r.DisplayName),
 		},
 		{
 			name:     "Description",
@@ -371,10 +357,16 @@ func IdPFieldTestUpdate(
 			received: strconv.FormatInt(Int64Deref(r.Id), 10),
 		},
 		{
-			name:     "ElementId",
+			name:     "elementId",
 			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
 			expected: StrDeref(e.ElementId),
 			received: StrDeref(r.ElementId),
+		},
+		{
+			name:     "location",
+			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
+			expected: LocationToStr(e.Location),
+			received: LocationToStr(r.Location),
 		},
 	}
 

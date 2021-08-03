@@ -237,20 +237,20 @@ func IdPFieldTestCreate(
 		{
 			name:     "MaxSessionsPerUser",
 			cmp:      func() bool { return Int32PtrEquals(e.MaxSessionsPerUser, r.MaxSessionsPerUser) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			expected: strconv.Itoa(int(Int32Deref(e.MaxSessionsPerUser))),
+			received: strconv.Itoa(int(Int32Deref(r.MaxSessionsPerUser))),
 		},
 		{
 			name:     "MessageTtl",
 			cmp:      func() bool { return Int32PtrEquals(e.MessageTtl, r.MessageTtl) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			expected: strconv.Itoa(int(Int32Deref(e.MessageTtl))),
+			received: strconv.Itoa(int(Int32Deref(r.MessageTtl))),
 		},
 		{
 			name:     "MessageTtlTolerance",
 			cmp:      func() bool { return Int32PtrEquals(e.MessageTtlTolerance, r.MessageTtlTolerance) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			expected: strconv.Itoa(int(Int32Deref(e.MessageTtlTolerance))),
+			received: strconv.Itoa(int(Int32Deref(r.MessageTtlTolerance))),
 		},
 		// {
 		// 	name:     "Oauth2Clients",
@@ -291,20 +291,20 @@ func IdPFieldTestCreate(
 		{
 			name:     "OidcAccessTokenTimeToLive",
 			cmp:      func() bool { return Int32PtrEquals(e.OidcAccessTokenTimeToLive, r.OidcAccessTokenTimeToLive) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			expected: strconv.Itoa(int(Int32Deref(e.OidcAccessTokenTimeToLive))),
+			received: strconv.Itoa(int(Int32Deref(r.OidcAccessTokenTimeToLive))),
 		},
 		{
 			name:     "OidcAuthzCodeTimeToLive",
 			cmp:      func() bool { return Int32PtrEquals(e.OidcAuthzCodeTimeToLive, r.OidcAuthzCodeTimeToLive) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			expected: strconv.Itoa(int(Int32Deref(e.OidcAuthzCodeTimeToLive))),
+			received: strconv.Itoa(int(Int32Deref(r.OidcAuthzCodeTimeToLive))),
 		},
 		{
 			name:     "OidcIdTokenTimeToLive",
 			cmp:      func() bool { return Int32PtrEquals(e.OidcIdTokenTimeToLive, r.OidcIdTokenTimeToLive) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			expected: strconv.Itoa(int(Int32Deref(e.OidcIdTokenTimeToLive))),
+			received: strconv.Itoa(int(Int32Deref(r.OidcIdTokenTimeToLive))),
 		},
 		{
 			name:     "OpenIdEnabled",

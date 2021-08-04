@@ -82,32 +82,46 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**CreateAppliance**](docs/DefaultApi.md#createappliance) | **Post** /iam-deploy/appliance | 
 *DefaultApi* | [**CreateExtSaml2Sp**](docs/DefaultApi.md#createextsaml2sp) | **Post** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**CreateIdP**](docs/DefaultApi.md#createidp) | **Post** /iam-deploy/idp | 
+*DefaultApi* | [**CreateIdSourceDb**](docs/DefaultApi.md#createidsourcedb) | **Post** /iam-deploy/idsourcedb | 
 *DefaultApi* | [**CreateIdSourceLdap**](docs/DefaultApi.md#createidsourceldap) | **Post** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**CreateIdVault**](docs/DefaultApi.md#createidvault) | **Post** /iam-deploy/idvault | 
+*DefaultApi* | [**CreateIntSaml2Sp**](docs/DefaultApi.md#createintsaml2sp) | **Post** /iam-deploy/intsaml2sp | 
 *DefaultApi* | [**CreateOidcRp**](docs/DefaultApi.md#createoidcrp) | **Post** /iam-deploy/oidcrp | 
+*DefaultApi* | [**CreateVirtSaml2Sp**](docs/DefaultApi.md#createvirtsaml2sp) | **Post** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
 *DefaultApi* | [**DeleteExtSaml2Sp**](docs/DefaultApi.md#deleteextsaml2sp) | **Delete** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**DeleteIdP**](docs/DefaultApi.md#deleteidp) | **Delete** /iam-deploy/idp | 
+*DefaultApi* | [**DeleteIdSourceDb**](docs/DefaultApi.md#deleteidsourcedb) | **Delete** /iam-deploy/idsourcedb | 
 *DefaultApi* | [**DeleteIdSourceLdap**](docs/DefaultApi.md#deleteidsourceldap) | **Delete** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**DeleteIdVault**](docs/DefaultApi.md#deleteidvault) | **Delete** /iam-deploy/idvault | 
 *DefaultApi* | [**DeleteOidcRp**](docs/DefaultApi.md#deleteoidcrp) | **Delete** /iam-deploy/oidcrp | 
+*DefaultApi* | [**DeleteVirtSaml2Sp**](docs/DefaultApi.md#deletevirtsaml2sp) | **Delete** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
 *DefaultApi* | [**GetExtSaml2Sp**](docs/DefaultApi.md#getextsaml2sp) | **Get** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**GetExtSaml2Sps**](docs/DefaultApi.md#getextsaml2sps) | **Get** /iam-deploy/extsaml2sps | 
 *DefaultApi* | [**GetIdP**](docs/DefaultApi.md#getidp) | **Get** /iam-deploy/idp | 
 *DefaultApi* | [**GetIdPs**](docs/DefaultApi.md#getidps) | **Get** /iam-deploy/idps | 
+*DefaultApi* | [**GetIdSourceDb**](docs/DefaultApi.md#getidsourcedb) | **Get** /iam-deploy/idsourcedb | 
+*DefaultApi* | [**GetIdSourceDbs**](docs/DefaultApi.md#getidsourcedbs) | **Get** /iam-deploy/idsourcedbs | 
 *DefaultApi* | [**GetIdSourceLdap**](docs/DefaultApi.md#getidsourceldap) | **Get** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**GetIdSourceLdaps**](docs/DefaultApi.md#getidsourceldaps) | **Get** /iam-deploy/idsourceldaps | 
 *DefaultApi* | [**GetIdVault**](docs/DefaultApi.md#getidvault) | **Get** /iam-deploy/idvault | 
 *DefaultApi* | [**GetIdVaults**](docs/DefaultApi.md#getidvaults) | **Get** /iam-deploy/idvaults | 
+*DefaultApi* | [**GetIntSaml2Sp**](docs/DefaultApi.md#getintsaml2sp) | **Get** /iam-deploy/intsaml2sp | 
+*DefaultApi* | [**GetIntSaml2Sps**](docs/DefaultApi.md#getintsaml2sps) | **Get** /iam-deploy/intsaml2sps | 
 *DefaultApi* | [**GetOidcRp**](docs/DefaultApi.md#getoidcrp) | **Get** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetOidcRps**](docs/DefaultApi.md#getoidcrps) | **Get** /iam-deploy/oidcrps | 
+*DefaultApi* | [**GetVirtSaml2Sp**](docs/DefaultApi.md#getvirtsaml2sp) | **Get** /iam-deploy/virtsaml2sp | 
+*DefaultApi* | [**GetVirtSaml2Sps**](docs/DefaultApi.md#getvirtsaml2sps) | **Get** /iam-deploy/virtsaml2sps | 
 *DefaultApi* | [**ImportAppliance**](docs/DefaultApi.md#importappliance) | **Post** /iam-deploy/appliance/import | 
 *DefaultApi* | [**SignOn**](docs/DefaultApi.md#signon) | **Post** /iam-authn/sign-on | 
 *DefaultApi* | [**UdpateExtSaml2Sp**](docs/DefaultApi.md#udpateextsaml2sp) | **Put** /iam-deploy/extsaml2sp | 
+*DefaultApi* | [**UdpateIntSaml2Sp**](docs/DefaultApi.md#udpateintsaml2sp) | **Put** /iam-deploy/intsaml2sp | 
+*DefaultApi* | [**UdpateVirtSaml2Sp**](docs/DefaultApi.md#udpatevirtsaml2sp) | **Put** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**UpdateAppliance**](docs/DefaultApi.md#updateappliance) | **Put** /iam-deploy/appliance | 
 *DefaultApi* | [**UpdateIdP**](docs/DefaultApi.md#updateidp) | **Put** /iam-deploy/idp | 
+*DefaultApi* | [**UpdateIdSourceDb**](docs/DefaultApi.md#updateidsourcedb) | **Put** /iam-deploy/idsourcedb | 
 *DefaultApi* | [**UpdateIdSourceLdap**](docs/DefaultApi.md#updateidsourceldap) | **Put** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**UpdateIdVault**](docs/DefaultApi.md#updateidvault) | **Put** /iam-deploy/idvault | 
 *DefaultApi* | [**UpdateOidcRp**](docs/DefaultApi.md#updateoidcrp) | **Put** /iam-deploy/oidcrp | 
@@ -125,6 +139,7 @@ Class | Method | HTTP request | Description
  - [AuthenticationServiceDTO](docs/AuthenticationServiceDTO.md)
  - [CustomClassDTO](docs/CustomClassDTO.md)
  - [CustomClassPropertyDTO](docs/CustomClassPropertyDTO.md)
+ - [DbIdentitySourceDTO](docs/DbIdentitySourceDTO.md)
  - [DelegatedAuthenticationDTO](docs/DelegatedAuthenticationDTO.md)
  - [DeleteReq](docs/DeleteReq.md)
  - [DeleteRes](docs/DeleteRes.md)
@@ -146,15 +161,24 @@ Class | Method | HTTP request | Description
  - [GetIdPReq](docs/GetIdPReq.md)
  - [GetIdPRes](docs/GetIdPRes.md)
  - [GetIdPsRes](docs/GetIdPsRes.md)
+ - [GetIdSourceDbReq](docs/GetIdSourceDbReq.md)
+ - [GetIdSourceDbRes](docs/GetIdSourceDbRes.md)
+ - [GetIdSourceDbsRes](docs/GetIdSourceDbsRes.md)
  - [GetIdSourceLdapReq](docs/GetIdSourceLdapReq.md)
  - [GetIdSourceLdapRes](docs/GetIdSourceLdapRes.md)
  - [GetIdSourceLdapsRes](docs/GetIdSourceLdapsRes.md)
  - [GetIdVaultReq](docs/GetIdVaultReq.md)
  - [GetIdVaultRes](docs/GetIdVaultRes.md)
  - [GetIdVaultsRes](docs/GetIdVaultsRes.md)
+ - [GetIntSaml2SpReq](docs/GetIntSaml2SpReq.md)
+ - [GetIntSaml2SpRes](docs/GetIntSaml2SpRes.md)
+ - [GetIntSaml2SpsRes](docs/GetIntSaml2SpsRes.md)
  - [GetOidcRpReq](docs/GetOidcRpReq.md)
  - [GetOidcRpRes](docs/GetOidcRpRes.md)
  - [GetOidcRpsRes](docs/GetOidcRpsRes.md)
+ - [GetVirtSaml2SpReq](docs/GetVirtSaml2SpReq.md)
+ - [GetVirtSaml2SpRes](docs/GetVirtSaml2SpRes.md)
+ - [GetVirtSaml2SpsRes](docs/GetVirtSaml2SpsRes.md)
  - [GroupDTO](docs/GroupDTO.md)
  - [IdentityApplianceDefinitionDTO](docs/IdentityApplianceDefinitionDTO.md)
  - [IdentityApplianceSecurityConfigDTO](docs/IdentityApplianceSecurityConfigDTO.md)
@@ -187,16 +211,23 @@ Class | Method | HTTP request | Description
  - [StoreExtSaml2SpRes](docs/StoreExtSaml2SpRes.md)
  - [StoreIdPReq](docs/StoreIdPReq.md)
  - [StoreIdPRes](docs/StoreIdPRes.md)
+ - [StoreIdSourceDbReq](docs/StoreIdSourceDbReq.md)
+ - [StoreIdSourceDbRes](docs/StoreIdSourceDbRes.md)
  - [StoreIdSourceLdapReq](docs/StoreIdSourceLdapReq.md)
  - [StoreIdSourceLdapRes](docs/StoreIdSourceLdapRes.md)
  - [StoreIdVaultReq](docs/StoreIdVaultReq.md)
  - [StoreIdVaultRes](docs/StoreIdVaultRes.md)
+ - [StoreIntSaml2SpReq](docs/StoreIntSaml2SpReq.md)
+ - [StoreIntSaml2SpRes](docs/StoreIntSaml2SpRes.md)
  - [StoreOidcRpReq](docs/StoreOidcRpReq.md)
  - [StoreOidcRpRes](docs/StoreOidcRpRes.md)
+ - [StoreVirtSaml2SpReq](docs/StoreVirtSaml2SpReq.md)
+ - [StoreVirtSaml2SpRes](docs/StoreVirtSaml2SpRes.md)
  - [SubjectAuthenticationPolicyDTO](docs/SubjectAuthenticationPolicyDTO.md)
  - [SubjectNameIdentifierPolicyDTO](docs/SubjectNameIdentifierPolicyDTO.md)
  - [UserDTO](docs/UserDTO.md)
  - [UserDashboardBrandingDTO](docs/UserDashboardBrandingDTO.md)
+ - [VirtualSaml2ServiceProviderDTO](docs/VirtualSaml2ServiceProviderDTO.md)
 
 
 ## Documentation For Authorization

@@ -80,6 +80,7 @@ All URIs are relative to *http://localhost:8081/atricore-res/services*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**CreateAppliance**](docs/DefaultApi.md#createappliance) | **Post** /iam-deploy/appliance | 
+*DefaultApi* | [**CreateDbIdVault**](docs/DefaultApi.md#createdbidvault) | **Post** /iam-deploy/dbidvault | 
 *DefaultApi* | [**CreateExtSaml2Sp**](docs/DefaultApi.md#createextsaml2sp) | **Post** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**CreateIdP**](docs/DefaultApi.md#createidp) | **Post** /iam-deploy/idp | 
 *DefaultApi* | [**CreateIdSourceDb**](docs/DefaultApi.md#createidsourcedb) | **Post** /iam-deploy/idsourcedb | 
@@ -89,15 +90,18 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**CreateOidcRp**](docs/DefaultApi.md#createoidcrp) | **Post** /iam-deploy/oidcrp | 
 *DefaultApi* | [**CreateVirtSaml2Sp**](docs/DefaultApi.md#createvirtsaml2sp) | **Post** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
+*DefaultApi* | [**DeleteDbIdVault**](docs/DefaultApi.md#deletedbidvault) | **Delete** /iam-deploy/dbidvault | 
 *DefaultApi* | [**DeleteExtSaml2Sp**](docs/DefaultApi.md#deleteextsaml2sp) | **Delete** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**DeleteIdP**](docs/DefaultApi.md#deleteidp) | **Delete** /iam-deploy/idp | 
 *DefaultApi* | [**DeleteIdSourceDb**](docs/DefaultApi.md#deleteidsourcedb) | **Delete** /iam-deploy/idsourcedb | 
 *DefaultApi* | [**DeleteIdSourceLdap**](docs/DefaultApi.md#deleteidsourceldap) | **Delete** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**DeleteIdVault**](docs/DefaultApi.md#deleteidvault) | **Delete** /iam-deploy/idvault | 
+*DefaultApi* | [**DeleteIntSaml2Sp**](docs/DefaultApi.md#deleteintsaml2sp) | **Delete** /iam-deploy/intsaml2sp | 
 *DefaultApi* | [**DeleteOidcRp**](docs/DefaultApi.md#deleteoidcrp) | **Delete** /iam-deploy/oidcrp | 
 *DefaultApi* | [**DeleteVirtSaml2Sp**](docs/DefaultApi.md#deletevirtsaml2sp) | **Delete** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
+*DefaultApi* | [**GetDbIdVaults**](docs/DefaultApi.md#getdbidvaults) | **Get** /iam-deploy/dbidvault | 
 *DefaultApi* | [**GetExtSaml2Sp**](docs/DefaultApi.md#getextsaml2sp) | **Get** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**GetExtSaml2Sps**](docs/DefaultApi.md#getextsaml2sps) | **Get** /iam-deploy/extsaml2sps | 
 *DefaultApi* | [**GetIdP**](docs/DefaultApi.md#getidp) | **Get** /iam-deploy/idp | 
@@ -120,6 +124,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**UdpateIntSaml2Sp**](docs/DefaultApi.md#udpateintsaml2sp) | **Put** /iam-deploy/intsaml2sp | 
 *DefaultApi* | [**UdpateVirtSaml2Sp**](docs/DefaultApi.md#udpatevirtsaml2sp) | **Put** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**UpdateAppliance**](docs/DefaultApi.md#updateappliance) | **Put** /iam-deploy/appliance | 
+*DefaultApi* | [**UpdateDbIdVault**](docs/DefaultApi.md#updatedbidvault) | **Put** /iam-deploy/dbidvault | 
 *DefaultApi* | [**UpdateIdP**](docs/DefaultApi.md#updateidp) | **Put** /iam-deploy/idp | 
 *DefaultApi* | [**UpdateIdSourceDb**](docs/DefaultApi.md#updateidsourcedb) | **Put** /iam-deploy/idsourcedb | 
 *DefaultApi* | [**UpdateIdSourceLdap**](docs/DefaultApi.md#updateidsourceldap) | **Put** /iam-deploy/idsourceldap | 
@@ -140,6 +145,7 @@ Class | Method | HTTP request | Description
  - [CustomClassDTO](docs/CustomClassDTO.md)
  - [CustomClassPropertyDTO](docs/CustomClassPropertyDTO.md)
  - [DbIdentitySourceDTO](docs/DbIdentitySourceDTO.md)
+ - [DbIdentityVaultDTO](docs/DbIdentityVaultDTO.md)
  - [DelegatedAuthenticationDTO](docs/DelegatedAuthenticationDTO.md)
  - [DeleteReq](docs/DeleteReq.md)
  - [DeleteRes](docs/DeleteRes.md)
@@ -155,6 +161,9 @@ Class | Method | HTTP request | Description
  - [GetApplianceReq](docs/GetApplianceReq.md)
  - [GetApplianceRes](docs/GetApplianceRes.md)
  - [GetAppliancesRes](docs/GetAppliancesRes.md)
+ - [GetDbIdVaultReq](docs/GetDbIdVaultReq.md)
+ - [GetDbIdVaultRes](docs/GetDbIdVaultRes.md)
+ - [GetDbIdVaultsRes](docs/GetDbIdVaultsRes.md)
  - [GetExtSaml2SpReq](docs/GetExtSaml2SpReq.md)
  - [GetExtSaml2SpRes](docs/GetExtSaml2SpRes.md)
  - [GetExtSaml2SpsRes](docs/GetExtSaml2SpsRes.md)
@@ -207,6 +216,8 @@ Class | Method | HTTP request | Description
  - [SessionManagerFactoryDTO](docs/SessionManagerFactoryDTO.md)
  - [StoreApplianceReq](docs/StoreApplianceReq.md)
  - [StoreApplianceRes](docs/StoreApplianceRes.md)
+ - [StoreDbIdVaultReq](docs/StoreDbIdVaultReq.md)
+ - [StoreDbIdVaultRes](docs/StoreDbIdVaultRes.md)
  - [StoreExtSaml2SpReq](docs/StoreExtSaml2SpReq.md)
  - [StoreExtSaml2SpRes](docs/StoreExtSaml2SpRes.md)
  - [StoreIdPReq](docs/StoreIdPReq.md)

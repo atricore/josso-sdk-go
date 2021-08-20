@@ -107,10 +107,10 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 		t.Error(err)
 		return
 	}
-	// The list should have 2 elemetns
-	if len(listOfRead) != 2 {
+	// The list should have listOfCreated lenght elemetns
+	if len(listOfRead) != len(listOfCreated) {
 		// The list should be emtpy
-		t.Errorf("Invalid number of elements found %d, expected 2", len(listOfAll))
+		t.Errorf("Invalid number of elements found %d, expected %d", len(listOfAll), len(listOfCreated))
 		return
 	}
 

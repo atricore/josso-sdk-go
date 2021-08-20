@@ -7,22 +7,22 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-// Creates a new SP in the provided identity appliance. It receives the appliance name or id and the SP dto to use as template
-func (c *IdbusApiClient) CreateExtSaml2Sp(ida string, sp api.ExternalSaml2ServiceProviderDTO) (api.ExternalSaml2ServiceProviderDTO, error) {
+// Creates a new ExtSaml2Sp in the provided identity appliance. It receives the appliance name or id and the SP dto to use as template
+func (c *IdbusApiClient) CreateExtSaml2Sp(ida string, extsp api.ExternalSaml2ServiceProviderDTO) (api.ExternalSaml2ServiceProviderDTO, error) {
 	var result api.ExternalSaml2ServiceProviderDTO
 	l := c.Logger()
 
-	l.Debugf("createExtSaml2Sp : %s [%s]", *sp.Name, ida)
+	l.Debugf("createExtSaml2Sp : %s [%s]", *extsp.Name, ida)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.CreateExtSaml2Sp") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
 	}
 
-	initExtSaml2Sp(&sp)
+	ExtSaml2Sp(&extsp)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateExtSaml2Sp(ctx)
-	req = req.StoreExtSaml2SpReq(api.StoreExtSaml2SpReq{IdaName: &ida, Sp: &sp})
+	req = req.StoreExtSaml2SpReq(api.StoreExtSaml2SpReq{IdaName: &ida, Sp: &extsp})
 	res, _, err := c.apiClient.DefaultApi.CreateExtSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreateExtSaml2Sp. Error %v", err)
@@ -54,7 +54,7 @@ func (c *IdbusApiClient) UpdateExtSaml2Sp(ida string, sp api.ExternalSaml2Servic
 		return result, err
 	}
 
-	initExtSaml2Sp(&sp)
+	ExtSaml2Sp(&sp)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UdpateExtSaml2Sp(ctx)
@@ -181,7 +181,7 @@ func (c *IdbusApiClient) GetExtSaml2Sps(ida string) ([]api.ExternalSaml2ServiceP
 
 }
 
-func initExtSaml2Sp(ExtSaml2Sp *api.ExternalSaml2ServiceProviderDTO) {
+func ExtSaml2Sp(ExtSaml2Sp *api.ExternalSaml2ServiceProviderDTO) {
 	ExtSaml2Sp.AdditionalProperties = make(map[string]interface{})
 	ExtSaml2Sp.AdditionalProperties["@c"] = ".ExternalSaml2ServiceProviderDTO"
 }

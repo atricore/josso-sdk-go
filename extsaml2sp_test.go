@@ -23,7 +23,7 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 		t.Error(err)
 		return
 	}
-	crudName := "Extsmal2-a"
+	crudName := "Extsaml2-a"
 	var orig *api.ExternalSaml2ServiceProviderDTO
 	var created api.ExternalSaml2ServiceProviderDTO
 	orig = createTestExternalSaml2ServiceProviderDTO(crudName)
@@ -94,10 +94,10 @@ func (s *AccTestSuite) TestAccCliExtSaml2_crud() {
 	var listOfCreated [2]api.ExternalSaml2ServiceProviderDTO
 
 	// Test list of #2 elements
-	element1 := createTestExternalSaml2ServiceProviderDTO("Extsmal2-1")
+	element1 := createTestExternalSaml2ServiceProviderDTO("Extsaml2-1")
 	listOfCreated[0], _ = s.client.CreateExtSaml2Sp(*appliance.Name, *element1)
 
-	element2 := createTestExternalSaml2ServiceProviderDTO("Extsmal2-2")
+	element2 := createTestExternalSaml2ServiceProviderDTO("Extsaml2-2")
 	listOfCreated[1], _ = s.client.CreateExtSaml2Sp(*appliance.Name, *element2)
 
 	// ------------------------

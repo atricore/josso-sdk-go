@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -128,25 +129,23 @@ func (s *AccTestSuite) TestAccCliDbIdentityvaultDto() {
 func createTestDbIdentityVaultDto(name string) *api.DbIdentityVaultDTO {
 	orig := api.NewDbIdentityVaultDTO()
 	orig.SetAcquireIncrement(1)
-	orig.SetConnectionUrl("")
-	orig.SetDescription("")
-	orig.SetDriverName("")
-	orig.SetElementId("")
+	orig.SetConnectionUrl(fmt.Sprintf("jdbc:mysql:localhost/%s?create=true", name))
+	orig.SetDescription(fmt.Sprintf("Description %d", name))
+	orig.SetDriverName(fmt.Sprintf("org.mysql.driver"))
 	orig.SetExternalDB(true)
-	orig.SetHashAlgorithm("")
-	orig.SetHashEncoding("")
-	orig.SetId(1)
+	orig.SetHashAlgorithm("SHA267")
+	orig.SetHashEncoding("BASE64")
 	orig.SetIdleConnectionTestPeriod(1)
-	orig.SetInitialPoolSize(1)
-	orig.SetMaxIdleTime(1)
-	orig.SetMaxPoolSize(1)
+	orig.SetInitialPoolSize(10)
+	orig.SetMaxIdleTime(15)
+	orig.SetMaxPoolSize(20)
 	orig.SetMinPoolSize(1)
-	orig.SetName("")
-	orig.SetPassword("")
+	orig.SetName(name)
+	orig.SetPassword(fmt.Sprint("pwd_%d", name))
 	orig.SetPooledDatasource(true)
-	orig.SetSaltLength(1)
-	orig.SetSaltValue("")
-	orig.SetUsername("")
+	orig.SetSaltLength(55)
+	orig.SetSaltValue("salt#")
+	orig.SetUsername(fmt.Sprint("db_%d", name))
 	return orig
 }
 

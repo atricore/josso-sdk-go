@@ -101,7 +101,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**DeleteVirtSaml2Sp**](docs/DefaultApi.md#deletevirtsaml2sp) | **Delete** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
-*DefaultApi* | [**GetDbIdVaults**](docs/DefaultApi.md#getdbidvaults) | **Get** /iam-deploy/dbidvault | 
+*DefaultApi* | [**GetDbIdVault**](docs/DefaultApi.md#getdbidvault) | **Get** /iam-deploy/dbidvault | 
+*DefaultApi* | [**GetDbIdVaults**](docs/DefaultApi.md#getdbidvaults) | **Get** /iam-deploy/dbidvaults | 
 *DefaultApi* | [**GetExtSaml2Sp**](docs/DefaultApi.md#getextsaml2sp) | **Get** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**GetExtSaml2Sps**](docs/DefaultApi.md#getextsaml2sps) | **Get** /iam-deploy/extsaml2sps | 
 *DefaultApi* | [**GetIdP**](docs/DefaultApi.md#getidp) | **Get** /iam-deploy/idp | 

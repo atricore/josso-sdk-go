@@ -130,8 +130,8 @@ func createTestDbIdentityVaultDto(name string) *api.DbIdentityVaultDTO {
 	orig := api.NewDbIdentityVaultDTO()
 	orig.SetAcquireIncrement(1)
 	orig.SetConnectionUrl(fmt.Sprintf("jdbc:mysql:localhost/%s?create=true", name))
-	orig.SetDescription(fmt.Sprintf("Description %d", name))
-	orig.SetDriverName(fmt.Sprintf("org.mysql.driver"))
+	orig.SetDescription(fmt.Sprint("Description", name))
+	orig.SetDriverName(fmt.Sprintln("org.mysql.driver"))
 	orig.SetExternalDB(true)
 	orig.SetHashAlgorithm("SHA267")
 	orig.SetHashEncoding("BASE64")
@@ -141,11 +141,11 @@ func createTestDbIdentityVaultDto(name string) *api.DbIdentityVaultDTO {
 	orig.SetMaxPoolSize(20)
 	orig.SetMinPoolSize(1)
 	orig.SetName(name)
-	orig.SetPassword(fmt.Sprint("pwd_%d", name))
+	orig.SetPassword(fmt.Sprint("pdw", name))
 	orig.SetPooledDatasource(true)
 	orig.SetSaltLength(55)
 	orig.SetSaltValue("salt#")
-	orig.SetUsername(fmt.Sprint("db_%d", name))
+	orig.SetUsername(fmt.Sprint("db", name))
 	return orig
 }
 

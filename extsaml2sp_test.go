@@ -158,9 +158,6 @@ func createTestExternalSaml2ServiceProviderDTO(name string) *api.ExternalSaml2Se
 	var DelegatedAuthenticationDTO []api.DelegatedAuthenticationDTO
 	DelegatedAuthenticationDTO1 := api.NewDelegatedAuthenticationDTO()
 	DelegatedAuthenticationDTO2 := api.NewDelegatedAuthenticationDTO()
-	var SubjectNameIdentifierPolicyDTO []api.SubjectNameIdentifierPolicyDTO
-	SubjectNameIdentifierPolicyDTO1 := api.NewSubjectNameIdentifierPolicyDTO()
-	SubjectNameIdentifierPolicyDTO2 := api.NewSubjectNameIdentifierPolicyDTO()
 	var IdentityProviderDTO api.IdentityProviderDTO
 	var AttributeProfileDTO api.AttributeProfileDTO
 	var AuthenticationContractDTO api.AuthenticationContractDTO
@@ -453,19 +450,6 @@ func createTestExternalSaml2ServiceProviderDTO(name string) *api.ExternalSaml2Se
 	SubjectNameIdentifierPolicy.SetName("")
 	SubjectNameIdentifierPolicy.SetSubjectAttribute("")
 	SubjectNameIdentifierPolicy.SetType("")
-
-	SubjectNameIdentifierPolicyDTO1.SetDescriptionKey("")
-	SubjectNameIdentifierPolicyDTO1.SetId("")
-	SubjectNameIdentifierPolicyDTO1.SetName("")
-	SubjectNameIdentifierPolicyDTO1.SetSubjectAttribute("")
-	SubjectNameIdentifierPolicyDTO1.SetType("")
-	SubjectNameIdentifierPolicyDTO = append(SubjectNameIdentifierPolicyDTO, *SubjectNameIdentifierPolicyDTO1)
-	SubjectNameIdentifierPolicyDTO2.SetDescriptionKey("")
-	SubjectNameIdentifierPolicyDTO2.SetId("")
-	SubjectNameIdentifierPolicyDTO2.SetName("")
-	SubjectNameIdentifierPolicyDTO2.SetSubjectAttribute("")
-	SubjectNameIdentifierPolicyDTO2.SetType("")
-	SubjectNameIdentifierPolicyDTO = append(SubjectNameIdentifierPolicyDTO, *SubjectNameIdentifierPolicyDTO2)
 
 	OAuth2ClientDTO1.SetBaseURL("")
 	OAuth2ClientDTO1.SetId("")

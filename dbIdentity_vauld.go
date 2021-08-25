@@ -120,7 +120,7 @@ func (c *IdbusApiClient) GetDbIdentityVaultDto(ida string, intDbVault string) (a
 	}
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
-	req := c.apiClient.DefaultApi.GetDbIdVault(ctx)
+	req := c.apiClient.DefaultApi.Get(ctx)
 	req = req.GetDbIdVaultReq(api.GetDbIdVaultReq{IdaName: &ida, Name: &intDbVault})
 	res, _, err := c.apiClient.DefaultApi.GetDbIdVaultExecute(req)
 	if err != nil {
@@ -138,7 +138,7 @@ func (c *IdbusApiClient) GetDbIdentityVaultDto(ida string, intDbVault string) (a
 		return result, nil
 	}
 
-	if res.DbIdVault != nil {
+	if res.DbIdVaults != nil {
 		result = *res.DbIdVault
 		c.logger.Debugf("GetDbIdentityVaultDto. %d found for ID/name %s", *result.Name, intDbVault)
 	} else {

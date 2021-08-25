@@ -245,7 +245,7 @@ func createTestExternalSaml2ServiceProviderDTO(name string) *api.ExternalSaml2Se
 	FederatedConnection.SetRoleA(FederatedProviderDTO)
 	FederatedConnection.SetRoleB(FederatedProviderDTO)
 	FederatedConnection.SetWaypoints(poi)
-	ExtSaml2Sp
+
 	UserDashboardBrandingDTO.SetId("")
 	UserDashboardBrandingDTO.SetName("")
 

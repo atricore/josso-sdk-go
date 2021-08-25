@@ -265,9 +265,10 @@ func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMecha
 
 	orig.SetDashboardUrl("http://localhost:8080/myapp")
 
-	// TODO :Get from paramter
-	// orig.SetAuthenticationMechanisms(auc1)
-	// orig.SetDelegatedAuthentications(DelegatedAuthenticationDTO)
+	// TODO :Get from paramter!! authns
+	orig.SetAuthenticationMechanisms(authns)
+	// TODO Build array , use non-nil delegatedauthns from authn elements
+	orig.SetDelegatedAuthentications()
 
 	orig.SetDescription("IdP One")
 	orig.SetDestroyPreviousSession(true)

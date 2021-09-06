@@ -140,7 +140,7 @@ func (c *IdbusApiClient) GetExtSaml2Sp(ida string, sp string) (api.ExternalSaml2
 
 	if res.Sp != nil {
 		result = *res.Sp
-		c.logger.Debugf("GetExtSaml2Sp. %d found for ID/name %s", *result.Name, sp)
+		c.logger.Debugf("GetExtSaml2Sp. %s found for ID/name %s", *result.Name, sp)
 	} else {
 		c.logger.Debugf("GetExtSaml2Sp. not found for ID/name %s", sp)
 	}

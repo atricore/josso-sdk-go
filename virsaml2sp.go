@@ -140,7 +140,7 @@ func (c *IdbusApiClient) GetVirtSaml2Sp(ida string, sp string) (api.VirtualSaml2
 
 	if res.Sp != nil {
 		result = *res.Sp
-		c.logger.Debugf("GetVirtSaml2Sp. %d found for ID/name %s", *result.Name, sp)
+		c.logger.Debugf("GetVirtSaml2Sp. %s found for ID/name %s", *result.Name, sp)
 	} else {
 		c.logger.Debugf("GetVirtSaml2Sp. not found for ID/name %s", sp)
 	}

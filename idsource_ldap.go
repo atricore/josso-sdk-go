@@ -139,7 +139,7 @@ func (c *IdbusApiClient) GetIdSourceLdap(ida string, idSourceLdap string) (api.L
 
 	if res.IdSourceLdap != nil {
 		result = *res.IdSourceLdap
-		c.logger.Debugf("getIdSourceLdap. %d found for ID/name %s", *result.Name, idSourceLdap)
+		c.logger.Debugf("getIdSourceLdap. %s found for ID/name %s", *result.Name, idSourceLdap)
 	} else {
 		c.logger.Debugf("getIdSourceLdap. not found for ID/name %s", idSourceLdap)
 	}

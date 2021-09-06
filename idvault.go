@@ -139,7 +139,7 @@ func (c *IdbusApiClient) GetIdVault(ida string, idVault string) (api.EmbeddedIde
 
 	if res.IdVault != nil {
 		result = *res.IdVault
-		c.logger.Debugf("getIdVault. %d found for ID/name %s", *result.Name, idVault)
+		c.logger.Debugf("getIdVault. %s found for ID/name %s", *result.Name, idVault)
 	} else {
 		c.logger.Debugf("getIdVault. not found for ID/name %s", idVault)
 	}

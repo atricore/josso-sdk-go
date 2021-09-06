@@ -140,7 +140,7 @@ func (c *IdbusApiClient) GetIdp(ida string, idp string) (api.IdentityProviderDTO
 
 	if res.Idp != nil {
 		result = *res.Idp
-		c.logger.Debugf("getIdP. %d found for ID/name %s", *result.Name, idp)
+		c.logger.Debugf("getIdP. %s found for ID/name %s", *result.Name, idp)
 	} else {
 		c.logger.Debugf("getIdP. not found for ID/name %s", idp)
 	}

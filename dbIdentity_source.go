@@ -140,7 +140,7 @@ func (c *IdbusApiClient) GetDbIdentitySourceDTO(ida string, intDbSource string) 
 
 	if res.IdSourceDb != nil {
 		result = *res.IdSourceDb
-		c.logger.Debugf("GetDbIdentitySourceDTO. %d found for ID/name %s", *result.Name, intDbSource)
+		c.logger.Debugf("GetDbIdentitySourceDTO. %s found for ID/name %s", *result.Name, intDbSource)
 	} else {
 		c.logger.Debugf("GetDbIdentitySourceDTO. not found for ID/name %s", intDbSource)
 	}

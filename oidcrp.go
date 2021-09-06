@@ -140,7 +140,7 @@ func (c *IdbusApiClient) GetOidcRp(ida string, oidcRp string) (api.ExternalOpenI
 
 	if res.OidcRp != nil {
 		result = *res.OidcRp
-		c.logger.Debugf("getOidcRp. %d found for ID/name %s", *result.Name, oidcRp)
+		c.logger.Debugf("getOidcRp. %s found for ID/name %s", *result.Name, oidcRp)
 	} else {
 		c.logger.Debugf("getOidcRp. not found for ID/name %s", oidcRp)
 	}

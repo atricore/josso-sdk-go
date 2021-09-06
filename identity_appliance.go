@@ -126,7 +126,7 @@ func (c *IdbusApiClient) GetAppliance(idOrName string) (api.IdentityApplianceDef
 
 	if res.Appliance != nil {
 		result = *res.Appliance
-		c.logger.Debugf("getAppliance. %d found for ID/name %s", *result.Id, idOrName)
+		c.logger.Debugf("getAppliance. %s found for ID/name %s", *result.Id, idOrName)
 	} else {
 		c.logger.Debugf("getAppliance. not found for ID/name %s", idOrName)
 	}

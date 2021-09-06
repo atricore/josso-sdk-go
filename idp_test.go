@@ -20,8 +20,10 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 	crudName := "idp-1"
 	var orig *api.IdentityProviderDTO
 	var created api.IdentityProviderDTO
-	// TODO : create array with value to use in next call : createTestBasicAuthn()
-	orig, err = createTestIdentityProviderDTO(crudName)
+
+	var authn []api.AuthenticationMechanismDTO
+	authn = append(authn, createTestBasicAuthn())
+	orig, err = createTestIdentityProviderDTO(crudName, authn)
 	if err != nil {
 		t.Error(err)
 		return
@@ -95,10 +97,25 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 	// List of created elements, order by Name
 	var listOfCreated [2]api.IdentityProviderDTO
 	// Test list of #2 elements
-	element1 := createTestIdentityProviderDTO("ids-1")
+
+	// Idp - 1
+	var authns1 []api.AuthenticationMechanismDTO
+	authns1 = append(authns1, createTestBasicAuthn())
+	element1, err := createTestIdentityProviderDTO("ids-1", authns1)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	listOfCreated[0], _ = s.client.CreateIdp(*appliance.Name, *element1)
 
-	element2 := createTestIdentityProviderDTO("ids-2")
+	// Idp - 2
+	var authns2 []api.AuthenticationMechanismDTO
+	authns2 = append(authns2, createTestBasicAuthn())
+	element2, err := createTestIdentityProviderDTO("ids-2", authns2)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	listOfCreated[1], _ = s.client.CreateIdp(*appliance.Name, *element2)
 
 	// ------------------------
@@ -134,48 +151,44 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 // Creates an new AuthenticationMechanisDTO for basic authentication.
 func createTestBasicAuthn() api.AuthenticationMechanismDTO {
 	var authn api.AuthenticationMechanismDTO
-	// TODO : Implement
-	/*
-		Struct properties
 
-		"name": "idp-basic-authn",
-		"displayName": "idp-basic-authn",
-		"priority": 1,
-		"delegatedAuthentication": null,
-	*/
 	authn.SetName("idp-basic-authn")
+	authn.SetDisplayName("idp-basic-authn")
 	authn.SetPriority(1)
-
-	/*
-	       Additional properties
-	   	"@c": ".BasicAuthenticationDTO",
-	   	"hashAlgorithm": "SHA-512",
-	   	"hashEncoding": "BASE64",
-	   	"ignoreUsernameCase": false,
-	   	"ignorePasswordCase": false,
-	   	"saltLength": 0,
-	   	"saltPrefix": "",
-	   	"saltSuffix": "",
-	   	"impersonateUserPolicy": null,
-	   	"simpleAuthnSaml2AuthnCtxClass": "urn:oasis:names:tc:SAML:2.0:ac:classes:Password",
-	*/
 
 	authn.AdditionalProperties["@c"] = ".BasicAuthenticationDTO"
 	authn.AdditionalProperties["hashAlgorithm"] = "SHA-512"
+	authn.AdditionalProperties["hashEncoding"] = "BASE64"
+	authn.AdditionalProperties["ignoreUsernamecase"] = false
+	authn.AdditionalProperties["ignorePassowordCase"] = false
+	authn.AdditionalProperties["SaltLength"] = 0
+	authn.AdditionalProperties["saltPrefix"] = ""
+	authn.AdditionalProperties["saltSuffix"] = ""
+	authn.AdditionalProperties["impersonateUserPolicy"] = ""
+	authn.AdditionalProperties["simpleAuthnSaml2AuthnCtxClass"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:Password"
 
 	return authn
 }
 
-// Creates an new AuthenticationMechanisDTO for basic authentication.
+// Creates an new AuthenticationMechanisDTO for two-factor authentication.
 func createTest2FactorAuthn() api.AuthenticationMechanismDTO {
 	var authn api.AuthenticationMechanismDTO
-	// TODO : Implement
+
+	authn.SetDelegatedAuthentication(*authn.DelegatedAuthentication)
+	authn.SetDisplayName("")
+	authn.SetName("idp-2factor-authn")
+	authn.SetPriority(1)
+
+	authn.AdditionalProperties[""] = 0
+
+	authn.AdditionalProperties["@c"] = ".TwoFactorAuthenticationDTO"
+
 	return authn
 }
 
 // Receives an array of authentication mechanisms.  An authneticaiton mehcanism may or may not have a Delegated authentication.
 // All delegated authentications must be used : idp.SetDelegatedAuthentications.  Mechanisms go into idp.AuthenticationMechanisms
-func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMechanismDTO) (*api.IdentityProviderDTO, error) {
+func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechanismDTO) (*api.IdentityProviderDTO, error) {
 
 	var snip api.SubjectNameIdentifierPolicyDTO
 	var AuthenticationAssertionEmissionPolicyDTO api.AuthenticationAssertionEmissionPolicyDTO
@@ -192,12 +205,8 @@ func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMecha
 	SessionManagerFactoryDTO.SetName("")
 
 	// TODO : Set valid name/classifier
-	ExtensionDTO.SetClassifier("")
-	ExtensionDTO.SetId("")
-	ExtensionDTO.SetName("")
-	ExtensionDTO.SetNamespace("")
-	ExtensionDTO.SetProvider("")
-	ExtensionDTO.SetVersion("")
+	// ExtensionDTO.SetClassifier("")
+	// ExtensionDTO.SetName("")
 
 	UserDashboardBrandingDTO.SetId("")
 	UserDashboardBrandingDTO.SetName("")
@@ -206,15 +215,15 @@ func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMecha
 	EntitySelectionStrategyDTO.SetDescription("")
 	EntitySelectionStrategyDTO.SetName("")
 
-	AuthenticationAssertionEmissionPolicyDTO.SetElementId("")
-	AuthenticationAssertionEmissionPolicyDTO.SetId(1)
-	AuthenticationAssertionEmissionPolicyDTO.SetName("")
+	// AuthenticationAssertionEmissionPolicyDTO.SetElementId("")
+	// AuthenticationAssertionEmissionPolicyDTO.SetId(1)
+	// AuthenticationAssertionEmissionPolicyDTO.SetName("")
 
 	snip.SetDescriptionKey("")
 	snip.SetId("")
-	snip.SetName("")
+	snip.SetName("Principal")
 	snip.SetSubjectAttribute("")
-	snip.SetType("")
+	snip.SetType("PRINCIPAL")
 
 	// TODO : Use valid names
 	var saut []api.SubjectAuthenticationPolicyDTO
@@ -227,15 +236,28 @@ func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMecha
 	saut2 := api.NewSubjectAuthenticationPolicyDTO()
 	saut2.SetDescription("")
 	saut2.SetName("")
-	saut = append(saut, *saut1)
+	saut = append(saut, *saut2)
 
-	// TODO : use specific keystore
+	// TODO : Use valid names(Share)
+	var key api.KeystoreDTO
+	key.SetCertificateAlias("")
+	key.SetDisplayName("")
+	key.SetElementId("")
+	key.SetId(1)
+	key.SetKeystorePassOnly(true)
+	key.SetName("")
+	key.SetPassword("")
+	key.SetPrivateKeyName("")
+	key.SetPrivateKeyPassword("")
+	key.SetStore(ResourceDTO)
+	key.SetType("")
+
 	// SAML2 IdP config as serialized by CXF (Additional properties)
 	var conf api.SamlR2IDPConfigDTO
 	conf.SetDescription("")
 	conf.SetDisplayName("")
 	conf.SetElementId("")
-	conf.SetId(1)
+	conf.SetId(19)
 	conf.SetName("")
 	conf.SetUseSampleStore(true)
 	conf.SetUseSystemStore(false)
@@ -249,26 +271,49 @@ func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMecha
 	// TODO : Use custom profile
 	var atp api.AttributeProfileDTO
 	atp.SetElementId("")
-	atp.SetId(1)
-	atp.SetName("")
+	atp.SetId(97)
+	atp.SetName("basic-built-in")
 	atp.SetProfileType("")
 	orig.SetAttributeProfile(atp)
+
+	var AuthenticationServiceDTO api.AuthenticationServiceDTO
+
+	AuthenticationServiceDTO.SetDescription("")
+	AuthenticationServiceDTO.SetDisplayName("")
+	AuthenticationServiceDTO.SetElementId("")
+	AuthenticationServiceDTO.SetId(1)
+	AuthenticationServiceDTO.SetName("")
+	AuthenticationServiceDTO.SetX(1)
+	AuthenticationServiceDTO.SetY(1)
 
 	// Authentication contract
 	var auc api.AuthenticationContractDTO
 	auc.SetElementId("")
-	auc.SetId(1)
-	auc.SetName("")
+	auc.SetId(72)
 	orig.SetAuthenticationContract(auc)
-
-	// ------------
 
 	orig.SetDashboardUrl("http://localhost:8080/myapp")
 
-	// TODO :Get from paramter!! authns
-	orig.SetAuthenticationMechanisms(authns)
-	// TODO Build array , use non-nil delegatedauthns from authn elements
-	orig.SetDelegatedAuthentications()
+	orig.SetAuthenticationMechanisms(authn)
+
+	var delegatedauthns []api.DelegatedAuthenticationDTO
+	delegatedauthns1 := api.NewDelegatedAuthenticationDTO()
+	delegatedauthns2 := api.NewDelegatedAuthenticationDTO()
+	delegatedauthns1.SetAuthnService(AuthenticationServiceDTO)
+	delegatedauthns1.SetDescription("")
+	delegatedauthns1.SetElementId("")
+	delegatedauthns1.SetId(1)
+	delegatedauthns1.SetIdp(*orig)
+	delegatedauthns1.SetName("")
+	delegatedauthns = append(delegatedauthns, *delegatedauthns1)
+	delegatedauthns2.SetAuthnService(AuthenticationServiceDTO)
+	delegatedauthns2.SetDescription("")
+	delegatedauthns2.SetElementId("")
+	delegatedauthns2.SetId(1)
+	delegatedauthns2.SetIdp(*orig)
+	delegatedauthns2.SetName("")
+	delegatedauthns = append(delegatedauthns, *delegatedauthns2)
+	orig.SetDelegatedAuthentications(delegatedauthns)
 
 	orig.SetDescription("IdP One")
 	orig.SetDestroyPreviousSession(true)
@@ -277,11 +322,11 @@ func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMecha
 	orig.SetEmissionPolicy(AuthenticationAssertionEmissionPolicyDTO)
 	orig.SetEnableMetadataEndpoint(true)
 	orig.SetEncryptAssertion(true)
-	orig.SetEncryptAssertionAlgorithm("http://www.w3.org/2001/04/xmlenc#aes128-cbc")
+	orig.SetEncryptAssertionAlgorithm("http://www.w3.org/200|/04/xmlenc#aes128-cbc")
 	orig.SetErrorBinding("JSON")
 	orig.SetExternallyHostedIdentityConfirmationTokenService(true)
 	orig.SetFederatedConnectionsA(fedconn)
-	orig.SetFederatedConnectionsB(fedconn)
+	orig.SetFederatedConnectionsB(fedconn) // preguntar
 	orig.SetId(-1)
 	orig.SetIdentityAppliance(identityAppliance)
 	orig.SetIdentityConfirmationEnabled(true)
@@ -291,7 +336,6 @@ func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMecha
 	orig.SetIdentityConfirmationPolicy(ExtensionDTO)
 	orig.SetIgnoreRequestedNameIDPolicy(true)
 	orig.SetIsRemote(true)
-
 	orig.SetMaxSessionsPerUser(5)
 	orig.SetMessageTtl(301)
 	orig.SetMessageTtlTolerance(302)
@@ -300,12 +344,10 @@ func createTestIdentityProviderDTO(name string, authns []api.AuthenticationMecha
 
 	// OAuth2 authentication
 	var oac []api.OAuth2ClientDTO
-
 	oac1 := api.NewOAuth2ClientDTO()
 	oac1.SetBaseURL("http://host1:80/")
 	oac1.SetSecret("my-secret1")
 	oac = append(oac, *oac1)
-
 	oac2 := api.NewOAuth2ClientDTO()
 	oac2.SetBaseURL("http://host2:80/")
 	oac2.SetSecret("my-secret2")
@@ -432,12 +474,12 @@ func IdPFieldTestCreate(
 			expected: strconv.Itoa(int(Int32Deref(e.MessageTtlTolerance))),
 			received: strconv.Itoa(int(Int32Deref(r.MessageTtlTolerance))),
 		},
-		// {
-		// 	name:     "Oauth2Clients",
-		// 	cmp:      func() bool { return StrPtrEquals(e.Oauth2Clients, r.Oauth2Clients) }, //TODO: NewIdentityProviderDTO
-		// 	expected: StrDeref(e.Name),
-		// 	received: StrDeref(r.Name),
-		// },
+		{
+			name:     "Oauth2Clients",
+			cmp:      func() bool { return Oauth2ClientsEquals(e.Oauth2Clients, r.Oauth2Clients) }, //TODO: NewIdentityProviderDTO
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
+		},
 		{
 			name:     "Oauth2ClientsConfig",
 			cmp:      func() bool { return StrPtrEquals(e.Oauth2ClientsConfig, r.Oauth2ClientsConfig) },
@@ -522,6 +564,15 @@ func IdPFieldTestCreate(
 			expected: StrDeref(e.PwdlessAuthnTo),
 			received: StrDeref(r.PwdlessAuthnTo),
 		},
+		// {
+		// 	name:     "AuthenticationMechanisms",
+		// 	cmp:      func() bool { return StrPtrEquals(e.AuthenticationMechanisms, r.AuthenticationMechanisms) },
+		// 	expected: StrDeref(PtrString(e.AuthenticationMechanisms)),
+		// 	received: StrDeref(PtrString((r.AuthenticationMechanisms))),
+		// },
+
+		// TODO : Add validator for Authn. Mechanisms property : AuthenticationMechanisms
+		// TODO : Add validator for DelegatedAuthentications property
 	}
 }
 

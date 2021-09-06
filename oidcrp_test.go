@@ -508,7 +508,7 @@ func createTestExternalOpenIDConnectRelayingPartyDTO(name string) *api.ExternalO
 	keystore.SetType("")
 
 	IdentityApplianceSecurityConfigDTO.SetEncryptSensitiveData(true)
-	IdentityApplianceSecurityConfigDTO.SetEncryption("")
+	IdentityApplianceSecurityConfigDTO.SetEncrypticreateTestExternalSaml2ServiceProviderDTOon("")
 	IdentityApplianceSecurityConfigDTO.SetEncryptionConfig("")
 	IdentityApplianceSecurityConfigDTO.SetEncryptionConfigFile("")
 	IdentityApplianceSecurityConfigDTO.SetEncryptionPassword("")
@@ -623,7 +623,7 @@ func createTestExternalOpenIDConnectRelayingPartyDTO(name string) *api.ExternalO
 
 	ResourceDTO.SetDisplayName("")
 	ResourceDTO.SetElementId("")
-	ResourceDTO.SetId(1)
+	ResourceDTO.SetId(1)createTestExternalSaml2ServiceProviderDTO
 	ResourceDTO.SetName("")
 	ResourceDTO.SetUri("")
 	ResourceDTO.SetValue("")

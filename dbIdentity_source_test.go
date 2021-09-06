@@ -8,7 +8,7 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-func (s *AccTestSuite) TestAccCliDbIdentitySourceDto() {
+func (s *AccTestSuite) TestAccCliDbIdentitySourceDTO_crud() {
 	var t = s.T()
 
 	appliance, err := getTestAppliance(s.T(), s.client)
@@ -29,7 +29,7 @@ func (s *AccTestSuite) TestAccCliDbIdentitySourceDto() {
 		return
 	}
 	if err := DbIdentitySourceValidateCreate(orig, &created); err != nil {
-		t.Errorf("creating sp : %v", err)
+		t.Errorf("creating db identity source : %v", err)
 		return
 	}
 
@@ -41,7 +41,7 @@ func (s *AccTestSuite) TestAccCliDbIdentitySourceDto() {
 		return
 	}
 	if err = DbIdentitySourceDTOValidateUpdate(&read, &created); err != nil {
-		t.Errorf("creating Sp : %v", err)
+		t.Errorf("creating db identity source : %v", err)
 		return
 	}
 

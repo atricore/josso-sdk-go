@@ -156,6 +156,8 @@ func createTestBasicAuthn() api.AuthenticationMechanismDTO {
 	authn.SetDisplayName("idp-basic-authn")
 	authn.SetPriority(1)
 
+	authn.AdditionalProperties = make(map[string]interface{})
+
 	authn.AdditionalProperties["@c"] = ".BasicAuthenticationDTO"
 	authn.AdditionalProperties["hashAlgorithm"] = "SHA-512"
 	authn.AdditionalProperties["hashEncoding"] = "BASE64"
@@ -164,7 +166,7 @@ func createTestBasicAuthn() api.AuthenticationMechanismDTO {
 	authn.AdditionalProperties["SaltLength"] = 0
 	authn.AdditionalProperties["saltPrefix"] = ""
 	authn.AdditionalProperties["saltSuffix"] = ""
-	authn.AdditionalProperties["impersonateUserPolicy"] = ""
+	//authn.AdditionalProperties["impersonateUserPolicy"]
 	authn.AdditionalProperties["simpleAuthnSaml2AuthnCtxClass"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:Password"
 
 	return authn
@@ -190,7 +192,6 @@ func createTest2FactorAuthn() api.AuthenticationMechanismDTO {
 // All delegated authentications must be used : idp.SetDelegatedAuthentications.  Mechanisms go into idp.AuthenticationMechanisms
 func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechanismDTO) (*api.IdentityProviderDTO, error) {
 
-	var snip api.SubjectNameIdentifierPolicyDTO
 	var AuthenticationAssertionEmissionPolicyDTO api.AuthenticationAssertionEmissionPolicyDTO
 	var fedconn []api.FederatedConnectionDTO
 	orig := api.NewIdentityProviderDTO()
@@ -218,12 +219,15 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	// AuthenticationAssertionEmissionPolicyDTO.SetElementId("")
 	// AuthenticationAssertionEmissionPolicyDTO.SetId(1)
 	// AuthenticationAssertionEmissionPolicyDTO.SetName("")
+	var snip api.SubjectNameIdentifierPolicyDTO
 
 	snip.SetDescriptionKey("")
-	snip.SetId("")
 	snip.SetName("Principal")
 	snip.SetSubjectAttribute("")
 	snip.SetType("PRINCIPAL")
+	snip.AdditionalProperties = make(map[string]interface{})
+	snip.AdditionalProperties["@c"] = "com.atricore.idbus.console.services.dto.SubjectNameIdentifierPolicyDTO"
+	orig.SetSubjectNameIDPolicy(snip)
 
 	// TODO : Use valid names
 	var saut []api.SubjectAuthenticationPolicyDTO
@@ -273,7 +277,10 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	atp.SetElementId("")
 	atp.SetId(97)
 	atp.SetName("basic-built-in")
-	atp.SetProfileType("")
+	atp.SetProfileType("BASIC")
+
+	atp.AdditionalProperties = make(map[string]interface{})
+	atp.AdditionalProperties["@c"] = "com.atricore.idbus.console.services.dto.BuiltInAttributeProfileDTO"
 	orig.SetAttributeProfile(atp)
 
 	var AuthenticationServiceDTO api.AuthenticationServiceDTO
@@ -295,26 +302,26 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	orig.SetDashboardUrl("http://localhost:8080/myapp")
 
 	orig.SetAuthenticationMechanisms(authn)
-
-	var delegatedauthns []api.DelegatedAuthenticationDTO
-	delegatedauthns1 := api.NewDelegatedAuthenticationDTO()
-	delegatedauthns2 := api.NewDelegatedAuthenticationDTO()
-	delegatedauthns1.SetAuthnService(AuthenticationServiceDTO)
-	delegatedauthns1.SetDescription("")
-	delegatedauthns1.SetElementId("")
-	delegatedauthns1.SetId(1)
-	delegatedauthns1.SetIdp(*orig)
-	delegatedauthns1.SetName("")
-	delegatedauthns = append(delegatedauthns, *delegatedauthns1)
-	delegatedauthns2.SetAuthnService(AuthenticationServiceDTO)
-	delegatedauthns2.SetDescription("")
-	delegatedauthns2.SetElementId("")
-	delegatedauthns2.SetId(1)
-	delegatedauthns2.SetIdp(*orig)
-	delegatedauthns2.SetName("")
-	delegatedauthns = append(delegatedauthns, *delegatedauthns2)
-	orig.SetDelegatedAuthentications(delegatedauthns)
-
+	/*
+		var delegatedauthns []api.DelegatedAuthenticationDTO
+		delegatedauthns1 := api.NewDelegatedAuthenticationDTO()
+		delegatedauthns2 := api.NewDelegatedAuthenticationDTO()
+		delegatedauthns1.SetAuthnService(AuthenticationServiceDTO)
+		delegatedauthns1.SetDescription("")
+		delegatedauthns1.SetElementId("")
+		delegatedauthns1.SetId(1)
+		delegatedauthns1.SetIdp(*orig)
+		delegatedauthns1.SetName("")
+		delegatedauthns = append(delegatedauthns, *delegatedauthns1)
+		delegatedauthns2.SetAuthnService(AuthenticationServiceDTO)
+		delegatedauthns2.SetDescription("")
+		delegatedauthns2.SetElementId("")
+		delegatedauthns2.SetId(1)
+		delegatedauthns2.SetIdp(*orig)
+		delegatedauthns2.SetName("")
+		delegatedauthns = append(delegatedauthns, *delegatedauthns2)
+		orig.SetDelegatedAuthentications(delegatedauthns)
+	*/
 	orig.SetDescription("IdP One")
 	orig.SetDestroyPreviousSession(true)
 	orig.SetDisplayName("")
@@ -376,7 +383,6 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	orig.SetSignatureHash("")
 	orig.SetSsoSessionTimeout(1)
 
-	orig.SetSubjectNameIDPolicy(snip)
 	orig.SetUserDashboardBranding("josso2-branding")
 	orig.SetWantAuthnRequestsSigned(true)
 	orig.SetSignRequests(true)

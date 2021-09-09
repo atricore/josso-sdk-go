@@ -171,7 +171,7 @@ func createTestExternalOpenIDConnectRelayingPartyDTO(name string) *api.ExternalO
 	orig.SetPostLogoutRedirectionURIs(LogUris)
 	orig.SetRemote(true)
 	orig.SetResponseTypes(RType)
-	orig.SetRole("")
+	//orig.SetRole("")
 	orig.SetSigningAlg("RS256")
 
 	return orig

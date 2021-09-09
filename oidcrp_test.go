@@ -144,15 +144,12 @@ func createTestExternalOpenIDConnectRelayingPartyDTO(name string) *api.ExternalO
 	var AuthUrl []string
 	AuthUrl = append(AuthUrl, " http://localhost:8080/app", "http://localhost:8080/app/secure")
 
-	// orig.SetActiveBindings()
-	// orig.SetActiveProfiles()
 	orig.SetAuthorizedURIs(AuthUrl)
 	orig.SetClientAuthnMethod("CLIENT_SECRET_BASIC")
 	orig.SetClientCert("")
 	orig.SetClientId("")
 	orig.SetClientSecret("")
 	orig.SetClientType("")
-	//orig.SetConfig(conf)
 	orig.SetDescription("")
 	orig.SetDisplayName("")
 	orig.SetElementId("")
@@ -162,16 +159,12 @@ func createTestExternalOpenIDConnectRelayingPartyDTO(name string) *api.ExternalO
 	orig.SetId(-1)
 	orig.SetIdTokenEncryptionAlg("")
 	orig.SetIdTokenEncryptionMethod("")
-	//orig.SetIdentityAppliance(identityAppliance)
 	//orig.SetIdentityLookups(IdentityLookupDTO)
 	orig.SetIsRemote(true)
-	//orig.SetLocation(locat)
-	//orig.SetMetadata(ResourceDTO)
 	orig.SetName("rp-2")
 	orig.SetPostLogoutRedirectionURIs(LogUris)
 	orig.SetRemote(true)
 	orig.SetResponseTypes(RType)
-	//orig.SetRole("")
 	orig.SetSigningAlg("RS256")
 
 	return orig

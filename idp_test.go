@@ -230,19 +230,6 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	snip.AdditionalProperties["@c"] = "com.atricore.idbus.console.services.dto.SubjectNameIdentifierPolicyDTO"
 	orig.SetSubjectNameIDPolicy(snip)
 
-	// TODO : Use valid names
-	var saut []api.SubjectAuthenticationPolicyDTO
-
-	saut1 := api.NewSubjectAuthenticationPolicyDTO()
-	saut1.SetDescription("")
-	saut1.SetName("")
-	saut = append(saut, *saut1)
-
-	saut2 := api.NewSubjectAuthenticationPolicyDTO()
-	saut2.SetDescription("")
-	saut2.SetName("")
-	saut = append(saut, *saut2)
-
 	// TODO : Use valid names(Share)
 	var key api.KeystoreDTO
 	key.SetCertificateAlias("")

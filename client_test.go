@@ -2,9 +2,13 @@ package cli
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"strconv"
 	"testing"
+	"time"
+
+	pprof "runtime/pprof"
 
 	api "github.com/atricore/josso-api-go"
 	"github.com/stretchr/testify/suite"
@@ -13,6 +17,28 @@ import (
 type AccTestSuite struct {
 	suite.Suite
 	client *IdbusApiClient
+	idx    int
+}
+
+func (s *AccTestSuite) nextIdx() int {
+	s.idx++
+	return s.idx
+}
+
+func (s *AccTestSuite) DumpHeap(prefix string) error {
+
+	f, err := os.Create(buildFileName(prefix, s.nextIdx()))
+	if err != nil {
+		return err
+	}
+
+	pprof.WriteHeapProfile(f)
+
+	return nil
+}
+
+func buildFileName(prefix string, suffix int) string {
+	return fmt.Sprintf("%s-heap-%s-%d.prof", prefix, time.Now().Format("20060102150405"), suffix)
 }
 
 const (
@@ -22,6 +48,7 @@ const (
 func (s *AccTestSuite) SetupSuite() {
 	var t = s.T()
 	var err error
+
 	t.Log("creating client")
 
 	s.client, err = createClient()
@@ -34,10 +61,17 @@ func (s *AccTestSuite) SetupSuite() {
 
 	if err = s.accClearData(); err != nil {
 		t.Errorf("error while clearing data %v", err)
+		return
 	}
+
+	t.Log("SetupSuite complete")
+
 }
 
 func (s *AccTestSuite) TearDownSuite() {
+	var t = s.T()
+	t.Log("Teardown suite")
+
 	if err := s.accClearData(); err != nil {
 		s.T().Errorf("error clearing data %v", err)
 	}

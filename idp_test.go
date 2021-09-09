@@ -146,6 +146,7 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 			return
 		}
 	}
+
 }
 
 // Creates an new AuthenticationMechanisDTO for basic authentication.

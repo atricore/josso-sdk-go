@@ -636,7 +636,7 @@ func IdPValidateUpdate(
 */
 /*
 	DelegatedAuthenticationDTO1.SetAuthnService(AuthenticationServiceDTO)
-	DelegatedAuthenticationDTO1.SetDescription("")
+	DelegatedAuthenticationDTO1.	if err != nil {SetDescription("")
 	DelegatedAuthenticationDTO1.SetElementId("")
 	DelegatedAuthenticationDTO1.SetId(1)
 	DelegatedAuthenticationDTO1.SetIdp(*orig)
@@ -737,7 +737,7 @@ func IdPValidateUpdate(
 	// identityAppliance.SetActiveFeatures("") //
 	identityAppliance.SetAuthenticationServices(AuthenticationService)
 	identityAppliance.SetDescription("")
-	identityAppliance.SetDisplayName("")
+	identityAppliance.SetDisplay	if err != nil {Name("")
 	identityAppliance.SetElementId("")
 	identityAppliance.SetExecutionEnvironments(ExecutionEnvironmentDTO)
 	identityAppliance.SetId(1)

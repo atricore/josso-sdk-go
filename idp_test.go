@@ -310,6 +310,7 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 		delegatedauthns = append(delegatedauthns, *delegatedauthns2)
 		orig.SetDelegatedAuthentications(delegatedauthns)
 	*/
+
 	tData.SetDescription("IdP One")
 	tData.SetDestroyPreviousSession(true)
 	tData.SetDisplayName("")

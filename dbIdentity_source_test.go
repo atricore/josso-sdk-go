@@ -125,8 +125,8 @@ func (s *AccTestSuite) TestAccCliDbIdentitySourceDTO_crud() {
 }
 
 func createTestDbIdentitySourceDTO(name string) *api.DbIdentitySourceDTO {
-	orig := api.NewDbIdentitySourceDTO()
-	var cust api.CustomClassDTO
+	tData := api.NewDbIdentitySourceDTO()
+
 	var custprop []api.CustomClassPropertyDTO
 	custprop1 := api.NewCustomClassPropertyDTO()
 	custprop1.SetName("")
@@ -137,6 +137,7 @@ func createTestDbIdentitySourceDTO(name string) *api.DbIdentitySourceDTO {
 	custprop2.SetValue("")
 	custprop = append(custprop, *custprop1)
 
+	var cust api.CustomClassDTO
 	cust.SetCardinality("")
 	cust.SetFqcn("")
 	cust.SetOsgiFilter("")
@@ -144,31 +145,31 @@ func createTestDbIdentitySourceDTO(name string) *api.DbIdentitySourceDTO {
 	cust.SetProperties(custprop)
 	cust.SetTimeoutSecs(1)
 	cust.SetType("")
+	tData.SetCustomClass(cust)
 
-	orig.SetAcquireIncrement(1)
-	orig.SetAdmin("")
-	orig.SetConnectionUrl("")
-	orig.SetCredentialsQueryString("")
-	orig.SetCustomClass(cust)
-	orig.SetDescription("")
-	orig.SetDriverName("")
-	orig.SetElementId("")
-	orig.SetIdleConnectionTestPeriod(1)
-	orig.SetInitialPoolSize(1)
-	orig.SetMaxIdleTime(1)
-	orig.SetMaxPoolSize(1)
-	orig.SetMinPoolSize(1)
-	orig.SetPassword("")
-	orig.SetPooledDatasource(true)
-	orig.SetRelayCredentialQueryString("")
-	orig.SetResetCredentialDml("")
-	orig.SetRolesQueryString("")
-	orig.SetUseColumnNamesAsPropertyNames(true)
-	orig.SetUserPropertiesQueryString("")
-	orig.SetUserQueryString("")
-	orig.SetName(name)
-	orig.SetId(-1)
-	return orig
+	tData.SetAcquireIncrement(1)
+	tData.SetAdmin("")
+	tData.SetConnectionUrl("")
+	tData.SetCredentialsQueryString("")
+	tData.SetDescription("")
+	tData.SetDriverName("")
+	tData.SetElementId("")
+	tData.SetIdleConnectionTestPeriod(1)
+	tData.SetInitialPoolSize(1)
+	tData.SetMaxIdleTime(1)
+	tData.SetMaxPoolSize(1)
+	tData.SetMinPoolSize(1)
+	tData.SetPassword("")
+	tData.SetPooledDatasource(true)
+	tData.SetRelayCredentialQueryString("")
+	tData.SetResetCredentialDml("")
+	tData.SetRolesQueryString("")
+	tData.SetUseColumnNamesAsPropertyNames(true)
+	tData.SetUserPropertiesQueryString("")
+	tData.SetUserQueryString("")
+	tData.SetName(name)
+	tData.SetId(-1)
+	return tData
 }
 
 func (s *AccTestSuite) TestAccCliDbIdentitySourceDTO_crud_createFailOnDupName() {

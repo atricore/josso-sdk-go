@@ -112,6 +112,96 @@ func BoolPtrEquals(a *bool, b *bool) bool {
 	return *a == *b
 }
 
+func KeystorePtrEquals(a *api.KeystoreDTO, b *api.KeystoreDTO) bool {
+	if a == nil {
+		return b == nil
+	}
+
+	if b == nil {
+		return false
+	}
+
+	return KeyEquals(*a, *b)
+}
+
+func KeyEquals(a api.KeystoreDTO, b api.KeystoreDTO) bool {
+	return StrPtrEquals(a.CertificateAlias, b.CertificateAlias) &&
+		StrPtrEquals(a.DisplayName, b.DisplayName) &&
+		StrPtrEquals(a.ElementId, b.ElementId) &&
+		Int64PtrEquals(a.Id, b.Id) &&
+		BoolPtrEquals(a.KeystorePassOnly, b.KeystorePassOnly) &&
+		StrPtrEquals(a.Name, b.Name) &&
+		StrPtrEquals(a.Password, b.Password) &&
+		StrPtrEquals(a.PrivateKeyName, b.PrivateKeyName) &&
+		StrPtrEquals(a.PrivateKeyPassword, b.PrivateKeyPassword) &&
+		//(a.Store, b.Store) &&
+		StrPtrEquals(a.Type, b.Type)
+
+}
+
+func EntitySelectionPtrEquals(a *api.EntitySelectionStrategyDTO, b *api.EntitySelectionStrategyDTO) bool {
+	if a == nil {
+		return b == nil
+	}
+
+	if b == nil {
+		return false
+	}
+
+	return ESelectionEquals(*a, *b)
+}
+
+func ESelectionEquals(a api.EntitySelectionStrategyDTO, b api.EntitySelectionStrategyDTO) bool {
+	return StrPtrEquals(a.Description, b.Description) &&
+		StrPtrEquals(a.Name, b.Name)
+
+}
+
+func IdAppPtrEquals(a *api.IdentityApplianceSecurityConfigDTO, b *api.IdentityApplianceSecurityConfigDTO) bool {
+	if a == nil {
+		return b == nil
+	}
+
+	if b == nil {
+		return false
+	}
+
+	return IdApplianceSecConfEquals(*a, *b)
+}
+
+func IdApplianceSecConfEquals(a api.IdentityApplianceSecurityConfigDTO, b api.IdentityApplianceSecurityConfigDTO) bool {
+	return BoolPtrEquals(a.EncryptSensitiveData, b.EncryptSensitiveData) &&
+		StrPtrEquals(a.Encryption, b.Encryption) &&
+		StrPtrEquals(a.EncryptionConfig, b.EncryptionConfig) &&
+		StrPtrEquals(a.EncryptionConfigFile, b.EncryptionConfigFile) &&
+		StrPtrEquals(a.EncryptionPassword, b.EncryptionPassword) &&
+		BoolPtrEquals(a.ExternalConfig, b.ExternalConfig) &&
+		StrPtrEquals(a.ExternalConfigFile, b.ExternalConfigFile) &&
+		StrPtrEquals(a.PasswordProperty, b.PasswordProperty) &&
+		StrPtrEquals(a.Salt, b.Salt) &&
+		StrPtrEquals(a.SaltProperty, b.SaltProperty) &&
+		StrPtrEquals(a.SaltValue, b.SaltValue)
+
+}
+
+func UserBrandingPtrEquals(a *api.UserDashboardBrandingDTO, b *api.UserDashboardBrandingDTO) bool {
+	if a == nil {
+		return b == nil
+	}
+
+	if b == nil {
+		return false
+	}
+
+	return UBrandingEquals(*a, *b)
+}
+
+func UBrandingEquals(a api.UserDashboardBrandingDTO, b api.UserDashboardBrandingDTO) bool {
+	return StrPtrEquals(a.Name, b.Name) &&
+		StrPtrEquals(a.Id, b.Id)
+
+}
+
 func SubjectNamePolicyContains(needle api.SubjectNameIdentifierPolicyDTO, haystack *[]api.SubjectNameIdentifierPolicyDTO) bool {
 	for _, matchValue := range *haystack {
 		if SubNameEquals(&matchValue, &needle) {

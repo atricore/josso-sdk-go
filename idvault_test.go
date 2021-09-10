@@ -129,11 +129,11 @@ func (s *AccTestSuite) TestAccCliIdVault_crud() {
 }
 
 func createTestEmbeddedIdentityVaultDTO(name string) *api.EmbeddedIdentityVaultDTO {
-	orig := api.NewEmbeddedIdentityVaultDTO()
-	orig.SetName(name)
-	orig.SetId(-1)
-	orig.SetIdentityConnectorName("connector-default")
-	return orig
+	tData := api.NewEmbeddedIdentityVaultDTO()
+	tData.SetName(name)
+	tData.SetId(-1)
+	tData.SetIdentityConnectorName("connector-default")
+	return tData
 }
 
 func (s *AccTestSuite) TestAccCliIdVault_createFailOnDupName() {
@@ -182,12 +182,6 @@ func IdVaultFieldTestUpdate(
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
 			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
 			received: strconv.FormatInt(Int64Deref(r.Id), 10),
-		},
-		{
-			name:     "ElementId",
-			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
 		},
 	}
 

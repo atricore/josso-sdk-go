@@ -131,26 +131,26 @@ func (s *AccTestSuite) TestAccCliDbIdentityVaultDto_crud() {
 }
 
 func createTestDbIdentityVaultDto(name string) *api.DbIdentityVaultDTO {
-	orig := api.NewDbIdentityVaultDTO()
-	orig.SetAcquireIncrement(1)
-	orig.SetConnectionUrl(fmt.Sprintf("jdbc:mysql:localhost/%s?create=true", name))
-	orig.SetDescription(fmt.Sprint("Description", name))
-	orig.SetDriverName(fmt.Sprintln("org.mysql.driver"))
-	orig.SetExternalDB(true)
-	orig.SetHashAlgorithm("SHA267")
-	orig.SetHashEncoding("BASE64")
-	orig.SetIdleConnectionTestPeriod(1)
-	orig.SetInitialPoolSize(10)
-	orig.SetMaxIdleTime(15)
-	orig.SetMaxPoolSize(20)
-	orig.SetMinPoolSize(1)
-	orig.SetName(name)
-	orig.SetPassword(fmt.Sprint("pdw", name))
-	orig.SetPooledDatasource(true)
-	orig.SetSaltLength(55)
-	orig.SetSaltValue("salt#")
-	orig.SetUsername(fmt.Sprint("db", name))
-	return orig
+	tData := api.NewDbIdentityVaultDTO()
+	tData.SetAcquireIncrement(1)
+	tData.SetConnectionUrl(fmt.Sprintf("jdbc:mysql:localhost/%s?create=true", name))
+	tData.SetDescription(fmt.Sprint("Description", name))
+	tData.SetDriverName(fmt.Sprintln("org.mysql.driver"))
+	tData.SetExternalDB(true)
+	tData.SetHashAlgorithm("SHA267")
+	tData.SetHashEncoding("BASE64")
+	tData.SetIdleConnectionTestPeriod(1)
+	tData.SetInitialPoolSize(10)
+	tData.SetMaxIdleTime(15)
+	tData.SetMaxPoolSize(20)
+	tData.SetMinPoolSize(1)
+	tData.SetName(name)
+	tData.SetPassword(fmt.Sprint("pdw", name))
+	tData.SetPooledDatasource(true)
+	tData.SetSaltLength(55)
+	tData.SetSaltValue("salt#")
+	tData.SetUsername(fmt.Sprint("db", name))
+	return tData
 }
 
 func (s *AccTestSuite) TestAccCliDbIdentitySourceDto_crud_createFailOnDupName() {
@@ -192,7 +192,7 @@ func DbIdentityVaultFieldTestCreate(
 			received: StrDeref(r.Description),
 		},
 		{
-			name:     "DriverName",
+			name:     "drivername",
 			cmp:      func() bool { return StrPtrEquals(e.DriverName, r.DriverName) },
 			expected: StrDeref(e.DriverName),
 			received: StrDeref(r.DriverName),
@@ -289,20 +289,7 @@ func DbIdentityVaultFieldTestUpdate(
 	e *api.DbIdentityVaultDTO,
 	r *api.DbIdentityVaultDTO) []FiledTestStruct {
 
-	t := []FiledTestStruct{
-		{
-			name:     "id",
-			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
-			received: strconv.FormatInt(Int64Deref(r.Id), 10),
-		},
-		{
-			name:     "elementid",
-			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
-			expected: StrDeref(e.ElementId),
-			received: StrDeref(r.ElementId),
-		},
-	}
+	t := []FiledTestStruct{}
 	return append(t, DbIdentityVaultFieldTestCreate(e, r)...)
 }
 

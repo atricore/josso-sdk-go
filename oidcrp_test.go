@@ -130,44 +130,44 @@ func (s *AccTestSuite) TestAccCliOidcRp_crud() {
 }
 
 func createTestExternalOpenIDConnectRelayingPartyDTO(name string) *api.ExternalOpenIDConnectRelayingPartyDTO {
-	orig := api.NewExternalOpenIDConnectRelayingPartyDTO()
+	tData := api.NewExternalOpenIDConnectRelayingPartyDTO()
 
 	var Grants []string
 	Grants = append(Grants, "AUTHORIZATION_CODE")
+	tData.SetGrants(Grants)
 
 	var RType []string
 	RType = append(RType, "CODE")
+	tData.SetResponseTypes(RType)
 
 	var LogUris []string
 	LogUris = append(LogUris, "http://localhost:8080/app/logout")
+	tData.SetPostLogoutRedirectionURIs(LogUris)
 
 	var AuthUrl []string
 	AuthUrl = append(AuthUrl, " http://localhost:8080/app", "http://localhost:8080/app/secure")
+	tData.SetAuthorizedURIs(AuthUrl)
 
-	orig.SetAuthorizedURIs(AuthUrl)
-	orig.SetClientAuthnMethod("CLIENT_SECRET_BASIC")
-	orig.SetClientCert("")
-	orig.SetClientId("")
-	orig.SetClientSecret("")
-	orig.SetClientType("")
-	orig.SetDescription("")
-	orig.SetDisplayName("")
-	orig.SetElementId("")
-	orig.SetEncryptionAlg("")
-	orig.SetEncryptionMethod("")
-	orig.SetGrants(Grants)
-	orig.SetId(-1)
-	orig.SetIdTokenEncryptionAlg("")
-	orig.SetIdTokenEncryptionMethod("")
+	tData.SetClientAuthnMethod("CLIENT_SECRET_BASIC")
+	tData.SetClientCert("")
+	tData.SetClientId("")
+	tData.SetClientSecret("")
+	tData.SetClientType("")
+	tData.SetDescription("")
+	tData.SetDisplayName("")
+	tData.SetElementId("")
+	tData.SetEncryptionAlg("")
+	tData.SetEncryptionMethod("")
+	tData.SetId(-1)
+	tData.SetIdTokenEncryptionAlg("")
+	tData.SetIdTokenEncryptionMethod("")
 	//orig.SetIdentityLookups(IdentityLookupDTO)
-	orig.SetIsRemote(true)
-	orig.SetName("rp-2")
-	orig.SetPostLogoutRedirectionURIs(LogUris)
-	orig.SetRemote(true)
-	orig.SetResponseTypes(RType)
-	orig.SetSigningAlg("RS256")
+	tData.SetIsRemote(true)
+	tData.SetName("rp-2")
+	tData.SetRemote(true)
+	tData.SetSigningAlg("RS256")
 
-	return orig
+	return tData
 }
 
 func (s *AccTestSuite) TestAccCliOidcRp_createFailOnDupName() {
@@ -188,6 +188,102 @@ func OidcRpFieldTestCreate(
 	r *api.ExternalOpenIDConnectRelayingPartyDTO) []FiledTestStruct {
 
 	return []FiledTestStruct{
+		// {
+		// 	name:     "grants",
+		// 	cmp:      func() bool { return StrPtrEquals(e.Grants, r.Grants) },
+		// 	expected: StrDeref(e.Grants),
+		// 	received: StrDeref(r.Grants),
+		// },
+		// {
+		// 	name:     "responseTypes",
+		// 	cmp:      func() bool { return StrPtrEquals(e.ResponseTypes, r.ResponseTypes) },
+		// 	expected: StrDeref(e.ResponseTypes),
+		// 	received: StrDeref(r.ResponseTypes),
+		// },
+		// {
+		// 	name:     "postlogoutredirectionuris",
+		// 	cmp:      func() bool { return StrPtrEquals(e.PostLogoutRedirectionURIs, r.PostLogoutRedirectionURIs) },
+		// 	expected: StrDeref(e.PostLogoutRedirectionURIs),
+		// 	received: StrDeref(r.PostLogoutRedirectionURIs),
+		// },
+		// {
+		// 	name:     "authorizeduris",
+		// 	cmp:      func() bool { return StrPtrEquals(e.AuthorizedURIs, r.AuthorizedURIs) },
+		// 	expected: StrDeref(e.AuthorizedURIs),
+		// 	received: StrDeref(r.AuthorizedURIs),
+		// },
+		{
+			name:     "clientauthnmethod",
+			cmp:      func() bool { return StrPtrEquals(e.ClientAuthnMethod, r.ClientAuthnMethod) },
+			expected: StrDeref(e.ClientAuthnMethod),
+			received: StrDeref(r.ClientAuthnMethod),
+		},
+		{
+			name:     "clientcert",
+			cmp:      func() bool { return StrPtrEquals(e.ClientCert, r.ClientCert) },
+			expected: StrDeref(e.ClientCert),
+			received: StrDeref(r.ClientCert),
+		},
+		{
+			name:     "clientsecret",
+			cmp:      func() bool { return StrPtrEquals(e.ClientSecret, r.ClientSecret) },
+			expected: StrDeref(e.ClientSecret),
+			received: StrDeref(r.ClientSecret),
+		},
+		{
+			name:     "clienttype",
+			cmp:      func() bool { return StrPtrEquals(e.ClientType, r.ClientType) },
+			expected: StrDeref(e.ClientType),
+			received: StrDeref(r.ClientType),
+		},
+		{
+			name:     "description(",
+			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
+			expected: StrDeref(e.Description),
+			received: StrDeref(r.Description),
+		},
+		{
+			name:     "displayname",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: StrDeref(e.DisplayName),
+			received: StrDeref(r.DisplayName),
+		},
+		{
+			name:     "encryptionalg",
+			cmp:      func() bool { return StrPtrEquals(e.EncryptionAlg, r.EncryptionAlg) },
+			expected: StrDeref(e.EncryptionAlg),
+			received: StrDeref(r.EncryptionAlg),
+		},
+		{
+			name:     "encryptionmethod",
+			cmp:      func() bool { return StrPtrEquals(e.EncryptionAlg, r.EncryptionAlg) },
+			expected: StrDeref(e.EncryptionAlg),
+			received: StrDeref(r.EncryptionAlg),
+		},
+		{
+			name:     "idtokenencryptionalg(",
+			cmp:      func() bool { return StrPtrEquals(e.IdTokenEncryptionAlg, r.IdTokenEncryptionAlg) },
+			expected: StrDeref(e.IdTokenEncryptionAlg),
+			received: StrDeref(r.IdTokenEncryptionAlg),
+		},
+		{
+			name:     "idtokenencryptionmethod",
+			cmp:      func() bool { return StrPtrEquals(e.IdTokenEncryptionAlg, r.IdTokenEncryptionAlg) },
+			expected: StrDeref(e.IdTokenEncryptionAlg),
+			received: StrDeref(r.IdTokenEncryptionAlg),
+		},
+		// {
+		// 	name:     "identitylookups",
+		// 	cmp:      func() bool { return StrPtrEquals(e.IdentityLookups, r.IdentityLookups) },
+		// 	expected: StrDeref(e.IdentityLookups),
+		// 	received: StrDeref(r.IdentityLookups),
+		// },
+		{
+			name:     "isremote",
+			cmp:      func() bool { return BoolPtrEquals(e.IsRemote, r.IsRemote) },
+			expected: strconv.FormatBool(BoolDeref(e.IsRemote)),
+			received: strconv.FormatBool(BoolDeref(r.IsRemote)),
+		},
 		{
 			name:     "name",
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
@@ -195,22 +291,16 @@ func OidcRpFieldTestCreate(
 			received: StrDeref(r.Name),
 		},
 		{
-			name:     "description",
-			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
-			expected: StrDeref(e.Description),
-			received: StrDeref(r.Description),
+			name:     "remote",
+			cmp:      func() bool { return BoolPtrEquals(e.Remote, r.Remote) },
+			expected: strconv.FormatBool(BoolDeref(e.Remote)),
+			received: strconv.FormatBool(BoolDeref(r.Remote)),
 		},
 		{
-			name:     "clientId",
-			cmp:      func() bool { return StrPtrEquals(e.ClientId, r.ClientId) },
-			expected: StrDeref(e.ClientId),
-			received: StrDeref(r.ClientId),
-		},
-		{
-			name:     "clientType",
-			cmp:      func() bool { return StrPtrEquals(e.ClientType, r.ClientType) },
-			expected: StrDeref(e.ClientType),
-			received: StrDeref(r.ClientType),
+			name:     "signingalg",
+			cmp:      func() bool { return StrPtrEquals(e.SigningAlg, r.SigningAlg) },
+			expected: StrDeref(e.SigningAlg),
+			received: StrDeref(r.SigningAlg),
 		},
 	}
 }
@@ -226,6 +316,12 @@ func OidcRpFieldTestUpdate(
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
 			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
 			received: strconv.FormatInt(Int64Deref(r.Id), 10),
+		},
+		{
+			name:     "elementid",
+			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
+			expected: StrDeref(e.ElementId),
+			received: StrDeref(r.ElementId),
 		},
 	}
 

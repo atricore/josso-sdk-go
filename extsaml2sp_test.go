@@ -4,7 +4,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"sort"
-	"strconv"
 	"strings"
 
 	api "github.com/atricore/josso-api-go"
@@ -171,13 +170,24 @@ func ExternalSaml2SpFieldTestCreate(
 			expected: StrDeref(e.Name),
 			received: StrDeref(r.Name),
 		},
-		/* TODO : Change for MD test
 		{
-			name:     "location",
-			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
-			expected: LocationToStr(e.Location),
-			received: LocationToStr(r.Location),
-		}, */
+			name:     "description",
+			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
+			expected: StrDeref(e.Description),
+			received: StrDeref(r.Description),
+		},
+		{
+			name:     "displayname",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: StrDeref(e.DisplayName),
+			received: StrDeref(r.DisplayName),
+		},
+		// {
+		// 	name:     "metadata",
+		// 	cmp:      func() bool { return StrPtrEquals(e.Metadata, r.Metadata) },
+		// 	expected: StrDeref(e.Metadata),
+		// 	received: StrDeref(r.Metadata),
+		// },
 	}
 }
 
@@ -186,14 +196,7 @@ func ExternalSaml2SpFieldTestUpdate(
 	e *api.ExternalSaml2ServiceProviderDTO,
 	r *api.ExternalSaml2ServiceProviderDTO) []FiledTestStruct {
 
-	t := []FiledTestStruct{
-		{
-			name:     "id",
-			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
-			received: strconv.FormatInt(Int64Deref(r.Id), 10),
-		},
-	}
+	t := []FiledTestStruct{}
 	return append(t, ExternalSaml2SpFieldTestCreate(e, r)...)
 }
 

@@ -96,6 +96,7 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 		return
 	}
 }
+
 func createTestIdentityApplianceDefinitionDTO(name string) *api.IdentityApplianceDefinitionDTO {
 	tData := api.NewIdentityApplianceDefinitionDTO()
 
@@ -158,12 +159,30 @@ func ApplianceFieldTestCreate(
 	r *api.IdentityApplianceDefinitionDTO) []FiledTestStruct {
 
 	return []FiledTestStruct{
-		{
-			name:     "name",
-			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
-		},
+		// {
+		// 	name:     "userdashboardbranding",
+		// 	cmp:      func() bool { return UserBrandingPtrEquals(e.UserDashboardBranding, r.UserDashboardBranding) },
+		// 	expected: StrDeref(e.UserDashboardBranding),
+		// 	received: StrDeref(r.UserDashboardBranding),
+		// },
+		// {
+		// 	name:     "securityconfig",
+		// 	cmp:      func() bool { return IDASCPtrEquals(e.SecurityConfig, r.SecurityConfig) },
+		// 	expected: StrDeref(e.SecurityConfig),
+		// 	received: StrDeref(r.SecurityConfig),
+		// },
+		// {
+		// 	name:     "keystore",
+		// 	cmp:      func() bool { return KeystorePtrEquals(e.Keystore, r.Keystore) },
+		// 	expected: StrDeref(e.Keystore),
+		// 	received: StrDeref(r.Keystore),
+		// },
+		// {
+		// 	name:     "idpselector",
+		// 	cmp:      func() bool { return EntitySelectionPtrEquals(e.IdpSelector, r.IdpSelector) },
+		// 	expected: StrDeref(e.IdpSelector),
+		// 	received: StrDeref(r.IdpSelector),
+		// },
 		{
 			name:     "description",
 			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
@@ -171,16 +190,22 @@ func ApplianceFieldTestCreate(
 			received: StrDeref(r.Description),
 		},
 		{
+			name:     "displayName",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: StrDeref(e.DisplayName),
+			received: StrDeref(r.DisplayName),
+		},
+		{
+			name:     "name",
+			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
+		},
+		{
 			name:     "namespace",
 			cmp:      func() bool { return StrPtrEquals(e.Namespace, r.Namespace) },
 			expected: StrDeref(e.Namespace),
 			received: StrDeref(r.Namespace),
-		},
-		{
-			name:     "location",
-			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
-			expected: LocationToStr(e.Location),
-			received: LocationToStr(r.Location),
 		},
 	}
 }
@@ -192,10 +217,10 @@ func ApplianceFieldTestUpdate(
 
 	t := []FiledTestStruct{
 		{
-			name:     "id",
-			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
-			received: strconv.FormatInt(Int64Deref(r.Id), 10),
+			name:     "location",
+			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
+			expected: LocationToStr(e.Location),
+			received: LocationToStr(r.Location),
 		},
 	}
 	return append(t, ApplianceFieldTestCreate(e, r)...)

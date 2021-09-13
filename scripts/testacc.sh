@@ -70,7 +70,7 @@ Title "Building docker container : $DOCKER_CONTAINER"
 docker run --name "$DOCKER_CONTAINER" -d -p8111:8081 -p8222:8101 -p8444:8443 "$DOCKER_IMAGE" 
 
 # TODO : Wait for the server to start!
-for i in {1..10}; do
+for i in {1..15}; do
     curl -I "$JOSSO_API_ENDPOINT/info" | grep "HTTP/1.1 401 Unauthorized"
     if [ $? == 0 ] ; then
         break
@@ -81,15 +81,14 @@ done
 cd $SCRIPT_DIR/..
 
 Title "Running tests : $SCRIPT_DIR/.."
-if ! make testacc ; then
-    MAKE_ERROR=true
-fi
+make testacc
+MAKE_STATUS=$?
 
 
 Title "Destroying docker container : $DOCKER_CONTAINER" 
 docker rm -f "$DOCKER_CONTAINER"
 
-if [ MAKE_ERROR == true ] ; then
-    error "There are TESTS errors"
+if [ MAKE_STATUS != 0 ] ; then
+    Title "There are TESTS errors"
     exit 1
 fi

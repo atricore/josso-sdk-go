@@ -81,7 +81,15 @@ done
 cd $SCRIPT_DIR/..
 
 Title "Running tests : $SCRIPT_DIR/.."
-make testacc
+if ! make testacc ; then
+    MAKE_ERROR=true
+fi
+
 
 Title "Destroying docker container : $DOCKER_CONTAINER" 
 docker rm -f "$DOCKER_CONTAINER"
+
+if [ MAKE_ERROR == true ] ; then
+    error "There are TESTS errors"
+    exit 1
+fi

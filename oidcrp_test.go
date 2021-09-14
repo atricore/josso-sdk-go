@@ -155,16 +155,15 @@ func createTestExternalOpenIDConnectRelayingPartyDTO(name string) *api.ExternalO
 	tData.SetClientType("")
 	tData.SetDescription("")
 	tData.SetDisplayName("")
-	tData.SetElementId("")
 	tData.SetEncryptionAlg("")
 	tData.SetEncryptionMethod("")
 	tData.SetId(-1)
 	tData.SetIdTokenEncryptionAlg("")
 	tData.SetIdTokenEncryptionMethod("")
 	//orig.SetIdentityLookups(IdentityLookupDTO)
-	tData.SetIsRemote(true)
+	//tData.SetIsRemote(true)
 	tData.SetName("rp-2")
-	tData.SetRemote(true)
+	//tData.SetRemote(true)
 	tData.SetSigningAlg("RS256")
 
 	return tData
@@ -278,23 +277,12 @@ func OidcRpFieldTestCreate(
 		// 	expected: StrDeref(e.IdentityLookups),
 		// 	received: StrDeref(r.IdentityLookups),
 		// },
-		{
-			name:     "isremote",
-			cmp:      func() bool { return BoolPtrEquals(e.IsRemote, r.IsRemote) },
-			expected: strconv.FormatBool(BoolDeref(e.IsRemote)),
-			received: strconv.FormatBool(BoolDeref(r.IsRemote)),
-		},
+
 		{
 			name:     "name",
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
 			expected: StrDeref(e.Name),
 			received: StrDeref(r.Name),
-		},
-		{
-			name:     "remote",
-			cmp:      func() bool { return BoolPtrEquals(e.Remote, r.Remote) },
-			expected: strconv.FormatBool(BoolDeref(e.Remote)),
-			received: strconv.FormatBool(BoolDeref(r.Remote)),
 		},
 		{
 			name:     "signingalg",
@@ -316,12 +304,6 @@ func OidcRpFieldTestUpdate(
 			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
 			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
 			received: strconv.FormatInt(Int64Deref(r.Id), 10),
-		},
-		{
-			name:     "elementid",
-			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
-			expected: StrDeref(e.ElementId),
-			received: StrDeref(r.ElementId),
 		},
 	}
 

@@ -9,7 +9,7 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-func (s *AccTestSuite) TestAccCliIntSaml2_crud() {
+func (s *AccTestSuite) TaCliIntSaml2_crud() { // MODIFIED
 	var t = s.T()
 
 	appliance, err := getTestAppliance(s.T(), s.client)

@@ -272,9 +272,9 @@ func DbIdentitySourceFieldTestCreate(
 		},
 		{
 			name:     "password",
-			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			cmp:      func() bool { return StrPtrEquals(e.Password, r.Password) },
+			expected: StrDeref(e.Password),
+			received: StrDeref(r.Password),
 		},
 		{
 			name:     "pooleddatasource",

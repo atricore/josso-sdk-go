@@ -30,7 +30,7 @@ func (s *AccTestSuite) TestAccCliDbIdentityVaultDto_crud() {
 		return
 	}
 	if err := DbIdentityVaultValidateCreate(orig, &created); err != nil {
-		t.Errorf("creating db identity vault : %v", err)
+		t.Errorf("creating dbv identity vault : %v", err)
 		return
 	}
 
@@ -42,11 +42,11 @@ func (s *AccTestSuite) TestAccCliDbIdentityVaultDto_crud() {
 		return
 	}
 	if err = DbIdentityVaultValidateUpdate(&read, &created); err != nil {
-		t.Errorf("reading db identity vault : %v", err)
+		t.Errorf("reading dbv identity vault : %v", err)
 		return
 	}
 	if read.Name == nil {
-		t.Errorf("db identity vault not found for name %s", crudName)
+		t.Errorf("dbv identity vault not found for name %s", crudName)
 		return
 	}
 

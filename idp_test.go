@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -230,19 +231,20 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	snip.AdditionalProperties["@c"] = "com.atricore.idbus.console.services.dto.SubjectNameIdentifierPolicyDTO"
 	tData.SetSubjectNameIDPolicy(snip)
 
-	// TODO : Use valid names(Share)
-	var key api.KeystoreDTO
-	key.SetCertificateAlias("")
-	key.SetDisplayName("")
-	key.SetElementId("")
-	key.SetId(1)
-	key.SetKeystorePassOnly(true)
-	key.SetName("")
-	key.SetPassword("")
-	key.SetPrivateKeyName("")
-	key.SetPrivateKeyPassword("")
-	key.SetStore(ResourceDTO)
-	key.SetType("")
+	var rs api.ResourceDTO
+	rs.SetValue(keystore)
+	rs.SetUri(fmt.Sprintf("ks-%s.jks", name))
+
+	var ks api.KeystoreDTO
+	ks.SetCertificateAlias("jetty")
+	ks.SetPassword("@WSX3edc")
+	ks.SetPrivateKeyName("jetty")
+	ks.SetPrivateKeyPassword("@WSX3edc")
+	ks.SetStore(rs)
+	ks.SetType("JKS")
+	ks.SetName(fmt.Sprintf("%s-ks", name))
+	ks.SetStore(rs)
+	// TODO : Inject in IdP
 
 	// SAML2 IdP config as serialized by CXF (Additional properties)
 	var conf api.SamlR2IDPConfigDTO
@@ -290,6 +292,7 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	tData.SetDashboardUrl("http://localhost:8080/myapp")
 
 	tData.SetAuthenticationMechanisms(authn)
+
 	/*
 		var delegatedauthns []api.DelegatedAuthenticationDTO
 		delegatedauthns1 := api.NewDelegatedAuthenticationDTO()

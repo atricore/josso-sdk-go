@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -126,18 +127,6 @@ func createTestIdentityApplianceDefinitionDTO(name string) *api.IdentityApplianc
 	// scfg.SetSaltValue("")
 	tData.SetSecurityConfig(scfg)
 
-	var rs api.ResourceDTO
-	rs.SetValue(keystore)
-
-	var ks api.KeystoreDTO
-	ks.SetCertificateAlias("jetty")
-	ks.SetPassword("@WSX3edc")
-	ks.SetPrivateKeyName("jetty")
-	ks.SetPrivateKeyPassword("@WSX3edc")
-	ks.SetStore(rs)
-	ks.SetType("JKS")
-	tData.SetKeystore(ks)
-
 	var es api.EntitySelectionStrategyDTO
 	es.SetName("requested-preferred-idp-selection")
 	tData.SetIdpSelector(es)
@@ -145,10 +134,22 @@ func createTestIdentityApplianceDefinitionDTO(name string) *api.IdentityApplianc
 	tData.SetDescription(fmt.Sprintf("Desc %s", name))
 	tData.SetDisplayName(fmt.Sprintf("DispName %s", name))
 	tData.SetName(name)
-	tData.SetNamespace(fmt.Sprintf("com.atricore.idbus.ida.%s", strings.ToLower(name)))
+	tData.SetNamespace(fmt.Sprintf("com.atricore.idbus.ida.%s", sanitizeName(name)))
 	// orig.SetRequiredBundles() //
 
 	return tData
+}
+
+// Removes unsupported chars from name
+func sanitizeName(name string) string {
+	// Replace unsupported chars
+
+	chars := []string{"]", "^", "\\\\", "[", "(", ")", "-"}
+	r := strings.Join(chars, "")
+	re := regexp.MustCompile("[" + r + "]+")
+	name = re.ReplaceAllString(name, "")
+
+	return strings.ToLower(name)
 }
 
 // -------------------------------------------------

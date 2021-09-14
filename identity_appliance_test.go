@@ -12,8 +12,10 @@ import (
 func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	var t = s.T()
 
+	s.accClearData()
+
 	// Test CRUD
-	crudName := "ida-z"
+	crudName := "testacc-z"
 	var orig *api.IdentityApplianceDefinitionDTO
 	var created api.IdentityApplianceDefinitionDTO
 	orig = createTestIdentityApplianceDefinitionDTO(crudName)
@@ -78,10 +80,10 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	// List of created elements, order by Name, (these elements must have all the variables of the structure)
 	var listOfCreated [2]api.IdentityApplianceDefinitionDTO
 
-	element1 := createTestIdentityApplianceDefinitionDTO("ida-1")
+	element1 := createTestIdentityApplianceDefinitionDTO("testacc-1")
 	listOfCreated[0], _ = s.client.CreateAppliance(*element1)
 
-	element2 := createTestIdentityApplianceDefinitionDTO("ida-2")
+	element2 := createTestIdentityApplianceDefinitionDTO("testacc-2")
 	listOfCreated[1], _ = s.client.CreateAppliance(*element2)
 
 	// Get list from server

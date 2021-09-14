@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -127,48 +128,30 @@ func (s *AccTestSuite) TestAccCliDbIdentitySourceDTO_crud() {
 func createTestDbIdentitySourceDTO(name string) *api.DbIdentitySourceDTO {
 	tData := api.NewDbIdentitySourceDTO()
 
-	var custprop []api.CustomClassPropertyDTO
-	custprop1 := api.NewCustomClassPropertyDTO()
-	custprop1.SetName("")
-	custprop1.SetValue("")
-	custprop = append(custprop, *custprop1)
-	custprop2 := api.NewCustomClassPropertyDTO()
-	custprop2.SetName("")
-	custprop2.SetValue("")
-	custprop = append(custprop, *custprop1)
-
-	var cust api.CustomClassDTO
-	cust.SetCardinality("")
-	cust.SetFqcn("")
-	cust.SetOsgiFilter("")
-	cust.SetOsgiService(true)
-	cust.SetProperties(custprop)
-	cust.SetTimeoutSecs(1)
-	cust.SetType("")
-	tData.SetCustomClass(cust)
+	tData.SetName(name)
+	tData.SetAdmin(fmt.Sprint("usr-", name))
+	tData.SetCredentialsQueryString("SELECT USERNAME, PASSWORD FROM JOSSO_USER WHERE LOGIN = ?")
+	tData.SetPassword(fmt.Sprint("pwd-", name))
+	tData.SetRelayCredentialQueryString("n/a")
+	tData.SetResetCredentialDml("")
+	tData.SetRolesQueryString("SELECT R.ROLE FROM JOSSO_ROLE R, JOSSO_USER U, JOSSO_USER_ROLE RU WHERE R.ROLE = RU.ROLE AND RU.USER = U.LOGIN AND U.LOGIN = ?")
+	tData.SetUseColumnNamesAsPropertyNames(true)
+	tData.SetUserPropertiesQueryString("SELECT EMAIL, LASTNAME, FIRSTNAME FROM JOSSO_USER WHERE LOGIN = ?")
+	tData.SetUserQueryString("SELECT USERNAME FROM JOSSO_USER WHERE LOGIN = ?")
 
 	tData.SetAcquireIncrement(1)
-	tData.SetAdmin("")
-	tData.SetConnectionUrl("")
-	tData.SetCredentialsQueryString("")
-	tData.SetDescription("")
-	tData.SetDriverName("")
-	tData.SetElementId("")
+	tData.SetConnectionUrl(fmt.Sprintf("jdbc:mysql:localhost/%s?create=true", name))
+	tData.SetDescription(fmt.Sprint("Description", name))
+	tData.SetDriverName(fmt.Sprintln("org.mysql.driver"))
 	tData.SetIdleConnectionTestPeriod(1)
-	tData.SetInitialPoolSize(1)
-	tData.SetMaxIdleTime(1)
-	tData.SetMaxPoolSize(1)
+	tData.SetInitialPoolSize(10)
+	tData.SetMaxIdleTime(15)
+	tData.SetMaxPoolSize(20)
 	tData.SetMinPoolSize(1)
-	tData.SetPassword("")
-	tData.SetPooledDatasource(true)
-	tData.SetRelayCredentialQueryString("")
-	tData.SetResetCredentialDml("")
-	tData.SetRolesQueryString("")
-	tData.SetUseColumnNamesAsPropertyNames(true)
-	tData.SetUserPropertiesQueryString("")
-	tData.SetUserQueryString("")
 	tData.SetName(name)
-	tData.SetId(-1)
+	tData.SetPassword(fmt.Sprint("pdw", name))
+	tData.SetPooledDatasource(true)
+
 	return tData
 }
 
@@ -233,12 +216,6 @@ func DbIdentitySourceFieldTestCreate(
 			cmp:      func() bool { return StrPtrEquals(e.DriverName, r.DriverName) },
 			expected: StrDeref(e.DriverName),
 			received: StrDeref(r.DriverName),
-		},
-		{
-			name:     "elementid",
-			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
-			expected: StrDeref(e.ElementId),
-			received: StrDeref(r.ElementId),
 		},
 		{
 			name:     "idleconnectiontestperiod",

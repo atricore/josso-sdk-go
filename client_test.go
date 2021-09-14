@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -43,7 +44,7 @@ func buildFileName(prefix string, suffix int) string {
 
 const (
 	keystore          = "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"
-	testApplianceName = "ida-a"
+	testApplianceName = "testacc-a"
 )
 
 func (s *AccTestSuite) SetupSuite() {
@@ -204,7 +205,8 @@ func createTestAppliance(t *testing.T, client *IdbusApiClient) (api.IdentityAppl
 		Name:        api.PtrString(testApplianceName),
 		Namespace:   api.PtrString("com.atricore.idbus.ida.t"),
 		Location:    l,
-		Description: api.PtrString("IDA-T TEST !"),
+		Description: api.PtrString("TESTACC-T TEST !"),
+		DisplayName: api.PtrString("TESTACC-T TEST !"),
 	}
 	created, err := client.CreateAppliance(orig)
 	if err != nil {
@@ -234,8 +236,11 @@ func (s *AccTestSuite) accClearData() error {
 			return err
 		}
 
+		s.T().Logf("found %d appliances", len(as))
+
 		for _, a := range as {
-			if *a.Name == testApplianceName {
+
+			if strings.HasPrefix(*a.Name, "testacc") {
 
 				s.T().Logf("deleting appliance %d", a.GetId())
 				r, err1 := s.client.DeleteAppliance(strconv.FormatInt(a.GetId(), 10))
@@ -244,6 +249,7 @@ func (s *AccTestSuite) accClearData() error {
 				}
 				if !r {
 					s.T().Logf("appliance not found %s", *a.Name)
+
 					return nil
 				}
 			}

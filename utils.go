@@ -26,7 +26,7 @@ func PtrBool(s interface{}) *bool {
 }
 
 func StrDeref(p *string) string {
-	result := ""
+	result := "NIL"
 	if p != nil {
 		result = *p
 	}

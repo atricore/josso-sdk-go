@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -20,7 +21,11 @@ func (s *AccTestSuite) TestAccCliVirtSaml2_crud() {
 	crudName := "Virtsaml2-a"
 	var orig *api.VirtualSaml2ServiceProviderDTO
 	var created api.VirtualSaml2ServiceProviderDTO
-	orig = createTestVirtualSaml2ServiceProviderDTO(crudName)
+	orig, err = createTestVirtualSaml2ServiceProviderDTO(crudName)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
 	// Test CREATE
 	created, err = s.client.CreateVirtSaml2Sp(*appliance.Name, *orig)
@@ -88,10 +93,18 @@ func (s *AccTestSuite) TestAccCliVirtSaml2_crud() {
 	var listOfCreated [2]api.VirtualSaml2ServiceProviderDTO
 
 	// Test list of #2 elements
-	element1 := createTestVirtualSaml2ServiceProviderDTO("Extsmal2-1")
+	element1, err := createTestVirtualSaml2ServiceProviderDTO("Extsmal2-1")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	listOfCreated[0], _ = s.client.CreateVirtSaml2Sp(*appliance.Name, *element1)
 
-	element2 := createTestVirtualSaml2ServiceProviderDTO("Extsmal2-2")
+	element2, err := createTestVirtualSaml2ServiceProviderDTO("Extsmal2-2")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	listOfCreated[1], _ = s.client.CreateVirtSaml2Sp(*appliance.Name, *element2)
 
 	// ------------------------
@@ -125,609 +138,69 @@ func (s *AccTestSuite) TestAccCliVirtSaml2_crud() {
 
 }
 
-func createTestVirtualSaml2ServiceProviderDTO(name string) *api.VirtualSaml2ServiceProviderDTO {
+func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2ServiceProviderDTO, error) {
 	//encMetadata := metadata
 	tData := api.NewVirtualSaml2ServiceProviderDTO()
 
-	var DelegatedAuthentication api.DelegatedAuthenticationDTO
-	DelegatedAuthentication.SetDescription("")
-	DelegatedAuthentication.SetElementId("")
-	DelegatedAuthentication.SetId(1)
-	DelegatedAuthentication.SetName("")
+	tData.SetName(name)
 
-	var AuthenticationContractDTO api.AuthenticationContractDTO
-	AuthenticationContractDTO.SetElementId("")
-	AuthenticationContractDTO.SetId(1)
-	AuthenticationContractDTO.SetName("")
+	var snip api.SubjectNameIdentifierPolicyDTO
 
-	var AuthenticationMechanismDTO []api.AuthenticationMechanismDTO
-	AuthenticationMechanismDTO1 := api.NewAuthenticationMechanismDTO()
-	AuthenticationMechanismDTO1.SetDelegatedAuthentication(DelegatedAuthentication)
-	AuthenticationMechanismDTO1.SetDisplayName("")
-	AuthenticationMechanismDTO1.SetElementId("")
-	AuthenticationMechanismDTO1.SetId(1)
-	AuthenticationMechanismDTO1.SetName("")
-	AuthenticationMechanismDTO1.SetPriority(1)
-	AuthenticationMechanismDTO = append(AuthenticationMechanismDTO, *AuthenticationMechanismDTO1)
-	AuthenticationMechanismDTO2 := api.NewAuthenticationMechanismDTO()
-	AuthenticationMechanismDTO2.SetDelegatedAuthentication(DelegatedAuthentication)
-	AuthenticationMechanismDTO2.SetDisplayName("")
-	AuthenticationMechanismDTO2.SetElementId("")
-	AuthenticationMechanismDTO2.SetId(1)
-	AuthenticationMechanismDTO2.SetName("")
-	AuthenticationMechanismDTO2.SetPriority(1)
-	AuthenticationMechanismDTO = append(AuthenticationMechanismDTO, *AuthenticationMechanismDTO2)
+	snip.SetDescriptionKey("")
+	snip.SetName("Principal")
+	snip.SetSubjectAttribute("")
+	snip.SetType("PRINCIPAL")
+	snip.AdditionalProperties = make(map[string]interface{})
+	snip.AdditionalProperties["@c"] = "com.atricore.idbus.console.services.dto.SubjectNameIdentifierPolicyDTO"
+	tData.SetSubjectNameIDPolicy(snip)
 
-	var AuthenticationAssertionEmissionPolicyDTO api.AuthenticationAssertionEmissionPolicyDTO
-	AuthenticationAssertionEmissionPolicyDTO.SetElementId("")
-	AuthenticationAssertionEmissionPolicyDTO.SetId(1)
-	AuthenticationAssertionEmissionPolicyDTO.SetName("")
+	var rs api.ResourceDTO
+	rs.SetValue(keystore)
+	rs.SetUri(fmt.Sprintf("ks-%s.jks", name))
 
-	var ExtensionDTO api.ExtensionDTO
-	ExtensionDTO.SetClassifier("")
-	ExtensionDTO.SetId("")
-	ExtensionDTO.SetName("")
-	ExtensionDTO.SetNamespace("")
-	ExtensionDTO.SetProvider("")
-	ExtensionDTO.SetVersion("")
-
-	var OAuth2ClientDTO []api.OAuth2ClientDTO
-	OAuth2ClientDTO1 := api.NewOAuth2ClientDTO()
-	OAuth2ClientDTO1.SetBaseURL("")
-	OAuth2ClientDTO1.SetId("")
-	OAuth2ClientDTO1.SetSecret("")
-	OAuth2ClientDTO = append(OAuth2ClientDTO, *OAuth2ClientDTO1)
-	OAuth2ClientDTO2 := api.NewOAuth2ClientDTO()
-	OAuth2ClientDTO2.SetBaseURL("")
-	OAuth2ClientDTO2.SetId("")
-	OAuth2ClientDTO2.SetSecret("")
-	OAuth2ClientDTO = append(OAuth2ClientDTO, *OAuth2ClientDTO2)
-
-	var SubjectNameIdentifierPolicy api.SubjectNameIdentifierPolicyDTO
-	SubjectNameIdentifierPolicy.SetDescriptionKey("")
-	SubjectNameIdentifierPolicy.SetId("")
-	SubjectNameIdentifierPolicy.SetName("")
-	SubjectNameIdentifierPolicy.SetSubjectAttribute("")
-	SubjectNameIdentifierPolicy.SetType("")
-
-	var AuthenticationServiceDTO api.AuthenticationServiceDTO
-	AuthenticationServiceDTO.SetDescription("")
-	AuthenticationServiceDTO.SetDisplayName("")
-	AuthenticationServiceDTO.SetElementId("")
-	AuthenticationServiceDTO.SetId(1)
-	AuthenticationServiceDTO.SetName("")
-
-	var IdentityProviderDTO api.IdentityProviderDTO
-	// IdentityProviderDTO.SetActiveBindings("") //
-	// IdentityProviderDTO.SetActiveProfiles("") //
-	IdentityProviderDTO.SetAuthenticationContract(AuthenticationContractDTO)
-	IdentityProviderDTO.SetAuthenticationMechanisms(AuthenticationMechanismDTO)
-	IdentityProviderDTO.SetDashboardUrl("")
-	IdentityProviderDTO.SetDescription("")
-	IdentityProviderDTO.SetDestroyPreviousSession(true)
-	IdentityProviderDTO.SetDisplayName("")
-	IdentityProviderDTO.SetElementId("")
-	IdentityProviderDTO.SetEmissionPolicy(AuthenticationAssertionEmissionPolicyDTO)
-	IdentityProviderDTO.SetEnableMetadataEndpoint(true)
-	IdentityProviderDTO.SetEncryptAssertion(true)
-	IdentityProviderDTO.SetEncryptAssertionAlgorithm("")
-	IdentityProviderDTO.SetErrorBinding("")
-	IdentityProviderDTO.SetExternallyHostedIdentityConfirmationTokenService(true)
-	IdentityProviderDTO.SetId(1)
-	IdentityProviderDTO.SetIdentityConfirmationEnabled(true)
-	IdentityProviderDTO.SetIdentityConfirmationOAuth2AuthorizationServerEndpoint("")
-	IdentityProviderDTO.SetIdentityConfirmationOAuth2ClientId("")
-	IdentityProviderDTO.SetIdentityConfirmationOAuth2ClientSecret("")
-	IdentityProviderDTO.SetIdentityConfirmationPolicy(ExtensionDTO)
-	IdentityProviderDTO.SetIgnoreRequestedNameIDPolicy(true)
-	IdentityProviderDTO.SetIsRemote(true)
-	IdentityProviderDTO.SetMaxSessionsPerUser(1)
-	IdentityProviderDTO.SetMessageTtl(300)
-	IdentityProviderDTO.SetMessageTtlTolerance(300)
-	IdentityProviderDTO.SetName("")
-	IdentityProviderDTO.SetOauth2Clients(OAuth2ClientDTO)
-	IdentityProviderDTO.SetOauth2ClientsConfig("")
-	IdentityProviderDTO.SetOauth2Enabled(true)
-	IdentityProviderDTO.SetOauth2Key("")
-	IdentityProviderDTO.SetOauth2RememberMeTokenValidity(1)
-	IdentityProviderDTO.SetOauth2TokenValidity(1)
-	IdentityProviderDTO.SetOidcAccessTokenTimeToLive(1)
-	IdentityProviderDTO.SetOidcAuthzCodeTimeToLive(1)
-	IdentityProviderDTO.SetOidcIdTokenTimeToLive(1)
-	IdentityProviderDTO.SetOpenIdEnabled(true)
-	IdentityProviderDTO.SetPwdlessAuthnEnabled(true)
-	IdentityProviderDTO.SetPwdlessAuthnFrom("")
-	IdentityProviderDTO.SetPwdlessAuthnSubject("")
-	IdentityProviderDTO.SetPwdlessAuthnTemplate("")
-	IdentityProviderDTO.SetPwdlessAuthnTo("")
-	IdentityProviderDTO.SetRemote(true)
-	IdentityProviderDTO.SetRole("")
-	IdentityProviderDTO.SetSignRequests(true)
-	IdentityProviderDTO.SetSignatureHash("")
-	IdentityProviderDTO.SetSsoSessionTimeout(1)
-	IdentityProviderDTO.SetSubjectAuthnPolicies(*IdentityProviderDTO.SubjectAuthnPolicies)
-	IdentityProviderDTO.SetSubjectNameIDPolicy(SubjectNameIdentifierPolicy)
-	IdentityProviderDTO.SetUserDashboardBranding("")
-	IdentityProviderDTO.SetWantAuthnRequestsSigned(true)
-	IdentityProviderDTO.SetWantSignedRequests(true)
-	DelegatedAuthentication.SetIdp(IdentityProviderDTO)
-
-	var ExecutionEnvironment api.ExecutionEnvironmentDTO
-	ExecutionEnvironment.SetActive(true)
-	ExecutionEnvironment.SetDescription("")
-	ExecutionEnvironment.SetDisplayName("")
-	ExecutionEnvironment.SetElementId("")
-	ExecutionEnvironment.SetId(1)
-	ExecutionEnvironment.SetInstallDemoApps(true)
-	ExecutionEnvironment.SetInstallUri("")
-	ExecutionEnvironment.SetLocation("")
-	ExecutionEnvironment.SetName("")
-	ExecutionEnvironment.SetOverwriteOriginalSetup(true)
-	ExecutionEnvironment.SetPlatformId("")
-	ExecutionEnvironment.SetTargetJDK("")
-	ExecutionEnvironment.SetType("")
-
-	var ServiceResourceDTO api.ServiceResourceDTO
-	ServiceResourceDTO.SetDescription("")
-	ServiceResourceDTO.SetElementId("")
-	ServiceResourceDTO.SetId(1)
-	ServiceResourceDTO.SetName("")
-
-	var DelegatedAuthenticationDTO []api.DelegatedAuthenticationDTO
-	DelegatedAuthenticationDTO1 := api.NewDelegatedAuthenticationDTO()
-	DelegatedAuthenticationDTO1.SetAuthnService(AuthenticationServiceDTO)
-	DelegatedAuthenticationDTO1.SetDescription("")
-	DelegatedAuthenticationDTO1.SetElementId("")
-	DelegatedAuthenticationDTO1.SetId(1)
-	DelegatedAuthenticationDTO1.SetIdp(IdentityProviderDTO)
-	DelegatedAuthenticationDTO1.SetName("")
-	DelegatedAuthenticationDTO = append(DelegatedAuthenticationDTO, *DelegatedAuthenticationDTO1)
-	DelegatedAuthenticationDTO2 := api.NewDelegatedAuthenticationDTO()
-	DelegatedAuthenticationDTO2.SetAuthnService(AuthenticationServiceDTO)
-	DelegatedAuthenticationDTO2.SetDescription("")
-	DelegatedAuthenticationDTO2.SetElementId("")
-	DelegatedAuthenticationDTO2.SetId(1)
-	DelegatedAuthenticationDTO2.SetIdp(IdentityProviderDTO)
-	DelegatedAuthenticationDTO2.SetName("")
-	DelegatedAuthenticationDTO = append(DelegatedAuthenticationDTO, *DelegatedAuthenticationDTO2)
-	AuthenticationServiceDTO.SetDelegatedAuthentications(DelegatedAuthenticationDTO)
-	IdentityProviderDTO.SetDelegatedAuthentications(DelegatedAuthenticationDTO)
-
-	var Activation api.ActivationDTO
-	Activation.SetDescription("")
-	Activation.SetElementId("")
-	Activation.SetExecutionEnv(ExecutionEnvironment)
-	Activation.SetId(1)
-	Activation.SetName("")
-	Activation.SetResource(ServiceResourceDTO)
-	//Activation.SetSp()
-	ServiceResourceDTO.SetActivation(Activation)
-
-	var ActivationDTO []api.ActivationDTO
-	ActivationDTO1 := api.NewActivationDTO()
-	ActivationDTO1.SetDescription("")
-	ActivationDTO1.SetElementId("")
-	ActivationDTO1.SetExecutionEnv(ExecutionEnvironment)
-	ActivationDTO1.SetId(1)
-	ActivationDTO1.SetName("")
-	ActivationDTO1.SetResource(ServiceResourceDTO)
-	//ActivationDTO1.SetSp()
-	ActivationDTO = append(ActivationDTO, *ActivationDTO1)
-	ActivationDTO2 := api.NewActivationDTO()
-	ActivationDTO2.SetDescription("")
-	ActivationDTO2.SetElementId("")
-	ActivationDTO2.SetExecutionEnv(ExecutionEnvironment)
-	ActivationDTO2.SetId(1)
-	ActivationDTO2.SetName("")
-	ActivationDTO2.SetResource(ServiceResourceDTO)
-	//ActivationDTO2.SetSp()
-	ActivationDTO = append(ActivationDTO, *ActivationDTO2)
-	ExecutionEnvironment.SetActivations(ActivationDTO)
-
-	var ServiceConnectionDTO api.ServiceConnectionDTO
-	ServiceConnectionDTO.SetDescription("")
-	ServiceConnectionDTO.SetElementId("")
-	ServiceConnectionDTO.SetId(1)
-	ServiceConnectionDTO.SetName("")
-	ServiceConnectionDTO.SetResource(ServiceResourceDTO)
-	//ServiceConnectionDTO.SetSp()
-	ServiceResourceDTO.SetServiceConnection(ServiceConnectionDTO)
-
-	var FederatedConnection api.FederatedConnectionDTO
-	FederatedConnection.SetDescription("")
-	FederatedConnection.SetElementId("")
-	FederatedConnection.SetId(1)
-	FederatedConnection.SetName("")
-
-	var IdentitySource api.IdentitySourceDTO
-	IdentitySource.SetDescription("")
-	IdentitySource.SetElementId("")
-	IdentitySource.SetId(1)
-	IdentitySource.SetName("")
-
-	var Provider api.ProviderDTO
-	// Provider.SetActiveBindings() //
-	// Provider.SetActiveProfiles() //
-	Provider.SetDescription("")
-	Provider.SetDisplayName("")
-	Provider.SetElementId("")
-	Provider.SetId(1)
-	Provider.SetIsRemote(true)
-	Provider.SetName("")
-	Provider.SetRemote(true)
-	Provider.SetRole("")
-
-	var AuthenticationService []api.AuthenticationServiceDTO
-	AuthenticationService1 := api.NewAuthenticationServiceDTO()
-	AuthenticationService1.SetDelegatedAuthentications(DelegatedAuthenticationDTO)
-	AuthenticationService1.SetDescription("")
-	AuthenticationService1.SetDisplayName("")
-	AuthenticationService1.SetElementId("")
-	AuthenticationService1.SetId(1)
-	AuthenticationService1.SetName("")
-	AuthenticationService = append(AuthenticationService, *AuthenticationService1)
-	AuthenticationService2 := api.NewAuthenticationServiceDTO()
-	AuthenticationService2.SetDelegatedAuthentications(DelegatedAuthenticationDTO)
-	AuthenticationService2.SetDescription("")
-	AuthenticationService2.SetDisplayName("")
-	AuthenticationService2.SetElementId("")
-	AuthenticationService2.SetId(1)
-	AuthenticationService2.SetName("")
-	AuthenticationService = append(AuthenticationService, *AuthenticationService2)
-	DelegatedAuthentication.SetAuthnService(AuthenticationServiceDTO)
-
-	var ExecutionEnvironmentDTO []api.ExecutionEnvironmentDTO
-	ExecutionEnvironmentDTO1 := api.NewExecutionEnvironmentDTO()
-	ExecutionEnvironmentDTO1.SetActivations(ActivationDTO)
-	ExecutionEnvironmentDTO1.SetActive(true)
-	ExecutionEnvironmentDTO1.SetDescription("")
-	ExecutionEnvironmentDTO1.SetDisplayName("")
-	ExecutionEnvironmentDTO1.SetElementId("")
-	ExecutionEnvironmentDTO1.SetId(1)
-	ExecutionEnvironmentDTO1.SetInstallDemoApps(true)
-	ExecutionEnvironmentDTO1.SetInstallUri("")
-	ExecutionEnvironmentDTO1.SetLocation("")
-	ExecutionEnvironmentDTO1.SetName("")
-	ExecutionEnvironmentDTO1.SetOverwriteOriginalSetup(true)
-	ExecutionEnvironmentDTO1.SetPlatformId("")
-	ExecutionEnvironmentDTO1.SetTargetJDK("")
-	ExecutionEnvironmentDTO1.SetType("")
-	ExecutionEnvironmentDTO = append(ExecutionEnvironmentDTO, *ExecutionEnvironmentDTO1)
-	ExecutionEnvironmentDTO2 := api.NewExecutionEnvironmentDTO()
-	ExecutionEnvironmentDTO2.SetActivations(ActivationDTO)
-	ExecutionEnvironmentDTO2.SetActive(true)
-	ExecutionEnvironmentDTO2.SetDescription("")
-	ExecutionEnvironmentDTO2.SetDisplayName("")
-	ExecutionEnvironmentDTO2.SetElementId("")
-	ExecutionEnvironmentDTO2.SetId(1)
-	ExecutionEnvironmentDTO2.SetInstallDemoApps(true)
-	ExecutionEnvironmentDTO2.SetInstallUri("")
-	ExecutionEnvironmentDTO2.SetLocation("")
-	ExecutionEnvironmentDTO2.SetName("")
-	ExecutionEnvironmentDTO2.SetOverwriteOriginalSetup(true)
-	ExecutionEnvironmentDTO2.SetPlatformId("")
-	ExecutionEnvironmentDTO2.SetTargetJDK("")
-	ExecutionEnvironmentDTO2.SetType("")
-	ExecutionEnvironmentDTO = append(ExecutionEnvironmentDTO, *ExecutionEnvironmentDTO2)
-
-	var IdentitySourceDTO []api.IdentitySourceDTO
-	IdentitySourceDTO1 := api.NewIdentitySourceDTO()
-	IdentitySourceDTO1.SetDescription("")
-	IdentitySourceDTO1.SetElementId("")
-	IdentitySourceDTO1.SetId(1)
-	IdentitySourceDTO1.SetName("")
-	IdentitySourceDTO = append(IdentitySourceDTO, *IdentitySourceDTO1)
-	IdentitySourceDTO2 := api.NewIdentitySourceDTO()
-	IdentitySourceDTO2.SetDescription("")
-	IdentitySourceDTO2.SetElementId("")
-	IdentitySourceDTO2.SetId(1)
-	IdentitySourceDTO2.SetName("")
-	IdentitySourceDTO = append(IdentitySourceDTO, *IdentitySourceDTO2)
-
-	var ProviderDTO []api.ProviderDTO
-	ProviderDTO1 := api.NewProviderDTO()
-	// ProviderDTO1.SetActiveBindings() //
-	// ProviderDTO1.SetActiveProfiles() //
-	ProviderDTO1.SetDescription("")
-	ProviderDTO1.SetDisplayName("")
-	ProviderDTO1.SetElementId("")
-	ProviderDTO1.SetId(1)
-	ProviderDTO1.SetIsRemote(true)
-	ProviderDTO1.SetName("")
-	ProviderDTO1.SetRemote(true)
-	ProviderDTO1.SetRole("")
-	ProviderDTO = append(ProviderDTO, *ProviderDTO1)
-	ProviderDTO2 := api.NewProviderDTO()
-	// ProviderDTO2.SetActiveBindings() //
-	// ProviderDTO2.SetActiveProfiles() //
-	ProviderDTO2.SetDescription("")
-	ProviderDTO2.SetDisplayName("")
-	ProviderDTO2.SetElementId("")
-	ProviderDTO2.SetId(1)
-	ProviderDTO2.SetIsRemote(true)
-	ProviderDTO2.SetName("")
-	ProviderDTO2.SetRemote(true)
-	ProviderDTO2.SetRole("")
-	ProviderDTO = append(ProviderDTO, *ProviderDTO2)
-
-	var EntitySelectionStrategyDTO api.EntitySelectionStrategyDTO
-	EntitySelectionStrategyDTO.SetDescription("")
-	EntitySelectionStrategyDTO.SetName("")
-
-	var keystore api.KeystoreDTO
-	keystore.SetCertificateAlias("")
-	keystore.SetDisplayName("")
-	keystore.SetElementId("")
-	keystore.SetId(1)
-	keystore.SetKeystorePassOnly(true)
-	keystore.SetName("")
-	keystore.SetPassword("")
-	keystore.SetPrivateKeyName("")
-	keystore.SetPrivateKeyPassword("")
-	keystore.SetType("")
-
-	var IdentityApplianceSecurityConfigDTO api.IdentityApplianceSecurityConfigDTO
-	IdentityApplianceSecurityConfigDTO.SetEncryptSensitiveData(true)
-	IdentityApplianceSecurityConfigDTO.SetEncryption("")
-	IdentityApplianceSecurityConfigDTO.SetEncryptionConfig("")
-	IdentityApplianceSecurityConfigDTO.SetEncryptionConfigFile("")
-	IdentityApplianceSecurityConfigDTO.SetEncryptionPassword("")
-	IdentityApplianceSecurityConfigDTO.SetExternalConfig(true)
-	IdentityApplianceSecurityConfigDTO.SetExternalConfigFile("")
-	IdentityApplianceSecurityConfigDTO.SetPasswordProperty("")
-	IdentityApplianceSecurityConfigDTO.SetSalt("")
-	IdentityApplianceSecurityConfigDTO.SetSaltProperty("")
-	IdentityApplianceSecurityConfigDTO.SetSaltValue("")
-
-	var ServiceResource []api.ServiceResourceDTO
-	ServiceResource1 := api.NewServiceResourceDTO()
-	ServiceResource1.SetActivation(Activation)
-	ServiceResource1.SetDescription("")
-	ServiceResource1.SetElementId("")
-	ServiceResource1.SetId(1)
-	ServiceResource1.SetName("")
-	ServiceResource1.SetServiceConnection(ServiceConnectionDTO)
-	ServiceResource = append(ServiceResource, *ServiceResource1)
-	ServiceResource2 := api.NewServiceResourceDTO()
-	ServiceResource2.SetActivation(Activation)
-	ServiceResource2.SetDescription("")
-	ServiceResource2.SetElementId("")
-	ServiceResource2.SetId(1)
-	ServiceResource2.SetName("")
-	ServiceResource2.SetServiceConnection(ServiceConnectionDTO)
-	ServiceResource = append(ServiceResource, *ServiceResource2)
-
-	var UserDashboardBrandingDTO api.UserDashboardBrandingDTO
-	UserDashboardBrandingDTO.SetId("")
-	UserDashboardBrandingDTO.SetName("")
-
-	var FederatedChannelDTO api.FederatedChannelDTO
-	// FederatedChannelDTO.SetActiveBindings("") //////////// preguntar
-	// FederatedChannelDTO.SetActiveProfiles("") //////////// preguntar
-	FederatedChannelDTO.SetConnectionA(FederatedConnection)
-	FederatedChannelDTO.SetConnectionB(FederatedConnection)
-	FederatedChannelDTO.SetDescription("")
-	FederatedChannelDTO.SetDisplayName("")
-	FederatedChannelDTO.SetElementId("")
-	FederatedChannelDTO.SetId(1)
-	FederatedChannelDTO.SetName("")
-	FederatedChannelDTO.SetOverrideProviderSetup(true)
-	FederatedConnection.SetChannelA(FederatedChannelDTO)
-	FederatedConnection.SetChannelB(FederatedChannelDTO)
-
-	var FederatedProviderDTO api.FederatedProviderDTO
-	// FederatedProviderDTO.SetActiveBindings("") //
-	// FederatedProviderDTO.SetActiveProfiles("") //
-	FederatedProviderDTO.SetDescription("")
-	FederatedProviderDTO.SetDisplayName("")
-	FederatedProviderDTO.SetElementId("")
-	FederatedProviderDTO.SetId(1)
-	FederatedProviderDTO.SetIsRemote(true)
-	FederatedProviderDTO.SetName("")
-	FederatedProviderDTO.SetRemote(true)
-	FederatedProviderDTO.SetRole("")
-	FederatedConnection.SetRoleA(FederatedProviderDTO)
-	FederatedConnection.SetRoleB(FederatedProviderDTO)
-
-	var poi []api.PointDTO
-	poi1 := api.NewPointDTO()
-	poi1.SetX(1)
-	poi1.SetY(1)
-	poi = append(poi, *poi1)
-	poi2 := api.NewPointDTO()
-	poi2.SetX(1)
-	poi2.SetY(1)
-	poi = append(poi, *poi1)
-	Activation.SetWaypoints(poi)
-	DelegatedAuthentication.SetWaypoints(poi)
-	DelegatedAuthenticationDTO1.SetWaypoints(poi)
-	ActivationDTO1.SetWaypoints(poi)
-	ActivationDTO2.SetWaypoints(poi)
-	FederatedConnection.SetWaypoints(poi)
-	ServiceConnectionDTO.SetWaypoints(poi)
-	DelegatedAuthenticationDTO2.SetWaypoints(poi)
-
-	var SubjectAuthenticationPolicyDTO []api.SubjectAuthenticationPolicyDTO
-	SubjectAuthenticationPolicyDTO1 := api.NewSubjectAuthenticationPolicyDTO()
-	SubjectAuthenticationPolicyDTO1.SetDescription("")
-	SubjectAuthenticationPolicyDTO1.SetName("")
-	SubjectAuthenticationPolicyDTO = append(SubjectAuthenticationPolicyDTO, *SubjectAuthenticationPolicyDTO1)
-	SubjectAuthenticationPolicyDTO2 := api.NewSubjectAuthenticationPolicyDTO()
-	SubjectAuthenticationPolicyDTO2.SetDescription("")
-	SubjectAuthenticationPolicyDTO2.SetName("")
-	SubjectAuthenticationPolicyDTO = append(SubjectAuthenticationPolicyDTO, *SubjectAuthenticationPolicyDTO2)
-	tData.SetSubjectAuthnPolicies(SubjectAuthenticationPolicyDTO)
-
-	var SubjectNameIdentifierPolicyDTO api.SubjectNameIdentifierPolicyDTO
-	SubjectNameIdentifierPolicyDTO.SetDescriptionKey("")
-	SubjectNameIdentifierPolicyDTO.SetId("")
-	SubjectNameIdentifierPolicyDTO.SetName("")
-	SubjectNameIdentifierPolicyDTO.SetSubjectAttribute("")
-	SubjectNameIdentifierPolicyDTO.SetType("")
-	tData.SetSubjectNameIDPolicy(SubjectNameIdentifierPolicyDTO)
-
-	var SessionManagerFactoryDTO api.SessionManagerFactoryDTO
-	SessionManagerFactoryDTO.SetDescription("")
-	SessionManagerFactoryDTO.SetName("")
-	tData.SetSessionManagerFactory(SessionManagerFactoryDTO)
-	IdentityProviderDTO.SetSessionManagerFactory(SessionManagerFactoryDTO)
-
-	var ResourceDTO api.ResourceDTO
-	ResourceDTO.SetDisplayName("")
-	ResourceDTO.SetElementId("")
-	ResourceDTO.SetId(1)
-	ResourceDTO.SetName("")
-	ResourceDTO.SetUri("")
-	ResourceDTO.SetValue("")
-	IdentityProviderDTO.SetMetadata(ResourceDTO)
-	Provider.SetMetadata(ResourceDTO)
-	ProviderDTO1.SetMetadata(ResourceDTO)
-	ProviderDTO2.SetMetadata(ResourceDTO)
-	keystore.SetStore(ResourceDTO)
-	FederatedProviderDTO.SetMetadata(ResourceDTO)
-	tData.SetMetadata(ResourceDTO)
-
-	var locat api.LocationDTO
-	locat.SetContext("")
-	locat.SetElementId("")
-	locat.SetHost("")
-	locat.SetId(1)
-	locat.SetLocationAsString("")
-	locat.SetPort(1)
-	locat.SetProtocol("")
-	locat.SetUri("")
-	IdentityProviderDTO.SetLocation(locat)
-	ExecutionEnvironment.SetBindingLocation(locat)
-	Provider.SetLocation(locat)
-	ExecutionEnvironmentDTO1.SetBindingLocation(locat)
-	ExecutionEnvironmentDTO2.SetBindingLocation(locat)
-	ProviderDTO1.SetLocation(locat)
-	ProviderDTO2.SetLocation(locat)
-	FederatedChannelDTO.SetLocation(locat)
-	FederatedProviderDTO.SetLocation(locat)
-	tData.SetLocation(locat)
+	var ks api.KeystoreDTO
+	ks.SetCertificateAlias("jetty")
+	ks.SetPassword("@WSX3edc")
+	ks.SetPrivateKeyName("jetty")
+	ks.SetPrivateKeyPassword("@WSX3edc")
+	ks.SetStore(rs)
+	ks.SetType("JKS")
+	ks.SetName(fmt.Sprintf("%s-ks", name))
+	ks.SetStore(rs)
+	// TODO : Inject in VP
 
 	var IdentityMappingPolicyDTO api.IdentityMappingPolicyDTO
-	IdentityMappingPolicyDTO.SetCustomMapper("")
-	IdentityMappingPolicyDTO.SetElementId("")
-	IdentityMappingPolicyDTO.SetId(1)
-	IdentityMappingPolicyDTO.SetMappingType("")
-	IdentityMappingPolicyDTO.SetName("")
+	IdentityMappingPolicyDTO.SetMappingType("LOCAL")
 	IdentityMappingPolicyDTO.SetUseLocalId(true)
 	tData.SetIdentityMappingPolicy(IdentityMappingPolicyDTO)
 
-	var IdentityLookupDTO []api.IdentityLookupDTO
-	IdentityLookupDTO1 := api.NewIdentityLookupDTO()
-	IdentityLookupDTO1.SetDescription("")
-	IdentityLookupDTO1.SetElementId("")
-	IdentityLookupDTO1.SetId(1)
-	IdentityLookupDTO1.SetIdentitySource(IdentitySource)
-	IdentityLookupDTO1.SetName("")
-	IdentityLookupDTO1.SetProvider(Provider)
-	IdentityLookupDTO1.SetWaypoints(poi)
-	IdentityLookupDTO = append(IdentityLookupDTO, *IdentityLookupDTO1)
-	IdentityLookupDTO2 := api.NewIdentityLookupDTO()
-	IdentityLookupDTO2.SetDescription("")
-	IdentityLookupDTO2.SetElementId("")
-	IdentityLookupDTO2.SetId(2)
-	IdentityLookupDTO2.SetIdentitySource(IdentitySource)
-	IdentityLookupDTO2.SetName("")
-	IdentityLookupDTO2.SetProvider(Provider)
-	IdentityLookupDTO2.SetWaypoints(poi)
-	IdentityLookupDTO = append(IdentityLookupDTO, *IdentityLookupDTO2)
-	tData.SetIdentityLookups(IdentityLookupDTO)
+	/*
+		var AttributeProfileDTO api.AttributeProfileDTO
+		AttributeProfileDTO.SetProfileType("")
+		tData.SetAttributeProfile(AttributeProfileDTO)
+	*/
 
-	var identityAppliance api.IdentityApplianceDefinitionDTO
-	// identityAppliance.SetActiveFeatures("") //
-	identityAppliance.SetAuthenticationServices(AuthenticationService)
-	identityAppliance.SetDescription("")
-	identityAppliance.SetDisplayName("")
-	identityAppliance.SetElementId("")
-	identityAppliance.SetExecutionEnvironments(ExecutionEnvironmentDTO)
-	identityAppliance.SetId(1)
-	identityAppliance.SetIdentitySources(IdentitySourceDTO)
-	identityAppliance.SetIdpSelector(EntitySelectionStrategyDTO)
-	identityAppliance.SetKeystore(keystore)
-	// identityAppliance.SetLastModification() //////////*TIME.TIME?
-	identityAppliance.SetLocation(locat)
-	identityAppliance.SetModelVersion("")
-	identityAppliance.SetName("")
-	identityAppliance.SetNamespace("")
-	identityAppliance.SetProviders(ProviderDTO)
-	// identityAppliance.SetRequiredBundles() //
-	identityAppliance.SetRevision(1)
-	identityAppliance.SetSecurityConfig(IdentityApplianceSecurityConfigDTO)
-	identityAppliance.SetServiceResources(ServiceResource)
-	// identityAppliance.SetSupportedRoles() //
-	identityAppliance.SetUserDashboardBranding(UserDashboardBrandingDTO)
-	IdentityProviderDTO.SetIdentityAppliance(identityAppliance)
-	Provider.SetIdentityAppliance(identityAppliance)
-	ProviderDTO1.SetIdentityAppliance(identityAppliance)
-	ProviderDTO2.SetIdentityAppliance(identityAppliance)
-	FederatedProviderDTO.SetIdentityAppliance(identityAppliance)
-	tData.SetIdentityAppliance(identityAppliance)
-
-	var fedconn []api.FederatedConnectionDTO
-	fedconn1 := api.NewFederatedConnectionDTO()
-	fedconn1.SetChannelA(FederatedChannelDTO)
-	fedconn1.SetChannelB(FederatedChannelDTO)
-	fedconn1.SetDescription("")
-	fedconn1.SetElementId("")
-	fedconn1.SetId(1)
-	fedconn1.SetName("")
-	fedconn1.SetRoleA(FederatedProviderDTO)
-	fedconn1.SetRoleB(FederatedProviderDTO)
-	fedconn1.SetWaypoints(poi)
-	fedconn = append(fedconn, *fedconn1)
-	fedconn2 := api.NewFederatedConnectionDTO()
-	fedconn2.SetChannelA(FederatedChannelDTO)
-	fedconn2.SetChannelB(FederatedChannelDTO)
-	fedconn2.SetDescription("")
-	fedconn2.SetElementId("")
-	fedconn2.SetId(1)
-	fedconn2.SetName("")
-	fedconn2.SetRoleA(FederatedProviderDTO)
-	fedconn2.SetRoleB(FederatedProviderDTO)
-	fedconn2.SetWaypoints(poi)
-	fedconn = append(fedconn, *fedconn2)
-	tData.SetFederatedConnectionsA(fedconn)
-	tData.SetFederatedConnectionsB(fedconn)
-	IdentityProviderDTO.SetFederatedConnectionsA(fedconn)
-	IdentityProviderDTO.SetFederatedConnectionsB(fedconn)
-
-	var AttributeProfileDTO api.AttributeProfileDTO
-	AttributeProfileDTO.SetElementId("")
-	AttributeProfileDTO.SetId(1)
-	AttributeProfileDTO.SetName("")
-	AttributeProfileDTO.SetProfileType("")
-	tData.SetAttributeProfile(AttributeProfileDTO)
-	IdentityProviderDTO.SetAttributeProfile(AttributeProfileDTO)
-
-	var conf api.ProviderConfigDTO
+	var conf api.SamlR2IDPConfigDTO
 	conf.SetDescription("")
 	conf.SetDisplayName("")
 	conf.SetElementId("")
-	conf.SetId(1)
+	conf.SetId(19)
 	conf.SetName("")
-	IdentityProviderDTO.SetConfig(conf)
-	Provider.SetConfig(conf)
-	ProviderDTO2.SetConfig(conf)
-	ProviderDTO1.SetConfig(conf)
-	FederatedProviderDTO.SetConfig(conf)
-	tData.SetConfig(conf)
+	conf.SetUseSampleStore(true)
+	conf.SetUseSystemStore(false)
+	idpConf, err := FromIdPConfig(&conf)
+	if err != nil {
+		return nil, err
+	}
+	tData.SetConfig(idpConf)
 
 	var AccountLinkagePolicyDTO api.AccountLinkagePolicyDTO
-	AccountLinkagePolicyDTO.SetCustomLinkEmitter("")
-	AccountLinkagePolicyDTO.SetElementId("")
-	AccountLinkagePolicyDTO.SetId(1)
-	AccountLinkagePolicyDTO.SetLinkEmitterType("")
-	AccountLinkagePolicyDTO.SetName("")
+	AccountLinkagePolicyDTO.SetLinkEmitterType("EMAIL")
 	tData.SetAccountLinkagePolicy(AccountLinkagePolicyDTO)
 
-	tData.SetDashboardUrl("")
+	tData.SetDashboardUrl("http://my-dashbaord.mycompany.com/ui")
 	tData.SetDescription("")
 	tData.SetDisplayName("")
-	tData.SetElementId("")
 	tData.SetEnableMetadataEndpoint(true)
 	tData.SetEnableProxyExtension(true)
 	tData.SetEncryptAssertion(true)
@@ -739,31 +212,26 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) *api.VirtualSaml2Serv
 	tData.SetIsRemote(true)
 	tData.SetMessageTtl(300)
 	tData.SetMessageTtlTolerance(300)
-	tData.SetName("")
 	tData.SetOauth2Enabled(true)
-	tData.SetOauth2Key("")
+	tData.SetOauth2Key("") // <name>-oauth-key
 	tData.SetOauth2RememberMeTokenValidity(1)
 	tData.SetOauth2TokenValidity(1)
 	tData.SetOidcAccessTokenTimeToLive(1)
 	tData.SetOidcAuthzCodeTimeToLive(1)
 	tData.SetOidcIdTokenTimeToLive(1)
 	tData.SetOpenIdEnabled(true)
-	tData.SetRemote(true)
-	tData.SetRole("")
 	tData.SetSignAuthenticationRequests(true)
 	tData.SetSignRequests(true)
-	tData.SetSpSignatureHash("")
+	tData.SetSpSignatureHash("") //
 	tData.SetSsoSessionTimeout(1)
 	tData.SetWantAssertionSigned(true)
 	tData.SetWantAuthnRequestsSigned(true)
 	tData.SetWantSLOResponseSigned(true)
 	tData.SetWantSignedRequests(true)
 
-	tData.SetName(name)
-	tData.SetId(-1)
-	tData.SetDescription("My Sp 2")
+	tData.SetDescription("My Sp 2") // <name> descr
 
-	return tData
+	return tData, nil
 }
 
 func (s *AccTestSuite) TestAccCliVirSaml2_crud_createFailOnDupName() {

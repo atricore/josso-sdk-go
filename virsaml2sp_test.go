@@ -18,7 +18,7 @@ func (s *AccTestSuite) TestAccCliVirtSaml2_crud() {
 		t.Error(err)
 		return
 	}
-	crudName := "Virtsaml2-a"
+	crudName := "VirtP-a"
 	var orig *api.VirtualSaml2ServiceProviderDTO
 	var created api.VirtualSaml2ServiceProviderDTO
 	orig, err = createTestVirtualSaml2ServiceProviderDTO(crudName)
@@ -34,7 +34,7 @@ func (s *AccTestSuite) TestAccCliVirtSaml2_crud() {
 		return
 	}
 	if err := VirtualSaml2SpValidateCreate(orig, &created); err != nil {
-		t.Errorf("creating sp : %v", err)
+		t.Errorf("creating vp : %v", err)
 		return
 	}
 
@@ -46,7 +46,7 @@ func (s *AccTestSuite) TestAccCliVirtSaml2_crud() {
 		return
 	}
 	if err = VirtualSaml2SpValidateUpdate(&read, &created); err != nil {
-		t.Errorf("creating Sp : %v", err)
+		t.Errorf("creating vp : %v", err)
 		return
 	}
 
@@ -93,14 +93,14 @@ func (s *AccTestSuite) TestAccCliVirtSaml2_crud() {
 	var listOfCreated [2]api.VirtualSaml2ServiceProviderDTO
 
 	// Test list of #2 elements
-	element1, err := createTestVirtualSaml2ServiceProviderDTO("Extsmal2-1")
+	element1, err := createTestVirtualSaml2ServiceProviderDTO("VirtP-1")
 	if err != nil {
 		t.Error(err)
 		return
 	}
 	listOfCreated[0], _ = s.client.CreateVirtSaml2Sp(*appliance.Name, *element1)
 
-	element2, err := createTestVirtualSaml2ServiceProviderDTO("Extsmal2-2")
+	element2, err := createTestVirtualSaml2ServiceProviderDTO("VirtP-2")
 	if err != nil {
 		t.Error(err)
 		return
@@ -169,10 +169,10 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2Ser
 	ks.SetStore(rs)
 	// TODO : Inject in VP
 
-	var IdentityMappingPolicyDTO api.IdentityMappingPolicyDTO
-	IdentityMappingPolicyDTO.SetMappingType("LOCAL")
-	IdentityMappingPolicyDTO.SetUseLocalId(true)
-	tData.SetIdentityMappingPolicy(IdentityMappingPolicyDTO)
+	var idMapping api.IdentityMappingPolicyDTO
+	idMapping.SetMappingType("LOCAL")
+	idMapping.SetUseLocalId(true)
+	tData.SetIdentityMappingPolicy(idMapping)
 
 	/*
 		var AttributeProfileDTO api.AttributeProfileDTO
@@ -194,9 +194,9 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2Ser
 	}
 	tData.SetConfig(idpConf)
 
-	var AccountLinkagePolicyDTO api.AccountLinkagePolicyDTO
-	AccountLinkagePolicyDTO.SetLinkEmitterType("EMAIL")
-	tData.SetAccountLinkagePolicy(AccountLinkagePolicyDTO)
+	var linkage api.AccountLinkagePolicyDTO
+	linkage.SetLinkEmitterType("EMAIL")
+	tData.SetAccountLinkagePolicy(linkage)
 
 	tData.SetDashboardUrl("http://my-dashbaord.mycompany.com/ui")
 	tData.SetDisplayName("")

@@ -183,5 +183,5 @@ func (c *IdbusApiClient) GetVirtSaml2Sps(ida string) ([]api.VirtualSaml2ServiceP
 
 func VirtSaml2Sp(VirtSaml2Sp *api.VirtualSaml2ServiceProviderDTO) {
 	VirtSaml2Sp.AdditionalProperties = make(map[string]interface{})
-	VirtSaml2Sp.AdditionalProperties["@c"] = ".ExternalSaml2ServiceProviderDTO"
+	VirtSaml2Sp.AdditionalProperties["@c"] = ".VirtualSaml2ServiceProviderDTO"
 }

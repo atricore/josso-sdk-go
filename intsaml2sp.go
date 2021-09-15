@@ -57,9 +57,9 @@ func (c *IdbusApiClient) UpdateIntSaml2Sp(ida string, sp api.InternalSaml2Servic
 	initIntSaml2Sp(&sp)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
-	req := c.apiClient.DefaultApi.UdpateIntSaml2Sp(ctx)
+	req := c.apiClient.DefaultApi.UpdateIntSaml2Sp(ctx)
 	req = req.StoreIntSaml2SpReq(api.StoreIntSaml2SpReq{IdaName: &ida, Sp: &sp})
-	res, _, err := c.apiClient.DefaultApi.UdpateIntSaml2SpExecute(req)
+	res, _, err := c.apiClient.DefaultApi.UpdateIntSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateIntSaml2Sp. Error %v", err)
 		return result, err

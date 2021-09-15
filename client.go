@@ -2,8 +2,10 @@ package cli
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
+	"os"
 
 	api "github.com/atricore/josso-api-go"
 )
@@ -144,6 +146,55 @@ func (c *IdbusApiClient) Authn() error {
 
 	return nil
 
+}
+
+func GetServerConfigFromEnv() (*IdbusServer, error) {
+
+	clientSecret := os.Getenv("JOSSO_API_SECRET")
+	clientId := os.Getenv("JOSSO_API_CLIENT_ID")
+	endpoint := os.Getenv("JOSSO_API_ENDPOINT")
+	username := os.Getenv("JOSSO_API_USERNAME")
+	password := os.Getenv("JOSSO_API_PASSWORD")
+	if clientSecret == "" || clientId == "" || endpoint == "" || username == "" || password == "" {
+		return nil, errors.New("JOSSO variables must be set for acceptance tests")
+	}
+
+	s := IdbusServer{
+		Config: &api.ServerConfiguration{
+			URL:         endpoint,
+			Description: "JOSSO Test server",
+		},
+		Credentials: &ServerCredentials{
+			ClientId: clientId,
+			Secret:   clientSecret,
+			Username: username,
+			Password: password,
+		},
+	}
+	return &s, nil
+}
+
+func CreateClient(s *IdbusServer) (*IdbusApiClient, error) {
+
+	trace, err := GetenvBool("JOSSO_API_TRACE")
+	if err != nil {
+		trace = false
+	}
+
+	l := DefaultLogger{debug: true}
+
+	c := NewIdbusApiClient(&l, trace)
+	err = c.RegisterServer(s, "")
+	if err != nil {
+		return nil, err
+	}
+
+	err = c.Authn()
+	if err != nil {
+		return nil, err
+	}
+
+	return c, nil
 }
 
 // Create default configuration

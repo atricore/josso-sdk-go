@@ -5,11 +5,24 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 
 	api "github.com/atricore/josso-api-go"
 )
+
+// Removes unsupported chars from name
+func sanitizeName(name string) string {
+	// Replace unsupported chars
+
+	chars := []string{"]", "^", "\\\\", "[", "(", ")", "-"}
+	r := strings.Join(chars, "")
+	re := regexp.MustCompile("[" + r + "]+")
+	name = re.ReplaceAllString(name, "")
+
+	return strings.ToLower(name)
+}
 
 func PtrString(s interface{}) *string {
 	if _, ok := s.(string); ok {

@@ -202,10 +202,12 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2Ser
 	tData.SetDisplayName("")
 	tData.SetEnableMetadataEndpoint(true)
 	tData.SetEnableProxyExtension(true)
+
 	tData.SetEncryptAssertion(true)
 	tData.SetEncryptAssertionAlgorithm("http://www.w3.org/200|/04/xmlenc#aes128-cbc")
 	tData.SetErrorBinding("JSON")
 	tData.SetIdpSignatureHash("SHA256")
+
 	tData.SetIgnoreRequestedNameIDPolicy(true)
 	tData.SetIsRemote(true)
 	tData.SetMessageTtl(300)

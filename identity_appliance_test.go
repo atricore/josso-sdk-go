@@ -114,7 +114,7 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z001() {
 
 	// 2. Create IdP using DB identity source
 
-	// 3. Create external SAML 2 sp, using test metadata
+	// 3. Create external SAML 2 sp, using test metadata and connect it to the IdP
 
 	// 3. Build/Start identity appliance
 

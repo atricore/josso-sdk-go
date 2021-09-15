@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -128,58 +127,15 @@ func TestMarshalJSON(t *testing.T) {
 // Creates a new TEST client.  You can enable/disable debugging and message exchage tracing
 func createClient() (*IdbusApiClient, error) {
 
-	s, err := accPreCheck()
+	s, err := GetServerConfigFromEnv()
 	if err != nil {
 		return nil, err
 	}
 
-	trace, err := GetenvBool("JOSSO_API_TRACE")
-	if err != nil {
-		trace = false
-	}
-
-	l := DefaultLogger{debug: true}
-
-	c := NewIdbusApiClient(&l, trace)
-	err = c.RegisterServer(s, "")
-	if err != nil {
-		return nil, err
-	}
-
-	err = c.Authn()
-	if err != nil {
-		return nil, err
-	}
-
-	return c, nil
+	return CreateClient(s)
 }
 
 // Check environment and build server configuration
-func accPreCheck() (*IdbusServer, error) {
-
-	clientSecret := os.Getenv("JOSSO_API_SECRET")
-	clientId := os.Getenv("JOSSO_API_CLIENT_ID")
-	endpoint := os.Getenv("JOSSO_API_ENDPOINT")
-	username := os.Getenv("JOSSO_API_USERNAME")
-	password := os.Getenv("JOSSO_API_PASSWORD")
-	if clientSecret == "" || clientId == "" || endpoint == "" || username == "" || password == "" {
-		return nil, errors.New("JOSSO variables must be set for acceptance tests")
-	}
-
-	s := IdbusServer{
-		Config: &api.ServerConfiguration{
-			URL:         endpoint,
-			Description: "JOSSO Test server",
-		},
-		Credentials: &ServerCredentials{
-			ClientId: clientId,
-			Secret:   clientSecret,
-			Username: username,
-			Password: password,
-		},
-	}
-	return &s, nil
-}
 
 func getTestAppliance(t *testing.T, client *IdbusApiClient) (api.IdentityApplianceDefinitionDTO, error) {
 	var read api.IdentityApplianceDefinitionDTO

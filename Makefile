@@ -19,7 +19,7 @@ dep: # Download required dependencies
 	go mod vendor
 
 build: fmtcheck
-	go install
+	go install ./...
 
 sweep:
 	@echo "WARNING: This will destroy infrastructure. Use only in development accounts."

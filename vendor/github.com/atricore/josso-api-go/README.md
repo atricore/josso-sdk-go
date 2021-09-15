@@ -100,6 +100,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**DeleteOidcRp**](docs/DefaultApi.md#deleteoidcrp) | **Delete** /iam-deploy/oidcrp | 
 *DefaultApi* | [**DeleteVirtSaml2Sp**](docs/DefaultApi.md#deletevirtsaml2sp) | **Delete** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
+*DefaultApi* | [**GetApplianceState**](docs/DefaultApi.md#getappliancestate) | **Get** /iam-deploy/appliance/state | 
 *DefaultApi* | [**GetAppliances**](docs/DefaultApi.md#getappliances) | **Get** /iam-deploy/appliances | 
 *DefaultApi* | [**GetDbIdVault**](docs/DefaultApi.md#getdbidvault) | **Get** /iam-deploy/dbidvault | 
 *DefaultApi* | [**GetDbIdVaults**](docs/DefaultApi.md#getdbidvaults) | **Get** /iam-deploy/dbidvaults | 
@@ -120,6 +121,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetVirtSaml2Sp**](docs/DefaultApi.md#getvirtsaml2sp) | **Get** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**GetVirtSaml2Sps**](docs/DefaultApi.md#getvirtsaml2sps) | **Get** /iam-deploy/virtsaml2sps | 
 *DefaultApi* | [**ImportAppliance**](docs/DefaultApi.md#importappliance) | **Post** /iam-deploy/appliance/import | 
+*DefaultApi* | [**SetApplianceState**](docs/DefaultApi.md#setappliancestate) | **Put** /iam-deploy/appliance/state | 
 *DefaultApi* | [**SignOn**](docs/DefaultApi.md#signon) | **Post** /iam-authn/sign-on | 
 *DefaultApi* | [**UdpateExtSaml2Sp**](docs/DefaultApi.md#udpateextsaml2sp) | **Put** /iam-deploy/extsaml2sp | 
 *DefaultApi* | [**UdpateVirtSaml2Sp**](docs/DefaultApi.md#udpatevirtsaml2sp) | **Put** /iam-deploy/virtsaml2sp | 
@@ -161,6 +163,7 @@ Class | Method | HTTP request | Description
  - [FederatedProviderDTO](docs/FederatedProviderDTO.md)
  - [GetApplianceReq](docs/GetApplianceReq.md)
  - [GetApplianceRes](docs/GetApplianceRes.md)
+ - [GetApplianceStateRes](docs/GetApplianceStateRes.md)
  - [GetAppliancesRes](docs/GetAppliancesRes.md)
  - [GetDbIdVaultReq](docs/GetDbIdVaultReq.md)
  - [GetDbIdVaultRes](docs/GetDbIdVaultRes.md)
@@ -215,6 +218,7 @@ Class | Method | HTTP request | Description
  - [ServiceConnectionDTO](docs/ServiceConnectionDTO.md)
  - [ServiceResourceDTO](docs/ServiceResourceDTO.md)
  - [SessionManagerFactoryDTO](docs/SessionManagerFactoryDTO.md)
+ - [SetApplianceStateReq](docs/SetApplianceStateReq.md)
  - [StoreApplianceReq](docs/StoreApplianceReq.md)
  - [StoreApplianceRes](docs/StoreApplianceRes.md)
  - [StoreDbIdVaultReq](docs/StoreDbIdVaultReq.md)

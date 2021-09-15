@@ -2,7 +2,6 @@ package cli
 
 import (
 	"fmt"
-	"regexp"
 	"strconv"
 	"strings"
 
@@ -100,6 +99,27 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	}
 }
 
+// Simple appliance test:
+//  - one idp
+//     - basic authn
+//     - db identity source
+//     - partner app
+func (s *AccTestSuite) TestAccCliIdentityAppliance_z001() {
+	// TODO :
+	var t = s.T()
+
+	t.Log("Acceptance test #001 : basic idp")
+
+	// 1. Create DB identity source
+
+	// 2. Create IdP using DB identity source
+
+	// 3. Build/Start identity appliance
+
+}
+
+// ---------------------------------------------------------
+
 func createTestIdentityApplianceDefinitionDTO(name string) *api.IdentityApplianceDefinitionDTO {
 	tData := api.NewIdentityApplianceDefinitionDTO()
 
@@ -140,18 +160,6 @@ func createTestIdentityApplianceDefinitionDTO(name string) *api.IdentityApplianc
 	// orig.SetRequiredBundles() //
 
 	return tData
-}
-
-// Removes unsupported chars from name
-func sanitizeName(name string) string {
-	// Replace unsupported chars
-
-	chars := []string{"]", "^", "\\\\", "[", "(", ")", "-"}
-	r := strings.Join(chars, "")
-	re := regexp.MustCompile("[" + r + "]+")
-	name = re.ReplaceAllString(name, "")
-
-	return strings.ToLower(name)
 }
 
 // -------------------------------------------------

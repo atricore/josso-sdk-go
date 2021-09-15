@@ -199,24 +199,11 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	tData := api.NewIdentityProviderDTO()
 	var ResourceDTO api.ResourceDTO
 	var identityAppliance api.IdentityApplianceDefinitionDTO
-	var EntitySelectionStrategyDTO api.EntitySelectionStrategyDTO
-	var UserDashboardBrandingDTO api.UserDashboardBrandingDTO
-	var ExtensionDTO api.ExtensionDTO
+
 	var SessionManagerFactoryDTO api.SessionManagerFactoryDTO
 
 	SessionManagerFactoryDTO.SetDescription("")
 	SessionManagerFactoryDTO.SetName("")
-
-	// TODO : Set valid name/classifier
-	// ExtensionDTO.SetClassifier("")
-	// ExtensionDTO.SetName("")
-
-	UserDashboardBrandingDTO.SetId("")
-	UserDashboardBrandingDTO.SetName("")
-
-	// TODO : Use valid name
-	EntitySelectionStrategyDTO.SetDescription("")
-	EntitySelectionStrategyDTO.SetName("")
 
 	// AuthenticationAssertionEmissionPolicyDTO.SetElementId("")
 	// AuthenticationAssertionEmissionPolicyDTO.SetId(1)
@@ -250,9 +237,6 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	var conf api.SamlR2IDPConfigDTO
 	conf.SetDescription("")
 	conf.SetDisplayName("")
-	conf.SetElementId("")
-	conf.SetId(19)
-	conf.SetName("")
 	conf.SetUseSampleStore(true)
 	conf.SetUseSystemStore(false)
 	idpConf, err := FromIdPConfig(&conf)
@@ -285,8 +269,6 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 
 	// Authentication contract
 	var auc api.AuthenticationContractDTO
-	auc.SetElementId("")
-	auc.SetId(72)
 	tData.SetAuthenticationContract(auc)
 
 	tData.SetDashboardUrl("http://localhost:8080/myapp")
@@ -326,13 +308,13 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	tData.SetExternallyHostedIdentityConfirmationTokenService(true)
 	tData.SetFederatedConnectionsA(fedconn)
 	tData.SetFederatedConnectionsB(fedconn) // preguntar
-	tData.SetId(-1)
+
 	tData.SetIdentityAppliance(identityAppliance)
 	tData.SetIdentityConfirmationEnabled(true)
 	tData.SetIdentityConfirmationOAuth2AuthorizationServerEndpoint("")
 	tData.SetIdentityConfirmationOAuth2ClientId("")
-	tData.SetIdentityConfirmationOAuth2ClientSecret("")
-	tData.SetIdentityConfirmationPolicy(ExtensionDTO)
+	tData.SetIdentityConfirmationOAuth2ClientSecret("my-secret")
+
 	tData.SetIgnoreRequestedNameIDPolicy(true)
 	tData.SetIsRemote(true)
 	tData.SetMaxSessionsPerUser(5)
@@ -345,11 +327,11 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	var oac []api.OAuth2ClientDTO
 	oac1 := api.NewOAuth2ClientDTO()
 	oac1.SetBaseURL("http://host1:80/")
-	oac1.SetSecret("my-secret1")
+	oac1.SetSecret("my-secret")
 	oac = append(oac, *oac1)
 	oac2 := api.NewOAuth2ClientDTO()
 	oac2.SetBaseURL("http://host2:80/")
-	oac2.SetSecret("my-secret2")
+	oac2.SetSecret("my-secret")
 	oac = append(oac, *oac2)
 
 	tData.SetOauth2Clients(oac)

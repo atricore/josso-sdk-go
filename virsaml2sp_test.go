@@ -199,37 +199,35 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2Ser
 	tData.SetAccountLinkagePolicy(AccountLinkagePolicyDTO)
 
 	tData.SetDashboardUrl("http://my-dashbaord.mycompany.com/ui")
-	tData.SetDescription("")
 	tData.SetDisplayName("")
 	tData.SetEnableMetadataEndpoint(true)
 	tData.SetEnableProxyExtension(true)
 	tData.SetEncryptAssertion(true)
-	tData.SetEncryptAssertionAlgorithm("")
-	tData.SetErrorBinding("")
-	tData.SetId(1)
-	tData.SetIdpSignatureHash("")
+	tData.SetEncryptAssertionAlgorithm("http://www.w3.org/200|/04/xmlenc#aes128-cbc")
+	tData.SetErrorBinding("JSON")
+	tData.SetIdpSignatureHash("SHA256")
 	tData.SetIgnoreRequestedNameIDPolicy(true)
 	tData.SetIsRemote(true)
 	tData.SetMessageTtl(300)
 	tData.SetMessageTtlTolerance(300)
 	tData.SetOauth2Enabled(true)
-	tData.SetOauth2Key("") // <name>-oauth-key
-	tData.SetOauth2RememberMeTokenValidity(1)
-	tData.SetOauth2TokenValidity(1)
-	tData.SetOidcAccessTokenTimeToLive(1)
-	tData.SetOidcAuthzCodeTimeToLive(1)
-	tData.SetOidcIdTokenTimeToLive(1)
+	tData.SetOauth2Key(fmt.Sprintf("%s-oauth-key", name))
+	tData.SetOauth2RememberMeTokenValidity(43201)
+	tData.SetOauth2TokenValidity(303)
+	tData.SetOidcAccessTokenTimeToLive(3610)
+	tData.SetOidcAuthzCodeTimeToLive(305)
+	tData.SetOidcIdTokenTimeToLive(3620)
 	tData.SetOpenIdEnabled(true)
 	tData.SetSignAuthenticationRequests(true)
 	tData.SetSignRequests(true)
-	tData.SetSpSignatureHash("") //
+	tData.SetSpSignatureHash("SHA256")
 	tData.SetSsoSessionTimeout(1)
 	tData.SetWantAssertionSigned(true)
 	tData.SetWantAuthnRequestsSigned(true)
 	tData.SetWantSLOResponseSigned(true)
 	tData.SetWantSignedRequests(true)
 
-	tData.SetDescription("My Sp 2") // <name> descr
+	tData.SetDescription(fmt.Sprintf("%s descr", name))
 
 	return tData, nil
 }

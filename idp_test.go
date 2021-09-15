@@ -195,7 +195,6 @@ func createTest2FactorAuthn() api.AuthenticationMechanismDTO {
 func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechanismDTO) (*api.IdentityProviderDTO, error) {
 
 	var AuthenticationAssertionEmissionPolicyDTO api.AuthenticationAssertionEmissionPolicyDTO
-	var fedconn []api.FederatedConnectionDTO
 	tData := api.NewIdentityProviderDTO()
 	var ResourceDTO api.ResourceDTO
 	var identityAppliance api.IdentityApplianceDefinitionDTO
@@ -324,8 +323,6 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	tData.SetEncryptAssertionAlgorithm("http://www.w3.org/200|/04/xmlenc#aes128-cbc")
 	tData.SetErrorBinding("JSON")
 	tData.SetExternallyHostedIdentityConfirmationTokenService(true)
-	tData.SetFederatedConnectionsA(fedconn)
-	tData.SetFederatedConnectionsB(fedconn) // preguntar
 	tData.SetId(-1)
 	tData.SetIdentityAppliance(identityAppliance)
 	tData.SetIdentityConfirmationEnabled(true)
@@ -351,8 +348,8 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	oac2.SetBaseURL("http://host2:80/")
 	oac2.SetSecret("my-secret2")
 	oac = append(oac, *oac2)
-
 	tData.SetOauth2Clients(oac)
+
 	tData.SetOauth2ClientsConfig("")
 	tData.SetOauth2Enabled(true)
 	tData.SetOauth2Key("secret")

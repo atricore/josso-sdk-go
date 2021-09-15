@@ -102,19 +102,36 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 // Simple appliance test:
 //  - one idp
 //     - basic authn
-//     - db identity source
-//     - partner app
+//  - identity vault
+//  - external saml2 sp
+//
 func (s *AccTestSuite) TestAccCliIdentityAppliance_z001() {
 	// TODO :
 	var t = s.T()
-
 	t.Log("Acceptance test #001 : basic idp")
 
-	// 1. Create DB identity source
+	// 1. Create identity vault
 
 	// 2. Create IdP using DB identity source
 
+	// 3. Create external SAML 2 sp, using test metadata
+
 	// 3. Build/Start identity appliance
+
+	// s, err := s.client.SetApplianceState("STARTED")
+
+}
+
+// Simple appliance test:
+//  - one idp
+//     - basic authn
+//  - db identity source
+//  - external saml2 sp
+//  - partnerapp tomcat
+//
+func (s *AccTestSuite) TestAccCliIdentityAppliance_z002() {
+	var t = s.T()
+	t.Log("Acceptance test #002 : basic idp")
 
 }
 

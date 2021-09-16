@@ -188,11 +188,10 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2Ser
 	conf.SetName("")
 	conf.SetUseSampleStore(true)
 	conf.SetUseSystemStore(false)
-	idpConf, err := FromIdPConfig(&conf)
+	err := tData.SetSamlR2IDPConfig(&conf)
 	if err != nil {
 		return nil, err
 	}
-	tData.SetConfig(idpConf)
 
 	var linkage api.AccountLinkagePolicyDTO
 	linkage.SetLinkEmitterType("EMAIL")

@@ -9,6 +9,38 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
+/*
+func (s *AccTestSuite) TestAccCliIdP_a001() {
+	var t = s.T()
+	idp, err := s.client.GetIdp("ida-1", "idp-1")
+	if err != nil {
+		s.client.Logger().Errorf("cannot get idp %v", err)
+		t.Error(err)
+		return
+	}
+
+	fcs := idp.GetFederatedConnectionsA()
+	for _, fc := range fcs {
+
+		spChannel := fc.GetChannelA()  // This MUST be the SP channel
+		idpChannel := fc.GetChannelB() // This MUST be the IDP channel
+
+		if spChannel.Id == nil {
+			//
+		}
+
+		if idpChannel.Id == nil {
+			//
+		}
+
+		// TODO : Convert to specific channel
+
+	}
+
+	fmt.Println(len(fcs))
+}
+*/
+
 func (s *AccTestSuite) TestAccCliIdP_crud() {
 	var t = s.T()
 
@@ -238,11 +270,10 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	conf.SetDisplayName("")
 	conf.SetUseSampleStore(true)
 	conf.SetUseSystemStore(false)
-	idpConf, err := FromIdPConfig(&conf)
+	err := tData.SetSamlR2IDPConfig(&conf)
 	if err != nil {
 		return nil, err
 	}
-	tData.SetConfig(idpConf)
 
 	// Attribute profile (TODO : Make configurable)
 	// TODO : Use custom profile

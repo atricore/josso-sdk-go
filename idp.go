@@ -181,6 +181,18 @@ func (c *IdbusApiClient) GetIdps(ida string) ([]api.IdentityProviderDTO, error) 
 
 }
 
+// Creates an instance of InternalSaml2ServiceProviderChannelDTO based on a generic channel struct
+func toSpChannel(spGeneric *api.FederatedChannelDTO) (*api.InternalSaml2ServiceProviderChannelDTO, error) {
+	// TODO
+	return nil, nil
+}
+
+// Creates an instance of InternalSaml2ServiceProviderChannelDTO based on a generic channel struct
+func toChannel(spGeneric *api.FederatedChannelDTO) (*api.InternalSaml2ServiceProviderChannelDTO, error) {
+	// TODO
+	return nil, nil
+}
+
 func initIdP(idp *api.IdentityProviderDTO) {
 	idp.AdditionalProperties = make(map[string]interface{})
 	idp.AdditionalProperties["@c"] = ".IdentityProviderDTO"

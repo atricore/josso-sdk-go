@@ -118,6 +118,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetIntSaml2Sps**](docs/DefaultApi.md#getintsaml2sps) | **Get** /iam-deploy/intsaml2sps | 
 *DefaultApi* | [**GetOidcRp**](docs/DefaultApi.md#getoidcrp) | **Get** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetOidcRps**](docs/DefaultApi.md#getoidcrps) | **Get** /iam-deploy/oidcrps | 
+*DefaultApi* | [**GetTypes**](docs/DefaultApi.md#gettypes) | **Get** /iam-deploy/noop/types | 
 *DefaultApi* | [**GetVirtSaml2Sp**](docs/DefaultApi.md#getvirtsaml2sp) | **Get** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**GetVirtSaml2Sps**](docs/DefaultApi.md#getvirtsaml2sps) | **Get** /iam-deploy/virtsaml2sps | 
 *DefaultApi* | [**ImportAppliance**](docs/DefaultApi.md#importappliance) | **Post** /iam-deploy/appliance/import | 
@@ -189,6 +190,7 @@ Class | Method | HTTP request | Description
  - [GetOidcRpReq](docs/GetOidcRpReq.md)
  - [GetOidcRpRes](docs/GetOidcRpRes.md)
  - [GetOidcRpsRes](docs/GetOidcRpsRes.md)
+ - [GetTypesRes](docs/GetTypesRes.md)
  - [GetVirtSaml2SpReq](docs/GetVirtSaml2SpReq.md)
  - [GetVirtSaml2SpRes](docs/GetVirtSaml2SpRes.md)
  - [GetVirtSaml2SpsRes](docs/GetVirtSaml2SpsRes.md)
@@ -197,10 +199,12 @@ Class | Method | HTTP request | Description
  - [IdentityApplianceSecurityConfigDTO](docs/IdentityApplianceSecurityConfigDTO.md)
  - [IdentityLookupDTO](docs/IdentityLookupDTO.md)
  - [IdentityMappingPolicyDTO](docs/IdentityMappingPolicyDTO.md)
+ - [IdentityProviderChannelDTO](docs/IdentityProviderChannelDTO.md)
  - [IdentityProviderDTO](docs/IdentityProviderDTO.md)
  - [IdentitySourceDTO](docs/IdentitySourceDTO.md)
  - [ImportApplianceReq](docs/ImportApplianceReq.md)
  - [ImportApplianceRes](docs/ImportApplianceRes.md)
+ - [InternalSaml2ServiceProviderChannelDTO](docs/InternalSaml2ServiceProviderChannelDTO.md)
  - [InternalSaml2ServiceProviderDTO](docs/InternalSaml2ServiceProviderDTO.md)
  - [KeystoreDTO](docs/KeystoreDTO.md)
  - [LdapIdentitySourceDTO](docs/LdapIdentitySourceDTO.md)

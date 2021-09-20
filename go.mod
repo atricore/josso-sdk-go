@@ -5,7 +5,7 @@ go 1.13
 //replace github.com/atricore/josso-api-go => ../josso-api-go
 
 require (
-	github.com/atricore/josso-api-go v0.0.0-20210920180151-94dcd7f2590b
+	github.com/atricore/josso-api-go v0.0.0-20210920182153-0b79ec0d90f3
 	github.com/google/go-cmp v0.5.4 // indirect
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/kr/pretty v0.3.0 // indirect

@@ -184,6 +184,7 @@ func (s *AccTestSuite) TestAccCliIdP_crud() {
 
 // Creates an new AuthenticationMechanisDTO for basic authentication.
 func createTestBasicAuthn() api.AuthenticationMechanismDTO {
+
 	var authn api.AuthenticationMechanismDTO
 
 	authn.SetName("idp-basic-authn")

@@ -18,12 +18,12 @@ import (
 // AuthenticationMechanismDTO struct for AuthenticationMechanismDTO
 type AuthenticationMechanismDTO struct {
 	DelegatedAuthentication *DelegatedAuthenticationDTO `json:"delegatedAuthentication,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	ElementId *string `json:"elementId,omitempty"`
-	Id *int64 `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Priority *int32 `json:"priority,omitempty"`
-	AdditionalProperties map[string]interface{}
+	DisplayName             *string                     `json:"displayName,omitempty"`
+	ElementId               *string                     `json:"elementId,omitempty"`
+	Id                      *int64                      `json:"id,omitempty"`
+	Name                    *string                     `json:"name,omitempty"`
+	Priority                *int32                      `json:"priority,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _AuthenticationMechanismDTO AuthenticationMechanismDTO
@@ -322,5 +322,3 @@ func (v *NullableAuthenticationMechanismDTO) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

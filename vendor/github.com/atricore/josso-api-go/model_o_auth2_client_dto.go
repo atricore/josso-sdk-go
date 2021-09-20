@@ -17,9 +17,9 @@ import (
 
 // OAuth2ClientDTO struct for OAuth2ClientDTO
 type OAuth2ClientDTO struct {
-	BaseURL *string `json:"baseURL,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Secret *string `json:"secret,omitempty"`
+	BaseURL              *string `json:"baseURL,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Secret               *string `json:"secret,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -211,5 +211,3 @@ func (v *NullableOAuth2ClientDTO) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

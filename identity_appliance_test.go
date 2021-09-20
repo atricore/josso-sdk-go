@@ -8,6 +8,19 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
+func (s *AccTestSuite) TestAccCliIdentityAppliance_import() {
+
+	var t = s.T()
+
+	a, err := s.ImportAppliance("./samples/testacc-01.idmn")
+	if err != nil {
+		t.Errorf("importing test appliance : %v", err)
+		return
+	}
+	t.Logf("Imported appliance %s [%d]", *a.Name, *a.Id)
+
+}
+
 func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	var t = s.T()
 
@@ -99,26 +112,49 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	}
 }
 
-// Simple appliance test:
-//  - one idp
-//     - basic authn
-//  - identity vault
-//  - external saml2 sp
-//
-func (s *AccTestSuite) TestAccCliIdentityAppliance_z001() {
-	// TODO :
+func (s *AccTestSuite) TestAccCliIdentityAppliance_z010() {
 	var t = s.T()
-	t.Log("Acceptance test #001 : basic idp")
+	t.Log("Acceptance test z010 : basic appliance")
 
-	// 1. Create identity vault
+	a, err := s.ImportAppliance("./samples/testacc-01.idmn")
+	if err != nil {
+		t.Errorf("z010, importing appliance : %v ", err)
+		return
+	}
 
-	// 2. Create IdP using DB identity source
+	sp, err := s.client.GetExtSaml2Sp(*a.Name, "sp-1")
+	if err != nil {
+		t.Errorf("z010, getting sp : %v ", err)
+		return
+	}
 
-	// 3. Create external SAML 2 sp, using test metadata and connect it to the IdP
+	if sp.GetName() != "sp-1" {
+		t.Errorf("z010, unexpected sp name %s", sp.GetName())
+		return
+	}
 
-	// 3. Build/Start identity appliance
+	fcsBLen := len(sp.GetFederatedConnectionsB())
+	if fcsBLen != 1 {
+		t.Errorf("z010, unexpedted number of federated connections B, got %d", fcsBLen)
+		return
+	}
 
-	// s, err := s.client.SetApplianceState("STARTED")
+	for _, fcB := range sp.GetFederatedConnectionsB() {
+		t.Logf("Federated Connection %s", fcB.GetName())
+
+		idpC, err := fcB.GetIDPChannel()
+		if err != nil {
+			t.Errorf("%v", err)
+		}
+		spC, err := fcB.GetSPChannel()
+		if err != nil {
+			t.Errorf("%v", err)
+		}
+
+		t.Logf("%#v", fcB)
+		t.Logf("%#v", idpC)
+		t.Logf("%#v", spC)
+	}
 
 }
 
@@ -129,9 +165,32 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z001() {
 //  - external saml2 sp
 //  - partnerapp tomcat
 //
-func (s *AccTestSuite) TestAccCliIdentityAppliance_z002() {
+func (s *AccTestSuite) TestAccCliIdentityAppliance_z020() {
 	var t = s.T()
-	t.Log("Acceptance test #002 : basic idp")
+	t.Log("Acceptance test #020 : basic idp")
+
+}
+
+// Simple appliance test:
+//  - one idp
+//     - basic authn
+//  - identity vault
+//  - external saml2 sp
+//
+func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
+	// TODO :
+	var t = s.T()
+	t.Log("Acceptance test #030 : basic idp")
+
+	// 1. Create identity vault
+
+	// 2. Create IdP using DB identity source
+
+	// 3. Create external SAML 2 sp, using test metadata and connect it to the IdP
+
+	// 3. Build/Start identity appliance
+
+	// s, err := s.client.SetApplianceState("STARTED")
 
 }
 

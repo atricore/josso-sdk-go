@@ -2,10 +2,46 @@ package cli
 
 import (
 	"context"
+	b64 "encoding/base64"
 	"errors"
 
 	api "github.com/atricore/josso-api-go"
 )
+
+func (c *IdbusApiClient) ImportAppliance(applianceJson string) (api.IdentityApplianceDefinitionDTO, error) {
+
+	var result api.IdentityApplianceDefinitionDTO
+
+	c.logger.Debugf("Importing appliance from JSON")
+
+	encoded := b64.StdEncoding.EncodeToString([]byte(applianceJson))
+
+	sc, err := c.IdbusServerForOperation("DefaultApiService.ImportAppliance") // Also hard-coded in generated client
+	if err != nil {
+		return result, err
+	}
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+	req := c.apiClient.DefaultApi.ImportAppliance(ctx)
+	req = req.ImportApplianceReq(api.ImportApplianceReq{
+		Base64Json: &encoded,
+		Modify:     PtrBool(false),
+	})
+	res, _, err := c.apiClient.DefaultApi.ImportApplianceExecute(req)
+	if err != nil {
+		c.logger.Errorf("importAppliance. Error %v", err)
+		return result, err
+
+	}
+	if res.Error != nil {
+		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		c.logger.Errorf("importAppliance. Error %s", msg)
+		return result, errors.New(msg)
+	}
+	c.logger.Debugf("importAppliance. ID: %d [%s]", *res.Appliance.Id, *res.Appliance.Name)
+
+	result = *res.Appliance
+	return result, err
+}
 
 // Creates a new identity appliance. Name must not exist, even in other namespaces.  Namespaces must also be unique.
 // It returs the created appliance object.

@@ -25,6 +25,24 @@ func (s *AccTestSuite) nextIdx() int {
 	return s.idx
 }
 
+func (s *AccTestSuite) ImportAppliance(file string) (api.IdentityApplianceDefinitionDTO, error) {
+
+	var res api.IdentityApplianceDefinitionDTO
+
+	dat, err := os.ReadFile(file)
+	if err != nil {
+		return res, err
+	}
+
+	res, err = s.client.ImportAppliance(string(dat))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+
+}
+
 func (s *AccTestSuite) DumpHeap(prefix string) error {
 
 	f, err := os.Create(buildFileName(prefix, s.nextIdx()))

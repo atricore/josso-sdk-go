@@ -182,14 +182,28 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
 	var t = s.T()
 	t.Log("Acceptance test #030 : basic idp")
 
+	// 0. Create test appliance
+	var template api.IdentityApplianceDefinitionDTO
+
+	appliance, err := s.client.CreateAppliance(template)
 	// 1. Create identity vault
 
-	// 2. Create IdP using DB identity source
+	// 2. Create IdP using DB identity vault
+	var authns []api.AuthenticationMechanismDTO
+	authns = append(authns, createTestBasicAuthn())
+	idp, err := createTestIdentityProviderDTO("idp-1", authns)
+	if err != nil {
+		// TODO : Mark test as failed and return
+	}
+
+	*idp, err = s.client.CreateIdp(appliance.GetName(), *idp)
+	// TODO : Add idenityt vault
+
+	idp.AddIdentityLookup("id-lookup-1")
 
 	// 3. Create external SAML 2 sp, using test metadata and connect it to the IdP
 
-	// 3. Build/Start identity appliance
-
+	// 4. Build/Start identity appliance
 	// s, err := s.client.SetApplianceState("STARTED")
 
 }

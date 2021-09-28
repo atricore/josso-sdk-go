@@ -198,3 +198,12 @@ func (c *IdbusApiClient) DeleteAppliance(id string) (bool, error) {
 
 	return *res.Removed, err
 }
+
+// Received an identity appliance name and starts it.
+func (c *IdbusApiClient) StartAppliance(name string) error {
+
+	// TODO : Send api.SetApplianceStateReq
+	// err := c.apiClient.DefaultApi.StartAppliance(name)
+	return nil
+
+}

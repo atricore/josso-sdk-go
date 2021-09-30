@@ -44,8 +44,8 @@ type IdentityProviderDTO struct {
 	IdentityConfirmationOAuth2ClientId                    *string                                   `json:"identityConfirmationOAuth2ClientId,omitempty"`
 	IdentityConfirmationOAuth2ClientSecret                *string                                   `json:"identityConfirmationOAuth2ClientSecret,omitempty"`
 	IdentityConfirmationPolicy                            *ExtensionDTO                             `json:"identityConfirmationPolicy,omitempty"`
-	IdentityLookups                                       *[]IdentityLookupDTO                      `json:"identityLookups,omitempty"`
 	IgnoreRequestedNameIDPolicy                           *bool                                     `json:"ignoreRequestedNameIDPolicy,omitempty"`
+	IdentityLookups                                       *[]IdentityLookupDTO                      `json:"identityLookups,omitempty"`
 	IsRemote                                              *bool                                     `json:"isRemote,omitempty"`
 	Location                                              *LocationDTO                              `json:"location,omitempty"`
 	MaxSessionsPerUser                                    *int32                                    `json:"maxSessionsPerUser,omitempty"`

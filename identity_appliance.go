@@ -205,5 +205,5 @@ func (c *IdbusApiClient) StartAppliance(name string) error {
 	// TODO : Send api.SetApplianceStateReq
 	// err := c.apiClient.DefaultApi.StartAppliance(name)
 	return nil
-
+ 
 }

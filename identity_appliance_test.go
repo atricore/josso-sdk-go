@@ -178,7 +178,6 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z020() {
 //  - external saml2 sp
 //
 func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
-	// TODO :
 	var t = s.T()
 	t.Log("Acceptance test #030 : basic idp")
 
@@ -187,23 +186,47 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
 
 	appliance, err := s.client.CreateAppliance(template)
 	// 1. Create identity vault
+	var origIdVauld *api.EmbeddedIdentityVaultDTO
+	var createdIdVaul api.EmbeddedIdentityVaultDTO
+
+	createdIdVaul, err = s.client.CreateIdVault("idVault", *origIdVauld)
+	if err != nil {
+		t.Errorf("create identity appliance: %v", err)
+		return
+	}
+	if err := IdVaultValidateCreate(origIdVauld, &createdIdVaul); err != nil {
+		t.Errorf("creating idVault : %v", err)
+		return
+	}
 
 	// 2. Create IdP using DB identity vault
 	var authns []api.AuthenticationMechanismDTO
 	authns = append(authns, createTestBasicAuthn())
 	idp, err := createTestIdentityProviderDTO("idp-1", authns)
 	if err != nil {
-		// TODO : Mark test as failed and return
+		t.Errorf("Create identity appliance : %v", err)
+		return
 	}
 
 	*idp, err = s.client.CreateIdp(appliance.GetName(), *idp)
-	// TODO : Add idenityt vault
 
 	idp.AddIdentityLookup("id-lookup-1")
 
 	// 3. Create external SAML 2 sp, using test metadata and connect it to the IdP
+	var origsaml2 *api.EmbeddedIdentityVaultDTO
+	var createdsaml2 api.EmbeddedIdentityVaultDTO
 
+	createdsaml2, err = s.client.CreateIdVault("Saml2Sp", *origsaml2)
+	if err != nil {
+		t.Errorf("create Saml2Sp: %v", err)
+		return
+	}
+	if err := IdVaultValidateCreate(origsaml2, &createdsaml2); err != nil {
+		t.Errorf("creating Saml2Sp : %v", err)
+		return
+	}
 	// 4. Build/Start identity appliance
+
 	// s, err := s.client.SetApplianceState("STARTED")
 
 }

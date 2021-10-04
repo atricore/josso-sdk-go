@@ -19,6 +19,12 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_import() {
 	}
 	t.Logf("Imported appliance %s [%d]", *a.Name, *a.Id)
 
+	s.client.DeleteAppliance(a.GetName())
+	if err != nil {
+		t.Errorf("importing test appliance w/deleting : %v", err)
+		return
+	}
+
 }
 
 func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {

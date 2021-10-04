@@ -11,7 +11,7 @@ import (
 func (s *AccTestSuite) TestAccCliIdentityAppliance_import() {
 
 	var t = s.T()
-
+	t.Log("Acceptance test Import : basic appliance")
 	a, err := s.ImportAppliance("./samples/testacc-01.idmn")
 	if err != nil {
 		t.Errorf("importing test appliance : %v", err)
@@ -19,7 +19,7 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_import() {
 	}
 	t.Logf("Imported appliance %s [%d]", *a.Name, *a.Id)
 
-	s.client.DeleteAppliance(a.GetName())
+	s.client.DeleteAppliance(strconv.FormatInt(a.GetId(), 10))
 	if err != nil {
 		t.Errorf("importing test appliance w/deleting : %v", err)
 		return
@@ -162,6 +162,11 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z010() {
 		t.Logf("%#v", spC)
 	}
 
+	s.client.DeleteAppliance(strconv.FormatInt(a.GetId(), 10))
+	if err != nil {
+		t.Errorf("importing test appliance w/deleting : %v", err)
+		return
+	}
 }
 
 // Simple appliance test:
@@ -188,14 +193,19 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
 	t.Log("Acceptance test #030 : basic idp")
 
 	// 0. Create test appliance
-	var template api.IdentityApplianceDefinitionDTO
 
-	appliance, err := s.client.CreateAppliance(template)
+	template := createTestIdentityApplianceDefinitionDTO("testacc-z030")
+	var err error
+	appliance, err := s.client.CreateAppliance(*template)
+	if err != nil {
+		t.Errorf("creating appliance: %v", err)
+		return
+	}
 	// 1. Create identity vault
-	var origIdVauld *api.EmbeddedIdentityVaultDTO
+	origIdVauld := createTestEmbeddedIdentityVaultDTO("idv-1")
 	var createdIdVaul api.EmbeddedIdentityVaultDTO
 
-	createdIdVaul, err = s.client.CreateIdVault("idVault", *origIdVauld)
+	createdIdVaul, err = s.client.CreateIdVault(appliance.GetName(), *origIdVauld)
 	if err != nil {
 		t.Errorf("create identity appliance: %v", err)
 		return
@@ -214,20 +224,24 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
 		return
 	}
 
-	*idp, err = s.client.CreateIdp(appliance.GetName(), *idp)
+	*idp, err = s.client.CreateIdp(template.GetName(), *idp)
+	if err != nil {
+		t.Errorf("Create identity appliance : %v", err)
+		return
+	}
 
 	idp.AddIdentityLookup("id-lookup-1")
 
 	// 3. Create external SAML 2 sp, using test metadata and connect it to the IdP
-	var origsaml2 *api.EmbeddedIdentityVaultDTO
-	var createdsaml2 api.EmbeddedIdentityVaultDTO
+	origsaml2 := createTestExternalSaml2ServiceProviderDTO("sml2-sp")
+	var createdsaml2 api.ExternalSaml2ServiceProviderDTO
 
-	createdsaml2, err = s.client.CreateIdVault("Saml2Sp", *origsaml2)
+	createdsaml2, err = s.client.CreateExtSaml2Sp(appliance.GetName(), *origsaml2)
 	if err != nil {
 		t.Errorf("create Saml2Sp: %v", err)
 		return
 	}
-	if err := IdVaultValidateCreate(origsaml2, &createdsaml2); err != nil {
+	if err := ExternalSaml2SpValidateUpdate(origsaml2, &createdsaml2); err != nil {
 		t.Errorf("creating Saml2Sp : %v", err)
 		return
 	}

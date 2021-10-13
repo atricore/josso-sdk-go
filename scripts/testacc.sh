@@ -89,6 +89,6 @@ Title "Destroying docker container : $DOCKER_CONTAINER"
 docker rm -f "$DOCKER_CONTAINER"
 
 if [ MAKE_STATUS != 0 ] ; then
-    Title "There are TESTS errors"
+    Title "There are TESTS errors (make status): $MAKE_STATUS"
     exit 1
 fi

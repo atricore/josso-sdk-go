@@ -72,7 +72,7 @@ docker run --name "$DOCKER_CONTAINER" -d -p8111:8081 -p8222:8101 -p8444:8443 "$D
 # TODO : Wait for the server to start!
 for i in {1..15}; do
     curl -I "$JOSSO_API_ENDPOINT/info" | grep "HTTP/1.1 401 Unauthorized"
-    if [ $? == 0 ] ; then
+    if [ $? -eq 0 ] ; then
         break
     fi
     sleep 5

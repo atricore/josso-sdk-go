@@ -201,14 +201,59 @@ func (c *IdbusApiClient) DeleteAppliance(id string) (bool, error) {
 
 // Received an identity appliance name and starts it.
 func (c *IdbusApiClient) StartAppliance(name string) error {
-	// TODO : Send api.StartApplianceStateReq
-	// err := c.apiClient.DefaultApi.StartAppliance(ctx)
-	return nil
+
+	c.logger.Debugf("startAppliance id: %s", name)
+	sc, err := c.IdbusServerForOperation("DefaultApiService.StartAppliance") // Also hard-coded in generated client
+	if err != nil {
+		c.logger.Errorf("startAppliance. Error %v", err)
+		return err
+	}
+
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+	req := c.apiClient.DefaultApi.StartAppliance(ctx)
+	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdaName: &name})
+	res, _, err := c.apiClient.DefaultApi.StartApplianceExecute(req)
+
+	if err != nil {
+		c.logger.Errorf("startAppliance. Error %v", err)
+		return err
+	}
+
+	if res.Error != nil {
+		c.logger.Errorf("startAppliance. Error %v", *res.Error)
+		return errors.New(*res.Error)
+	}
+
+	c.logger.Debugf("startAppliance. Deleted %s : %t", name)
+
+	return err
 }
 
 func (c *IdbusApiClient) StopAppliance(name string) error {
 
-	// TODO : Send api.StopApplianceStateReq
-	// err := c.apiClient.DefaultApi.StopAppliance(ctx)
-	return nil
+	c.logger.Debugf("stopAppliance id: %s", name)
+	sc, err := c.IdbusServerForOperation("DefaultApiService.stopAppliance") // Also hard-coded in generated client
+	if err != nil {
+		c.logger.Errorf("stopAppliance. Error %v", err)
+		return err
+	}
+
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+	req := c.apiClient.DefaultApi.StopAppliance(ctx)
+	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdaName: &name})
+	res, _, err := c.apiClient.DefaultApi.StopApplianceExecute(req)
+
+	if err != nil {
+		c.logger.Errorf("stopAppliance. Error %v", err)
+		return err
+	}
+
+	if res.Error != nil {
+		c.logger.Errorf("stopAppliance. Error %v", *res.Error)
+		return errors.New(*res.Error)
+	}
+
+	c.logger.Debugf("stopAppliance. Deleted %s : %t", name)
+
+	return err
 }

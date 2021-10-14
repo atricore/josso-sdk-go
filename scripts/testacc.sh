@@ -64,7 +64,7 @@ DOCKER_IMAGE="atricore/josso-acctest:$JOSSO_VERSION-$BUILD_NUM"
 DOCKER_CONTAINER="josso-sdk-go-server-$JOSSO_VERSION-$BUILD_NUM"
 
 Title "Building docker image : $DOCKER_IMAGE"
-docker build --build-arg "IAMGE=$DOCKER_IMAGE" .
+docker build --build-arg "IAMGE=$DOCKER_IMAGE"
 
 Title "Building docker container : $DOCKER_CONTAINER" 
 docker run --name "$DOCKER_CONTAINER" -d -p8111:8081 -p8222:8101 -p8444:8443 "$DOCKER_IMAGE" 

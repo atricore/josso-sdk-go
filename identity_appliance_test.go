@@ -172,25 +172,12 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z010() {
 // Simple appliance test:
 //  - one idp
 //     - basic authn
-//  - db identity source
+//  - identity vault
 //  - external saml2 sp
-//  - partnerapp tomcat
 //
 func (s *AccTestSuite) TestAccCliIdentityAppliance_z020() {
 	var t = s.T()
 	t.Log("Acceptance test #020 : basic idp")
-
-}
-
-// Simple appliance test:
-//  - one idp
-//     - basic authn
-//  - identity vault
-//  - external saml2 sp
-//
-func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
-	var t = s.T()
-	t.Log("Acceptance test #030 : basic idp")
 
 	// 0. Create test appliance
 
@@ -248,6 +235,34 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
 	// 4. Build/Start identity appliance
 
 	// s, err := s.client.SetApplianceState("STARTED")
+
+}
+
+// Simple appliance test:
+//  - one idp
+//     - basic authn
+//  - identity vault
+//  - external saml2 sp
+//  - openid connect rp
+//
+func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
+	var t = s.T()
+	t.Log("Acceptance test #030 : basic idp w/saml2 and oidc rp")
+
+	// TODO !
+
+}
+
+// Simple appliance test:
+//  - one idp
+//     - basic authn
+//  - db identity source
+//  - external saml2 sp
+//  - partnerapp tomcat
+//
+func (s *AccTestSuite) TestAccCliIdentityAppliance_z040() {
+	var t = s.T()
+	t.Log("Acceptance test #040 : basic idp w/partnerapp and db")
 
 }
 

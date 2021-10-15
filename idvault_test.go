@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -132,6 +133,7 @@ func createTestEmbeddedIdentityVaultDTO(name string) *api.EmbeddedIdentityVaultD
 	tData := api.NewEmbeddedIdentityVaultDTO()
 	tData.SetName(name)
 	tData.SetId(-1)
+	tData.SetDescription(fmt.Sprintf("Description for %s", name))
 	tData.SetIdentityConnectorName("connector-default")
 	return tData
 }
@@ -161,6 +163,12 @@ func IdVaultFieldTestCreate(
 			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
 			expected: StrDeref(e.Name),
 			received: StrDeref(r.Name),
+		},
+		{
+			name:     "description",
+			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
+			expected: StrDeref(e.Description),
+			received: StrDeref(r.Description),
 		},
 		{
 			name:     "IdentityConnectorName",

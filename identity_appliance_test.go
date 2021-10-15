@@ -211,12 +211,13 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z020() {
 		t.Errorf("Create identity appliance : %v", err)
 		return
 	}
+	idp.AddIdentityLookup("idv-1")
+
 	*idp, err = s.client.CreateIdp(template.GetName(), *idp)
 	if err != nil {
 		t.Errorf("Create identity appliance : %v", err)
 		return
 	}
-	idp.AddIdentityLookup("id-lookup-1")
 
 	// 3. Create external SAML 2 sp, using test metadata and connect it to the IdP
 	origsaml2 := createTestExternalSaml2ServiceProviderDTO("sml2-sp")

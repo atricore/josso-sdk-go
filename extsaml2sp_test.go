@@ -177,7 +177,7 @@ func ExternalSaml2SpFieldTestCreate(
 			received: StrDeref(r.Description),
 		},
 		{
-			name:     "displayname",
+			name:     "display_name",
 			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
 			expected: StrDeref(e.DisplayName),
 			received: StrDeref(r.DisplayName),

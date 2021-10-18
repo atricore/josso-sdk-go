@@ -253,11 +253,179 @@ func VirtualSaml2SpFieldTestCreate(
 	r *api.VirtualSaml2ServiceProviderDTO) []FiledTestStruct {
 
 	return []FiledTestStruct{
+		// {
+		// 	name:     "account_linkage_policy",
+		// 	cmp:      func() bool { return StrPtrEquals(e.AccountLinkagePolicy, r.AccountLinkagePolicy) },
+		// 	expected: StrDeref(e.AccountLinkagePolicy),
+		// 	received: StrDeref(r.AccountLinkagePolicy),
+		// },
 		{
-			name:     "name",
-			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			name:     "dashboard_url",
+			cmp:      func() bool { return StrPtrEquals(e.DashboardUrl, r.DashboardUrl) },
+			expected: StrDeref(e.DashboardUrl),
+			received: StrDeref(r.DashboardUrl),
+		},
+		{
+			name:     "display_Name",
+			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
+			expected: StrDeref(e.DisplayName),
+			received: StrDeref(r.DisplayName),
+		},
+		{
+			name:     "enable_metadata_endpoint",
+			cmp:      func() bool { return BoolPtrEquals(e.EnableMetadataEndpoint, r.EnableMetadataEndpoint) },
+			expected: strconv.FormatBool(BoolDeref(e.EnableMetadataEndpoint)),
+			received: strconv.FormatBool(BoolDeref(r.EnableMetadataEndpoint)),
+		},
+		{
+			name:     "enable_proxy_extension",
+			cmp:      func() bool { return BoolPtrEquals(e.EnableProxyExtension, r.EnableProxyExtension) },
+			expected: strconv.FormatBool(BoolDeref(e.EnableProxyExtension)),
+			received: strconv.FormatBool(BoolDeref(r.EnableProxyExtension)),
+		},
+		{
+			name:     "encrypt_assertion",
+			cmp:      func() bool { return BoolPtrEquals(e.EncryptAssertion, r.EncryptAssertion) },
+			expected: strconv.FormatBool(BoolDeref(e.EncryptAssertion)),
+			received: strconv.FormatBool(BoolDeref(r.EncryptAssertion)),
+		},
+		{
+			name:     "encrypt_assertion_algorithm",
+			cmp:      func() bool { return StrPtrEquals(e.EncryptAssertionAlgorithm, r.EncryptAssertionAlgorithm) },
+			expected: StrDeref(e.EncryptAssertionAlgorithm),
+			received: StrDeref(r.EncryptAssertionAlgorithm),
+		},
+		{
+			name:     "error_binding",
+			cmp:      func() bool { return StrPtrEquals(e.ErrorBinding, r.ErrorBinding) },
+			expected: StrDeref(e.ErrorBinding),
+			received: StrDeref(r.ErrorBinding),
+		},
+		{
+			name:     "idp_signature_hash",
+			cmp:      func() bool { return StrPtrEquals(e.IdpSignatureHash, r.IdpSignatureHash) },
+			expected: StrDeref(e.IdpSignatureHash),
+			received: StrDeref(r.IdpSignatureHash),
+		},
+		{
+			name:     "ignore_requested_name_id_policy",
+			cmp:      func() bool { return BoolPtrEquals(e.IgnoreRequestedNameIDPolicy, r.IgnoreRequestedNameIDPolicy) },
+			expected: strconv.FormatBool(BoolDeref(e.IgnoreRequestedNameIDPolicy)),
+			received: strconv.FormatBool(BoolDeref(r.IgnoreRequestedNameIDPolicy)),
+		},
+		{
+			name:     "is_remote",
+			cmp:      func() bool { return BoolPtrEquals(e.IsRemote, r.IsRemote) },
+			expected: strconv.FormatBool(BoolDeref(e.IsRemote)),
+			received: strconv.FormatBool(BoolDeref(r.IsRemote)),
+		},
+		{
+			name:     "message_ttl",
+			cmp:      func() bool { return Int32PtrEquals(e.MessageTtl, r.MessageTtl) },
+			expected: strconv.Itoa(int(Int32Deref(e.MessageTtl))),
+			received: strconv.Itoa(int(Int32Deref(r.MessageTtl))),
+		},
+		{
+			name:     "message_ttl_tolerance",
+			cmp:      func() bool { return Int32PtrEquals(e.MessageTtlTolerance, r.MessageTtlTolerance) },
+			expected: strconv.Itoa(int(Int32Deref(e.MessageTtlTolerance))),
+			received: strconv.Itoa(int(Int32Deref(r.MessageTtlTolerance))),
+		},
+		{
+			name:     "oauth_2_enabled",
+			cmp:      func() bool { return BoolPtrEquals(e.Oauth2Enabled, r.Oauth2Enabled) },
+			expected: strconv.FormatBool(BoolDeref(e.Oauth2Enabled)),
+			received: strconv.FormatBool(BoolDeref(r.Oauth2Enabled)),
+		},
+		{
+			name:     "oauth_2_key",
+			cmp:      func() bool { return StrPtrEquals(e.Oauth2Key, r.Oauth2Key) },
+			expected: StrDeref(e.Oauth2Key),
+			received: StrDeref(r.Oauth2Key),
+		},
+		{
+			name:     "oauth_2_remember_me_token_validity",
+			cmp:      func() bool { return Int64PtrEquals(e.Oauth2RememberMeTokenValidity, r.Oauth2RememberMeTokenValidity) },
+			expected: strconv.FormatInt(Int64Deref(e.Oauth2RememberMeTokenValidity), 10),
+			received: strconv.FormatInt(Int64Deref(r.Oauth2RememberMeTokenValidity), 10),
+		},
+		{
+			name:     "oauth_2_token_validity",
+			cmp:      func() bool { return Int64PtrEquals(e.Oauth2TokenValidity, r.Oauth2TokenValidity) },
+			expected: strconv.FormatInt(Int64Deref(e.Oauth2TokenValidity), 10),
+			received: strconv.FormatInt(Int64Deref(r.Oauth2TokenValidity), 10),
+		},
+		{
+			name:     "oidc_access_token_time_to_live",
+			cmp:      func() bool { return Int32PtrEquals(e.OidcAccessTokenTimeToLive, r.OidcAccessTokenTimeToLive) },
+			expected: strconv.Itoa(int(Int32Deref(e.OidcAccessTokenTimeToLive))),
+			received: strconv.Itoa(int(Int32Deref(r.OidcAccessTokenTimeToLive))),
+		},
+		{
+			name:     "oidc_authz_code_time_to_live",
+			cmp:      func() bool { return Int32PtrEquals(e.OidcAuthzCodeTimeToLive, r.OidcAuthzCodeTimeToLive) },
+			expected: strconv.Itoa(int(Int32Deref(e.OidcAuthzCodeTimeToLive))),
+			received: strconv.Itoa(int(Int32Deref(r.OidcAuthzCodeTimeToLive))),
+		},
+		{
+			name:     "oidc_id_token_time_to_live",
+			cmp:      func() bool { return Int32PtrEquals(e.OidcIdTokenTimeToLive, r.OidcIdTokenTimeToLive) },
+			expected: strconv.Itoa(int(Int32Deref(e.OidcIdTokenTimeToLive))),
+			received: strconv.Itoa(int(Int32Deref(r.OidcIdTokenTimeToLive))),
+		},
+		{
+			name:     "open_id_enabled",
+			cmp:      func() bool { return BoolPtrEquals(e.OpenIdEnabled, r.OpenIdEnabled) },
+			expected: strconv.FormatBool(BoolDeref(e.OpenIdEnabled)),
+			received: strconv.FormatBool(BoolDeref(r.OpenIdEnabled)),
+		},
+		{
+			name:     "sign_authentication_requests",
+			cmp:      func() bool { return BoolPtrEquals(e.SignAuthenticationRequests, r.SignAuthenticationRequests) },
+			expected: strconv.FormatBool(BoolDeref(e.SignAuthenticationRequests)),
+			received: strconv.FormatBool(BoolDeref(r.SignAuthenticationRequests)),
+		},
+		{
+			name:     "sign_requests",
+			cmp:      func() bool { return BoolPtrEquals(e.SignRequests, r.SignRequests) },
+			expected: strconv.FormatBool(BoolDeref(e.SignRequests)),
+			received: strconv.FormatBool(BoolDeref(r.SignRequests)),
+		},
+		{
+			name:     "sp_signature_hash",
+			cmp:      func() bool { return StrPtrEquals(e.SpSignatureHash, r.SpSignatureHash) },
+			expected: StrDeref(e.SpSignatureHash),
+			received: StrDeref(r.SpSignatureHash),
+		},
+		{
+			name:     "sso_session_timeout",
+			cmp:      func() bool { return Int32PtrEquals(e.SsoSessionTimeout, r.SsoSessionTimeout) },
+			expected: strconv.Itoa(int(Int32Deref(e.SsoSessionTimeout))),
+			received: strconv.Itoa(int(Int32Deref(r.SsoSessionTimeout))),
+		},
+		{
+			name:     "want_assertion_signed",
+			cmp:      func() bool { return BoolPtrEquals(e.WantAssertionSigned, r.WantAssertionSigned) },
+			expected: strconv.FormatBool(BoolDeref(e.WantAssertionSigned)),
+			received: strconv.FormatBool(BoolDeref(r.WantAssertionSigned)),
+		},
+		{
+			name:     "want_assertion_signed",
+			cmp:      func() bool { return BoolPtrEquals(e.WantAssertionSigned, r.WantAssertionSigned) },
+			expected: strconv.FormatBool(BoolDeref(e.WantAssertionSigned)),
+			received: strconv.FormatBool(BoolDeref(r.WantAssertionSigned)),
+		},
+		{
+			name:     "want_slo_response_signed",
+			cmp:      func() bool { return BoolPtrEquals(e.WantSLOResponseSigned, r.WantSLOResponseSigned) },
+			expected: strconv.FormatBool(BoolDeref(e.WantSLOResponseSigned)),
+			received: strconv.FormatBool(BoolDeref(r.WantSLOResponseSigned)),
+		},
+		{
+			name:     "want_signed_requests",
+			cmp:      func() bool { return BoolPtrEquals(e.WantSignedRequests, r.WantSignedRequests) },
+			expected: strconv.FormatBool(BoolDeref(e.WantSignedRequests)),
+			received: strconv.FormatBool(BoolDeref(r.WantSignedRequests)),
 		},
 	}
 }
@@ -267,14 +435,7 @@ func VirtualSaml2SpFieldTestUpdate(
 	e *api.VirtualSaml2ServiceProviderDTO,
 	r *api.VirtualSaml2ServiceProviderDTO) []FiledTestStruct {
 
-	t := []FiledTestStruct{
-		{
-			name:     "id",
-			cmp:      func() bool { return Int64PtrEquals(e.Id, r.Id) },
-			expected: strconv.FormatInt(Int64Deref(e.Id), 10),
-			received: strconv.FormatInt(Int64Deref(r.Id), 10),
-		},
-	}
+	t := []FiledTestStruct{}
 	return append(t, VirtualSaml2SpFieldTestCreate(e, r)...)
 }
 

@@ -467,7 +467,7 @@ func ApplianceFieldTestCreate(
 			received: StrDeref(r.Description),
 		},
 		{
-			name:     "displayName",
+			name:     "display_name",
 			cmp:      func() bool { return StrPtrEquals(e.DisplayName, r.DisplayName) },
 			expected: StrDeref(e.DisplayName),
 			received: StrDeref(r.DisplayName),
@@ -479,7 +479,7 @@ func ApplianceFieldTestCreate(
 			received: StrDeref(r.Name),
 		},
 		{
-			name:     "namespace",
+			name:     "name_space",
 			cmp:      func() bool { return StrPtrEquals(e.Namespace, r.Namespace) },
 			expected: StrDeref(e.Namespace),
 			received: StrDeref(r.Namespace),

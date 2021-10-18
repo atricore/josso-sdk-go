@@ -171,7 +171,7 @@ func IdVaultFieldTestCreate(
 			received: StrDeref(r.Description),
 		},
 		{
-			name:     "IdentityConnectorName",
+			name:     "identity_connector_name",
 			cmp:      func() bool { return StrPtrEquals(e.IdentityConnectorName, r.IdentityConnectorName) },
 			expected: StrDeref(e.IdentityConnectorName),
 			received: StrDeref(r.IdentityConnectorName),

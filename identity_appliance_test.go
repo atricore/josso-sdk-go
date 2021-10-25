@@ -84,7 +84,7 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	}
 
 	// Test empty list
-	listOfAll, err := s.client.GetAppliances()
+	listOfAll, err := getTestAppliances(s.client)
 	if err != nil {
 		t.Error(err)
 		return
@@ -105,14 +105,16 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 	listOfCreated[1], _ = s.client.CreateAppliance(*element2)
 
 	// Get list from server
-	listOfRead, err := s.client.GetAppliances()
+	listOfRead, err := getTestAppliances(s.client)
 	if err != nil {
 		t.Error(err)
 		return
 	}
+
 	// The list should have 2 elemetns
 	if len(listOfRead) != 2 {
 		// The list should be emtpy
+
 		t.Errorf("Invalid number of elements found %d, expected 2", len(listOfAll))
 		return
 	}
@@ -144,24 +146,24 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z010() {
 		t.Errorf("z010, unexpedted number of federated connections B, got %d", fcsBLen)
 		return
 	}
+	/*
+		for _, fcB := range sp.GetFederatedConnectionsB() {
+			t.Logf("Federated Connection %s", fcB.GetName())
 
-	for _, fcB := range sp.GetFederatedConnectionsB() {
-		t.Logf("Federated Connection %s", fcB.GetName())
+			idpC, err := fcB.GetIDPChannel()
+			if err != nil {
+				t.Errorf("%v", err)
+			}
+			spC, err := fcB.GetSPChannel()
+			if err != nil {
+				t.Errorf("%v", err)
+			}
 
-		idpC, err := fcB.GetIDPChannel()
-		if err != nil {
-			t.Errorf("%v", err)
+			t.Logf("%#v", fcB)
+			t.Logf("%#v", idpC)
+			t.Logf("%#v", spC)
 		}
-		spC, err := fcB.GetSPChannel()
-		if err != nil {
-			t.Errorf("%v", err)
-		}
-
-		t.Logf("%#v", fcB)
-		t.Logf("%#v", idpC)
-		t.Logf("%#v", spC)
-	}
-
+	*/
 	s.client.DeleteAppliance(strconv.FormatInt(a.GetId(), 10))
 	if err != nil {
 		t.Errorf("importing test appliance w/deleting : %v", err)
@@ -517,4 +519,25 @@ func IdApplianceValidateUpdate(
 	r *api.IdentityApplianceDefinitionDTO) error {
 
 	return ValidateFields(ApplianceFieldTestUpdate(e, r))
+}
+
+// This gets all applinaces from the server that are used as acceptance test (name starts with testacc-)
+func getTestAppliances(c *IdbusApiClient) ([]api.IdentityApplianceDefinitionDTO, error) {
+	// Get list from server
+
+	var r []api.IdentityApplianceDefinitionDTO
+
+	listOfRead, err := c.GetAppliances()
+	if err != nil {
+		return r, err
+	}
+
+	for _, a := range listOfRead {
+		if strings.HasPrefix(a.GetName(), "testacc-") {
+			r = append(r, a)
+		}
+	}
+
+	return r, nil
+
 }

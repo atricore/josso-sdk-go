@@ -24,7 +24,6 @@ type IdentityProviderDTO struct {
 	AuthenticationMechanisms *[]AuthenticationMechanismDTO `json:"authenticationMechanisms,omitempty"`
 	Config *ProviderConfigDTO `json:"config,omitempty"`
 	DashboardUrl *string `json:"dashboardUrl,omitempty"`
-	DelegatedAuthentications *[]DelegatedAuthenticationDTO `json:"delegatedAuthentications,omitempty"`
 	Description *string `json:"description,omitempty"`
 	DestroyPreviousSession *bool `json:"destroyPreviousSession,omitempty"`
 	DisplayName *string `json:"displayName,omitempty"`
@@ -325,38 +324,6 @@ func (o *IdentityProviderDTO) HasDashboardUrl() bool {
 // SetDashboardUrl gets a reference to the given string and assigns it to the DashboardUrl field.
 func (o *IdentityProviderDTO) SetDashboardUrl(v string) {
 	o.DashboardUrl = &v
-}
-
-// GetDelegatedAuthentications returns the DelegatedAuthentications field value if set, zero value otherwise.
-func (o *IdentityProviderDTO) GetDelegatedAuthentications() []DelegatedAuthenticationDTO {
-	if o == nil || o.DelegatedAuthentications == nil {
-		var ret []DelegatedAuthenticationDTO
-		return ret
-	}
-	return *o.DelegatedAuthentications
-}
-
-// GetDelegatedAuthenticationsOk returns a tuple with the DelegatedAuthentications field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetDelegatedAuthenticationsOk() (*[]DelegatedAuthenticationDTO, bool) {
-	if o == nil || o.DelegatedAuthentications == nil {
-		return nil, false
-	}
-	return o.DelegatedAuthentications, true
-}
-
-// HasDelegatedAuthentications returns a boolean if a field has been set.
-func (o *IdentityProviderDTO) HasDelegatedAuthentications() bool {
-	if o != nil && o.DelegatedAuthentications != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDelegatedAuthentications gets a reference to the given []DelegatedAuthenticationDTO and assigns it to the DelegatedAuthentications field.
-func (o *IdentityProviderDTO) SetDelegatedAuthentications(v []DelegatedAuthenticationDTO) {
-	o.DelegatedAuthentications = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -2174,9 +2141,6 @@ func (o IdentityProviderDTO) MarshalJSON() ([]byte, error) {
 	if o.DashboardUrl != nil {
 		toSerialize["dashboardUrl"] = o.DashboardUrl
 	}
-	if o.DelegatedAuthentications != nil {
-		toSerialize["delegatedAuthentications"] = o.DelegatedAuthentications
-	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
@@ -2370,7 +2334,6 @@ func (o *IdentityProviderDTO) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "authenticationMechanisms")
 		delete(additionalProperties, "config")
 		delete(additionalProperties, "dashboardUrl")
-		delete(additionalProperties, "delegatedAuthentications")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "destroyPreviousSession")
 		delete(additionalProperties, "displayName")

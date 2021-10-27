@@ -17,7 +17,6 @@ import (
 
 // ExecutionEnvironmentDTO struct for ExecutionEnvironmentDTO
 type ExecutionEnvironmentDTO struct {
-	Activations *[]ActivationDTO `json:"activations,omitempty"`
 	Active *bool `json:"active,omitempty"`
 	BindingLocation *LocationDTO `json:"bindingLocation,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -54,38 +53,6 @@ func NewExecutionEnvironmentDTO() *ExecutionEnvironmentDTO {
 func NewExecutionEnvironmentDTOWithDefaults() *ExecutionEnvironmentDTO {
 	this := ExecutionEnvironmentDTO{}
 	return &this
-}
-
-// GetActivations returns the Activations field value if set, zero value otherwise.
-func (o *ExecutionEnvironmentDTO) GetActivations() []ActivationDTO {
-	if o == nil || o.Activations == nil {
-		var ret []ActivationDTO
-		return ret
-	}
-	return *o.Activations
-}
-
-// GetActivationsOk returns a tuple with the Activations field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExecutionEnvironmentDTO) GetActivationsOk() (*[]ActivationDTO, bool) {
-	if o == nil || o.Activations == nil {
-		return nil, false
-	}
-	return o.Activations, true
-}
-
-// HasActivations returns a boolean if a field has been set.
-func (o *ExecutionEnvironmentDTO) HasActivations() bool {
-	if o != nil && o.Activations != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetActivations gets a reference to the given []ActivationDTO and assigns it to the Activations field.
-func (o *ExecutionEnvironmentDTO) SetActivations(v []ActivationDTO) {
-	o.Activations = &v
 }
 
 // GetActive returns the Active field value if set, zero value otherwise.
@@ -602,9 +569,6 @@ func (o *ExecutionEnvironmentDTO) SetY(v float64) {
 
 func (o ExecutionEnvironmentDTO) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Activations != nil {
-		toSerialize["activations"] = o.Activations
-	}
 	if o.Active != nil {
 		toSerialize["active"] = o.Active
 	}
@@ -671,7 +635,6 @@ func (o *ExecutionEnvironmentDTO) UnmarshalJSON(bytes []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "activations")
 		delete(additionalProperties, "active")
 		delete(additionalProperties, "bindingLocation")
 		delete(additionalProperties, "description")

@@ -33,6 +33,7 @@ type InternalSaml2ServiceProviderDTO struct {
 	FederatedConnectionsB *[]FederatedConnectionDTO `json:"federatedConnectionsB,omitempty"`
 	Id *int64 `json:"id,omitempty"`
 	IdentityAppliance *IdentityApplianceDefinitionDTO `json:"identityAppliance,omitempty"`
+	IdentityLookups *[]IdentityLookupDTO `json:"identityLookups,omitempty"`
 	IdentityMappingPolicy *IdentityMappingPolicyDTO `json:"identityMappingPolicy,omitempty"`
 	IsRemote *bool `json:"isRemote,omitempty"`
 	Location *LocationDTO `json:"location,omitempty"`
@@ -583,6 +584,38 @@ func (o *InternalSaml2ServiceProviderDTO) HasIdentityAppliance() bool {
 // SetIdentityAppliance gets a reference to the given IdentityApplianceDefinitionDTO and assigns it to the IdentityAppliance field.
 func (o *InternalSaml2ServiceProviderDTO) SetIdentityAppliance(v IdentityApplianceDefinitionDTO) {
 	o.IdentityAppliance = &v
+}
+
+// GetIdentityLookups returns the IdentityLookups field value if set, zero value otherwise.
+func (o *InternalSaml2ServiceProviderDTO) GetIdentityLookups() []IdentityLookupDTO {
+	if o == nil || o.IdentityLookups == nil {
+		var ret []IdentityLookupDTO
+		return ret
+	}
+	return *o.IdentityLookups
+}
+
+// GetIdentityLookupsOk returns a tuple with the IdentityLookups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InternalSaml2ServiceProviderDTO) GetIdentityLookupsOk() (*[]IdentityLookupDTO, bool) {
+	if o == nil || o.IdentityLookups == nil {
+		return nil, false
+	}
+	return o.IdentityLookups, true
+}
+
+// HasIdentityLookups returns a boolean if a field has been set.
+func (o *InternalSaml2ServiceProviderDTO) HasIdentityLookups() bool {
+	if o != nil && o.IdentityLookups != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIdentityLookups gets a reference to the given []IdentityLookupDTO and assigns it to the IdentityLookups field.
+func (o *InternalSaml2ServiceProviderDTO) SetIdentityLookups(v []IdentityLookupDTO) {
+	o.IdentityLookups = &v
 }
 
 // GetIdentityMappingPolicy returns the IdentityMappingPolicy field value if set, zero value otherwise.
@@ -1211,6 +1244,9 @@ func (o InternalSaml2ServiceProviderDTO) MarshalJSON() ([]byte, error) {
 	if o.IdentityAppliance != nil {
 		toSerialize["identityAppliance"] = o.IdentityAppliance
 	}
+	if o.IdentityLookups != nil {
+		toSerialize["identityLookups"] = o.IdentityLookups
+	}
 	if o.IdentityMappingPolicy != nil {
 		toSerialize["identityMappingPolicy"] = o.IdentityMappingPolicy
 	}
@@ -1299,6 +1335,7 @@ func (o *InternalSaml2ServiceProviderDTO) UnmarshalJSON(bytes []byte) (err error
 		delete(additionalProperties, "federatedConnectionsB")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "identityAppliance")
+		delete(additionalProperties, "identityLookups")
 		delete(additionalProperties, "identityMappingPolicy")
 		delete(additionalProperties, "isRemote")
 		delete(additionalProperties, "location")

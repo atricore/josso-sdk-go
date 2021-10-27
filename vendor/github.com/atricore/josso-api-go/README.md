@@ -59,7 +59,7 @@ Note, enum values are always validated and all unused variables are silently ign
 ### URLs Configuration per Operation
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
-An operation is uniquely identifield by `"{classname}Service.{nickname}"` string.
+An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
@@ -88,6 +88,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**CreateIdVault**](docs/DefaultApi.md#createidvault) | **Post** /iam-deploy/idvault | 
 *DefaultApi* | [**CreateIntSaml2Sp**](docs/DefaultApi.md#createintsaml2sp) | **Post** /iam-deploy/intsaml2sp | 
 *DefaultApi* | [**CreateOidcRp**](docs/DefaultApi.md#createoidcrp) | **Post** /iam-deploy/oidcrp | 
+*DefaultApi* | [**CreateTomcatExecEnv**](docs/DefaultApi.md#createtomcatexecenv) | **Post** /iam-deploy/tomcatexecenv | 
 *DefaultApi* | [**CreateVirtSaml2Sp**](docs/DefaultApi.md#createvirtsaml2sp) | **Post** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**DeleteAppliance**](docs/DefaultApi.md#deleteappliance) | **Delete** /iam-deploy/appliance | 
 *DefaultApi* | [**DeleteDbIdVault**](docs/DefaultApi.md#deletedbidvault) | **Delete** /iam-deploy/dbidvault | 
@@ -98,6 +99,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**DeleteIdVault**](docs/DefaultApi.md#deleteidvault) | **Delete** /iam-deploy/idvault | 
 *DefaultApi* | [**DeleteIntSaml2Sp**](docs/DefaultApi.md#deleteintsaml2sp) | **Delete** /iam-deploy/intsaml2sp | 
 *DefaultApi* | [**DeleteOidcRp**](docs/DefaultApi.md#deleteoidcrp) | **Delete** /iam-deploy/oidcrp | 
+*DefaultApi* | [**DeleteTomcatExecEnv**](docs/DefaultApi.md#deletetomcatexecenv) | **Delete** /iam-deploy/tomcatexecenv | 
 *DefaultApi* | [**DeleteVirtSaml2Sp**](docs/DefaultApi.md#deletevirtsaml2sp) | **Delete** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**GetAppliance**](docs/DefaultApi.md#getappliance) | **Get** /iam-deploy/appliance | 
 *DefaultApi* | [**GetApplianceState**](docs/DefaultApi.md#getappliancestate) | **Get** /iam-deploy/appliance/state | 
@@ -118,6 +120,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetIntSaml2Sps**](docs/DefaultApi.md#getintsaml2sps) | **Get** /iam-deploy/intsaml2sps | 
 *DefaultApi* | [**GetOidcRp**](docs/DefaultApi.md#getoidcrp) | **Get** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetOidcRps**](docs/DefaultApi.md#getoidcrps) | **Get** /iam-deploy/oidcrps | 
+*DefaultApi* | [**GetTomcatExecEnv**](docs/DefaultApi.md#gettomcatexecenv) | **Get** /iam-deploy/tomcatexecenv | 
+*DefaultApi* | [**GetTomcatExecEnvs**](docs/DefaultApi.md#gettomcatexecenvs) | **Get** /iam-deploy/tomcatexecenvs | 
 *DefaultApi* | [**GetTypes**](docs/DefaultApi.md#gettypes) | **Get** /iam-deploy/noop/types | 
 *DefaultApi* | [**GetVirtSaml2Sp**](docs/DefaultApi.md#getvirtsaml2sp) | **Get** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**GetVirtSaml2Sps**](docs/DefaultApi.md#getvirtsaml2sps) | **Get** /iam-deploy/virtsaml2sps | 
@@ -135,6 +139,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**UpdateIdVault**](docs/DefaultApi.md#updateidvault) | **Put** /iam-deploy/idvault | 
 *DefaultApi* | [**UpdateIntSaml2Sp**](docs/DefaultApi.md#updateintsaml2sp) | **Put** /iam-deploy/intsaml2sp | 
 *DefaultApi* | [**UpdateOidcRp**](docs/DefaultApi.md#updateoidcrp) | **Put** /iam-deploy/oidcrp | 
+*DefaultApi* | [**UpdateTomcatExecEnv**](docs/DefaultApi.md#updatetomcatexecenv) | **Put** /iam-deploy/tomcatexecenv | 
 
 
 ## Documentation For Models
@@ -191,6 +196,9 @@ Class | Method | HTTP request | Description
  - [GetOidcRpReq](docs/GetOidcRpReq.md)
  - [GetOidcRpRes](docs/GetOidcRpRes.md)
  - [GetOidcRpsRes](docs/GetOidcRpsRes.md)
+ - [GetTomcatExecEnvReq](docs/GetTomcatExecEnvReq.md)
+ - [GetTomcatExecEnvRes](docs/GetTomcatExecEnvRes.md)
+ - [GetTomcatExecEnvsRes](docs/GetTomcatExecEnvsRes.md)
  - [GetTypesRes](docs/GetTypesRes.md)
  - [GetVirtSaml2SpReq](docs/GetVirtSaml2SpReq.md)
  - [GetVirtSaml2SpRes](docs/GetVirtSaml2SpRes.md)
@@ -242,10 +250,13 @@ Class | Method | HTTP request | Description
  - [StoreIntSaml2SpRes](docs/StoreIntSaml2SpRes.md)
  - [StoreOidcRpReq](docs/StoreOidcRpReq.md)
  - [StoreOidcRpRes](docs/StoreOidcRpRes.md)
+ - [StoreTomcatExecEnvReq](docs/StoreTomcatExecEnvReq.md)
+ - [StoreTomcatExecEnvRes](docs/StoreTomcatExecEnvRes.md)
  - [StoreVirtSaml2SpReq](docs/StoreVirtSaml2SpReq.md)
  - [StoreVirtSaml2SpRes](docs/StoreVirtSaml2SpRes.md)
  - [SubjectAuthenticationPolicyDTO](docs/SubjectAuthenticationPolicyDTO.md)
  - [SubjectNameIdentifierPolicyDTO](docs/SubjectNameIdentifierPolicyDTO.md)
+ - [TomcatExecutionEnvironmentDTO](docs/TomcatExecutionEnvironmentDTO.md)
  - [UserDTO](docs/UserDTO.md)
  - [UserDashboardBrandingDTO](docs/UserDashboardBrandingDTO.md)
  - [VirtualSaml2ServiceProviderDTO](docs/VirtualSaml2ServiceProviderDTO.md)

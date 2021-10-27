@@ -234,7 +234,7 @@ func createTestInternalSaml2ServiceProviderDTO(name string) *api.InternalSaml2Se
 	IdentityProviderDTO.SetAttributeProfile(AttributeProfileDTO)
 	IdentityProviderDTO.SetAuthenticationMechanisms(AuthenticationMechanismDTO)
 	IdentityProviderDTO.SetDashboardUrl("")
-	IdentityProviderDTO.SetDelegatedAuthentications(DelegatedAuthenticationDTO)
+	//IdentityProviderDTO.SetDelegatedAuthentications(DelegatedAuthenticationDTO)
 	IdentityProviderDTO.SetDescription("")
 	IdentityProviderDTO.SetDestroyPreviousSession(true)
 	IdentityProviderDTO.SetDisplayName("")
@@ -672,9 +672,9 @@ func createTestInternalSaml2ServiceProviderDTO(name string) *api.InternalSaml2Se
 	acts2.SetSp(*tData)
 	acts2.SetWaypoints(poi)
 	acts = append(acts, *acts1, *acts2)
-	exe.SetActivations(acts)
-	ExecutionEnvironmentDTO1.SetActivations(acts)
-	ExecutionEnvironmentDTO2.SetActivations(acts)
+	//exe.SetActivations(acts)
+	//ExecutionEnvironmentDTO1.SetActivations(acts)
+	//ExecutionEnvironmentDTO2.SetActivations(acts)
 
 	tData.SetDashboardUrl("") // JSON SAY ITS ""
 	tData.SetDescription("IntSaml2Sp One")

@@ -260,6 +260,12 @@ func VirtualSaml2SpFieldTestCreate(
 		// 	received: StrDeref(r.AccountLinkagePolicy),
 		// },
 		{
+			name:     "name",
+			cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
+			expected: StrDeref(e.Name),
+			received: StrDeref(r.Name),
+		},
+		{
 			name:     "dashboard_url",
 			cmp:      func() bool { return StrPtrEquals(e.DashboardUrl, r.DashboardUrl) },
 			expected: StrDeref(e.DashboardUrl),

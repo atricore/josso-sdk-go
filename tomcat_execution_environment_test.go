@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -8,7 +9,7 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-func (s *AccTestSuite) TestAccCliTomcat_Exec_Env() {
+func (s *AccTestSuite) TestAccCliTomcatExecEnv_crud() {
 	var t = s.T()
 
 	appliance, err := getTestAppliance(s.T(), s.client)
@@ -94,7 +95,7 @@ func (s *AccTestSuite) TestAccCliTomcat_Exec_Env() {
 	element1 := createTestTomcatExecutionEnvironmentDTO("tomcat-1")
 	listOfCreated[0], _ = s.client.CreateTomcatExeEnv(*appliance.Name, *element1)
 
-	element2 := createTestTomcatExecutionEnvironmentDTO("tomcat-2")
+	element2 := createTestTomcatExecutionEnvironmentDTO("tomcat-a")
 	listOfCreated[1], _ = s.client.CreateTomcatExeEnv(*appliance.Name, *element2)
 	// ------------------------
 	// Get list from server
@@ -111,7 +112,7 @@ func (s *AccTestSuite) TestAccCliTomcat_Exec_Env() {
 	}
 
 	// Order list of read by Name
-	sort.SliceStable(listOfRead,
+	sort.Slice(listOfRead,
 		func(i, j int) bool {
 			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) < 0
 		},
@@ -130,18 +131,15 @@ func (s *AccTestSuite) TestAccCliTomcat_Exec_Env() {
 func createTestTomcatExecutionEnvironmentDTO(name string) *api.TomcatExecutionEnvironmentDTO {
 	tData := api.NewTomcatExecutionEnvironmentDTO()
 
+	tData.SetName(name)
 	tData.SetActive(true)
-	// tData.SetDescription()
-	// tData.SetDisplayName()
-	// tData.SetElementId()
-	// tData.SetId()
-	// tData.SetInstallDemoApps()
-	// tData.SetinstallUri()
-	// tData.SetName(name)
-	// tData.SetOverwriteOriginalSetup()
-	// tData.SetPlatformId()
-	// tData.SetTargetJDK()
-	// tData.SetType()
+	tData.SetDescription(fmt.Sprintf("Tomcat %s", name))
+	tData.SetDisplayName(fmt.Sprintf("Tomcat %s", name))
+	tData.SetInstallDemoApps(true)
+	tData.SetInstallUri(fmt.Sprintf("/opt/atricore/josso-ee-2/%s", name))
+
+	tData.SetOverwriteOriginalSetup(true)
+	tData.SetPlatformId("tc85")
 
 	return tData
 }
@@ -184,12 +182,7 @@ func TomcatExeEnvFieldTestCreate(
 			expected: StrDeref(e.DisplayName),
 			received: StrDeref(r.DisplayName),
 		},
-		{
-			name:     "element_id",
-			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
-			expected: StrDeref(e.ElementId),
-			received: StrDeref(r.ElementId),
-		},
+
 		{
 			name:     "install_demo_apps",
 			cmp:      func() bool { return BoolPtrEquals(e.InstallDemoApps, r.InstallDemoApps) },
@@ -246,7 +239,14 @@ func TomcatExeEnvFieldTestUpdate(
 	e *api.TomcatExecutionEnvironmentDTO,
 	r *api.TomcatExecutionEnvironmentDTO) []FiledTestStruct {
 
-	t := []FiledTestStruct{}
+	t := []FiledTestStruct{
+		{
+			name:     "element_id",
+			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
+			expected: StrDeref(e.ElementId),
+			received: StrDeref(r.ElementId),
+		},
+	}
 	return append(t, TomcatExeEnvFieldTestCreate(e, r)...)
 }
 

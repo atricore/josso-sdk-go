@@ -255,7 +255,7 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z030() {
 	t.Log("Acceptance test #030 : basic idp w/saml2 and oidc rp")
 	// 0. Create test appliance
 
-	template := createTestIdentityApplianceDefinitionDTO("testacc-z030")
+	template := createTestIdentityApplianceDefinitionDTO("testacc-s")
 	var err error
 	appliance, err := s.client.CreateAppliance(*template)
 	if err != nil {

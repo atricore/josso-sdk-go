@@ -8,21 +8,21 @@ import (
 )
 
 // Creates a new IDP in the provided identity appliance. It receives the appliance name or id and the oidcRp dto to use as template
-func (c *IdbusApiClient) CreateTomcatExeEnv(ida string, Tomcat api.TomcatExecutionEnvironmentDTO) (api.TomcatExecutionEnvironmentDTO, error) {
+func (c *IdbusApiClient) CreateTomcatExeEnv(ida string, tc api.TomcatExecutionEnvironmentDTO) (api.TomcatExecutionEnvironmentDTO, error) {
 	var result api.TomcatExecutionEnvironmentDTO
 	l := c.Logger()
 
-	l.Debugf("createTomcatExeEnv : %s [%s]", *Tomcat.Name, ida)
+	l.Debugf("createTomcatExeEnv : %s [%s]", *tc.Name, ida)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.CreateTomcatExeEnv") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
 	}
 
-	initTomCat(&Tomcat)
+	initTomCat(&tc)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateTomcatExecEnv(ctx)
-	req = req.StoreTomcatExecEnvReq(api.StoreTomcatExecEnvReq{IdaName: &ida, TomcatExecEnv: &Tomcat})
+	req = req.StoreTomcatExecEnvReq(api.StoreTomcatExecEnvReq{IdaName: &ida, TomcatExecEnv: &tc})
 	res, _, err := c.apiClient.DefaultApi.CreateTomcatExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("createTomcatExeEnv. Error %v", err)

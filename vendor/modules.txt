@@ -1,4 +1,4 @@
-# github.com/atricore/josso-api-go v0.0.0-20211027183754-96b9de03c835
+# github.com/atricore/josso-api-go v0.0.0-20211029191001-f3870090b0d4
 github.com/atricore/josso-api-go
 # github.com/davecgh/go-spew v1.1.0
 github.com/davecgh/go-spew/spew

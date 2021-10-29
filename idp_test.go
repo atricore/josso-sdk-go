@@ -229,13 +229,8 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 
 	var AuthenticationAssertionEmissionPolicyDTO api.AuthenticationAssertionEmissionPolicyDTO
 	tData := api.NewIdentityProviderDTO()
-	var ResourceDTO api.ResourceDTO
+
 	var identityAppliance api.IdentityApplianceDefinitionDTO
-
-	var SessionManagerFactoryDTO api.SessionManagerFactoryDTO
-
-	SessionManagerFactoryDTO.SetDescription("")
-	SessionManagerFactoryDTO.SetName("")
 
 	// AuthenticationAssertionEmissionPolicyDTO.SetElementId("")
 	// AuthenticationAssertionEmissionPolicyDTO.SetId(1)
@@ -254,7 +249,7 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	rs.SetValue(keystore)
 	rs.SetUri(fmt.Sprintf("ks-%s.jks", name))
 
-	var ks api.KeystoreDTO
+	ks := api.NewKeystoreDTOWithOK()
 	ks.SetCertificateAlias("jetty")
 	ks.SetPassword("@WSX3edc")
 	ks.SetPrivateKeyName("jetty")
@@ -263,12 +258,19 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	ks.SetType("JKS")
 	ks.SetName(fmt.Sprintf("%s-ks", name))
 	ks.SetStore(rs)
-	// TODO : Inject in IdP
+	// TODO : Inject in IdP using IDP Config
+
+	idpCfg := api.NewSamlR2IDPConfigDTO()
+	idpCfg.SetName(fmt.Sprintf("%s-cfg", name))
+	idpCfg.SetUseSampleStore(false)
+	idpCfg.SetUseSystemStore(false)
+	idpCfg.SetSigner(*ks)
+	idpCfg.SetEncrypter(*ks)
+	cfg, _ := idpCfg.ToProviderConfig()
+	tData.SetConfig(*cfg)
 
 	// SAML2 IdP config as serialized by CXF (Additional properties)
 	var conf api.SamlR2IDPConfigDTO
-	conf.SetDescription("")
-	conf.SetDisplayName("")
 	conf.SetUseSampleStore(true)
 	conf.SetUseSystemStore(false)
 	err := tData.SetSamlR2IDPConfig(&conf)
@@ -306,31 +308,9 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 
 	tData.SetAuthenticationMechanisms(authn)
 
-	/*
-		var delegatedauthns []api.DelegatedAuthenticationDTO
-		delegatedauthns1 := api.NewDelegatedAuthenticationDTO()
-		delegatedauthns2 := api.NewDelegatedAuthenticationDTO()
-		delegatedauthns1.SetAuthnService(AuthenticationServiceDTO)
-		delegatedauthns1.SetDescription("")
-		delegatedauthns1.SetElementId("")
-		delegatedauthns1.SetId(1)
-		delegatedauthns1.SetIdp(*orig)
-		delegatedauthns1.SetName("")
-		delegatedauthns = append(delegatedauthns, *delegatedauthns1)
-		delegatedauthns2.SetAuthnService(AuthenticationServiceDTO)
-		delegatedauthns2.SetDescription("")
-		delegatedauthns2.SetElementId("")
-		delegatedauthns2.SetId(1)
-		delegatedauthns2.SetIdp(*orig)
-		delegatedauthns2.SetName("")
-		delegatedauthns = append(delegatedauthns, *delegatedauthns2)
-		orig.SetDelegatedAuthentications(delegatedauthns)
-	*/
-
-	tData.SetDescription("IdP One")
+	tData.SetDescription(fmt.Sprintf("IdP : %s", name))
 	tData.SetDestroyPreviousSession(true)
-	tData.SetDisplayName("")
-	tData.SetElementId("")
+	tData.SetDisplayName(fmt.Sprintf("IdP ds : %s", name))
 	tData.SetEmissionPolicy(AuthenticationAssertionEmissionPolicyDTO)
 	tData.SetEnableMetadataEndpoint(true)
 	tData.SetEncryptAssertion(true)
@@ -344,11 +324,9 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	tData.SetIdentityConfirmationOAuth2ClientSecret("my-secret")
 
 	tData.SetIgnoreRequestedNameIDPolicy(true)
-	tData.SetIsRemote(true)
 	tData.SetMaxSessionsPerUser(5)
 	tData.SetMessageTtl(301)
 	tData.SetMessageTtlTolerance(302)
-	tData.SetMetadata(ResourceDTO)
 	tData.SetName(name)
 
 	// OAuth2 authentication
@@ -380,10 +358,9 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	tData.SetOidcIdTokenTimeToLive(3620)
 	tData.SetOpenIdEnabled(true)
 
-	tData.SetSessionManagerFactory(SessionManagerFactoryDTO)
 	tData.SetSignRequests(true)
-	tData.SetSignatureHash("")
-	tData.SetSsoSessionTimeout(1)
+	tData.SetSignatureHash("SHA256")
+	tData.SetSsoSessionTimeout(10)
 
 	tData.SetUserDashboardBranding("josso2-branding")
 	tData.SetWantAuthnRequestsSigned(true)

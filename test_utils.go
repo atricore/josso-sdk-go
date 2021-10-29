@@ -124,6 +124,7 @@ func KeystorePtrEquals(a *api.KeystoreDTO, b *api.KeystoreDTO) bool {
 	return KeyEquals(*a, *b)
 }
 
+// TODO : TEST ME
 func KeyEquals(a api.KeystoreDTO, b api.KeystoreDTO) bool {
 	return StrPtrEquals(a.CertificateAlias, b.CertificateAlias) &&
 		StrPtrEquals(a.DisplayName, b.DisplayName) &&

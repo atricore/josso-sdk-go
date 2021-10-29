@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"encoding/base64"
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -127,14 +127,12 @@ func (s *AccTestSuite) TaCliIntSaml2_crud() { // MODIFIED
 }
 
 func createTestInternalSaml2ServiceProviderDTO(name string) *api.InternalSaml2ServiceProviderDTO {
-	encMetadata := base64.StdEncoding.EncodeToString([]byte(metadata))
-	//encMetadata := metadata
+
 	tData := api.NewInternalSaml2ServiceProviderDTO()
 
-	tData.SetDashboardUrl("")
+	tData.SetDashboardUrl(fmt.Sprintf("https://my-page-%s.com", name))
 	tData.SetDescription("IntSaml2Sp One")
 	tData.SetDisplayName("")
-	tData.SetElementId("_B9FCB070-1856-4375-8429-C04BF79E457A")
 	tData.SetEnableMetadataEndpoint(true)
 	tData.SetErrorBinding("JSON")
 	tData.SetId(47)
@@ -143,16 +141,32 @@ func createTestInternalSaml2ServiceProviderDTO(name string) *api.InternalSaml2Se
 	tData.SetMessageTtlTolerance(300)
 	tData.SetName(name)
 	tData.SetRemote(true)
-	tData.SetRole("")
 	tData.SetSignAuthenticationRequests(true)
 	tData.SetSignRequests(true)
-	tData.SetSignatureHash("")
+	tData.SetSignatureHash("SHA256")
 	tData.SetWantAssertionSigned(false)
 	tData.SetWantSLOResponseSigned(false)
 	tData.SetWantAssertionSigned(false)
-	metadata := api.NewResourceDTO()
-	metadata.SetValue(encMetadata)
-	tData.SetMetadata(*metadata)
+
+	var accountLink api.AccountLinkagePolicyDTO
+	accountLink.SetName("One To One")
+	accountLink.SetLinkEmitterType("ONE_TO_ONE") // "ONE_TO_ONE", EMAIL, CUSTOM, UID
+	tData.SetAccountLinkagePolicy(accountLink)
+
+	var idMapping api.IdentityMappingPolicyDTO
+	idMapping.SetName("Aggregate")
+	idMapping.SetMappingType("MERGED") //  LOCAL("Use Ours"), REMOTE("Use Theirs"), default: MERGED("Aggregate"), CUSTOM("Custom");
+	idMapping.SetUseLocalId(false)
+
+	// TODO : Config
+	// api.SamlR2SPConfigDTO <-> api.ProviderConfigDTO
+	var spCfg api.SamlR2SPConfigDTO
+	// TODO : cfg.SetSigner(ks)
+	cfg, _ := spCfg.ToProviderConfig()
+	tData.SetConfig(*cfg)
+
+	tData.SetIdentityMappingPolicy(idMapping)
+
 	return tData
 }
 

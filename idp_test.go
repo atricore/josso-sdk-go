@@ -258,8 +258,8 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	ks.SetType("JKS")
 	ks.SetName(fmt.Sprintf("%s-ks", name))
 	ks.SetStore(rs)
-	// TODO : Inject in IdP using IDP Config
 
+	// Inject in IdP using IDP Config
 	idpCfg := api.NewSamlR2IDPConfigDTO()
 	idpCfg.SetName(fmt.Sprintf("%s-cfg", name))
 	idpCfg.SetUseSampleStore(false)

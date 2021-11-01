@@ -9,7 +9,7 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-func (s *AccTestSuite) TaCliIntSaml2_crud() { // MODIFIED
+func (s *AccTestSuite) TestAccCliIntSaml2_crud() { // MODIFIED
 	var t = s.T()
 
 	appliance, err := getTestAppliance(s.T(), s.client)
@@ -173,6 +173,8 @@ func createTestInternalSaml2ServiceProviderDTO(name string) *api.InternalSaml2Se
 	ks.SetStore(rs)
 
 	var spCfg api.SamlR2SPConfigDTO
+	spCfg.SetUseSampleStore(false)
+	spCfg.SetUseSystemStore(false)
 	spCfg.SetSigner(*ks)
 	cfg, _ := spCfg.ToProviderConfig()
 	tData.SetConfig(*cfg)

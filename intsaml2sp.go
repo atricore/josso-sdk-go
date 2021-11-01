@@ -183,5 +183,5 @@ func (c *IdbusApiClient) GetIntSaml2Sps(ida string) ([]api.InternalSaml2ServiceP
 
 func initIntSaml2Sp(IntSaml2Sp *api.InternalSaml2ServiceProviderDTO) {
 	IntSaml2Sp.AdditionalProperties = make(map[string]interface{})
-	IntSaml2Sp.AdditionalProperties["@c"] = ".InteralSaml2ServiceProviderDTO"
+	IntSaml2Sp.AdditionalProperties["@c"] = ".InternalSaml2ServiceProviderDTO"
 }

@@ -87,6 +87,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**CreateIdSourceLdap**](docs/DefaultApi.md#createidsourceldap) | **Post** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**CreateIdVault**](docs/DefaultApi.md#createidvault) | **Post** /iam-deploy/idvault | 
 *DefaultApi* | [**CreateIntSaml2Sp**](docs/DefaultApi.md#createintsaml2sp) | **Post** /iam-deploy/intsaml2sp | 
+*DefaultApi* | [**CreateJossoRs**](docs/DefaultApi.md#createjossors) | **Post** /iam-deploy/jossors | 
 *DefaultApi* | [**CreateOidcRp**](docs/DefaultApi.md#createoidcrp) | **Post** /iam-deploy/oidcrp | 
 *DefaultApi* | [**CreateTomcatExecEnv**](docs/DefaultApi.md#createtomcatexecenv) | **Post** /iam-deploy/tomcatexecenv | 
 *DefaultApi* | [**CreateVirtSaml2Sp**](docs/DefaultApi.md#createvirtsaml2sp) | **Post** /iam-deploy/virtsaml2sp | 
@@ -98,6 +99,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**DeleteIdSourceLdap**](docs/DefaultApi.md#deleteidsourceldap) | **Delete** /iam-deploy/idsourceldap | 
 *DefaultApi* | [**DeleteIdVault**](docs/DefaultApi.md#deleteidvault) | **Delete** /iam-deploy/idvault | 
 *DefaultApi* | [**DeleteIntSaml2Sp**](docs/DefaultApi.md#deleteintsaml2sp) | **Delete** /iam-deploy/intsaml2sp | 
+*DefaultApi* | [**DeleteJossoRs**](docs/DefaultApi.md#deletejossors) | **Delete** /iam-deploy/jossors | 
 *DefaultApi* | [**DeleteOidcRp**](docs/DefaultApi.md#deleteoidcrp) | **Delete** /iam-deploy/oidcrp | 
 *DefaultApi* | [**DeleteTomcatExecEnv**](docs/DefaultApi.md#deletetomcatexecenv) | **Delete** /iam-deploy/tomcatexecenv | 
 *DefaultApi* | [**DeleteVirtSaml2Sp**](docs/DefaultApi.md#deletevirtsaml2sp) | **Delete** /iam-deploy/virtsaml2sp | 
@@ -118,6 +120,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetIdVaults**](docs/DefaultApi.md#getidvaults) | **Get** /iam-deploy/idvaults | 
 *DefaultApi* | [**GetIntSaml2Sp**](docs/DefaultApi.md#getintsaml2sp) | **Get** /iam-deploy/intsaml2sp | 
 *DefaultApi* | [**GetIntSaml2Sps**](docs/DefaultApi.md#getintsaml2sps) | **Get** /iam-deploy/intsaml2sps | 
+*DefaultApi* | [**GetJossoRs**](docs/DefaultApi.md#getjossors) | **Get** /iam-deploy/jossors | 
+*DefaultApi* | [**GetJossoRss**](docs/DefaultApi.md#getjossorss) | **Get** /iam-deploy/jossorss | 
 *DefaultApi* | [**GetOidcRp**](docs/DefaultApi.md#getoidcrp) | **Get** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetOidcRps**](docs/DefaultApi.md#getoidcrps) | **Get** /iam-deploy/oidcrps | 
 *DefaultApi* | [**GetTomcatExecEnv**](docs/DefaultApi.md#gettomcatexecenv) | **Get** /iam-deploy/tomcatexecenv | 
@@ -130,6 +134,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**StartAppliance**](docs/DefaultApi.md#startappliance) | **Get** /iam-deploy/appliance/start | 
 *DefaultApi* | [**StopAppliance**](docs/DefaultApi.md#stopappliance) | **Get** /iam-deploy/appliance/stop | 
 *DefaultApi* | [**UdpateExtSaml2Sp**](docs/DefaultApi.md#udpateextsaml2sp) | **Put** /iam-deploy/extsaml2sp | 
+*DefaultApi* | [**UdpateJossoRs**](docs/DefaultApi.md#udpatejossors) | **Put** /iam-deploy/jossors | 
 *DefaultApi* | [**UdpateVirtSaml2Sp**](docs/DefaultApi.md#udpatevirtsaml2sp) | **Put** /iam-deploy/virtsaml2sp | 
 *DefaultApi* | [**UpdateAppliance**](docs/DefaultApi.md#updateappliance) | **Put** /iam-deploy/appliance | 
 *DefaultApi* | [**UpdateDbIdVault**](docs/DefaultApi.md#updatedbidvault) | **Put** /iam-deploy/dbidvault | 
@@ -140,6 +145,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**UpdateIntSaml2Sp**](docs/DefaultApi.md#updateintsaml2sp) | **Put** /iam-deploy/intsaml2sp | 
 *DefaultApi* | [**UpdateOidcRp**](docs/DefaultApi.md#updateoidcrp) | **Put** /iam-deploy/oidcrp | 
 *DefaultApi* | [**UpdateTomcatExecEnv**](docs/DefaultApi.md#updatetomcatexecenv) | **Put** /iam-deploy/tomcatexecenv | 
+*DefaultApi* | [**ValidateAppliance**](docs/DefaultApi.md#validateappliance) | **Get** /iam-deploy/appliance/validate | 
 
 
 ## Documentation For Models
@@ -193,6 +199,9 @@ Class | Method | HTTP request | Description
  - [GetIntSaml2SpReq](docs/GetIntSaml2SpReq.md)
  - [GetIntSaml2SpRes](docs/GetIntSaml2SpRes.md)
  - [GetIntSaml2SpsRes](docs/GetIntSaml2SpsRes.md)
+ - [GetJossoRsReq](docs/GetJossoRsReq.md)
+ - [GetJossoRsRes](docs/GetJossoRsRes.md)
+ - [GetJossoRssRes](docs/GetJossoRssRes.md)
  - [GetOidcRpReq](docs/GetOidcRpReq.md)
  - [GetOidcRpRes](docs/GetOidcRpRes.md)
  - [GetOidcRpsRes](docs/GetOidcRpsRes.md)
@@ -215,6 +224,7 @@ Class | Method | HTTP request | Description
  - [ImportApplianceRes](docs/ImportApplianceRes.md)
  - [InternalSaml2ServiceProviderChannelDTO](docs/InternalSaml2ServiceProviderChannelDTO.md)
  - [InternalSaml2ServiceProviderDTO](docs/InternalSaml2ServiceProviderDTO.md)
+ - [JOSSO1ResourceDTO](docs/JOSSO1ResourceDTO.md)
  - [KeystoreDTO](docs/KeystoreDTO.md)
  - [LdapIdentitySourceDTO](docs/LdapIdentitySourceDTO.md)
  - [LocationDTO](docs/LocationDTO.md)
@@ -248,6 +258,8 @@ Class | Method | HTTP request | Description
  - [StoreIdVaultRes](docs/StoreIdVaultRes.md)
  - [StoreIntSaml2SpReq](docs/StoreIntSaml2SpReq.md)
  - [StoreIntSaml2SpRes](docs/StoreIntSaml2SpRes.md)
+ - [StoreJossoRsReq](docs/StoreJossoRsReq.md)
+ - [StoreJossoRsRes](docs/StoreJossoRsRes.md)
  - [StoreOidcRpReq](docs/StoreOidcRpReq.md)
  - [StoreOidcRpRes](docs/StoreOidcRpRes.md)
  - [StoreTomcatExecEnvReq](docs/StoreTomcatExecEnvReq.md)

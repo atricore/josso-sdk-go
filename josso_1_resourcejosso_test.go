@@ -234,7 +234,7 @@ func JOSSO1ResourceFieldTestCreate(
 			name:     "slo_location",
 			cmp:      func() bool { return LocationPtrEquals(e.SloLocation, r.SloLocation) },
 			expected: LocationToStr(e.SloLocation),
-			received: LocationToStr(r.SloLocation),discord_backup_codes.tx
+			received: LocationToStr(r.SloLocation),
 		},
 		{
 			name:     "partner_app_location(",

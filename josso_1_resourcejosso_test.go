@@ -160,9 +160,9 @@ func createTestJOSSO1ResourceDTO(name string, execEnv string) *api.JOSSO1Resourc
 	tData.SetSloLocation(loca)
 	tData.SetPartnerAppLocation(loca)
 
-	var sc api.ServiceConnectionDTO
-	sc.SetName(execEnv)
-	tData.SetServiceConnection(sc)
+	var ac api.ActivationDTO
+	ac.SetName(execEnv)
+	tData.SetActivation(ac)
 
 	var IgnoreR []string
 	IgnoreR = append(IgnoreR, "")

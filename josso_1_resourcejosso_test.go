@@ -18,10 +18,18 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 		t.Error(err)
 		return
 	}
+	var execenv api.TomcatExecutionEnvironmentDTO
+	execenv = *createTestTomcatExecutionEnvironmentDTO("execenv-a")
+	execenv, err = s.client.CreateTomcatExeEnv(*appliance.Name, execenv)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
 	crudName := "Josso1-a"
 	var orig *api.JOSSO1ResourceDTO
 	var created api.JOSSO1ResourceDTO
-	orig = createTestJOSSO1ResourceDTO(crudName)
+	orig = createTestJOSSO1ResourceDTO(crudName, execenv.GetName())
 
 	// Test CREATE
 	created, err = s.client.CreateJossoresource(*appliance.Name, *orig)
@@ -87,11 +95,26 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 	// List of created elements, order by Name
 	var listOfCreated [2]api.JOSSO1ResourceDTO
 
+	var execenv1 api.TomcatExecutionEnvironmentDTO
+	execenv1 = *createTestTomcatExecutionEnvironmentDTO("execenv-1")
+	execenv1, err = s.client.CreateTomcatExeEnv(*appliance.Name, execenv)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	// Test list of #2 elements
-	element1 := createTestJOSSO1ResourceDTO("Josso1-1")
+	element1 := createTestJOSSO1ResourceDTO("Josso1-1", execenv1.GetName())
 	listOfCreated[0], _ = s.client.CreateJossoresource(*appliance.Name, *element1)
 
-	element2 := createTestJOSSO1ResourceDTO("Josso1-2")
+	var execenv2 api.TomcatExecutionEnvironmentDTO
+	execenv2 = *createTestTomcatExecutionEnvironmentDTO("execenv-2")
+	execenv2, err = s.client.CreateTomcatExeEnv(*appliance.Name, execenv)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	element2 := createTestJOSSO1ResourceDTO("Josso1-2", execenv2.GetName())
 	listOfCreated[1], _ = s.client.CreateJossoresource(*appliance.Name, *element2)
 
 	// ------------------------
@@ -125,7 +148,7 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 
 }
 
-func createTestJOSSO1ResourceDTO(name string) *api.JOSSO1ResourceDTO {
+func createTestJOSSO1ResourceDTO(name string, execEnv string) *api.JOSSO1ResourceDTO {
 
 	tData := api.NewJOSSO1ResourceDTO()
 	var loca api.LocationDTO
@@ -136,6 +159,10 @@ func createTestJOSSO1ResourceDTO(name string) *api.JOSSO1ResourceDTO {
 	loca.SetUri(strings.ToUpper(name))
 	tData.SetSloLocation(loca)
 	tData.SetPartnerAppLocation(loca)
+
+	var sc api.ServiceConnectionDTO
+	sc.SetName(execEnv)
+	tData.SetServiceConnection(sc)
 
 	var IgnoreR []string
 	IgnoreR = append(IgnoreR, "")

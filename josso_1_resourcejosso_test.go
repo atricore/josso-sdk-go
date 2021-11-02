@@ -11,6 +11,7 @@ import (
 
 func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 	var t = s.T()
+	crudName := "Josso1-a"
 
 	appliance, err := getTestAppliance(s.T(), s.client)
 	if err != nil {
@@ -26,10 +27,17 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 		return
 	}
 
-	crudName := "Josso1-a"
+	var sp api.InternalSaml2ServiceProviderDTO
+	sp = *createTestInternalSaml2ServiceProviderDTO(fmt.Sprintf("%s-sp", crudName))
+	sp, err = s.client.CreateIntSaml2Sp(*appliance.Name, sp)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
 	var orig *api.JOSSO1ResourceDTO
 	var created api.JOSSO1ResourceDTO
-	orig = createTestJOSSO1ResourceDTO(crudName, execenv.GetName())
+	orig = createTestJOSSO1ResourceDTO(crudName, execenv.GetName(), sp.GetName())
 
 	// Test CREATE
 	created, err = s.client.CreateJossoresource(*appliance.Name, *orig)
@@ -102,8 +110,17 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 		t.Error(err)
 		return
 	}
+
+	var sp1 api.InternalSaml2ServiceProviderDTO
+	sp1 = *createTestInternalSaml2ServiceProviderDTO(fmt.Sprintf("%s-sp", "Josso1-1"))
+	sp1, err = s.client.CreateIntSaml2Sp(*appliance.Name, sp)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
 	// Test list of #2 elements
-	element1 := createTestJOSSO1ResourceDTO("Josso1-1", execenv1.GetName())
+	element1 := createTestJOSSO1ResourceDTO("Josso1-1", execenv1.GetName(), sp1.GetName())
 	listOfCreated[0], _ = s.client.CreateJossoresource(*appliance.Name, *element1)
 
 	var execenv2 api.TomcatExecutionEnvironmentDTO
@@ -114,7 +131,15 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 		return
 	}
 
-	element2 := createTestJOSSO1ResourceDTO("Josso1-2", execenv2.GetName())
+	var sp2 api.InternalSaml2ServiceProviderDTO
+	sp2 = *createTestInternalSaml2ServiceProviderDTO(fmt.Sprintf("%s-sp", "Josso1-2"))
+	sp2, err = s.client.CreateIntSaml2Sp(*appliance.Name, sp)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	element2 := createTestJOSSO1ResourceDTO("Josso1-2", execenv2.GetName(), sp2.GetName())
 	listOfCreated[1], _ = s.client.CreateJossoresource(*appliance.Name, *element2)
 
 	// ------------------------
@@ -148,21 +173,28 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 
 }
 
-func createTestJOSSO1ResourceDTO(name string, execEnv string) *api.JOSSO1ResourceDTO {
+func createTestJOSSO1ResourceDTO(name string, execEnv string, sp string) *api.JOSSO1ResourceDTO {
 
 	tData := api.NewJOSSO1ResourceDTO()
+
 	var loca api.LocationDTO
-	loca.SetContext("IDBUS")
-	loca.SetHost("localhost")
-	loca.SetPort(8081)
+	loca.SetContext("myapp")
+	loca.SetHost("mycompany")
+	loca.SetPort(8080)
 	loca.SetProtocol("http")
 	loca.SetUri(strings.ToUpper(name))
 	tData.SetSloLocation(loca)
-	tData.SetPartnerAppLocation(loca)
 
-	var sc api.ServiceConnectionDTO
-	sc.SetName(execEnv)
-	tData.SetServiceConnection(sc)
+	var sloLoca api.LocationDTO
+	sloLoca.SetContext("myapp-slo")
+	sloLoca.SetHost("mycompany")
+	sloLoca.SetPort(8080)
+	sloLoca.SetProtocol("http")
+	sloLoca.SetUri(strings.ToUpper(name))
+	tData.SetPartnerAppLocation(sloLoca)
+
+	tData.NewActivation(execEnv)
+	tData.NewServiceConnection(sp)
 
 	var IgnoreR []string
 	IgnoreR = append(IgnoreR, "")
@@ -219,14 +251,14 @@ func JOSSO1ResourceFieldTestCreate(
 		{
 			name:     "default_resource",
 			cmp:      func() bool { return StrPtrEquals(e.DefaultResource, r.DefaultResource) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			expected: StrDeref(e.DefaultResource),
+			received: StrDeref(r.DefaultResource),
 		},
 		{
 			name:     "description",
 			cmp:      func() bool { return StrPtrEquals(e.Description, r.Description) },
-			expected: StrDeref(e.Name),
-			received: StrDeref(r.Name),
+			expected: StrDeref(e.Description),
+			received: StrDeref(r.Description),
 		},
 		{
 			name:     "name",

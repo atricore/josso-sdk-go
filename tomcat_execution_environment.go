@@ -163,7 +163,7 @@ func (c *IdbusApiClient) GetTomcatExeEnvs(ida string) ([]api.TomcatExecutionEnvi
 	req = req.GetTomcatExecEnvReq(api.GetTomcatExecEnvReq{IdaName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetTomcatExecEnvsExecute(req)
 	if err != nil {
-		c.logger.Errorf("getTomcat. Error %v", err)
+		c.logger.Errorf("GetTomcatExeEnvs. Error %v", err)
 		return result, err
 	}
 

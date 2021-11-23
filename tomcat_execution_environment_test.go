@@ -34,7 +34,7 @@ func (s *AccTestSuite) TestAccCliTomcatExecEnv_crud() {
 		return
 	}
 	if err := TomcatExeEnvValidateCreate(orig, &created); err != nil {
-		t.Errorf("creating vp : %v", err)
+		t.Errorf("creating tomcatexecenv : %v", err)
 		return
 	}
 
@@ -46,7 +46,7 @@ func (s *AccTestSuite) TestAccCliTomcatExecEnv_crud() {
 		return
 	}
 	if err = TomcatExeEnvValidateUpdate(&read, &created); err != nil {
-		t.Errorf("creating vp : %v", err)
+		t.Errorf("creating tomcatexecenv : %v", err)
 		return
 	}
 

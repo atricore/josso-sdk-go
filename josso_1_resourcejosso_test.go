@@ -197,7 +197,7 @@ func createTestJOSSO1ResourceDTO(name string, execEnv string, sp string) *api.JO
 	tData.NewServiceConnection(sp)
 
 	var IgnoreR []string
-	IgnoreR = append(IgnoreR, "")
+	IgnoreR = append(IgnoreR, "*.ico")
 	tData.SetIgnoredWebResources(IgnoreR)
 
 	tData.SetDefaultResource("")

@@ -146,7 +146,6 @@ func createTestInternalSaml2ServiceProviderDTO(name string) *api.InternalSaml2Se
 	tData.SetSignatureHash("SHA256")
 	tData.SetWantAssertionSigned(false)
 	tData.SetWantSLOResponseSigned(false)
-	tData.SetWantAssertionSigned(false)
 
 	var accountLink api.AccountLinkagePolicyDTO
 	accountLink.SetName("One To One")

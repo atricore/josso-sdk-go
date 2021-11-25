@@ -19,6 +19,7 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 		t.Error(err)
 		return
 	}
+
 	var execenv api.TomcatExecutionEnvironmentDTO
 	execenv = *createTestTomcatExecutionEnvironmentDTO("execenv-a")
 	execenv, err = s.client.CreateTomcatExeEnv(*appliance.Name, execenv)
@@ -85,7 +86,27 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud() {
 		return
 	}
 
-	// ------------------------------------------------------------------------------------------------------------------
+	deleted_Tomcat, err := s.client.DeleteTomcatExeEnv(*appliance.Name, crudName)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if !deleted_Tomcat {
+		t.Errorf("TomcatExecEnv_Josso1Re not deleted! %s", crudName)
+		return
+	}
+
+	deleted_IntSaml2sp, err := s.client.DeleteIntSaml2Sp(*appliance.Name, crudName)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if !deleted_IntSaml2sp {
+		t.Errorf("IntSaml2Sp_Josso1Re not deleted! %s", crudName)
+		return
+	}
+
+	// ------------------------------------------------------s------------------------------------------------------------
 	// Test empty list
 
 	listOfAll, err := s.client.GetJosso1Resources(*appliance.Name)

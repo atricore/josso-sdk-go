@@ -18,7 +18,7 @@ func (s *AccTestSuite) TestAccCliTomcatExecEnv_crud() {
 		t.Error(err)
 		return
 	}
-	crudName := "Tomcat-Exect-Env"
+	crudName := "tomcat-0"
 	var orig *api.TomcatExecutionEnvironmentDTO
 	var created api.TomcatExecutionEnvironmentDTO
 	orig = createTestTomcatExecutionEnvironmentDTO(crudName)

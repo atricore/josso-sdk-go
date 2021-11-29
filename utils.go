@@ -16,7 +16,7 @@ import (
 func sanitizeName(name string) string {
 	// Replace unsupported chars
 
-	chars := []string{"]", "^", "\\\\", "[", "(", ")", "-"}
+	chars := []string{"]", "^", "\\\\", "[", "(", ")", "-", "/", "_"}
 	r := strings.Join(chars, "")
 	re := regexp.MustCompile("[" + r + "]+")
 	name = re.ReplaceAllString(name, "")

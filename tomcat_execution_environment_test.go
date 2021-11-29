@@ -95,7 +95,7 @@ func (s *AccTestSuite) TestAccCliTomcatExecEnv_crud() {
 	element1 := createTestTomcatExecutionEnvironmentDTO("tomcat-1")
 	listOfCreated[0], _ = s.client.CreateTomcatExeEnv(*appliance.Name, *element1)
 
-	element2 := createTestTomcatExecutionEnvironmentDTO("tomcat-a")
+	element2 := createTestTomcatExecutionEnvironmentDTO("tomcat-2")
 	listOfCreated[1], _ = s.client.CreateTomcatExeEnv(*appliance.Name, *element2)
 	// ------------------------
 	// Get list from server

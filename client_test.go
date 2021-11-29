@@ -153,12 +153,17 @@ func createClient() (*IdbusApiClient, error) {
 	return CreateClient(s)
 }
 
+func createTestApplianceName(t *testing.T) string {
+	return fmt.Sprintf("testacc-%s", sanitizeName(t.Name()))
+
+}
+
 // Check environment and build server configuration
 
 func getTestAppliance(t *testing.T, client *IdbusApiClient) (api.IdentityApplianceDefinitionDTO, error) {
 	var read api.IdentityApplianceDefinitionDTO
 
-	read, err := client.GetAppliance(testApplianceName)
+	read, err := client.GetAppliance(createTestApplianceName(t))
 	if err != nil {
 		return read, err
 	}
@@ -176,8 +181,8 @@ func createTestAppliance(t *testing.T, client *IdbusApiClient) (api.IdentityAppl
 
 	l, _ := StrToLocation("http://localhost/IDBUS/IDA-T")
 	orig := api.IdentityApplianceDefinitionDTO{
-		Name:        api.PtrString(testApplianceName),
-		Namespace:   api.PtrString("com.atricore.idbus.ida.t"),
+		Name:        api.PtrString(createTestApplianceName(t)),
+		Namespace:   api.PtrString(fmt.Sprintf("com.atricore.idbus.ida.t.%s", sanitizeName(t.Name()))),
 		Location:    l,
 		Description: api.PtrString("TESTACC-T TEST !"),
 		DisplayName: api.PtrString("TESTACC-T TEST !"),

@@ -63,8 +63,8 @@ fi
 DOCKER_IMAGE="atricore/josso-acctest:$JOSSO_VERSION-$BUILD_NUM"
 DOCKER_CONTAINER="josso-sdk-go-server-$JOSSO_VERSION-$BUILD_NUM"
 
-Title "Building docker image : $DOCKER_IMAGE"
-docker build --build-arg "IAMGE=$DOCKER_IMAGE"
+#Title "Building docker image : $DOCKER_IMAGE"
+#docker build --build-arg "IAMGE=$DOCKER_IMAGE"
 
 Title "Building docker container : $DOCKER_CONTAINER" 
 docker run --name "$DOCKER_CONTAINER" -d -p8111:8081 -p8222:8101 -p8444:8443 "$DOCKER_IMAGE" 
@@ -88,7 +88,7 @@ MAKE_STATUS=$?
 Title "Destroying docker container : $DOCKER_CONTAINER" 
 docker rm -f "$DOCKER_CONTAINER"
 
-if [ MAKE_STATUS -ne 0 ] ; then
+if [ $MAKE_STATUS -ne 0 ] ; then
     Title "There are TESTS errors (make status): $MAKE_STATUS"
     exit 1
 fi

@@ -30,7 +30,7 @@ func (c *IdbusApiClient) CreateIntSaml2Sp(ida string, intsp api.InternalSaml2Ser
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("CreateIntSaml2Sp. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) UpdateIntSaml2Sp(ida string, sp api.InternalSaml2Servic
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("UpdateIntSaml2Sp. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetIntSaml2Sps(ida string) ([]api.InternalSaml2ServiceP
 		return result, nil
 	}
 
-	result = *res.Sps
+	result = res.Sps
 
 	return result, nil
 

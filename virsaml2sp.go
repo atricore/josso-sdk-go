@@ -30,7 +30,7 @@ func (c *IdbusApiClient) CreateVirtSaml2Sp(ida string, virsp api.VirtualSaml2Ser
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("CreateVirtSaml2Sp. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) UpdateVirtSaml2Sp(ida string, sp api.VirtualSaml2Servic
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("UpdateVirtSaml2Sp. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetVirtSaml2Sps(ida string) ([]api.VirtualSaml2ServiceP
 		return result, nil
 	}
 
-	result = *res.Sps
+	result = res.Sps
 
 	return result, nil
 

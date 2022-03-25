@@ -30,7 +30,7 @@ func (c *IdbusApiClient) CreateIdSourceLdap(ida string, idSourceLdap api.LdapIde
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("createIdSourceLdap. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) UpdateIdSourceLdap(ida string, idSourceLdap api.LdapIde
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("updateIdSourceLdap. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -174,7 +174,7 @@ func (c *IdbusApiClient) GetIdSourceLdaps(ida string) ([]api.LdapIdentitySourceD
 		return result, nil
 	}
 
-	result = *res.IdSourceLdaps
+	result = res.IdSourceLdaps
 
 	return result, nil
 

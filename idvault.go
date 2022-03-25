@@ -30,7 +30,7 @@ func (c *IdbusApiClient) CreateIdVault(ida string, idVault api.EmbeddedIdentityV
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("createIdVault. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) UpdateIdVault(ida string, idVault api.EmbeddedIdentityV
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("updateIdVault. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -174,7 +174,7 @@ func (c *IdbusApiClient) GetIdVaults(ida string) ([]api.EmbeddedIdentityVaultDTO
 		return result, nil
 	}
 
-	result = *res.IdVaults
+	result = res.IdVaults
 
 	return result, nil
 

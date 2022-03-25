@@ -22,7 +22,7 @@ type OIDCSignOnResponse struct {
 	IdToken *string `json:"idToken,omitempty"`
 	RefreshToken *string `json:"refreshToken,omitempty"`
 	Server *ServerContext `json:"server,omitempty"`
-	ValidationErrors *[]string `json:"validationErrors,omitempty"`
+	ValidationErrors []string `json:"validationErrors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -211,12 +211,12 @@ func (o *OIDCSignOnResponse) GetValidationErrors() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ValidationErrors
+	return o.ValidationErrors
 }
 
 // GetValidationErrorsOk returns a tuple with the ValidationErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OIDCSignOnResponse) GetValidationErrorsOk() (*[]string, bool) {
+func (o *OIDCSignOnResponse) GetValidationErrorsOk() ([]string, bool) {
 	if o == nil || o.ValidationErrors == nil {
 		return nil, false
 	}
@@ -234,7 +234,7 @@ func (o *OIDCSignOnResponse) HasValidationErrors() bool {
 
 // SetValidationErrors gets a reference to the given []string and assigns it to the ValidationErrors field.
 func (o *OIDCSignOnResponse) SetValidationErrors(v []string) {
-	o.ValidationErrors = &v
+	o.ValidationErrors = v
 }
 
 func (o OIDCSignOnResponse) MarshalJSON() ([]byte, error) {

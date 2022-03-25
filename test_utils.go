@@ -447,8 +447,8 @@ func AuthenticationMechanismEquals(a *api.AuthenticationMechanismDTO, b *api.Aut
 
 }
 
-func OAuth2ClientContains(needle api.OAuth2ClientDTO, haystack *[]api.OAuth2ClientDTO) bool {
-	for _, matchValue := range *haystack {
+func OAuth2ClientContains(needle api.OAuth2ClientDTO, haystack []api.OAuth2ClientDTO) bool {
+	for _, matchValue := range haystack {
 		if OAuth2ClientEquals(matchValue, needle) {
 			return true
 		}
@@ -464,21 +464,13 @@ func OAuth2ClientEquals(a api.OAuth2ClientDTO, b api.OAuth2ClientDTO) bool {
 }
 
 // Returns true if a and b have the same elements
-func Oauth2ClientsEquals(a *[]api.OAuth2ClientDTO, b *[]api.OAuth2ClientDTO) bool {
+func Oauth2ClientsEquals(a []api.OAuth2ClientDTO, b []api.OAuth2ClientDTO) bool {
 	// Check both a and b are nil -> true
 
-	if *a == nil {
-		return *b == nil
-	}
-
-	if *b == nil {
+	if len(a) != len(b) {
 		return false
 	}
-
-	if len(*a) != len(*b) {
-		return false
-	}
-	for _, value := range *a {
+	for _, value := range a {
 		if !OAuth2ClientContains(value, b) {
 			return false
 		}

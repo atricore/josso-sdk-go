@@ -30,7 +30,7 @@ func (c *IdbusApiClient) CreateJossoresource(ida string, jossors api.JOSSO1Resou
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("CreateJossoresource. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) UpdateJosso1Resource(ida string, sp api.JOSSO1ResourceD
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("UpdateJosso1Resource. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetJosso1Resources(ida string) ([]api.JOSSO1ResourceDTO
 		return result, nil
 	}
 
-	result = *res.Resources
+	result = res.Resources
 
 	return result, nil
 

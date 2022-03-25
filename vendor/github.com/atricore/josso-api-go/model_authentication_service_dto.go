@@ -17,7 +17,7 @@ import (
 
 // AuthenticationServiceDTO struct for AuthenticationServiceDTO
 type AuthenticationServiceDTO struct {
-	DelegatedAuthentications *[]DelegatedAuthenticationDTO `json:"delegatedAuthentications,omitempty"`
+	DelegatedAuthentications []DelegatedAuthenticationDTO `json:"delegatedAuthentications,omitempty"`
 	Description *string `json:"description,omitempty"`
 	DisplayName *string `json:"displayName,omitempty"`
 	ElementId *string `json:"elementId,omitempty"`
@@ -53,12 +53,12 @@ func (o *AuthenticationServiceDTO) GetDelegatedAuthentications() []DelegatedAuth
 		var ret []DelegatedAuthenticationDTO
 		return ret
 	}
-	return *o.DelegatedAuthentications
+	return o.DelegatedAuthentications
 }
 
 // GetDelegatedAuthenticationsOk returns a tuple with the DelegatedAuthentications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthenticationServiceDTO) GetDelegatedAuthenticationsOk() (*[]DelegatedAuthenticationDTO, bool) {
+func (o *AuthenticationServiceDTO) GetDelegatedAuthenticationsOk() ([]DelegatedAuthenticationDTO, bool) {
 	if o == nil || o.DelegatedAuthentications == nil {
 		return nil, false
 	}
@@ -76,7 +76,7 @@ func (o *AuthenticationServiceDTO) HasDelegatedAuthentications() bool {
 
 // SetDelegatedAuthentications gets a reference to the given []DelegatedAuthenticationDTO and assigns it to the DelegatedAuthentications field.
 func (o *AuthenticationServiceDTO) SetDelegatedAuthentications(v []DelegatedAuthenticationDTO) {
-	o.DelegatedAuthentications = &v
+	o.DelegatedAuthentications = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.

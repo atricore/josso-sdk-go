@@ -17,9 +17,9 @@ import (
 
 // GetAppliancesRes struct for GetAppliancesRes
 type GetAppliancesRes struct {
-	Appliances *[]IdentityApplianceDefinitionDTO `json:"appliances,omitempty"`
+	Appliances []IdentityApplianceDefinitionDTO `json:"appliances,omitempty"`
 	Error *string `json:"error,omitempty"`
-	ValidationErrors *[]string `json:"validationErrors,omitempty"`
+	ValidationErrors []string `json:"validationErrors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -48,12 +48,12 @@ func (o *GetAppliancesRes) GetAppliances() []IdentityApplianceDefinitionDTO {
 		var ret []IdentityApplianceDefinitionDTO
 		return ret
 	}
-	return *o.Appliances
+	return o.Appliances
 }
 
 // GetAppliancesOk returns a tuple with the Appliances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetAppliancesRes) GetAppliancesOk() (*[]IdentityApplianceDefinitionDTO, bool) {
+func (o *GetAppliancesRes) GetAppliancesOk() ([]IdentityApplianceDefinitionDTO, bool) {
 	if o == nil || o.Appliances == nil {
 		return nil, false
 	}
@@ -71,7 +71,7 @@ func (o *GetAppliancesRes) HasAppliances() bool {
 
 // SetAppliances gets a reference to the given []IdentityApplianceDefinitionDTO and assigns it to the Appliances field.
 func (o *GetAppliancesRes) SetAppliances(v []IdentityApplianceDefinitionDTO) {
-	o.Appliances = &v
+	o.Appliances = v
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
@@ -112,12 +112,12 @@ func (o *GetAppliancesRes) GetValidationErrors() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ValidationErrors
+	return o.ValidationErrors
 }
 
 // GetValidationErrorsOk returns a tuple with the ValidationErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetAppliancesRes) GetValidationErrorsOk() (*[]string, bool) {
+func (o *GetAppliancesRes) GetValidationErrorsOk() ([]string, bool) {
 	if o == nil || o.ValidationErrors == nil {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (o *GetAppliancesRes) HasValidationErrors() bool {
 
 // SetValidationErrors gets a reference to the given []string and assigns it to the ValidationErrors field.
 func (o *GetAppliancesRes) SetValidationErrors(v []string) {
-	o.ValidationErrors = &v
+	o.ValidationErrors = v
 }
 
 func (o GetAppliancesRes) MarshalJSON() ([]byte, error) {

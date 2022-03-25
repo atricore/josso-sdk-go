@@ -33,7 +33,7 @@ func (c *IdbusApiClient) ImportAppliance(applianceJson string) (api.IdentityAppl
 
 	}
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("importAppliance. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) CreateAppliance(appliance api.IdentityApplianceDefiniti
 
 	}
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("createAppliance. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -99,7 +99,7 @@ func (c *IdbusApiClient) UpdateAppliance(appliance api.IdentityApplianceDefiniti
 		c.logger.Errorf("updateAppliance. Error %v", err)
 	}
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("updateAppliance. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -130,8 +130,8 @@ func (c *IdbusApiClient) GetAppliances() ([]api.IdentityApplianceDefinitionDTO, 
 		return nil, errors.New(*res.Error)
 	}
 
-	c.logger.Debugf("getAppliances. found appliances %d", len(*res.Appliances))
-	return *res.Appliances, nil
+	c.logger.Debugf("getAppliances. found appliances %d", len(res.Appliances))
+	return res.Appliances, nil
 
 }
 

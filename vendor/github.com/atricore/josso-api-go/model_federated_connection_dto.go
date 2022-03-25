@@ -25,7 +25,7 @@ type FederatedConnectionDTO struct {
 	Name *string `json:"name,omitempty"`
 	RoleA *FederatedProviderDTO `json:"roleA,omitempty"`
 	RoleB *FederatedProviderDTO `json:"roleB,omitempty"`
-	Waypoints *[]PointDTO `json:"waypoints,omitempty"`
+	Waypoints []PointDTO `json:"waypoints,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -310,12 +310,12 @@ func (o *FederatedConnectionDTO) GetWaypoints() []PointDTO {
 		var ret []PointDTO
 		return ret
 	}
-	return *o.Waypoints
+	return o.Waypoints
 }
 
 // GetWaypointsOk returns a tuple with the Waypoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FederatedConnectionDTO) GetWaypointsOk() (*[]PointDTO, bool) {
+func (o *FederatedConnectionDTO) GetWaypointsOk() ([]PointDTO, bool) {
 	if o == nil || o.Waypoints == nil {
 		return nil, false
 	}
@@ -333,7 +333,7 @@ func (o *FederatedConnectionDTO) HasWaypoints() bool {
 
 // SetWaypoints gets a reference to the given []PointDTO and assigns it to the Waypoints field.
 func (o *FederatedConnectionDTO) SetWaypoints(v []PointDTO) {
-	o.Waypoints = &v
+	o.Waypoints = v
 }
 
 func (o FederatedConnectionDTO) MarshalJSON() ([]byte, error) {

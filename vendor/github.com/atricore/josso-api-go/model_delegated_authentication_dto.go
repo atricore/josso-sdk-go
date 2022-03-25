@@ -23,7 +23,7 @@ type DelegatedAuthenticationDTO struct {
 	Id *int64 `json:"id,omitempty"`
 	Idp *IdentityProviderDTO `json:"idp,omitempty"`
 	Name *string `json:"name,omitempty"`
-	Waypoints *[]PointDTO `json:"waypoints,omitempty"`
+	Waypoints []PointDTO `json:"waypoints,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -244,12 +244,12 @@ func (o *DelegatedAuthenticationDTO) GetWaypoints() []PointDTO {
 		var ret []PointDTO
 		return ret
 	}
-	return *o.Waypoints
+	return o.Waypoints
 }
 
 // GetWaypointsOk returns a tuple with the Waypoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DelegatedAuthenticationDTO) GetWaypointsOk() (*[]PointDTO, bool) {
+func (o *DelegatedAuthenticationDTO) GetWaypointsOk() ([]PointDTO, bool) {
 	if o == nil || o.Waypoints == nil {
 		return nil, false
 	}
@@ -267,7 +267,7 @@ func (o *DelegatedAuthenticationDTO) HasWaypoints() bool {
 
 // SetWaypoints gets a reference to the given []PointDTO and assigns it to the Waypoints field.
 func (o *DelegatedAuthenticationDTO) SetWaypoints(v []PointDTO) {
-	o.Waypoints = &v
+	o.Waypoints = v
 }
 
 func (o DelegatedAuthenticationDTO) MarshalJSON() ([]byte, error) {

@@ -23,7 +23,7 @@ type IdentityLookupDTO struct {
 	IdentitySource *IdentitySourceDTO `json:"identitySource,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Provider *ProviderDTO `json:"provider,omitempty"`
-	Waypoints *[]PointDTO `json:"waypoints,omitempty"`
+	Waypoints []PointDTO `json:"waypoints,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -244,12 +244,12 @@ func (o *IdentityLookupDTO) GetWaypoints() []PointDTO {
 		var ret []PointDTO
 		return ret
 	}
-	return *o.Waypoints
+	return o.Waypoints
 }
 
 // GetWaypointsOk returns a tuple with the Waypoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityLookupDTO) GetWaypointsOk() (*[]PointDTO, bool) {
+func (o *IdentityLookupDTO) GetWaypointsOk() ([]PointDTO, bool) {
 	if o == nil || o.Waypoints == nil {
 		return nil, false
 	}
@@ -267,7 +267,7 @@ func (o *IdentityLookupDTO) HasWaypoints() bool {
 
 // SetWaypoints gets a reference to the given []PointDTO and assigns it to the Waypoints field.
 func (o *IdentityLookupDTO) SetWaypoints(v []PointDTO) {
-	o.Waypoints = &v
+	o.Waypoints = v
 }
 
 func (o IdentityLookupDTO) MarshalJSON() ([]byte, error) {

@@ -30,7 +30,7 @@ func (c *IdbusApiClient) CreateExtSaml2Sp(ida string, extsp api.ExternalSaml2Ser
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("CreateExtSaml2Sp. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) UpdateExtSaml2Sp(ida string, sp api.ExternalSaml2Servic
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("UpdateExtSaml2Sp. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetExtSaml2Sps(ida string) ([]api.ExternalSaml2ServiceP
 		return result, nil
 	}
 
-	result = *res.Sps
+	result = res.Sps
 
 	return result, nil
 

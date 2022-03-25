@@ -31,13 +31,13 @@ type UserDTO struct {
 	DistinguishedName *string `json:"distinguishedName,omitempty"`
 	Email *string `json:"email,omitempty"`
 	EmailNewPasword *bool `json:"emailNewPasword,omitempty"`
-	ExtraAttributes *[]AttributeValueDTO `json:"extraAttributes,omitempty"`
+	ExtraAttributes []AttributeValueDTO `json:"extraAttributes,omitempty"`
 	FacsimilTelephoneNumber *string `json:"facsimilTelephoneNumber,omitempty"`
 	FirstName *string `json:"firstName,omitempty"`
 	ForcePeriodicPasswordChanges *bool `json:"forcePeriodicPasswordChanges,omitempty"`
 	GenerationQualifier *string `json:"generationQualifier,omitempty"`
 	GivenName *string `json:"givenName,omitempty"`
-	Groups *[]GroupDTO `json:"groups,omitempty"`
+	Groups []GroupDTO `json:"groups,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Initials *string `json:"initials,omitempty"`
 	Language *string `json:"language,omitempty"`
@@ -58,7 +58,7 @@ type UserDTO struct {
 	Surename *string `json:"surename,omitempty"`
 	TelephoneNumber *string `json:"telephoneNumber,omitempty"`
 	TerminatePreviousSession *bool `json:"terminatePreviousSession,omitempty"`
-	UserCertificate *[]string `json:"userCertificate,omitempty"`
+	UserCertificate []string `json:"userCertificate,omitempty"`
 	UserName *string `json:"userName,omitempty"`
 	UserPassword *string `json:"userPassword,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -505,12 +505,12 @@ func (o *UserDTO) GetExtraAttributes() []AttributeValueDTO {
 		var ret []AttributeValueDTO
 		return ret
 	}
-	return *o.ExtraAttributes
+	return o.ExtraAttributes
 }
 
 // GetExtraAttributesOk returns a tuple with the ExtraAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserDTO) GetExtraAttributesOk() (*[]AttributeValueDTO, bool) {
+func (o *UserDTO) GetExtraAttributesOk() ([]AttributeValueDTO, bool) {
 	if o == nil || o.ExtraAttributes == nil {
 		return nil, false
 	}
@@ -528,7 +528,7 @@ func (o *UserDTO) HasExtraAttributes() bool {
 
 // SetExtraAttributes gets a reference to the given []AttributeValueDTO and assigns it to the ExtraAttributes field.
 func (o *UserDTO) SetExtraAttributes(v []AttributeValueDTO) {
-	o.ExtraAttributes = &v
+	o.ExtraAttributes = v
 }
 
 // GetFacsimilTelephoneNumber returns the FacsimilTelephoneNumber field value if set, zero value otherwise.
@@ -697,12 +697,12 @@ func (o *UserDTO) GetGroups() []GroupDTO {
 		var ret []GroupDTO
 		return ret
 	}
-	return *o.Groups
+	return o.Groups
 }
 
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserDTO) GetGroupsOk() (*[]GroupDTO, bool) {
+func (o *UserDTO) GetGroupsOk() ([]GroupDTO, bool) {
 	if o == nil || o.Groups == nil {
 		return nil, false
 	}
@@ -720,7 +720,7 @@ func (o *UserDTO) HasGroups() bool {
 
 // SetGroups gets a reference to the given []GroupDTO and assigns it to the Groups field.
 func (o *UserDTO) SetGroups(v []GroupDTO) {
-	o.Groups = &v
+	o.Groups = v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -1369,12 +1369,12 @@ func (o *UserDTO) GetUserCertificate() []string {
 		var ret []string
 		return ret
 	}
-	return *o.UserCertificate
+	return o.UserCertificate
 }
 
 // GetUserCertificateOk returns a tuple with the UserCertificate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserDTO) GetUserCertificateOk() (*[]string, bool) {
+func (o *UserDTO) GetUserCertificateOk() ([]string, bool) {
 	if o == nil || o.UserCertificate == nil {
 		return nil, false
 	}
@@ -1392,7 +1392,7 @@ func (o *UserDTO) HasUserCertificate() bool {
 
 // SetUserCertificate gets a reference to the given []string and assigns it to the UserCertificate field.
 func (o *UserDTO) SetUserCertificate(v []string) {
-	o.UserCertificate = &v
+	o.UserCertificate = v
 }
 
 // GetUserName returns the UserName field value if set, zero value otherwise.

@@ -30,7 +30,7 @@ func (c *IdbusApiClient) createDbIdentitySourceDTO(ida string, intDbSource api.D
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("CreateDbIdentitySource. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) UpdateDbIdentitySourceDTO(ida string, intDbSource api.D
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("UpdateDbIdentitySourceDTO. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetDbIdentitySourceDTOs(ida string) ([]api.DbIdentitySo
 		return result, nil
 	}
 
-	result = *res.IdSourceDbs
+	result = res.IdSourceDbs
 
 	return result, nil
 

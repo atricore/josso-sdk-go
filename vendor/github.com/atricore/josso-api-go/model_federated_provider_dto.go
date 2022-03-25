@@ -17,8 +17,8 @@ import (
 
 // FederatedProviderDTO struct for FederatedProviderDTO
 type FederatedProviderDTO struct {
-	ActiveBindings *[]string `json:"activeBindings,omitempty"`
-	ActiveProfiles *[]string `json:"activeProfiles,omitempty"`
+	ActiveBindings []string `json:"activeBindings,omitempty"`
+	ActiveProfiles []string `json:"activeProfiles,omitempty"`
 	Config *ProviderConfigDTO `json:"config,omitempty"`
 	Description *string `json:"description,omitempty"`
 	DisplayName *string `json:"displayName,omitempty"`
@@ -61,12 +61,12 @@ func (o *FederatedProviderDTO) GetActiveBindings() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ActiveBindings
+	return o.ActiveBindings
 }
 
 // GetActiveBindingsOk returns a tuple with the ActiveBindings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FederatedProviderDTO) GetActiveBindingsOk() (*[]string, bool) {
+func (o *FederatedProviderDTO) GetActiveBindingsOk() ([]string, bool) {
 	if o == nil || o.ActiveBindings == nil {
 		return nil, false
 	}
@@ -84,7 +84,7 @@ func (o *FederatedProviderDTO) HasActiveBindings() bool {
 
 // SetActiveBindings gets a reference to the given []string and assigns it to the ActiveBindings field.
 func (o *FederatedProviderDTO) SetActiveBindings(v []string) {
-	o.ActiveBindings = &v
+	o.ActiveBindings = v
 }
 
 // GetActiveProfiles returns the ActiveProfiles field value if set, zero value otherwise.
@@ -93,12 +93,12 @@ func (o *FederatedProviderDTO) GetActiveProfiles() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ActiveProfiles
+	return o.ActiveProfiles
 }
 
 // GetActiveProfilesOk returns a tuple with the ActiveProfiles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FederatedProviderDTO) GetActiveProfilesOk() (*[]string, bool) {
+func (o *FederatedProviderDTO) GetActiveProfilesOk() ([]string, bool) {
 	if o == nil || o.ActiveProfiles == nil {
 		return nil, false
 	}
@@ -116,7 +116,7 @@ func (o *FederatedProviderDTO) HasActiveProfiles() bool {
 
 // SetActiveProfiles gets a reference to the given []string and assigns it to the ActiveProfiles field.
 func (o *FederatedProviderDTO) SetActiveProfiles(v []string) {
-	o.ActiveProfiles = &v
+	o.ActiveProfiles = v
 }
 
 // GetConfig returns the Config field value if set, zero value otherwise.

@@ -18,14 +18,14 @@ import (
 
 // IdentityApplianceDefinitionDTO struct for IdentityApplianceDefinitionDTO
 type IdentityApplianceDefinitionDTO struct {
-	ActiveFeatures *[]string `json:"activeFeatures,omitempty"`
-	AuthenticationServices *[]AuthenticationServiceDTO `json:"authenticationServices,omitempty"`
+	ActiveFeatures []string `json:"activeFeatures,omitempty"`
+	AuthenticationServices []AuthenticationServiceDTO `json:"authenticationServices,omitempty"`
 	Description *string `json:"description,omitempty"`
 	DisplayName *string `json:"displayName,omitempty"`
 	ElementId *string `json:"elementId,omitempty"`
-	ExecutionEnvironments *[]ExecutionEnvironmentDTO `json:"executionEnvironments,omitempty"`
+	ExecutionEnvironments []ExecutionEnvironmentDTO `json:"executionEnvironments,omitempty"`
 	Id *int64 `json:"id,omitempty"`
-	IdentitySources *[]IdentitySourceDTO `json:"identitySources,omitempty"`
+	IdentitySources []IdentitySourceDTO `json:"identitySources,omitempty"`
 	IdpSelector *EntitySelectionStrategyDTO `json:"idpSelector,omitempty"`
 	Keystore *KeystoreDTO `json:"keystore,omitempty"`
 	LastModification *time.Time `json:"lastModification,omitempty"`
@@ -33,12 +33,12 @@ type IdentityApplianceDefinitionDTO struct {
 	ModelVersion *string `json:"modelVersion,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Namespace *string `json:"namespace,omitempty"`
-	Providers *[]ProviderDTO `json:"providers,omitempty"`
-	RequiredBundles *[]string `json:"requiredBundles,omitempty"`
+	Providers []ProviderDTO `json:"providers,omitempty"`
+	RequiredBundles []string `json:"requiredBundles,omitempty"`
 	Revision *int32 `json:"revision,omitempty"`
 	SecurityConfig *IdentityApplianceSecurityConfigDTO `json:"securityConfig,omitempty"`
-	ServiceResources *[]ServiceResourceDTO `json:"serviceResources,omitempty"`
-	SupportedRoles *[]string `json:"supportedRoles,omitempty"`
+	ServiceResources []ServiceResourceDTO `json:"serviceResources,omitempty"`
+	SupportedRoles []string `json:"supportedRoles,omitempty"`
 	UserDashboardBranding *UserDashboardBrandingDTO `json:"userDashboardBranding,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -68,12 +68,12 @@ func (o *IdentityApplianceDefinitionDTO) GetActiveFeatures() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ActiveFeatures
+	return o.ActiveFeatures
 }
 
 // GetActiveFeaturesOk returns a tuple with the ActiveFeatures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityApplianceDefinitionDTO) GetActiveFeaturesOk() (*[]string, bool) {
+func (o *IdentityApplianceDefinitionDTO) GetActiveFeaturesOk() ([]string, bool) {
 	if o == nil || o.ActiveFeatures == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *IdentityApplianceDefinitionDTO) HasActiveFeatures() bool {
 
 // SetActiveFeatures gets a reference to the given []string and assigns it to the ActiveFeatures field.
 func (o *IdentityApplianceDefinitionDTO) SetActiveFeatures(v []string) {
-	o.ActiveFeatures = &v
+	o.ActiveFeatures = v
 }
 
 // GetAuthenticationServices returns the AuthenticationServices field value if set, zero value otherwise.
@@ -100,12 +100,12 @@ func (o *IdentityApplianceDefinitionDTO) GetAuthenticationServices() []Authentic
 		var ret []AuthenticationServiceDTO
 		return ret
 	}
-	return *o.AuthenticationServices
+	return o.AuthenticationServices
 }
 
 // GetAuthenticationServicesOk returns a tuple with the AuthenticationServices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityApplianceDefinitionDTO) GetAuthenticationServicesOk() (*[]AuthenticationServiceDTO, bool) {
+func (o *IdentityApplianceDefinitionDTO) GetAuthenticationServicesOk() ([]AuthenticationServiceDTO, bool) {
 	if o == nil || o.AuthenticationServices == nil {
 		return nil, false
 	}
@@ -123,7 +123,7 @@ func (o *IdentityApplianceDefinitionDTO) HasAuthenticationServices() bool {
 
 // SetAuthenticationServices gets a reference to the given []AuthenticationServiceDTO and assigns it to the AuthenticationServices field.
 func (o *IdentityApplianceDefinitionDTO) SetAuthenticationServices(v []AuthenticationServiceDTO) {
-	o.AuthenticationServices = &v
+	o.AuthenticationServices = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -228,12 +228,12 @@ func (o *IdentityApplianceDefinitionDTO) GetExecutionEnvironments() []ExecutionE
 		var ret []ExecutionEnvironmentDTO
 		return ret
 	}
-	return *o.ExecutionEnvironments
+	return o.ExecutionEnvironments
 }
 
 // GetExecutionEnvironmentsOk returns a tuple with the ExecutionEnvironments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityApplianceDefinitionDTO) GetExecutionEnvironmentsOk() (*[]ExecutionEnvironmentDTO, bool) {
+func (o *IdentityApplianceDefinitionDTO) GetExecutionEnvironmentsOk() ([]ExecutionEnvironmentDTO, bool) {
 	if o == nil || o.ExecutionEnvironments == nil {
 		return nil, false
 	}
@@ -251,7 +251,7 @@ func (o *IdentityApplianceDefinitionDTO) HasExecutionEnvironments() bool {
 
 // SetExecutionEnvironments gets a reference to the given []ExecutionEnvironmentDTO and assigns it to the ExecutionEnvironments field.
 func (o *IdentityApplianceDefinitionDTO) SetExecutionEnvironments(v []ExecutionEnvironmentDTO) {
-	o.ExecutionEnvironments = &v
+	o.ExecutionEnvironments = v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -292,12 +292,12 @@ func (o *IdentityApplianceDefinitionDTO) GetIdentitySources() []IdentitySourceDT
 		var ret []IdentitySourceDTO
 		return ret
 	}
-	return *o.IdentitySources
+	return o.IdentitySources
 }
 
 // GetIdentitySourcesOk returns a tuple with the IdentitySources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityApplianceDefinitionDTO) GetIdentitySourcesOk() (*[]IdentitySourceDTO, bool) {
+func (o *IdentityApplianceDefinitionDTO) GetIdentitySourcesOk() ([]IdentitySourceDTO, bool) {
 	if o == nil || o.IdentitySources == nil {
 		return nil, false
 	}
@@ -315,7 +315,7 @@ func (o *IdentityApplianceDefinitionDTO) HasIdentitySources() bool {
 
 // SetIdentitySources gets a reference to the given []IdentitySourceDTO and assigns it to the IdentitySources field.
 func (o *IdentityApplianceDefinitionDTO) SetIdentitySources(v []IdentitySourceDTO) {
-	o.IdentitySources = &v
+	o.IdentitySources = v
 }
 
 // GetIdpSelector returns the IdpSelector field value if set, zero value otherwise.
@@ -548,12 +548,12 @@ func (o *IdentityApplianceDefinitionDTO) GetProviders() []ProviderDTO {
 		var ret []ProviderDTO
 		return ret
 	}
-	return *o.Providers
+	return o.Providers
 }
 
 // GetProvidersOk returns a tuple with the Providers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityApplianceDefinitionDTO) GetProvidersOk() (*[]ProviderDTO, bool) {
+func (o *IdentityApplianceDefinitionDTO) GetProvidersOk() ([]ProviderDTO, bool) {
 	if o == nil || o.Providers == nil {
 		return nil, false
 	}
@@ -571,7 +571,7 @@ func (o *IdentityApplianceDefinitionDTO) HasProviders() bool {
 
 // SetProviders gets a reference to the given []ProviderDTO and assigns it to the Providers field.
 func (o *IdentityApplianceDefinitionDTO) SetProviders(v []ProviderDTO) {
-	o.Providers = &v
+	o.Providers = v
 }
 
 // GetRequiredBundles returns the RequiredBundles field value if set, zero value otherwise.
@@ -580,12 +580,12 @@ func (o *IdentityApplianceDefinitionDTO) GetRequiredBundles() []string {
 		var ret []string
 		return ret
 	}
-	return *o.RequiredBundles
+	return o.RequiredBundles
 }
 
 // GetRequiredBundlesOk returns a tuple with the RequiredBundles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityApplianceDefinitionDTO) GetRequiredBundlesOk() (*[]string, bool) {
+func (o *IdentityApplianceDefinitionDTO) GetRequiredBundlesOk() ([]string, bool) {
 	if o == nil || o.RequiredBundles == nil {
 		return nil, false
 	}
@@ -603,7 +603,7 @@ func (o *IdentityApplianceDefinitionDTO) HasRequiredBundles() bool {
 
 // SetRequiredBundles gets a reference to the given []string and assigns it to the RequiredBundles field.
 func (o *IdentityApplianceDefinitionDTO) SetRequiredBundles(v []string) {
-	o.RequiredBundles = &v
+	o.RequiredBundles = v
 }
 
 // GetRevision returns the Revision field value if set, zero value otherwise.
@@ -676,12 +676,12 @@ func (o *IdentityApplianceDefinitionDTO) GetServiceResources() []ServiceResource
 		var ret []ServiceResourceDTO
 		return ret
 	}
-	return *o.ServiceResources
+	return o.ServiceResources
 }
 
 // GetServiceResourcesOk returns a tuple with the ServiceResources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityApplianceDefinitionDTO) GetServiceResourcesOk() (*[]ServiceResourceDTO, bool) {
+func (o *IdentityApplianceDefinitionDTO) GetServiceResourcesOk() ([]ServiceResourceDTO, bool) {
 	if o == nil || o.ServiceResources == nil {
 		return nil, false
 	}
@@ -699,7 +699,7 @@ func (o *IdentityApplianceDefinitionDTO) HasServiceResources() bool {
 
 // SetServiceResources gets a reference to the given []ServiceResourceDTO and assigns it to the ServiceResources field.
 func (o *IdentityApplianceDefinitionDTO) SetServiceResources(v []ServiceResourceDTO) {
-	o.ServiceResources = &v
+	o.ServiceResources = v
 }
 
 // GetSupportedRoles returns the SupportedRoles field value if set, zero value otherwise.
@@ -708,12 +708,12 @@ func (o *IdentityApplianceDefinitionDTO) GetSupportedRoles() []string {
 		var ret []string
 		return ret
 	}
-	return *o.SupportedRoles
+	return o.SupportedRoles
 }
 
 // GetSupportedRolesOk returns a tuple with the SupportedRoles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityApplianceDefinitionDTO) GetSupportedRolesOk() (*[]string, bool) {
+func (o *IdentityApplianceDefinitionDTO) GetSupportedRolesOk() ([]string, bool) {
 	if o == nil || o.SupportedRoles == nil {
 		return nil, false
 	}
@@ -731,7 +731,7 @@ func (o *IdentityApplianceDefinitionDTO) HasSupportedRoles() bool {
 
 // SetSupportedRoles gets a reference to the given []string and assigns it to the SupportedRoles field.
 func (o *IdentityApplianceDefinitionDTO) SetSupportedRoles(v []string) {
-	o.SupportedRoles = &v
+	o.SupportedRoles = v
 }
 
 // GetUserDashboardBranding returns the UserDashboardBranding field value if set, zero value otherwise.

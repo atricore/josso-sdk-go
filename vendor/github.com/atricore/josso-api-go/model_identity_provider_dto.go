@@ -17,11 +17,11 @@ import (
 
 // IdentityProviderDTO struct for IdentityProviderDTO
 type IdentityProviderDTO struct {
-	ActiveBindings *[]string `json:"activeBindings,omitempty"`
-	ActiveProfiles *[]string `json:"activeProfiles,omitempty"`
+	ActiveBindings []string `json:"activeBindings,omitempty"`
+	ActiveProfiles []string `json:"activeProfiles,omitempty"`
 	AttributeProfile *AttributeProfileDTO `json:"attributeProfile,omitempty"`
 	AuthenticationContract *AuthenticationContractDTO `json:"authenticationContract,omitempty"`
-	AuthenticationMechanisms *[]AuthenticationMechanismDTO `json:"authenticationMechanisms,omitempty"`
+	AuthenticationMechanisms []AuthenticationMechanismDTO `json:"authenticationMechanisms,omitempty"`
 	Config *ProviderConfigDTO `json:"config,omitempty"`
 	DashboardUrl *string `json:"dashboardUrl,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -34,8 +34,8 @@ type IdentityProviderDTO struct {
 	EncryptAssertionAlgorithm *string `json:"encryptAssertionAlgorithm,omitempty"`
 	ErrorBinding *string `json:"errorBinding,omitempty"`
 	ExternallyHostedIdentityConfirmationTokenService *bool `json:"externallyHostedIdentityConfirmationTokenService,omitempty"`
-	FederatedConnectionsA *[]FederatedConnectionDTO `json:"federatedConnectionsA,omitempty"`
-	FederatedConnectionsB *[]FederatedConnectionDTO `json:"federatedConnectionsB,omitempty"`
+	FederatedConnectionsA []FederatedConnectionDTO `json:"federatedConnectionsA,omitempty"`
+	FederatedConnectionsB []FederatedConnectionDTO `json:"federatedConnectionsB,omitempty"`
 	Id *int64 `json:"id,omitempty"`
 	IdentityAppliance *IdentityApplianceDefinitionDTO `json:"identityAppliance,omitempty"`
 	IdentityConfirmationEnabled *bool `json:"identityConfirmationEnabled,omitempty"`
@@ -43,7 +43,7 @@ type IdentityProviderDTO struct {
 	IdentityConfirmationOAuth2ClientId *string `json:"identityConfirmationOAuth2ClientId,omitempty"`
 	IdentityConfirmationOAuth2ClientSecret *string `json:"identityConfirmationOAuth2ClientSecret,omitempty"`
 	IdentityConfirmationPolicy *ExtensionDTO `json:"identityConfirmationPolicy,omitempty"`
-	IdentityLookups *[]IdentityLookupDTO `json:"identityLookups,omitempty"`
+	IdentityLookups []IdentityLookupDTO `json:"identityLookups,omitempty"`
 	IgnoreRequestedNameIDPolicy *bool `json:"ignoreRequestedNameIDPolicy,omitempty"`
 	IsRemote *bool `json:"isRemote,omitempty"`
 	Location *LocationDTO `json:"location,omitempty"`
@@ -52,7 +52,7 @@ type IdentityProviderDTO struct {
 	MessageTtlTolerance *int32 `json:"messageTtlTolerance,omitempty"`
 	Metadata *ResourceDTO `json:"metadata,omitempty"`
 	Name *string `json:"name,omitempty"`
-	Oauth2Clients *[]OAuth2ClientDTO `json:"oauth2Clients,omitempty"`
+	Oauth2Clients []OAuth2ClientDTO `json:"oauth2Clients,omitempty"`
 	Oauth2ClientsConfig *string `json:"oauth2ClientsConfig,omitempty"`
 	Oauth2Enabled *bool `json:"oauth2Enabled,omitempty"`
 	Oauth2Key *string `json:"oauth2Key,omitempty"`
@@ -73,7 +73,7 @@ type IdentityProviderDTO struct {
 	SignRequests *bool `json:"signRequests,omitempty"`
 	SignatureHash *string `json:"signatureHash,omitempty"`
 	SsoSessionTimeout *int32 `json:"ssoSessionTimeout,omitempty"`
-	SubjectAuthnPolicies *[]SubjectAuthenticationPolicyDTO `json:"subjectAuthnPolicies,omitempty"`
+	SubjectAuthnPolicies []SubjectAuthenticationPolicyDTO `json:"subjectAuthnPolicies,omitempty"`
 	SubjectNameIDPolicy *SubjectNameIdentifierPolicyDTO `json:"subjectNameIDPolicy,omitempty"`
 	UserDashboardBranding *string `json:"userDashboardBranding,omitempty"`
 	WantAuthnRequestsSigned *bool `json:"wantAuthnRequestsSigned,omitempty"`
@@ -108,12 +108,12 @@ func (o *IdentityProviderDTO) GetActiveBindings() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ActiveBindings
+	return o.ActiveBindings
 }
 
 // GetActiveBindingsOk returns a tuple with the ActiveBindings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetActiveBindingsOk() (*[]string, bool) {
+func (o *IdentityProviderDTO) GetActiveBindingsOk() ([]string, bool) {
 	if o == nil || o.ActiveBindings == nil {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *IdentityProviderDTO) HasActiveBindings() bool {
 
 // SetActiveBindings gets a reference to the given []string and assigns it to the ActiveBindings field.
 func (o *IdentityProviderDTO) SetActiveBindings(v []string) {
-	o.ActiveBindings = &v
+	o.ActiveBindings = v
 }
 
 // GetActiveProfiles returns the ActiveProfiles field value if set, zero value otherwise.
@@ -140,12 +140,12 @@ func (o *IdentityProviderDTO) GetActiveProfiles() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ActiveProfiles
+	return o.ActiveProfiles
 }
 
 // GetActiveProfilesOk returns a tuple with the ActiveProfiles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetActiveProfilesOk() (*[]string, bool) {
+func (o *IdentityProviderDTO) GetActiveProfilesOk() ([]string, bool) {
 	if o == nil || o.ActiveProfiles == nil {
 		return nil, false
 	}
@@ -163,7 +163,7 @@ func (o *IdentityProviderDTO) HasActiveProfiles() bool {
 
 // SetActiveProfiles gets a reference to the given []string and assigns it to the ActiveProfiles field.
 func (o *IdentityProviderDTO) SetActiveProfiles(v []string) {
-	o.ActiveProfiles = &v
+	o.ActiveProfiles = v
 }
 
 // GetAttributeProfile returns the AttributeProfile field value if set, zero value otherwise.
@@ -236,12 +236,12 @@ func (o *IdentityProviderDTO) GetAuthenticationMechanisms() []AuthenticationMech
 		var ret []AuthenticationMechanismDTO
 		return ret
 	}
-	return *o.AuthenticationMechanisms
+	return o.AuthenticationMechanisms
 }
 
 // GetAuthenticationMechanismsOk returns a tuple with the AuthenticationMechanisms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetAuthenticationMechanismsOk() (*[]AuthenticationMechanismDTO, bool) {
+func (o *IdentityProviderDTO) GetAuthenticationMechanismsOk() ([]AuthenticationMechanismDTO, bool) {
 	if o == nil || o.AuthenticationMechanisms == nil {
 		return nil, false
 	}
@@ -259,7 +259,7 @@ func (o *IdentityProviderDTO) HasAuthenticationMechanisms() bool {
 
 // SetAuthenticationMechanisms gets a reference to the given []AuthenticationMechanismDTO and assigns it to the AuthenticationMechanisms field.
 func (o *IdentityProviderDTO) SetAuthenticationMechanisms(v []AuthenticationMechanismDTO) {
-	o.AuthenticationMechanisms = &v
+	o.AuthenticationMechanisms = v
 }
 
 // GetConfig returns the Config field value if set, zero value otherwise.
@@ -652,12 +652,12 @@ func (o *IdentityProviderDTO) GetFederatedConnectionsA() []FederatedConnectionDT
 		var ret []FederatedConnectionDTO
 		return ret
 	}
-	return *o.FederatedConnectionsA
+	return o.FederatedConnectionsA
 }
 
 // GetFederatedConnectionsAOk returns a tuple with the FederatedConnectionsA field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetFederatedConnectionsAOk() (*[]FederatedConnectionDTO, bool) {
+func (o *IdentityProviderDTO) GetFederatedConnectionsAOk() ([]FederatedConnectionDTO, bool) {
 	if o == nil || o.FederatedConnectionsA == nil {
 		return nil, false
 	}
@@ -675,7 +675,7 @@ func (o *IdentityProviderDTO) HasFederatedConnectionsA() bool {
 
 // SetFederatedConnectionsA gets a reference to the given []FederatedConnectionDTO and assigns it to the FederatedConnectionsA field.
 func (o *IdentityProviderDTO) SetFederatedConnectionsA(v []FederatedConnectionDTO) {
-	o.FederatedConnectionsA = &v
+	o.FederatedConnectionsA = v
 }
 
 // GetFederatedConnectionsB returns the FederatedConnectionsB field value if set, zero value otherwise.
@@ -684,12 +684,12 @@ func (o *IdentityProviderDTO) GetFederatedConnectionsB() []FederatedConnectionDT
 		var ret []FederatedConnectionDTO
 		return ret
 	}
-	return *o.FederatedConnectionsB
+	return o.FederatedConnectionsB
 }
 
 // GetFederatedConnectionsBOk returns a tuple with the FederatedConnectionsB field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetFederatedConnectionsBOk() (*[]FederatedConnectionDTO, bool) {
+func (o *IdentityProviderDTO) GetFederatedConnectionsBOk() ([]FederatedConnectionDTO, bool) {
 	if o == nil || o.FederatedConnectionsB == nil {
 		return nil, false
 	}
@@ -707,7 +707,7 @@ func (o *IdentityProviderDTO) HasFederatedConnectionsB() bool {
 
 // SetFederatedConnectionsB gets a reference to the given []FederatedConnectionDTO and assigns it to the FederatedConnectionsB field.
 func (o *IdentityProviderDTO) SetFederatedConnectionsB(v []FederatedConnectionDTO) {
-	o.FederatedConnectionsB = &v
+	o.FederatedConnectionsB = v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -940,12 +940,12 @@ func (o *IdentityProviderDTO) GetIdentityLookups() []IdentityLookupDTO {
 		var ret []IdentityLookupDTO
 		return ret
 	}
-	return *o.IdentityLookups
+	return o.IdentityLookups
 }
 
 // GetIdentityLookupsOk returns a tuple with the IdentityLookups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetIdentityLookupsOk() (*[]IdentityLookupDTO, bool) {
+func (o *IdentityProviderDTO) GetIdentityLookupsOk() ([]IdentityLookupDTO, bool) {
 	if o == nil || o.IdentityLookups == nil {
 		return nil, false
 	}
@@ -963,7 +963,7 @@ func (o *IdentityProviderDTO) HasIdentityLookups() bool {
 
 // SetIdentityLookups gets a reference to the given []IdentityLookupDTO and assigns it to the IdentityLookups field.
 func (o *IdentityProviderDTO) SetIdentityLookups(v []IdentityLookupDTO) {
-	o.IdentityLookups = &v
+	o.IdentityLookups = v
 }
 
 // GetIgnoreRequestedNameIDPolicy returns the IgnoreRequestedNameIDPolicy field value if set, zero value otherwise.
@@ -1228,12 +1228,12 @@ func (o *IdentityProviderDTO) GetOauth2Clients() []OAuth2ClientDTO {
 		var ret []OAuth2ClientDTO
 		return ret
 	}
-	return *o.Oauth2Clients
+	return o.Oauth2Clients
 }
 
 // GetOauth2ClientsOk returns a tuple with the Oauth2Clients field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetOauth2ClientsOk() (*[]OAuth2ClientDTO, bool) {
+func (o *IdentityProviderDTO) GetOauth2ClientsOk() ([]OAuth2ClientDTO, bool) {
 	if o == nil || o.Oauth2Clients == nil {
 		return nil, false
 	}
@@ -1251,7 +1251,7 @@ func (o *IdentityProviderDTO) HasOauth2Clients() bool {
 
 // SetOauth2Clients gets a reference to the given []OAuth2ClientDTO and assigns it to the Oauth2Clients field.
 func (o *IdentityProviderDTO) SetOauth2Clients(v []OAuth2ClientDTO) {
-	o.Oauth2Clients = &v
+	o.Oauth2Clients = v
 }
 
 // GetOauth2ClientsConfig returns the Oauth2ClientsConfig field value if set, zero value otherwise.
@@ -1900,12 +1900,12 @@ func (o *IdentityProviderDTO) GetSubjectAuthnPolicies() []SubjectAuthenticationP
 		var ret []SubjectAuthenticationPolicyDTO
 		return ret
 	}
-	return *o.SubjectAuthnPolicies
+	return o.SubjectAuthnPolicies
 }
 
 // GetSubjectAuthnPoliciesOk returns a tuple with the SubjectAuthnPolicies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderDTO) GetSubjectAuthnPoliciesOk() (*[]SubjectAuthenticationPolicyDTO, bool) {
+func (o *IdentityProviderDTO) GetSubjectAuthnPoliciesOk() ([]SubjectAuthenticationPolicyDTO, bool) {
 	if o == nil || o.SubjectAuthnPolicies == nil {
 		return nil, false
 	}
@@ -1923,7 +1923,7 @@ func (o *IdentityProviderDTO) HasSubjectAuthnPolicies() bool {
 
 // SetSubjectAuthnPolicies gets a reference to the given []SubjectAuthenticationPolicyDTO and assigns it to the SubjectAuthnPolicies field.
 func (o *IdentityProviderDTO) SetSubjectAuthnPolicies(v []SubjectAuthenticationPolicyDTO) {
-	o.SubjectAuthnPolicies = &v
+	o.SubjectAuthnPolicies = v
 }
 
 // GetSubjectNameIDPolicy returns the SubjectNameIDPolicy field value if set, zero value otherwise.

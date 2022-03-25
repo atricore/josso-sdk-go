@@ -30,7 +30,7 @@ func (c *IdbusApiClient) CreateIdp(ida string, idp api.IdentityProviderDTO) (api
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("createIdP. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -67,7 +67,7 @@ func (c *IdbusApiClient) UpdateIdp(ida string, idp api.IdentityProviderDTO) (api
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("updateIdP. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetIdps(ida string) ([]api.IdentityProviderDTO, error) 
 		return result, nil
 	}
 
-	result = *res.Idps
+	result = res.Idps
 
 	return result, nil
 

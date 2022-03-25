@@ -18,7 +18,7 @@ import (
 // GroupDTO struct for GroupDTO
 type GroupDTO struct {
 	Description *string `json:"description,omitempty"`
-	ExtraAttributes *[]AttributeValueDTO `json:"extraAttributes,omitempty"`
+	ExtraAttributes []AttributeValueDTO `json:"extraAttributes,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -81,12 +81,12 @@ func (o *GroupDTO) GetExtraAttributes() []AttributeValueDTO {
 		var ret []AttributeValueDTO
 		return ret
 	}
-	return *o.ExtraAttributes
+	return o.ExtraAttributes
 }
 
 // GetExtraAttributesOk returns a tuple with the ExtraAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GroupDTO) GetExtraAttributesOk() (*[]AttributeValueDTO, bool) {
+func (o *GroupDTO) GetExtraAttributesOk() ([]AttributeValueDTO, bool) {
 	if o == nil || o.ExtraAttributes == nil {
 		return nil, false
 	}
@@ -104,7 +104,7 @@ func (o *GroupDTO) HasExtraAttributes() bool {
 
 // SetExtraAttributes gets a reference to the given []AttributeValueDTO and assigns it to the ExtraAttributes field.
 func (o *GroupDTO) SetExtraAttributes(v []AttributeValueDTO) {
-	o.ExtraAttributes = &v
+	o.ExtraAttributes = v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.

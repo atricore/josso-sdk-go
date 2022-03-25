@@ -17,8 +17,8 @@ import (
 
 // FederatedChannelDTO struct for FederatedChannelDTO
 type FederatedChannelDTO struct {
-	ActiveBindings *[]string `json:"activeBindings,omitempty"`
-	ActiveProfiles *[]string `json:"activeProfiles,omitempty"`
+	ActiveBindings []string `json:"activeBindings,omitempty"`
+	ActiveProfiles []string `json:"activeProfiles,omitempty"`
 	ConnectionA *FederatedConnectionDTO `json:"connectionA,omitempty"`
 	ConnectionB *FederatedConnectionDTO `json:"connectionB,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -56,12 +56,12 @@ func (o *FederatedChannelDTO) GetActiveBindings() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ActiveBindings
+	return o.ActiveBindings
 }
 
 // GetActiveBindingsOk returns a tuple with the ActiveBindings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FederatedChannelDTO) GetActiveBindingsOk() (*[]string, bool) {
+func (o *FederatedChannelDTO) GetActiveBindingsOk() ([]string, bool) {
 	if o == nil || o.ActiveBindings == nil {
 		return nil, false
 	}
@@ -79,7 +79,7 @@ func (o *FederatedChannelDTO) HasActiveBindings() bool {
 
 // SetActiveBindings gets a reference to the given []string and assigns it to the ActiveBindings field.
 func (o *FederatedChannelDTO) SetActiveBindings(v []string) {
-	o.ActiveBindings = &v
+	o.ActiveBindings = v
 }
 
 // GetActiveProfiles returns the ActiveProfiles field value if set, zero value otherwise.
@@ -88,12 +88,12 @@ func (o *FederatedChannelDTO) GetActiveProfiles() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ActiveProfiles
+	return o.ActiveProfiles
 }
 
 // GetActiveProfilesOk returns a tuple with the ActiveProfiles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FederatedChannelDTO) GetActiveProfilesOk() (*[]string, bool) {
+func (o *FederatedChannelDTO) GetActiveProfilesOk() ([]string, bool) {
 	if o == nil || o.ActiveProfiles == nil {
 		return nil, false
 	}
@@ -111,7 +111,7 @@ func (o *FederatedChannelDTO) HasActiveProfiles() bool {
 
 // SetActiveProfiles gets a reference to the given []string and assigns it to the ActiveProfiles field.
 func (o *FederatedChannelDTO) SetActiveProfiles(v []string) {
-	o.ActiveProfiles = &v
+	o.ActiveProfiles = v
 }
 
 // GetConnectionA returns the ConnectionA field value if set, zero value otherwise.

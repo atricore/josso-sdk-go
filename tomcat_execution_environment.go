@@ -31,7 +31,7 @@ func (c *IdbusApiClient) CreateTomcatExeEnv(ida string, tc api.TomcatExecutionEn
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("createTomcatExeEnv. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -68,7 +68,7 @@ func (c *IdbusApiClient) UpdateTomcatExeEnv(ida string, Tomcat api.TomcatExecuti
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("updateTomcat. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetTomcatExeEnvs(ida string) ([]api.TomcatExecutionEnvi
 		return result, nil
 	}
 
-	result = *res.TomcatExecEnv
+	result = res.TomcatExecEnv
 
 	return result, nil
 

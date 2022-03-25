@@ -31,7 +31,7 @@ func (c *IdbusApiClient) CreateOidcRp(ida string, oidcRp api.ExternalOpenIDConne
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("createOidcRp. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -68,7 +68,7 @@ func (c *IdbusApiClient) UpdateOidcRp(ida string, oidcRp api.ExternalOpenIDConne
 	}
 
 	if res.Error != nil {
-		msg := buildErrorMsg(*res.Error, *res.ValidationErrors)
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
 		c.logger.Errorf("updateOidcRp. Error %s", msg)
 		return result, errors.New(msg)
 	}
@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetOidcRps(ida string) ([]api.ExternalOpenIDConnectRela
 		return result, nil
 	}
 
-	result = *res.OidcRps
+	result = res.OidcRps
 
 	return result, nil
 

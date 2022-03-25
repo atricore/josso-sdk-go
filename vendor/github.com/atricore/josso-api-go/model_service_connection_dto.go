@@ -23,7 +23,7 @@ type ServiceConnectionDTO struct {
 	Name *string `json:"name,omitempty"`
 	Resource *ServiceResourceDTO `json:"resource,omitempty"`
 	Sp *InternalSaml2ServiceProviderDTO `json:"sp,omitempty"`
-	Waypoints *[]PointDTO `json:"waypoints,omitempty"`
+	Waypoints []PointDTO `json:"waypoints,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -244,12 +244,12 @@ func (o *ServiceConnectionDTO) GetWaypoints() []PointDTO {
 		var ret []PointDTO
 		return ret
 	}
-	return *o.Waypoints
+	return o.Waypoints
 }
 
 // GetWaypointsOk returns a tuple with the Waypoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceConnectionDTO) GetWaypointsOk() (*[]PointDTO, bool) {
+func (o *ServiceConnectionDTO) GetWaypointsOk() ([]PointDTO, bool) {
 	if o == nil || o.Waypoints == nil {
 		return nil, false
 	}
@@ -267,7 +267,7 @@ func (o *ServiceConnectionDTO) HasWaypoints() bool {
 
 // SetWaypoints gets a reference to the given []PointDTO and assigns it to the Waypoints field.
 func (o *ServiceConnectionDTO) SetWaypoints(v []PointDTO) {
-	o.Waypoints = &v
+	o.Waypoints = v
 }
 
 func (o ServiceConnectionDTO) MarshalJSON() ([]byte, error) {

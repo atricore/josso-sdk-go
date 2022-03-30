@@ -67,25 +67,37 @@ func (l DefaultLogger) Debugf(format string, v ...interface{}) {
 }
 
 func (l DefaultLogger) Info(msg string) {
-	log.Print(msg)
+	if l.debug {
+		log.Print(msg)
+	}
 }
 
 func (l DefaultLogger) Infof(format string, v ...interface{}) {
-	log.Printf(format, v...)
+	if l.debug {
+		log.Printf(format, v...)
+	}
 }
 
 func (l DefaultLogger) Warn(msg string) {
-	log.Print(msg)
+	if l.debug {
+		log.Print(msg)
+	}
 }
 
 func (l DefaultLogger) Warnf(format string, v ...interface{}) {
-	log.Printf(format, v...)
+	if l.debug {
+		log.Printf(format, v...)
+	}
 }
 
 func (l DefaultLogger) Error(msg string) {
-	log.Print(msg)
+	if l.debug {
+		log.Print(msg)
+	}
 }
 
 func (l DefaultLogger) Errorf(format string, v ...interface{}) {
-	log.Printf(format, v...)
+	if l.debug {
+		log.Printf(format, v...)
+	}
 }

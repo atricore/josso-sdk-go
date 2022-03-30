@@ -33,6 +33,10 @@ type (
 	}
 )
 
+func NewDefaultLogger(debug bool) DefaultLogger {
+	return DefaultLogger{debug: debug}
+}
+
 // Returns itself
 func (l DefaultLogger) Logger() interface{} {
 	return l

@@ -257,3 +257,62 @@ func (c *IdbusApiClient) StopAppliance(name string) error {
 
 	return err
 }
+
+func (c *IdbusApiClient) GetApplianceContainers() ([]api.IdentityApplianceDTO, error) {
+	sc, err := c.IdbusServerForOperation("DefaultApiService.GetApplianceContainers") // Also hard-coded in generated client
+	if err != nil {
+		return nil, err
+	}
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+	req := c.apiClient.DefaultApi.GetApplianceContainers(ctx)
+	res, _, err := c.apiClient.DefaultApi.GetApplianceContainersExecute(req)
+
+	if err != nil {
+		c.logger.Errorf("getApplianceContainers. Error %v", err)
+		return nil, err
+	}
+
+	if res.Error != nil {
+		c.logger.Errorf("getApplianceContainers. Error %s", *res.Error)
+		return nil, errors.New(*res.Error)
+	}
+
+	c.logger.Debugf("getApplianceContainers. found appliances %d", len(res.Appliances))
+	return res.Appliances, nil
+
+}
+
+func (c *IdbusApiClient) GetApplianceContainer(idOrName string) (api.IdentityApplianceDTO, error) {
+
+	var result api.IdentityApplianceDTO
+
+	sc, err := c.IdbusServerForOperation("DefaultApiService.GetApplianceContainer") // Also hard-coded in generated client
+	if err != nil {
+		c.logger.Errorf("getApplianceContainer. Error %v", err)
+		return result, err
+	}
+
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+
+	req := c.apiClient.DefaultApi.GetApplianceContainer(ctx)
+	req = req.GetApplianceReq(api.GetApplianceReq{IdOrName: &idOrName})
+	res, _, err := c.apiClient.DefaultApi.GetApplianceContainerExecute(req)
+
+	if err != nil {
+		c.logger.Errorf("getApplianceContainer. Error %v", err)
+	}
+
+	if res.Error != nil {
+		c.logger.Errorf("getApplianceContainer. Error %v", *res.Error)
+		return result, errors.New(*res.Error)
+	}
+
+	if res.Appliance != nil {
+		result = *res.Appliance
+		c.logger.Debugf("getAppliance. %d found for ID/name %s", *result.Id, idOrName)
+	} else {
+		c.logger.Debugf("getAppliance. not found for ID/name %s", idOrName)
+	}
+
+	return result, err
+}

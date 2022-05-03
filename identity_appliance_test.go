@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -117,6 +118,20 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_crud() {
 
 		t.Errorf("Invalid number of elements found %d, expected 2", len(listOfAll))
 		return
+	}
+	// Order list of read by Name
+	sort.SliceStable(listOfRead,
+		func(i, j int) bool {
+			return strings.Compare(*listOfRead[i].Name, *listOfRead[j].Name) < 0
+		},
+	)
+
+	// Validate each element from the list of created with the list of read
+	for idx, r := range listOfCreated {
+		if err = IdApplianceValidateUpdate(&r, &listOfRead[idx]); err != nil {
+			t.Error(err)
+			return
+		}
 	}
 }
 

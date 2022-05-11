@@ -30,8 +30,6 @@ type (
 	ServerCredentials struct {
 		ClientId string
 		Secret   string
-		Username string
-		Password string
 	}
 
 	ServerConnection struct {
@@ -125,16 +123,12 @@ func (c *IdbusApiClient) Authn() error {
 
 	c.logger.Tracef("authn: %s %t/%s %t",
 		sc.Server.Credentials.ClientId,
-		sc.Server.Credentials.Secret != "",
-		sc.Server.Credentials.Username,
-		sc.Server.Credentials.Password != "")
+		sc.Server.Credentials.Secret != "")
 
 	req := c.apiClient.DefaultApi.SignOn(context.Background())
 	req = req.OIDCSignOnRequest(api.OIDCSignOnRequest{
 		ClientId: &sc.Server.Credentials.ClientId,
-		Secret:   &sc.Server.Credentials.Secret,
-		Username: &sc.Server.Credentials.Username,
-		Password: &sc.Server.Credentials.Password})
+		Secret:   &sc.Server.Credentials.Secret})
 
 	res, _, err := c.apiClient.DefaultApi.SignOnExecute(req)
 	if err != nil {
@@ -153,9 +147,7 @@ func GetServerConfigFromEnv() (*IdbusServer, error) {
 	clientSecret := os.Getenv("JOSSO_API_SECRET")
 	clientId := os.Getenv("JOSSO_API_CLIENT_ID")
 	endpoint := os.Getenv("JOSSO_API_ENDPOINT")
-	username := os.Getenv("JOSSO_API_USERNAME")
-	password := os.Getenv("JOSSO_API_PASSWORD")
-	if clientSecret == "" || clientId == "" || endpoint == "" || username == "" || password == "" {
+	if clientSecret == "" || clientId == "" || endpoint == "" {
 		return nil, errors.New("JOSSO variables must be set for acceptance tests")
 	}
 
@@ -167,8 +159,6 @@ func GetServerConfigFromEnv() (*IdbusServer, error) {
 		Credentials: &ServerCredentials{
 			ClientId: clientId,
 			Secret:   clientSecret,
-			Username: username,
-			Password: password,
 		},
 	}
 	return &s, nil

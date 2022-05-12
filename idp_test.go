@@ -249,13 +249,14 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	rs.SetValue(keystore)
 	rs.SetUri(fmt.Sprintf("ks-%s.jks", name))
 
+	// Use a p12 file
 	ks := api.NewKeystoreDTOWithOK()
 	ks.SetCertificateAlias("jetty")
 	ks.SetPassword("@WSX3edc")
 	ks.SetPrivateKeyName("jetty")
 	ks.SetPrivateKeyPassword("@WSX3edc")
 	ks.SetStore(rs)
-	ks.SetType("JKS")
+	ks.SetType("PKCS#12")
 	ks.SetName(fmt.Sprintf("%s-ks", name))
 	ks.SetStore(rs)
 
@@ -290,15 +291,15 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	atp.AdditionalProperties["@c"] = "com.atricore.idbus.console.services.dto.BuiltInAttributeProfileDTO"
 	tData.SetAttributeProfile(atp)
 
-	var AuthenticationServiceDTO api.AuthenticationServiceDTO
-
-	AuthenticationServiceDTO.SetDescription("")
-	AuthenticationServiceDTO.SetDisplayName("")
-	AuthenticationServiceDTO.SetElementId("")
-	AuthenticationServiceDTO.SetId(1)
-	AuthenticationServiceDTO.SetName("")
-	AuthenticationServiceDTO.SetX(1)
-	AuthenticationServiceDTO.SetY(1)
+	// Basic authentication
+	ba := api.NewBasicAuthenticationWithOK()
+	ba.SetName("basic-authn")
+	ba.SetPriority(0)
+	ba.SetEnabled(true)
+	ba.SetHashAlgorithm("SHA-256")
+	ba.SetHashEncoding("BASE64")
+	ba.SetSimpleAuthnSaml2AuthnCtxClass("urn:oasis:names:tc:SAML:2.0:ac:classes:Password")
+	tData.AddBasicAuthn(ba)
 
 	// Authentication contract
 	var auc api.AuthenticationContractDTO

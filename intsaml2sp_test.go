@@ -157,19 +157,15 @@ func createTestInternalSaml2ServiceProviderDTO(name string) *api.InternalSaml2Se
 	idMapping.SetMappingType("MERGED") //  LOCAL("Use Ours"), REMOTE("Use Theirs"), default: MERGED("Aggregate"), CUSTOM("Custom");
 	idMapping.SetUseLocalId(false)
 
-	var rs api.ResourceDTO
-	rs.SetValue(keystore)
+	rs := api.NewResourceDTOInit(fmt.Sprintf("rs-%s.jks", name), fmt.Sprintf("%s resource", name), keystore)
 	rs.SetUri(fmt.Sprintf("ks-%s.jks", name))
 
-	ks := api.NewKeystoreDTOWithOK()
+	ks := api.NewKeystoreDTOInit(fmt.Sprintf("%s-ks", name), fmt.Sprintf("%s keystore", name), rs)
 	ks.SetCertificateAlias("jetty")
 	ks.SetPassword("@WSX3edc")
 	ks.SetPrivateKeyName("jetty")
 	ks.SetPrivateKeyPassword("@WSX3edc")
-	ks.SetStore(rs)
 	ks.SetType("JKS")
-	ks.SetName(fmt.Sprintf("%s-ks", name))
-	ks.SetStore(rs)
 
 	var spCfg api.SamlR2SPConfigDTO
 	spCfg.SetUseSampleStore(false)

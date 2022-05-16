@@ -246,7 +246,6 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	tData.SetSubjectNameIDPolicy(snip)
 
 	rs := api.NewResourceDTOInit("test-ks", "test ks", keystore)
-	//rs.SetValue(keystore)
 	rs.SetUri(fmt.Sprintf("ks-%s.jks", name))
 
 	// Use a p12 file

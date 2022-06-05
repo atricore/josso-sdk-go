@@ -126,6 +126,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetJossoRss**](docs/DefaultApi.md#getjossorss) | **Get** /iam-deploy/jossorss | 
 *DefaultApi* | [**GetOidcRp**](docs/DefaultApi.md#getoidcrp) | **Get** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetOidcRps**](docs/DefaultApi.md#getoidcrps) | **Get** /iam-deploy/oidcrps | 
+*DefaultApi* | [**GetProvider**](docs/DefaultApi.md#getprovider) | **Get** /iam-deploy/provider | 
 *DefaultApi* | [**GetTomcatExecEnv**](docs/DefaultApi.md#gettomcatexecenv) | **Get** /iam-deploy/tomcatexecenv | 
 *DefaultApi* | [**GetTomcatExecEnvs**](docs/DefaultApi.md#gettomcatexecenvs) | **Get** /iam-deploy/tomcatexecenvs | 
 *DefaultApi* | [**GetTypes**](docs/DefaultApi.md#gettypes) | **Get** /iam-deploy/noop/types | 
@@ -154,6 +155,8 @@ Class | Method | HTTP request | Description
 
  - [AccountLinkagePolicyDTO](docs/AccountLinkagePolicyDTO.md)
  - [ActivationDTO](docs/ActivationDTO.md)
+ - [AttributeMapperProfileDTO](docs/AttributeMapperProfileDTO.md)
+ - [AttributeMappingDTO](docs/AttributeMappingDTO.md)
  - [AttributeProfileDTO](docs/AttributeProfileDTO.md)
  - [AttributeValueDTO](docs/AttributeValueDTO.md)
  - [AuthenticationAssertionEmissionPolicyDTO](docs/AuthenticationAssertionEmissionPolicyDTO.md)
@@ -161,6 +164,7 @@ Class | Method | HTTP request | Description
  - [AuthenticationMechanismDTO](docs/AuthenticationMechanismDTO.md)
  - [AuthenticationServiceDTO](docs/AuthenticationServiceDTO.md)
  - [BasicAuthenticationDTO](docs/BasicAuthenticationDTO.md)
+ - [BuiltInAttributeProfileDTO](docs/BuiltInAttributeProfileDTO.md)
  - [CustomClassDTO](docs/CustomClassDTO.md)
  - [CustomClassPropertyDTO](docs/CustomClassPropertyDTO.md)
  - [DbIdentitySourceDTO](docs/DbIdentitySourceDTO.md)
@@ -210,6 +214,8 @@ Class | Method | HTTP request | Description
  - [GetOidcRpReq](docs/GetOidcRpReq.md)
  - [GetOidcRpRes](docs/GetOidcRpRes.md)
  - [GetOidcRpsRes](docs/GetOidcRpsRes.md)
+ - [GetProviderReq](docs/GetProviderReq.md)
+ - [GetProviderRes](docs/GetProviderRes.md)
  - [GetTomcatExecEnvReq](docs/GetTomcatExecEnvReq.md)
  - [GetTomcatExecEnvRes](docs/GetTomcatExecEnvRes.md)
  - [GetTomcatExecEnvsRes](docs/GetTomcatExecEnvsRes.md)
@@ -218,6 +224,7 @@ Class | Method | HTTP request | Description
  - [GetVirtSaml2SpRes](docs/GetVirtSaml2SpRes.md)
  - [GetVirtSaml2SpsRes](docs/GetVirtSaml2SpsRes.md)
  - [GroupDTO](docs/GroupDTO.md)
+ - [IdentityApplianceContainerDTO](docs/IdentityApplianceContainerDTO.md)
  - [IdentityApplianceDTO](docs/IdentityApplianceDTO.md)
  - [IdentityApplianceDefinitionDTO](docs/IdentityApplianceDefinitionDTO.md)
  - [IdentityApplianceDeploymentDTO](docs/IdentityApplianceDeploymentDTO.md)
@@ -242,6 +249,7 @@ Class | Method | HTTP request | Description
  - [OIDCSignOnResponse](docs/OIDCSignOnResponse.md)
  - [PointDTO](docs/PointDTO.md)
  - [ProviderConfigDTO](docs/ProviderConfigDTO.md)
+ - [ProviderContainerDTO](docs/ProviderContainerDTO.md)
  - [ProviderDTO](docs/ProviderDTO.md)
  - [ResourceDTO](docs/ResourceDTO.md)
  - [SamlR2IDPConfigDTO](docs/SamlR2IDPConfigDTO.md)

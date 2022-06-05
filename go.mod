@@ -1,8 +1,8 @@
 module github.com/atricore/josso-sdk-go
 
-go 1.13
+go 1.16
 
-//replace github.com/atricore/josso-api-go => ../josso-api-go
+replace github.com/atricore/josso-api-go => ../josso-api-go
 
 require (
 	github.com/atricore/josso-api-go v0.0.0-20220526195012-e4e56208f6c9

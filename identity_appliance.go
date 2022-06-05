@@ -258,7 +258,7 @@ func (c *IdbusApiClient) StopAppliance(name string) error {
 	return err
 }
 
-func (c *IdbusApiClient) GetApplianceContainers() ([]api.IdentityApplianceDTO, error) {
+func (c *IdbusApiClient) GetApplianceContainers() ([]api.IdentityApplianceContainerDTO, error) {
 	sc, err := c.IdbusServerForOperation("DefaultApiService.GetApplianceContainers") // Also hard-coded in generated client
 	if err != nil {
 		return nil, err
@@ -282,9 +282,9 @@ func (c *IdbusApiClient) GetApplianceContainers() ([]api.IdentityApplianceDTO, e
 
 }
 
-func (c *IdbusApiClient) GetApplianceContainer(idOrName string) (api.IdentityApplianceDTO, error) {
+func (c *IdbusApiClient) GetApplianceContainer(idOrName string) (api.IdentityApplianceContainerDTO, error) {
 
-	var result api.IdentityApplianceDTO
+	var result api.IdentityApplianceContainerDTO
 
 	sc, err := c.IdbusServerForOperation("DefaultApiService.GetApplianceContainer") // Also hard-coded in generated client
 	if err != nil {
@@ -309,7 +309,7 @@ func (c *IdbusApiClient) GetApplianceContainer(idOrName string) (api.IdentityApp
 
 	if res.Appliance != nil {
 		result = *res.Appliance
-		c.logger.Debugf("getAppliance. %d found for ID/name %s", *result.Id, idOrName)
+		c.logger.Debugf("getAppliance. %d found for ID/name %s", *result.GetAppliance().Id, idOrName)
 	} else {
 		c.logger.Debugf("getAppliance. not found for ID/name %s", idOrName)
 	}

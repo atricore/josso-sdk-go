@@ -121,7 +121,7 @@ func (c *IdbusApiClient) Authn() error {
 		return err
 	}
 
-	c.logger.Tracef("authn: %s %t/%s %t",
+	c.logger.Tracef("authn: %s secret found: %t",
 		sc.Server.Credentials.ClientId,
 		sc.Server.Credentials.Secret != "")
 
@@ -132,7 +132,7 @@ func (c *IdbusApiClient) Authn() error {
 
 	res, _, err := c.apiClient.DefaultApi.SignOnExecute(req)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot authenticate w/JOSSO server [%s]: %v", sc.Server.Config.URL, err)
 	}
 
 	sc.Authn.AccessToken = *res.AccessToken

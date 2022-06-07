@@ -127,6 +127,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetOidcRp**](docs/DefaultApi.md#getoidcrp) | **Get** /iam-deploy/oidcrp | 
 *DefaultApi* | [**GetOidcRps**](docs/DefaultApi.md#getoidcrps) | **Get** /iam-deploy/oidcrps | 
 *DefaultApi* | [**GetProvider**](docs/DefaultApi.md#getprovider) | **Get** /iam-deploy/provider | 
+*DefaultApi* | [**GetProviders**](docs/DefaultApi.md#getproviders) | **Get** /iam-deploy/providers | 
 *DefaultApi* | [**GetTomcatExecEnv**](docs/DefaultApi.md#gettomcatexecenv) | **Get** /iam-deploy/tomcatexecenv | 
 *DefaultApi* | [**GetTomcatExecEnvs**](docs/DefaultApi.md#gettomcatexecenvs) | **Get** /iam-deploy/tomcatexecenvs | 
 *DefaultApi* | [**GetTypes**](docs/DefaultApi.md#gettypes) | **Get** /iam-deploy/noop/types | 
@@ -216,6 +217,7 @@ Class | Method | HTTP request | Description
  - [GetOidcRpsRes](docs/GetOidcRpsRes.md)
  - [GetProviderReq](docs/GetProviderReq.md)
  - [GetProviderRes](docs/GetProviderRes.md)
+ - [GetProvidersRes](docs/GetProvidersRes.md)
  - [GetTomcatExecEnvReq](docs/GetTomcatExecEnvReq.md)
  - [GetTomcatExecEnvRes](docs/GetTomcatExecEnvRes.md)
  - [GetTomcatExecEnvsRes](docs/GetTomcatExecEnvsRes.md)

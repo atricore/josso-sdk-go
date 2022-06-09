@@ -79,6 +79,8 @@ All URIs are relative to *http://localhost:8081/atricore-res/services*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**ActivateExecEnv**](docs/DefaultApi.md#activateexecenv) | **Get** /iam-deploy/execenv/activate | 
+*DefaultApi* | [**BuildAppliance**](docs/DefaultApi.md#buildappliance) | **Get** /iam-deploy/appliance/build | 
 *DefaultApi* | [**CreateAppliance**](docs/DefaultApi.md#createappliance) | **Post** /iam-deploy/appliance | 
 *DefaultApi* | [**CreateDbIdVault**](docs/DefaultApi.md#createdbidvault) | **Post** /iam-deploy/dbidvault | 
 *DefaultApi* | [**CreateExtSaml2Sp**](docs/DefaultApi.md#createextsaml2sp) | **Post** /iam-deploy/extsaml2sp | 
@@ -155,6 +157,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AccountLinkagePolicyDTO](docs/AccountLinkagePolicyDTO.md)
+ - [ActivateExecEnvReq](docs/ActivateExecEnvReq.md)
+ - [ActivateExecEnvRes](docs/ActivateExecEnvRes.md)
  - [ActivationDTO](docs/ActivationDTO.md)
  - [AttributeMapperProfileDTO](docs/AttributeMapperProfileDTO.md)
  - [AttributeMappingDTO](docs/AttributeMappingDTO.md)

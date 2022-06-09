@@ -229,6 +229,8 @@ func (c *IdbusApiClient) StartAppliance(name string) error {
 	return err
 }
 
+// TODO : Implement build appliance operation
+
 func (c *IdbusApiClient) StopAppliance(name string) error {
 
 	c.logger.Debugf("stopAppliance id: %s", name)

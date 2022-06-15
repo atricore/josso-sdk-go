@@ -360,7 +360,7 @@ func (s *AccTestSuite) TestAccCliIdentityAppliance_z040() {
 	origIdsource := createTestDbIdentitySourceDTO("ids-1")
 	var createdIdVaul api.DbIdentitySourceDTO
 
-	createdIdVaul, err = s.client.createDbIdentitySourceDTO(appliance.GetName(), *origIdsource)
+	createdIdVaul, err = s.client.CreateDbIdentitySourceDTO(appliance.GetName(), *origIdsource)
 	if err != nil {
 		t.Errorf("create identity appliance: %v", err)
 		return

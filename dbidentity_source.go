@@ -8,7 +8,7 @@ import (
 )
 
 // Creates a new DbIdentitySourceDTO in the provided identity appliance. It receives the appliance name or id and the Db dto to use as template
-func (c *IdbusApiClient) createDbIdentitySourceDTO(ida string, intDbSource api.DbIdentitySourceDTO) (api.DbIdentitySourceDTO, error) {
+func (c *IdbusApiClient) CreateDbIdentitySourceDTO(ida string, intDbSource api.DbIdentitySourceDTO) (api.DbIdentitySourceDTO, error) {
 	var result api.DbIdentitySourceDTO
 	l := c.Logger()
 

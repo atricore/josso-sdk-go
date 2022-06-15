@@ -24,7 +24,7 @@ func (s *AccTestSuite) TestAccCliDbIdentitySourceDTO_crud() {
 	orig = createTestDbIdentitySourceDTO(crudName)
 
 	// Test CREATE
-	created, err = s.client.createDbIdentitySourceDTO(*appliance.Name, *orig)
+	created, err = s.client.CreateDbIdentitySourceDTO(*appliance.Name, *orig)
 	if err != nil {
 		t.Error(err)
 		return
@@ -89,10 +89,10 @@ func (s *AccTestSuite) TestAccCliDbIdentitySourceDTO_crud() {
 
 	// Test list of #2 elements
 	element1 := createTestDbIdentitySourceDTO("dbids-1")
-	listOfCreated[0], _ = s.client.createDbIdentitySourceDTO(*appliance.Name, *element1)
+	listOfCreated[0], _ = s.client.CreateDbIdentitySourceDTO(*appliance.Name, *element1)
 
 	element2 := createTestDbIdentitySourceDTO("dbids-2")
-	listOfCreated[1], _ = s.client.createDbIdentitySourceDTO(*appliance.Name, *element2)
+	listOfCreated[1], _ = s.client.CreateDbIdentitySourceDTO(*appliance.Name, *element2)
 
 	// ------------------------
 	// Get list from server
@@ -128,10 +128,13 @@ func (s *AccTestSuite) TestAccCliDbIdentitySourceDTO_crud() {
 func createTestDbIdentitySourceDTO(name string) *api.DbIdentitySourceDTO {
 	tData := api.NewDbIdentitySourceDTO()
 
+	//
 	tData.SetName(name)
 	tData.SetAdmin(fmt.Sprint("usr-", name))
 	tData.SetCredentialsQueryString("SELECT USERNAME, PASSWORD FROM JOSSO_USER WHERE LOGIN = ?")
+	// 
 	tData.SetPassword(fmt.Sprint("pwd-", name))
+
 	tData.SetRelayCredentialQueryString("n/a")
 	tData.SetResetCredentialDml("")
 	tData.SetRolesQueryString("SELECT R.ROLE FROM JOSSO_ROLE R, JOSSO_USER U, JOSSO_USER_ROLE RU WHERE R.ROLE = RU.ROLE AND RU.USER = U.LOGIN AND U.LOGIN = ?")
@@ -148,8 +151,7 @@ func createTestDbIdentitySourceDTO(name string) *api.DbIdentitySourceDTO {
 	tData.SetMaxIdleTime(15)
 	tData.SetMaxPoolSize(20)
 	tData.SetMinPoolSize(1)
-	tData.SetName(name)
-	tData.SetPassword(fmt.Sprint("pdw", name))
+
 	tData.SetPooledDatasource(true)
 
 	return tData

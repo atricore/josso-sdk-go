@@ -132,7 +132,7 @@ func createTestDbIdentitySourceDTO(name string) *api.DbIdentitySourceDTO {
 	tData.SetName(name)
 	tData.SetAdmin(fmt.Sprint("usr-", name))
 	tData.SetCredentialsQueryString("SELECT USERNAME, PASSWORD FROM JOSSO_USER WHERE LOGIN = ?")
-	// 
+	//
 	tData.SetPassword(fmt.Sprint("pwd-", name))
 
 	tData.SetRelayCredentialQueryString("n/a")

@@ -137,6 +137,7 @@ func createTestTomcatExecutionEnvironmentDTO(name string) *api.TomcatExecutionEn
 	tData.SetDisplayName(fmt.Sprintf("Tomcat %s", name))
 	tData.SetInstallDemoApps(true)
 	tData.SetInstallUri(fmt.Sprintf("/opt/atricore/josso-ee-2/%s", name))
+	tData.SetType("LOCAL")
 
 	tData.SetOverwriteOriginalSetup(true)
 	tData.SetPlatformId("tc85")

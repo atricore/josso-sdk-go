@@ -268,7 +268,7 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 
 	// SAML2 IdP config as serialized by CXF (Additional properties)
 	var conf api.SamlR2IDPConfigDTO
-	conf.SetUseSampleStore(true)
+	conf.SetUseSampleStore(false)
 	conf.SetUseSystemStore(false)
 	err := tData.SetSamlR2IDPConfig(&conf)
 	if err != nil {
@@ -279,7 +279,6 @@ func createTestIdentityProviderDTO(name string, authn []api.AuthenticationMechan
 	// TODO : Use custom profile
 	var atp api.AttributeProfileDTO
 	atp.SetElementId("")
-	atp.SetId(97)
 	atp.SetName("basic-built-in")
 	atp.SetProfileType("BASIC")
 

@@ -41,6 +41,18 @@ func (s *AccTestSuite) TestAccCliIdP_a001() {
 }
 */
 
+/*
+func (s *AccTestSuite) TestAccCliIdP_read() {
+	var t = s.T()
+	// Test READ
+	_, err := s.client.GetIdp("ida-lda", "idp-1")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+}
+*/
+
 func (s *AccTestSuite) TestAccCliIdP_crud() {
 	var t = s.T()
 
@@ -398,7 +410,6 @@ func IdPFieldTestCreate(
 		},
 		{
 			name:     "branding",
-			cmp:      func() bool { return StrPtrEquals(e.UserDashboardBranding, r.UserDashboardBranding) },
 			expected: StrDeref(e.UserDashboardBranding),
 			received: StrDeref(r.UserDashboardBranding),
 		},

@@ -1,4 +1,4 @@
-# github.com/atricore/josso-api-go v0.1.0
+# github.com/atricore/josso-api-go v0.1.0 => ../josso-api-go
 ## explicit
 github.com/atricore/josso-api-go
 # github.com/davecgh/go-spew v1.1.0
@@ -70,3 +70,4 @@ google.golang.org/protobuf/runtime/protoimpl
 ## explicit
 # gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 gopkg.in/yaml.v3
+# github.com/atricore/josso-api-go => ../josso-api-go

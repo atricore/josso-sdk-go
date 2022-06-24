@@ -2,7 +2,7 @@ module github.com/atricore/josso-sdk-go
 
 go 1.16
 
-//replace github.com/atricore/josso-api-go => ../josso-api-go
+replace github.com/atricore/josso-api-go => ../josso-api-go
 
 require (
 	github.com/atricore/josso-api-go v0.1.0

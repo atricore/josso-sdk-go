@@ -2,10 +2,10 @@ module github.com/atricore/josso-sdk-go
 
 go 1.16
 
-replace github.com/atricore/josso-api-go => ../josso-api-go
+//replace github.com/atricore/josso-api-go => ../josso-api-go
 
 require (
-	github.com/atricore/josso-api-go v0.1.0
+	github.com/atricore/josso-api-go v0.1.1
 	github.com/google/go-cmp v0.5.4 // indirect
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/kr/pretty v0.3.0 // indirect

@@ -175,7 +175,7 @@ func (c *IdbusApiClient) GetIssExeEnvs(ida string) ([]api.WindowsIISExecutionEnv
 		return result, nil
 	}
 
-	// result = res.IisExecEnv
+	result = res.IisExecEnv
 
 	return result, nil
 

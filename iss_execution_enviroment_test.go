@@ -22,6 +22,8 @@ func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
 	var orig *api.WindowsIISExecutionEnvironmentDTO
 	var created api.WindowsIISExecutionEnvironmentDTO
 	orig = createTestIssExecutionEnvironmentDTO(crudName)
+	orig.SetIsapiExtensionPath("/isapi/agent.sso")
+	orig.SetType("LOCAL")
 	if err != nil {
 		t.Error(err)
 		return
@@ -29,6 +31,7 @@ func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
 
 	// Test CREATE
 	created, err = s.client.CreateIssExeEnv(*appliance.Name, *orig)
+
 	if err != nil {
 		t.Error(err)
 		return

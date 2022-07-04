@@ -132,14 +132,14 @@ func createTestPhpExecutionEnvironmentDTO(name string) *api.PHPExecutionEnvironm
 	tData := api.NewPHPExecutionEnvironmentDTO()
 
 	tData.SetName(name)
-	tData.SetPhpEnvironmentType("change this value for the correct value")
+	tData.SetPhpEnvironmentType("STANDARD")
 	tData.SetActive(true)
 	tData.SetDescription(fmt.Sprintf("Php %s", name))
 	tData.SetDisplayName(fmt.Sprintf("Php %s", name))
 	tData.SetInstallDemoApps(true)
 	tData.SetInstallUri(fmt.Sprintf("/opt/atricore/josso-ee-2/%s", name))
 	tData.SetOverwriteOriginalSetup(true)
-	tData.SetPlatformId("iss")
+	tData.SetType("LOCAL")
 
 	return tData
 }

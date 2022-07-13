@@ -132,44 +132,33 @@ func (s *AccTestSuite) TestAccCliIdFacebook_crud() {
 func createTestFacebookOpenIDConnectIdentityDTO(name string) *api.FacebookOpenIDConnectIdentityProviderDTO {
 	tData := api.NewFacebookOpenIDConnectIdentityProviderDTO()
 
-	var locat api.LocationDTO
-	locat.SetContext("IDBUS")
-	locat.SetHost("localhost")
-	locat.SetPort(8081)
-	locat.SetProtocol("http")
-	locat.SetUri(strings.ToUpper(name))
+	var locationToAuthz api.LocationDTO
+	locationToAuthz.SetProtocol("https")
+	locationToAuthz.SetHost("www.facebook.com")
+	locationToAuthz.SetPort(443)
+	locationToAuthz.SetContext("dialog")
+	locationToAuthz.SetUri("oauth")
+	//https://www.facebook.com:443/dialog/oauth
+
+	var locationToTokenServ api.LocationDTO
+	locationToTokenServ.SetProtocol("https")
+	locationToTokenServ.SetHost("www.facebook.com")
+	locationToTokenServ.SetPort(443)
+	locationToTokenServ.SetContext("oauth")
+	locationToTokenServ.SetUri("access_token")
+	//https://graph.facebook.com:443/oauth/access_token
 
 	tData.SetName(name)
 	tData.SetId(-1)
 	tData.SetElementId("")
-	tData.SetLocation(locat)
 	tData.SetDescription(fmt.Sprintf("Description for %s", name))
-
 	tData.SetClientId("")
 	tData.SetClientSecret("")
 	tData.SetServerKey("")
-	//	Authorization endpoint?
-	//	Token endpoint?
-
-	//	Permissions?
-	tData.SetUserFields("")
-
-	//tData.SetAccessTokenService()
-	//tData.SetActiveBindings()
-	//tData.SetActiveProfiles()
-	//tData.SetAuthzTokenService()
-	//tData.SetConfig()
-	//tData.SetDisplayName()
-	//tData.SetFederatedConnectionsA()
-	//tData.SetFederatedConnectionsB()
-	//tData.SetIdentityAppliance()
-	//tData.SetIdentityLookups()
-	//tData.SetIsRemote()
-	//tData.SetMetadata()
-	//tData.SetMobileAuthzTokenService()
-	//tData.SetRemote()
-	//tData.SetRole()
-	//tData.SetScopes()
+	tData.SetAuthzTokenService(locationToAuthz)
+	tData.SetAccessTokenService(locationToTokenServ)
+	tData.SetScopes("email")
+	tData.SetUserFields("gender")
 	return tData
 }
 
@@ -221,26 +210,26 @@ func IdFacebookFieldTestCreate(
 			name:     "server_key",
 			cmp:      func() bool { return StrPtrEquals(e.ServerKey, r.ServerKey) },
 			expected: StrDeref(e.ServerKey),
-			received: StrDeref(r.Name),
+			received: StrDeref(r.ServerKey),
 		},
-		//{
-		//	name:     "Authorization endpoint",
-		//	cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-		//	expected: StrDeref(e.Name),
-		//	received: StrDeref(r.Name),
-		//},
-		//{
-		//	name:     "Token endpoint",
-		//	cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-		//	expected: StrDeref(e.Name),
-		//	received: StrDeref(r.Name),
-		//},
-		//{
-		//	name:     "Permissions",
-		//	cmp:      func() bool { return StrPtrEquals(e.Name, r.Name) },
-		//	expected: StrDeref(e.Name),
-		//	received: StrDeref(r.Name),
-		//},
+		{
+			name:     "authz_token_service",
+			cmp:      func() bool { return LocationPtrEquals(e.AuthzTokenService, r.AuthzTokenService) },
+			expected: LocationToStr(e.AuthzTokenService),
+			received: LocationToStr(r.AuthzTokenService),
+		},
+		{
+			name:     "access_token_service",
+			cmp:      func() bool { return LocationPtrEquals(e.AccessTokenService, r.AccessTokenService) },
+			expected: LocationToStr(e.AccessTokenService),
+			received: LocationToStr(r.AccessTokenService),
+		},
+		{
+			name:     "scopes",
+			cmp:      func() bool { return StrPtrEquals(e.Scopes, r.Scopes) },
+			expected: StrDeref(e.Scopes),
+			received: StrDeref(r.Scopes),
+		},
 		{
 			name:     "user_fields",
 			cmp:      func() bool { return StrPtrEquals(e.UserFields, r.UserFields) },

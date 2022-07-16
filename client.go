@@ -132,7 +132,7 @@ func (c *IdbusApiClient) Authn() error {
 
 	res, _, err := c.apiClient.DefaultApi.SignOnExecute(req)
 	if err != nil {
-		return fmt.Errorf("cannot authenticate w/JOSSO server [%s]: %v", sc.Server.Config.URL, err)
+		return fmt.Errorf("cannot authenticate with IAMTF/JOSSO server [%s]: %v", sc.Server.Config.URL, err)
 	}
 
 	sc.Authn.AccessToken = *res.AccessToken

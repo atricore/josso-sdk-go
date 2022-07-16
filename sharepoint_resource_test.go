@@ -19,9 +19,18 @@ func (s *AccTestSuite) TestAccCliSharePointResource_crud() {
 		return
 	}
 	crudName := "app-0"
+
+	var sp api.InternalSaml2ServiceProviderDTO
+	sp = *createTestInternalSaml2ServiceProviderDTO(fmt.Sprintf("%s-sp", crudName))
+	sp, err = s.client.CreateIntSaml2Sp(*appliance.Name, sp)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
 	var orig *api.SharepointResourceDTO
 	var created api.SharepointResourceDTO
-	orig = createTestSharePointExecutionEnvironmentDTO(crudName)
+	orig = createTestSharePointExecutionEnvironmentDTO(crudName, sp.GetName())
 	if err != nil {
 		t.Error(err)
 		return
@@ -91,10 +100,26 @@ func (s *AccTestSuite) TestAccCliSharePointResource_crud() {
 	// List of created elements, order by Name
 	var listOfCreated [2]api.SharepointResourceDTO
 	// Test list of #2 elements
-	element1 := createTestSharePointExecutionEnvironmentDTO("app-1")
+
+	var sp1 api.InternalSaml2ServiceProviderDTO
+	sp1 = *createTestInternalSaml2ServiceProviderDTO("app-1-sp")
+	sp1, err = s.client.CreateIntSaml2Sp(*appliance.Name, sp)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	element1 := createTestSharePointExecutionEnvironmentDTO("app-1", sp1.GetName())
 	listOfCreated[0], _ = s.client.CreateSharePointresource(*appliance.Name, *element1)
 
-	element2 := createTestSharePointExecutionEnvironmentDTO("app-2")
+	var sp2 api.InternalSaml2ServiceProviderDTO
+	sp2 = *createTestInternalSaml2ServiceProviderDTO("app-2-sp")
+	sp2, err = s.client.CreateIntSaml2Sp(*appliance.Name, sp)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	element2 := createTestSharePointExecutionEnvironmentDTO("app-2", sp2.GetName())
 	listOfCreated[1], _ = s.client.CreateSharePointresource(*appliance.Name, *element2)
 	// ------------------------
 	// Get list from server
@@ -127,7 +152,7 @@ func (s *AccTestSuite) TestAccCliSharePointResource_crud() {
 
 }
 
-func createTestSharePointExecutionEnvironmentDTO(name string) *api.SharepointResourceDTO {
+func createTestSharePointExecutionEnvironmentDTO(name string, sp string) *api.SharepointResourceDTO {
 	tData := api.NewSharepointResourceDTO()
 
 	var loca api.LocationDTO
@@ -135,14 +160,16 @@ func createTestSharePointExecutionEnvironmentDTO(name string) *api.SharepointRes
 	loca.SetHost("mycompany")
 	loca.SetPort(8080)
 	loca.SetProtocol("http")
-	loca.SetUri(strings.ToUpper(name))
+	loca.SetUri(name)
 	tData.SetSloLocation(loca)
+
+	tData.NewServiceConnection(sp)
 
 	tData.SetDescription(fmt.Sprintf("sharePoint description %s", name))
 	tData.SetName(name)
-	tData.SetStsSigningCertSubject("")
+	tData.SetStsSigningCertSubject("sts-signing-cert")
 	tData.SetSloLocationEnabled(false)
-	tData.SetStsEncryptingCertSubject("")
+	tData.SetStsEncryptingCertSubject("sts-encrypt-cert")
 	return tData
 }
 

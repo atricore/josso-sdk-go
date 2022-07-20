@@ -110,8 +110,8 @@ func (c *IdbusApiClient) DeleteJosso1Resource(ida string, sp string) (bool, erro
 }
 
 // Gets an Sp based on the appliance name and sp name
-func (c *IdbusApiClient) GetJosso1Resource(ida string, sp string) (api.JOSSO1ResourceDTO, error) {
-	c.logger.Debugf("GetJosso1Resource. %s [%s]", sp, ida)
+func (c *IdbusApiClient) GetJosso1Resource(ida string, resource string) (api.JOSSO1ResourceDTO, error) {
+	c.logger.Debugf("GetJosso1Resource. %s [%s]", resource, ida)
 	var result api.JOSSO1ResourceDTO
 
 	sc, err := c.IdbusServerForOperation("DefaultApiService.GetJosso1Resource") // Also hard-coded in generated client
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetJosso1Resource(ida string, sp string) (api.JOSSO1Res
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetJossoRs(ctx)
-	req = req.GetJossoRsReq(api.GetJossoRsReq{IdaName: &ida, Name: &sp})
+	req = req.GetJossoRsReq(api.GetJossoRsReq{IdaName: &ida, Name: &resource})
 	res, _, err := c.apiClient.DefaultApi.GetJossoRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetJosso1Resource. Error %v", err)
@@ -134,15 +134,15 @@ func (c *IdbusApiClient) GetJosso1Resource(ida string, sp string) (api.JOSSO1Res
 	}
 
 	if res.Resource == nil {
-		c.logger.Debugf("GetJosso1Resource. NOT FOUND %s", sp)
+		c.logger.Debugf("GetJosso1Resource. NOT FOUND %s", resource)
 		return result, nil
 	}
 
 	if res.Resource != nil {
 		result = *res.Resource
-		c.logger.Debugf("GetJosso1Resource. %s found for ID/name %s", *result.Name, sp)
+		c.logger.Debugf("GetJosso1Resource. %s found for ID/name %s", *result.Name, resource)
 	} else {
-		c.logger.Debugf("GetJosso1Resource. not found for ID/name %s", sp)
+		c.logger.Debugf("GetJosso1Resource. not found for ID/name %s", resource)
 	}
 
 	return result, nil

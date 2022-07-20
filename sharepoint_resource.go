@@ -110,8 +110,8 @@ func (c *IdbusApiClient) DeleteSharePointResource(ida string, sp string) (bool, 
 }
 
 // Gets an Sp based on the appliance name and sp name
-func (c *IdbusApiClient) GetSharePointResource(ida string, sp string) (api.SharepointResourceDTO, error) {
-	c.logger.Debugf("GetSharePointResource. %s [%s]", sp, ida)
+func (c *IdbusApiClient) GetSharePointResource(ida string, resource string) (api.SharepointResourceDTO, error) {
+	c.logger.Debugf("GetSharePointResource. %s [%s]", resource, ida)
 	var result api.SharepointResourceDTO
 
 	sc, err := c.IdbusServerForOperation("DefaultApiService.GetSharePointResource") // Also hard-coded in generated client
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetSharePointResource(ida string, sp string) (api.Share
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetSharepointRs(ctx)
-	req = req.GetSharepointRsReq(api.GetSharepointRsReq{IdaName: &ida, Name: &sp})
+	req = req.GetSharepointRsReq(api.GetSharepointRsReq{IdaName: &ida, Name: &resource})
 	res, _, err := c.apiClient.DefaultApi.GetSharepointRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetSharePointResource. Error %v", err)
@@ -134,15 +134,15 @@ func (c *IdbusApiClient) GetSharePointResource(ida string, sp string) (api.Share
 	}
 
 	if res.Resource == nil {
-		c.logger.Debugf("GetSharePointResource. NOT FOUND %s", sp)
+		c.logger.Debugf("GetSharePointResource. NOT FOUND %s", resource)
 		return result, nil
 	}
 
 	if res.Resource != nil {
 		result = *res.Resource
-		c.logger.Debugf("GetSharePointResource. %s found for ID/name %s", *result.Name, sp)
+		c.logger.Debugf("GetSharePointResource. %s found for ID/name %s", *result.Name, resource)
 	} else {
-		c.logger.Debugf("GetSharePointResource. not found for ID/name %s", sp)
+		c.logger.Debugf("GetSharePointResource. not found for ID/name %s", resource)
 	}
 
 	return result, nil

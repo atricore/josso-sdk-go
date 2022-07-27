@@ -143,6 +143,7 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2Ser
 	tData := api.NewVirtualSaml2ServiceProviderDTO()
 
 	tData.SetName(name)
+	tData.SetDisplayName(fmt.Sprintf("Virtual Provider %s", name))
 
 	var snip api.SubjectNameIdentifierPolicyDTO
 
@@ -154,51 +155,46 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2Ser
 	snip.AdditionalProperties["@c"] = "com.atricore.idbus.console.services.dto.SubjectNameIdentifierPolicyDTO"
 	tData.SetSubjectNameIDPolicy(snip)
 
-	var rs api.ResourceDTO
-	rs.SetValue(keystore)
+	rs := api.NewResourceDTOInit("test-ks", "test ks", keystore)
 	rs.SetUri(fmt.Sprintf("ks-%s.jks", name))
 
-	var ks api.KeystoreDTO
+	// Use a p12 file
+	ks := api.NewKeystoreDTOInit(fmt.Sprintf("%s-ks", name), fmt.Sprintf("%s keystore", name), rs)
 	ks.SetCertificateAlias("jetty")
 	ks.SetPassword("@WSX3edc")
 	ks.SetPrivateKeyName("jetty")
 	ks.SetPrivateKeyPassword("@WSX3edc")
-	ks.SetStore(rs)
-	ks.SetType("JKS")
-	ks.SetName(fmt.Sprintf("%s-ks", name))
-	ks.SetStore(rs)
-	// TODO : Inject in VP
+	ks.SetType("PKCS#12")
 
-	var idMapping api.IdentityMappingPolicyDTO
-	idMapping.SetMappingType("LOCAL")
-	idMapping.SetUseLocalId(true)
-	tData.SetIdentityMappingPolicy(idMapping)
+	// Inject in IdP using IDP Config
+	idpCfg := api.NewSamlR2IDPConfigDTO()
+	idpCfg.SetName(fmt.Sprintf("%s-cfg", name))
+	idpCfg.SetUseSampleStore(false)
+	idpCfg.SetUseSystemStore(false)
+	idpCfg.SetSigner(*ks)
+	idpCfg.SetEncrypter(*ks)
+	cfg, _ := idpCfg.ToProviderConfig()
+	tData.SetConfig(*cfg)
 
-	/*
-		var AttributeProfileDTO api.AttributeProfileDTO
-		AttributeProfileDTO.SetProfileType("")
-		tData.SetAttributeProfile(AttributeProfileDTO)
-	*/
-
+	// SAML2 IdP config as serialized by CXF (Additional properties)
 	var conf api.SamlR2IDPConfigDTO
-	conf.SetDescription("")
-	conf.SetDisplayName("")
-	conf.SetElementId("")
-	conf.SetId(19)
-	conf.SetName("")
-	conf.SetUseSampleStore(true)
+	conf.SetUseSampleStore(false)
 	conf.SetUseSystemStore(false)
 	err := tData.SetSamlR2IDPConfig(&conf)
 	if err != nil {
 		return nil, err
 	}
 
+	var idMapping api.IdentityMappingPolicyDTO
+	idMapping.SetMappingType("LOCAL")
+	idMapping.SetUseLocalId(true)
+	tData.SetIdentityMappingPolicy(idMapping)
+
 	var linkage api.AccountLinkagePolicyDTO
 	linkage.SetLinkEmitterType("EMAIL")
 	tData.SetAccountLinkagePolicy(linkage)
 
 	tData.SetDashboardUrl("http://my-dashbaord.mycompany.com/ui")
-	tData.SetDisplayName("")
 	tData.SetEnableMetadataEndpoint(true)
 	tData.SetEnableProxyExtension(true)
 
@@ -208,7 +204,6 @@ func createTestVirtualSaml2ServiceProviderDTO(name string) (*api.VirtualSaml2Ser
 	tData.SetIdpSignatureHash("SHA256")
 
 	tData.SetIgnoreRequestedNameIDPolicy(true)
-	tData.SetIsRemote(true)
 	tData.SetMessageTtl(300)
 	tData.SetMessageTtlTolerance(300)
 	tData.SetOauth2Enabled(true)
@@ -318,12 +313,6 @@ func VirtualSaml2SpFieldTestCreate(
 			cmp:      func() bool { return BoolPtrEquals(e.IgnoreRequestedNameIDPolicy, r.IgnoreRequestedNameIDPolicy) },
 			expected: strconv.FormatBool(BoolDeref(e.IgnoreRequestedNameIDPolicy)),
 			received: strconv.FormatBool(BoolDeref(r.IgnoreRequestedNameIDPolicy)),
-		},
-		{
-			name:     "is_remote",
-			cmp:      func() bool { return BoolPtrEquals(e.IsRemote, r.IsRemote) },
-			expected: strconv.FormatBool(BoolDeref(e.IsRemote)),
-			received: strconv.FormatBool(BoolDeref(r.IsRemote)),
 		},
 		{
 			name:     "message_ttl",

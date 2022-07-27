@@ -394,6 +394,7 @@ func IdPFieldTestCreate(
 		},
 		{
 			name:     "branding",
+			cmp:      func() bool { return StrPtrEquals(e.UserDashboardBranding, r.UserDashboardBranding) },
 			expected: StrDeref(e.UserDashboardBranding),
 			received: StrDeref(r.UserDashboardBranding),
 		},

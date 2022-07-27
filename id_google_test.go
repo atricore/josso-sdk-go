@@ -67,7 +67,7 @@ func (s *AccTestSuite) TestAccCliIdpGoogle_crud() {
 	}
 
 	//Test Delete
-	deleted, err := s.client.DeleteIdpAzure(*appliance.Name, crudName)
+	deleted, err := s.client.DeleteIdpGoogle(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return

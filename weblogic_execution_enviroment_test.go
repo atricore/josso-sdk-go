@@ -134,18 +134,15 @@ func createTestWLogicExecutionEnvironmentDTO(name string) *api.WeblogicExecution
 	tData.SetName(name)
 
 	tData.SetActive(true)
-	//tData.SetBindingLocation()
 	tData.SetDescription(fmt.Sprintf("WLogic %s", name))
 	tData.SetDisplayName(fmt.Sprintf("WLogic %s", name))
-	//tData.SetDomain()
-	tData.SetElementId("")
-	//tData.SetId()
+	tData.SetDomain("my-domain")
 	tData.SetInstallDemoApps(true)
 	tData.SetInstallUri(fmt.Sprintf("/opt/atricore/josso-ee-2/%s", name))
 	tData.SetOverwriteOriginalSetup(true)
-	tData.SetPlatformId("wlogic")
-	//tData.SetTargetJDK()
-	//tData.SetType()
+	tData.SetPlatformId("wl12")
+	tData.SetTargetJDK("jdk16")
+	tData.SetType("LOCAL")
 
 	return tData
 }

@@ -57,9 +57,9 @@ func (c *IdbusApiClient) UpdateVirtSaml2Sp(ida string, sp api.VirtualSaml2Servic
 	VirtSaml2Sp(&sp)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
-	req := c.apiClient.DefaultApi.UdpateVirtSaml2Sp(ctx)
+	req := c.apiClient.DefaultApi.UpdateVirtSaml2Sp(ctx)
 	req = req.StoreVirtSaml2SpReq(api.StoreVirtSaml2SpReq{IdaName: &ida, Sp: &sp})
-	res, _, err := c.apiClient.DefaultApi.UdpateVirtSaml2SpExecute(req)
+	res, _, err := c.apiClient.DefaultApi.UpdateVirtSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateVirtSaml2Sp. Error %v", err)
 		return result, err

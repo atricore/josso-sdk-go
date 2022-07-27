@@ -9,7 +9,7 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-func (s *AccTestSuite) DISABLEDTestAccCliVirtSaml2_crud() {
+func (s *AccTestSuite) TestAccCliVirtSaml2_crud() {
 	var t = s.T()
 
 	appliance, err := getTestAppliance(s.T(), s.client)

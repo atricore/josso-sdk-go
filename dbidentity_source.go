@@ -49,7 +49,7 @@ func (c *IdbusApiClient) UpdateDbIdentitySourceDTO(ida string, intDbSource api.D
 	l := c.Logger()
 
 	l.Debugf("UpdateDbIdentitySourceDTO. : %s [%s]", *intDbSource.Name, ida)
-	sc, err := c.IdbusServerForOperation("DefaultApiService.UdpateDbIdentitySourceDTO") // Also hard-coded in generated client
+	sc, err := c.IdbusServerForOperation("DefaultApiService.UpdateDbIdentitySourceDTO") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
 	}

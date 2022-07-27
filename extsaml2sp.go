@@ -49,7 +49,7 @@ func (c *IdbusApiClient) UpdateExtSaml2Sp(ida string, sp api.ExternalSaml2Servic
 	l := c.Logger()
 
 	l.Debugf("UpdateExtSaml2Sp. : %s [%s]", *sp.Name, ida)
-	sc, err := c.IdbusServerForOperation("DefaultApiService.UdpateExtSaml2Sp") // Also hard-coded in generated client
+	sc, err := c.IdbusServerForOperation("DefaultApiService.UpdateExtSaml2Sp") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
 	}
@@ -57,9 +57,9 @@ func (c *IdbusApiClient) UpdateExtSaml2Sp(ida string, sp api.ExternalSaml2Servic
 	ExtSaml2Sp(&sp)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
-	req := c.apiClient.DefaultApi.UdpateExtSaml2Sp(ctx)
+	req := c.apiClient.DefaultApi.UpdateExtSaml2Sp(ctx)
 	req = req.StoreExtSaml2SpReq(api.StoreExtSaml2SpReq{IdaName: &ida, Sp: &sp})
-	res, _, err := c.apiClient.DefaultApi.UdpateExtSaml2SpExecute(req)
+	res, _, err := c.apiClient.DefaultApi.UpdateExtSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateExtSaml2Sp. Error %v", err)
 		return result, err

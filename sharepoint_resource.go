@@ -57,9 +57,9 @@ func (c *IdbusApiClient) UpdateSharePointResource(ida string, sp api.SharepointR
 	initSPointResource(&sp)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
-	req := c.apiClient.DefaultApi.UdpateSharepointRs(ctx)
+	req := c.apiClient.DefaultApi.UpdateSharepointRs(ctx)
 	req = req.StoreSharepointRsReq(api.StoreSharepointRsReq{IdaName: &ida, Resource: &sp})
-	res, _, err := c.apiClient.DefaultApi.UdpateSharepointRsExecute(req)
+	res, _, err := c.apiClient.DefaultApi.UpdateSharepointRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateSharePointResource. Error %v", err)
 		return result, err

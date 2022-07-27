@@ -49,7 +49,7 @@ func (c *IdbusApiClient) UpdateIntSaml2Sp(ida string, sp api.InternalSaml2Servic
 	l := c.Logger()
 
 	l.Debugf("UpdateIntSaml2Sp. : %s [%s]", *sp.Name, ida)
-	sc, err := c.IdbusServerForOperation("DefaultApiService.UdpateIntSaml2Sp") // Also hard-coded in generated client
+	sc, err := c.IdbusServerForOperation("DefaultApiService.UpdateIntSaml2Sp") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
 	}

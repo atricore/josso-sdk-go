@@ -49,7 +49,7 @@ func (c *IdbusApiClient) UpdateJosso1Resource(ida string, sp api.JOSSO1ResourceD
 	l := c.Logger()
 
 	l.Debugf("UpdateJosso1Resource. : %s [%s]", *sp.Name, ida)
-	sc, err := c.IdbusServerForOperation("DefaultApiService.UdpateJosso1Resource") // Also hard-coded in generated client
+	sc, err := c.IdbusServerForOperation("DefaultApiService.UpdateJosso1Resource") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
 	}
@@ -57,9 +57,9 @@ func (c *IdbusApiClient) UpdateJosso1Resource(ida string, sp api.JOSSO1ResourceD
 	initJosso1Resource(&sp)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
-	req := c.apiClient.DefaultApi.UdpateJossoRs(ctx)
+	req := c.apiClient.DefaultApi.UpdateJossoRs(ctx)
 	req = req.StoreJossoRsReq(api.StoreJossoRsReq{IdaName: &ida, Resource: &sp})
-	res, _, err := c.apiClient.DefaultApi.UdpateJossoRsExecute(req)
+	res, _, err := c.apiClient.DefaultApi.UpdateJossoRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateJosso1Resource. Error %v", err)
 		return result, err

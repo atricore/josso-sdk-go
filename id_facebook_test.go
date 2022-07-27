@@ -55,7 +55,6 @@ func (s *AccTestSuite) TestAccCliIdFacebook_crud() {
 
 	// Test Update
 	read.Description = api.PtrString("Updated description")
-	read.ElementId = api.PtrString("12345")
 
 	updated, err := s.client.UpdateIdpFacebook(*appliance.Name, read)
 	if err != nil {

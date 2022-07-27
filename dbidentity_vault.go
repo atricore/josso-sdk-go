@@ -49,7 +49,7 @@ func (c *IdbusApiClient) UpdateDbIdentityVaultDTO(ida string, intDbVault api.DbI
 	l := c.Logger()
 
 	l.Debugf("UpdateDbIdentityVaultDto. : %s [%s]", *intDbVault.Name, ida)
-	sc, err := c.IdbusServerForOperation("DefaultApiService.UdpateDbIdentityVaultDTO") // Also hard-coded in generated client
+	sc, err := c.IdbusServerForOperation("DefaultApiService.UpdateDbIdentityVaultDTO") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
 	}

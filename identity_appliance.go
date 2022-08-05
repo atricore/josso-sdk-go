@@ -318,3 +318,34 @@ func (c *IdbusApiClient) GetApplianceContainer(idOrName string) (api.IdentityApp
 
 	return result, err
 }
+
+// func that calls the idbus server calclayout operation.
+func (c *IdbusApiClient) CalcLayout(idOrName string) (string, error) {
+
+	var result string
+
+	sc, err := c.IdbusServerForOperation("DefaultApiService.CalcLayout") // Also hard-coded in generated client
+	if err != nil {
+		c.logger.Errorf("calcLayout. Error %v", err)
+		return result, err
+	}
+
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+
+	req := c.apiClient.DefaultApi.LayoutAppliance(ctx)
+	req = req.CalcLayoutReq(api.CalcLayoutReq{IdOrName: &idOrName})
+	res, _, err := c.apiClient.DefaultApi.LayoutApplianceExecute(req)
+
+	if err != nil {
+		c.logger.Errorf("calcLayout. Error %v", err)
+	}
+	if res.Error != nil {
+		c.logger.Errorf("calcLayout. Error %v", *res.Error)
+		return result, errors.New(*res.Error)
+	}
+	if res.Export != nil {
+		result = res.GetExport()
+	}
+
+	return result, err
+}

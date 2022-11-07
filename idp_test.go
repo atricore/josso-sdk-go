@@ -30,11 +30,14 @@ import (
 func (s *AccTestSuite) TestAccCliIdP_read() {
 	var t = s.T()
 	// Test READ
-	_, err := s.client.GetIdp("ida-lda", "idp-1")
+
+	idp, err := s.client.GetIdp("devsso-01", "idp-1")
 	if err != nil {
 		t.Error(err)
 		return
 	}
+
+	s.client.Logger().Debugf("!!! TestAccCliIdP_read: %#v", idp.AuthenticationMechanisms[0].DelegatedAuthentication.AuthnService)
 }
 */
 

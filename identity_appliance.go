@@ -224,7 +224,7 @@ func (c *IdbusApiClient) StartAppliance(name string) error {
 		return errors.New(*res.Error)
 	}
 
-	c.logger.Debugf("startAppliance. Deleted %s : %t", name)
+	c.logger.Debugf("startAppliance. Started %s", name)
 
 	return err
 }
@@ -255,7 +255,65 @@ func (c *IdbusApiClient) StopAppliance(name string) error {
 		return errors.New(*res.Error)
 	}
 
-	c.logger.Debugf("stopAppliance. Deleted %s : %t", name)
+	c.logger.Debugf("stopAppliance. Stopped %s", name)
+
+	return err
+}
+
+func (c *IdbusApiClient) ValidateAppliance(name string) error {
+
+	c.logger.Debugf("validateAppliance id: %s", name)
+	sc, err := c.IdbusServerForOperation("DefaultApiService.validateAppliance") // Also hard-coded in generated client
+	if err != nil {
+		c.logger.Errorf("validateAppliance. Error %v", err)
+		return err
+	}
+
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+	req := c.apiClient.DefaultApi.ValidateAppliance(ctx)
+	req = req.GetApplianceReq(api.GetApplianceReq{IdaName: &name})
+	res, _, err := c.apiClient.DefaultApi.ValidateApplianceExecute(req)
+
+	if err != nil {
+		c.logger.Errorf("validateAppliance. Error %v", err)
+		return err
+	}
+
+	if res.Error != nil {
+		c.logger.Errorf("validateAppliance. Error %v", *res.Error)
+		return errors.New(*res.Error)
+	}
+
+	c.logger.Debugf("validateAppliance. OK %s", name)
+
+	return err
+}
+
+func (c *IdbusApiClient) BuildAppliance(name string) error {
+
+	c.logger.Debugf("buildAppliance id: %s", name)
+	sc, err := c.IdbusServerForOperation("DefaultApiService.buildAppliance") // Also hard-coded in generated client
+	if err != nil {
+		c.logger.Errorf("buildAppliance. Error %v", err)
+		return err
+	}
+
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+	req := c.apiClient.DefaultApi.BuildAppliance(ctx)
+	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdaName: &name})
+	res, _, err := c.apiClient.DefaultApi.BuildApplianceExecute(req)
+
+	if err != nil {
+		c.logger.Errorf("buildAppliance. Error %v", err)
+		return err
+	}
+
+	if res.Error != nil {
+		c.logger.Errorf("buildAppliance. Error %v", *res.Error)
+		return errors.New(*res.Error)
+	}
+
+	c.logger.Debugf("buildAppliance. OK %s", name)
 
 	return err
 }

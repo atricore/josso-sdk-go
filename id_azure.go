@@ -21,7 +21,7 @@ func (c *IdbusApiClient) CreateIdpAzure(ida string, IdAzure api.AzureOpenIDConne
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIdpAzure(ctx)
-	req = req.StoreIdpAzureReq(api.StoreIdpAzureReq{IdaName: &ida, Idp: &IdAzure})
+	req = req.StoreIdpAzureReq(api.StoreIdpAzureReq{IdOrName: &ida, Idp: &IdAzure})
 	res, _, err := c.apiClient.DefaultApi.CreateIdpAzureExecute(req)
 	if err != nil {
 		c.logger.Errorf("createIdpAzure. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateIdpAzure(ida string, IdAzure api.AzureOpenIDConne
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIdpAzure(ctx)
-	req = req.StoreIdpAzureReq(api.StoreIdpAzureReq{IdaName: &ida, Idp: &IdAzure})
+	req = req.StoreIdpAzureReq(api.StoreIdpAzureReq{IdOrName: &ida, Idp: &IdAzure})
 	res, _, err := c.apiClient.DefaultApi.UpdateIdpAzureExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateIdAzure. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteIdpAzure(ida string, IdAzure string) (bool, error
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIdpAzure(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &IdAzure})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &IdAzure})
 	res, _, err := c.apiClient.DefaultApi.DeleteIdpAzureExecute(req)
 
 	if err != nil {
@@ -119,7 +119,7 @@ func (c *IdbusApiClient) GetIdpAzure(ida string, IdAzure string) (api.AzureOpenI
 	}
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdpAzure(ctx)
-	req = req.GetIdpAzureReq(api.GetIdpAzureReq{IdaName: &ida, Name: &IdAzure})
+	req = req.GetIdpAzureReq(api.GetIdpAzureReq{IdOrName: &ida, Name: &IdAzure})
 	res, _, err := c.apiClient.DefaultApi.GetIdpAzureExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdAzure. Error %v", err)
@@ -158,7 +158,7 @@ func (c *IdbusApiClient) GetIdpAzures(ida string) ([]api.AzureOpenIDConnectIdent
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdpAzures(ctx)
-	req = req.GetIdpAzureReq(api.GetIdpAzureReq{IdaName: &ida})
+	req = req.GetIdpAzureReq(api.GetIdpAzureReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIdpAzuresExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdpAzures. Error %v", err)

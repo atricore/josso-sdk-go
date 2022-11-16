@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateTomcatExeEnv(ida string, tc api.TomcatExecutionEn
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateTomcatExecEnv(ctx)
-	req = req.StoreTomcatExecEnvReq(api.StoreTomcatExecEnvReq{IdaName: &ida, TomcatExecEnv: &tc})
+	req = req.StoreTomcatExecEnvReq(api.StoreTomcatExecEnvReq{IdOrName: &ida, TomcatExecEnv: &tc})
 	res, _, err := c.apiClient.DefaultApi.CreateTomcatExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("createTomcatExeEnv. Error %v", err)
@@ -59,7 +59,7 @@ func (c *IdbusApiClient) UpdateTomcatExeEnv(ida string, Tomcat api.TomcatExecuti
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateTomcatExecEnv(ctx)
-	req = req.StoreTomcatExecEnvReq(api.StoreTomcatExecEnvReq{IdaName: &ida, TomcatExecEnv: &Tomcat})
+	req = req.StoreTomcatExecEnvReq(api.StoreTomcatExecEnvReq{IdOrName: &ida, TomcatExecEnv: &Tomcat})
 	res, _, err := c.apiClient.DefaultApi.UpdateTomcatExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateTomcat. Error %v", err)
@@ -92,7 +92,7 @@ func (c *IdbusApiClient) DeleteTomcatExeEnv(ida string, Tomcat string) (bool, er
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteTomcatExecEnv(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &Tomcat})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &Tomcat})
 	res, _, err := c.apiClient.DefaultApi.DeleteTomcatExecEnvExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetTomcatExeEnv(ida string, Tomcat string) (api.TomcatE
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetTomcatExecEnv(ctx)
-	req = req.GetTomcatExecEnvReq(api.GetTomcatExecEnvReq{IdaName: &ida, Name: &Tomcat})
+	req = req.GetTomcatExecEnvReq(api.GetTomcatExecEnvReq{IdOrName: &ida, Name: &Tomcat})
 	res, _, err := c.apiClient.DefaultApi.GetTomcatExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("getTomcat. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetTomcatExeEnvs(ida string) ([]api.TomcatExecutionEnvi
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetTomcatExecEnvs(ctx)
-	req = req.GetTomcatExecEnvReq(api.GetTomcatExecEnvReq{IdaName: &ida})
+	req = req.GetTomcatExecEnvReq(api.GetTomcatExecEnvReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetTomcatExecEnvsExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetTomcatExeEnvs. Error %v", err)

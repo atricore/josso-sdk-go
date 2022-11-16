@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateJossoresource(ida string, jossors api.JOSSO1Resou
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateJossoRs(ctx)
-	req = req.StoreJossoRsReq(api.StoreJossoRsReq{IdaName: &ida, Resource: &jossors})
+	req = req.StoreJossoRsReq(api.StoreJossoRsReq{IdOrName: &ida, Resource: &jossors})
 	res, _, err := c.apiClient.DefaultApi.CreateJossoRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreateJossoresource. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateJosso1Resource(ida string, sp api.JOSSO1ResourceD
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateJossoRs(ctx)
-	req = req.StoreJossoRsReq(api.StoreJossoRsReq{IdaName: &ida, Resource: &sp})
+	req = req.StoreJossoRsReq(api.StoreJossoRsReq{IdOrName: &ida, Resource: &sp})
 	res, _, err := c.apiClient.DefaultApi.UpdateJossoRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateJosso1Resource. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteJosso1Resource(ida string, sp string) (bool, erro
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteJossoRs(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &sp})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &sp})
 	res, _, err := c.apiClient.DefaultApi.DeleteJossoRsExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetJosso1Resource(ida string, resource string) (api.JOS
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetJossoRs(ctx)
-	req = req.GetJossoRsReq(api.GetJossoRsReq{IdaName: &ida, Name: &resource})
+	req = req.GetJossoRsReq(api.GetJossoRsReq{IdOrName: &ida, Name: &resource})
 	res, _, err := c.apiClient.DefaultApi.GetJossoRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetJosso1Resource. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetJosso1Resources(ida string) ([]api.JOSSO1ResourceDTO
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetJossoRss(ctx)
-	req = req.GetJossoRsReq(api.GetJossoRsReq{IdaName: &ida})
+	req = req.GetJossoRsReq(api.GetJossoRsReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetJossoRssExecute(req)
 	if err != nil {
 		c.logger.Errorf("getJosso1Resources. Error %v", err)

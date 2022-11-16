@@ -18,8 +18,8 @@ func (c *IdbusApiClient) ExportExecEnvCfg(appliance_id string, exec_env_name str
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.ExportExecEnvCfg(ctx)
 	req = req.ExportExecEnvCfgReq(api.ExportExecEnvCfgReq{
-		IdaName: &appliance_id,
-		Name:    &exec_env_name,
+		IdOrName: &appliance_id,
+		Name:     &exec_env_name,
 	})
 	res, _, err := c.apiClient.DefaultApi.ExportExecEnvCfgExecute(req)
 
@@ -60,7 +60,7 @@ func (c *IdbusApiClient) ActivateExecEnv(
 	req := c.apiClient.DefaultApi.ActivateExecEnv(ctx)
 	req = req.ActivateExecEnvReq(api.ActivateExecEnvReq{
 		ApplianceId:     &appliance_id,
-		IdaName:         &appliance_id,
+		IdOrName:        &appliance_id,
 		ExecEnvName:     &exec_env_name,
 		ExecEnvFolder:   &exec_env_folder,
 		Reactivate:      &force,

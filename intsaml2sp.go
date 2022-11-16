@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateIntSaml2Sp(ida string, intsp api.InternalSaml2Ser
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIntSaml2Sp(ctx)
-	req = req.StoreIntSaml2SpReq(api.StoreIntSaml2SpReq{IdaName: &ida, Sp: &intsp})
+	req = req.StoreIntSaml2SpReq(api.StoreIntSaml2SpReq{IdOrName: &ida, Sp: &intsp})
 	res, _, err := c.apiClient.DefaultApi.CreateIntSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreateIntSaml2Sp. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateIntSaml2Sp(ida string, sp api.InternalSaml2Servic
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIntSaml2Sp(ctx)
-	req = req.StoreIntSaml2SpReq(api.StoreIntSaml2SpReq{IdaName: &ida, Sp: &sp})
+	req = req.StoreIntSaml2SpReq(api.StoreIntSaml2SpReq{IdOrName: &ida, Sp: &sp})
 	res, _, err := c.apiClient.DefaultApi.UpdateIntSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateIntSaml2Sp. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteIntSaml2Sp(ida string, sp string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIntSaml2Sp(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &sp})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &sp})
 	res, _, err := c.apiClient.DefaultApi.DeleteIntSaml2SpExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetIntSaml2Sp(ida string, sp string) (api.InternalSaml2
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIntSaml2Sp(ctx)
-	req = req.GetIntSaml2SpReq(api.GetIntSaml2SpReq{IdaName: &ida, Name: &sp})
+	req = req.GetIntSaml2SpReq(api.GetIntSaml2SpReq{IdOrName: &ida, Name: &sp})
 	res, _, err := c.apiClient.DefaultApi.GetIntSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetIntSaml2Sp. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetIntSaml2Sps(ida string) ([]api.InternalSaml2ServiceP
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIntSaml2Sps(ctx)
-	req = req.GetIntSaml2SpReq(api.GetIntSaml2SpReq{IdaName: &ida})
+	req = req.GetIntSaml2SpReq(api.GetIntSaml2SpReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIntSaml2SpsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIntSaml2Sps. Error %v", err)

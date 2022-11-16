@@ -21,7 +21,7 @@ func (c *IdbusApiClient) CreateIdpGoogle(ida string, IdGoogle api.GoogleOpenIDCo
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIdpGoogle(ctx)
-	req = req.StoreIdpGoogleReq(api.StoreIdpGoogleReq{IdaName: &ida, Idp: &IdGoogle})
+	req = req.StoreIdpGoogleReq(api.StoreIdpGoogleReq{IdOrName: &ida, Idp: &IdGoogle})
 	res, _, err := c.apiClient.DefaultApi.CreateIdpGoogleExecute(req)
 	if err != nil {
 		c.logger.Errorf("createIdpGoogle. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateIdpGoogle(ida string, IdGoogle api.GoogleOpenIDCo
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIdpGoogle(ctx)
-	req = req.StoreIdpGoogleReq(api.StoreIdpGoogleReq{IdaName: &ida, Idp: &IdGoogle})
+	req = req.StoreIdpGoogleReq(api.StoreIdpGoogleReq{IdOrName: &ida, Idp: &IdGoogle})
 	res, _, err := c.apiClient.DefaultApi.UpdateIdpGoogleExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateIdGoogle. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteIdpGoogle(ida string, IdGoogle string) (bool, err
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIdpGoogle(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &IdGoogle})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &IdGoogle})
 	res, _, err := c.apiClient.DefaultApi.DeleteIdpGoogleExecute(req)
 
 	if err != nil {
@@ -119,7 +119,7 @@ func (c *IdbusApiClient) GetIdpGoogle(ida string, IdGoogle string) (api.GoogleOp
 	}
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdpGoogle(ctx)
-	req = req.GetIdpGoogleReq(api.GetIdpGoogleReq{IdaName: &ida, Name: &IdGoogle})
+	req = req.GetIdpGoogleReq(api.GetIdpGoogleReq{IdOrName: &ida, Name: &IdGoogle})
 	res, _, err := c.apiClient.DefaultApi.GetIdpGoogleExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdGoogle. Error %v", err)
@@ -158,7 +158,7 @@ func (c *IdbusApiClient) GetIdpGoogles(ida string) ([]api.GoogleOpenIDConnectIde
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdpGoogles(ctx)
-	req = req.GetIdpGoogleReq(api.GetIdpGoogleReq{IdaName: &ida})
+	req = req.GetIdpGoogleReq(api.GetIdpGoogleReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIdpGooglesExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIIdpGoogles. Error %v", err)

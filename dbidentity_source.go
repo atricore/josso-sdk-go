@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateDbIdentitySourceDTO(ida string, intDbSource api.D
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIdSourceDb(ctx)
-	req = req.StoreIdSourceDbReq(api.StoreIdSourceDbReq{IdaName: &ida, IdSourceDb: &intDbSource})
+	req = req.StoreIdSourceDbReq(api.StoreIdSourceDbReq{IdOrName: &ida, IdSourceDb: &intDbSource})
 	res, _, err := c.apiClient.DefaultApi.CreateIdSourceDbExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreateDbIdentitySource. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateDbIdentitySourceDTO(ida string, intDbSource api.D
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIdSourceDb(ctx)
-	req = req.StoreIdSourceDbReq(api.StoreIdSourceDbReq{IdaName: &ida, IdSourceDb: &intDbSource})
+	req = req.StoreIdSourceDbReq(api.StoreIdSourceDbReq{IdOrName: &ida, IdSourceDb: &intDbSource})
 	res, _, err := c.apiClient.DefaultApi.UpdateIdSourceDbExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateDbIdentitySourceDTO. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteDbIdentitySourceDTO(ida string, intDbSource strin
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIdSourceDb(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &intDbSource})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &intDbSource})
 	res, _, err := c.apiClient.DefaultApi.DeleteIdSourceDbExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetDbIdentitySourceDTO(ida string, intDbSource string) 
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdSourceDb(ctx)
-	req = req.GetIdSourceDbReq(api.GetIdSourceDbReq{IdaName: &ida, Name: &intDbSource})
+	req = req.GetIdSourceDbReq(api.GetIdSourceDbReq{IdOrName: &ida, Name: &intDbSource})
 	res, _, err := c.apiClient.DefaultApi.GetIdSourceDbExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetDbIdentitySourceDTO. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetDbIdentitySourceDTOs(ida string) ([]api.DbIdentitySo
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdSourceDbs(ctx)
-	req = req.GetIdSourceDbReq(api.GetIdSourceDbReq{IdaName: &ida})
+	req = req.GetIdSourceDbReq(api.GetIdSourceDbReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIdSourceDbsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getDbIdentitySourceDTOs. Error %v", err)

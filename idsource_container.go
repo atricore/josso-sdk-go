@@ -19,7 +19,7 @@ func (c *IdbusApiClient) GetIdSource(ida string, idsource string) (api.IdSourceC
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdSource(ctx)
-	req = req.GetIdSourceReq(api.GetIdSourceReq{IdaName: &ida, Name: &idsource})
+	req = req.GetIdSourceReq(api.GetIdSourceReq{IdOrName: &ida, Name: &idsource})
 	res, _, err := c.apiClient.DefaultApi.GetIdSourceExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdSource. Error %v", err)
@@ -53,7 +53,7 @@ func (c *IdbusApiClient) GetIdSources(ida string) ([]api.IdSourceContainerDTO, e
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdSources(ctx)
-	req = req.GetIdSourcesReq(api.GetIdSourcesReq{IdaName: &ida})
+	req = req.GetIdSourcesReq(api.GetIdSourcesReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIdSourcesExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdSources. Error %v", err)

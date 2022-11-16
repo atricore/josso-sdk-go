@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateExtSaml2Sp(ida string, extsp api.ExternalSaml2Ser
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateExtSaml2Sp(ctx)
-	req = req.StoreExtSaml2SpReq(api.StoreExtSaml2SpReq{IdaName: &ida, Sp: &extsp})
+	req = req.StoreExtSaml2SpReq(api.StoreExtSaml2SpReq{IdOrName: &ida, Sp: &extsp})
 	res, _, err := c.apiClient.DefaultApi.CreateExtSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreateExtSaml2Sp. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateExtSaml2Sp(ida string, sp api.ExternalSaml2Servic
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateExtSaml2Sp(ctx)
-	req = req.StoreExtSaml2SpReq(api.StoreExtSaml2SpReq{IdaName: &ida, Sp: &sp})
+	req = req.StoreExtSaml2SpReq(api.StoreExtSaml2SpReq{IdOrName: &ida, Sp: &sp})
 	res, _, err := c.apiClient.DefaultApi.UpdateExtSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateExtSaml2Sp. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteExtSaml2Sp(ida string, sp string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteExtSaml2Sp(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &sp})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &sp})
 	res, _, err := c.apiClient.DefaultApi.DeleteExtSaml2SpExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetExtSaml2Sp(ida string, sp string) (api.ExternalSaml2
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetExtSaml2Sp(ctx)
-	req = req.GetExtSaml2SpReq(api.GetExtSaml2SpReq{IdaName: &ida, Name: &sp})
+	req = req.GetExtSaml2SpReq(api.GetExtSaml2SpReq{IdOrName: &ida, Name: &sp})
 	res, _, err := c.apiClient.DefaultApi.GetExtSaml2SpExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetExtSaml2Sp. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetExtSaml2Sps(ida string) ([]api.ExternalSaml2ServiceP
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetExtSaml2Sps(ctx)
-	req = req.GetExtSaml2SpReq(api.GetExtSaml2SpReq{IdaName: &ida})
+	req = req.GetExtSaml2SpReq(api.GetExtSaml2SpReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetExtSaml2SpsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getExtSaml2Sps. Error %v", err)

@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateWLogic(ida string, wlogic api.WeblogicExecutionEn
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateWeblogicExecEnv(ctx)
-	req = req.StoreWeblogicExecEnvReq(api.StoreWeblogicExecEnvReq{IdaName: &ida, ExecEnv: &wlogic})
+	req = req.StoreWeblogicExecEnvReq(api.StoreWeblogicExecEnvReq{IdOrName: &ida, ExecEnv: &wlogic})
 	res, _, err := c.apiClient.DefaultApi.CreateWeblogicExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreatewlogicExeEnv. Error %v", err)
@@ -59,7 +59,7 @@ func (c *IdbusApiClient) UpdateWLogic(ida string, wlogic api.WeblogicExecutionEn
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateWeblogicExecEnv(ctx)
-	req = req.StoreWeblogicExecEnvReq(api.StoreWeblogicExecEnvReq{IdaName: &ida, ExecEnv: &wlogic})
+	req = req.StoreWeblogicExecEnvReq(api.StoreWeblogicExecEnvReq{IdOrName: &ida, ExecEnv: &wlogic})
 	res, _, err := c.apiClient.DefaultApi.UpdateWeblogicExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("updatewlogicExeEnv. Error %v", err)
@@ -92,7 +92,7 @@ func (c *IdbusApiClient) DeleteWLogic(ida string, wlogic string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteWeblogicExecEnv(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &wlogic})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &wlogic})
 	res, _, err := c.apiClient.DefaultApi.DeleteWeblogicExecEnvExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetWebLogic(ida string, wlogic string) (api.WeblogicExe
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetWeblogicExecEnv(ctx)
-	req = req.GetWeblogicExecEnvReq(api.GetWeblogicExecEnvReq{IdaName: &ida, Name: &wlogic})
+	req = req.GetWeblogicExecEnvReq(api.GetWeblogicExecEnvReq{IdOrName: &ida, Name: &wlogic})
 	res, _, err := c.apiClient.DefaultApi.GetWeblogicExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("getwlogic. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetWebLogics(ida string) ([]api.WeblogicExecutionEnviro
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetWeblogicExecEnvs(ctx)
-	req = req.GetWeblogicExecEnvReq(api.GetWeblogicExecEnvReq{IdaName: &ida})
+	req = req.GetWeblogicExecEnvReq(api.GetWeblogicExecEnvReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetWeblogicExecEnvsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getwlogicExeEnvs. Error %v", err)

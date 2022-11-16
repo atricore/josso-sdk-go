@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateOidcRp(ida string, oidcRp api.ExternalOpenIDConne
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateOidcRp(ctx)
-	req = req.StoreOidcRpReq(api.StoreOidcRpReq{IdaName: &ida, OidcRp: &oidcRp})
+	req = req.StoreOidcRpReq(api.StoreOidcRpReq{IdOrName: &ida, OidcRp: &oidcRp})
 	res, _, err := c.apiClient.DefaultApi.CreateOidcRpExecute(req)
 	if err != nil {
 		c.logger.Errorf("createOidcRp. Error %v", err)
@@ -59,7 +59,7 @@ func (c *IdbusApiClient) UpdateOidcRp(ida string, oidcRp api.ExternalOpenIDConne
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateOidcRp(ctx)
-	req = req.StoreOidcRpReq(api.StoreOidcRpReq{IdaName: &ida, OidcRp: &oidcRp})
+	req = req.StoreOidcRpReq(api.StoreOidcRpReq{IdOrName: &ida, OidcRp: &oidcRp})
 	res, _, err := c.apiClient.DefaultApi.UpdateOidcRpExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateOidcRp. Error %v", err)
@@ -92,7 +92,7 @@ func (c *IdbusApiClient) DeleteOidcRp(ida string, oidcRp string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteOidcRp(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &oidcRp})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &oidcRp})
 	res, _, err := c.apiClient.DefaultApi.DeleteOidcRpExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetOidcRp(ida string, oidcRp string) (api.ExternalOpenI
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetOidcRp(ctx)
-	req = req.GetOidcRpReq(api.GetOidcRpReq{IdaName: &ida, Name: &oidcRp})
+	req = req.GetOidcRpReq(api.GetOidcRpReq{IdOrName: &ida, Name: &oidcRp})
 	res, _, err := c.apiClient.DefaultApi.GetOidcRpExecute(req)
 	if err != nil {
 		c.logger.Errorf("getOidcRp. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetOidcRps(ida string) ([]api.ExternalOpenIDConnectRela
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetOidcRps(ctx)
-	req = req.GetOidcRpReq(api.GetOidcRpReq{IdaName: &ida})
+	req = req.GetOidcRpReq(api.GetOidcRpReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetOidcRpsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getOidcRps. Error %v", err)

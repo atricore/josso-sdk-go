@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateDbIdentityVault(ida string, intDbVault api.DbIden
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateDbIdVault(ctx)
-	req = req.StoreDbIdVaultReq(api.StoreDbIdVaultReq{IdaName: &ida, DbIdVault: &intDbVault})
+	req = req.StoreDbIdVaultReq(api.StoreDbIdVaultReq{IdOrName: &ida, DbIdVault: &intDbVault})
 	res, _, err := c.apiClient.DefaultApi.CreateDbIdVaultExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreateDbIdentityVault. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateDbIdentityVaultDTO(ida string, intDbVault api.DbI
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateDbIdVault(ctx)
-	req = req.StoreDbIdVaultReq(api.StoreDbIdVaultReq{IdaName: &ida, DbIdVault: &intDbVault})
+	req = req.StoreDbIdVaultReq(api.StoreDbIdVaultReq{IdOrName: &ida, DbIdVault: &intDbVault})
 	res, _, err := c.apiClient.DefaultApi.UpdateDbIdVaultExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateDbIdentityVaultDto. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteDbIdentityVaultDto(ida string, intDbVault string)
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteDbIdVault(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &intDbVault})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &intDbVault})
 	res, _, err := c.apiClient.DefaultApi.DeleteDbIdVaultExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetDbIdentityVaultDto(ida string, intDbVault string) (a
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetDbIdVault(ctx)
-	req = req.GetDbIdVaultReq(api.GetDbIdVaultReq{IdaName: &ida, Name: &intDbVault})
+	req = req.GetDbIdVaultReq(api.GetDbIdVaultReq{IdOrName: &ida, Name: &intDbVault})
 	res, _, err := c.apiClient.DefaultApi.GetDbIdVaultExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetDbIdentityVaultDto. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetDbIdentityVaultDtos(ida string) ([]api.DbIdentityVau
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetDbIdVaults(ctx)
-	req = req.GetDbIdVaultReq(api.GetDbIdVaultReq{IdaName: &ida})
+	req = req.GetDbIdVaultReq(api.GetDbIdVaultReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetDbIdVaultsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getDbIdentityVaultDtos. Error %v", err)

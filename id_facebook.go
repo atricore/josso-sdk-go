@@ -21,7 +21,7 @@ func (c *IdbusApiClient) CreateIdFacebook(ida string, IdFacebook api.FacebookOpe
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIdpFacebook(ctx)
-	req = req.StoreIdpFacebookReq(api.StoreIdpFacebookReq{IdaName: &ida, Idp: &IdFacebook})
+	req = req.StoreIdpFacebookReq(api.StoreIdpFacebookReq{IdOrName: &ida, Idp: &IdFacebook})
 	res, _, err := c.apiClient.DefaultApi.CreateIdpFacebookExecute(req)
 	if err != nil {
 		c.logger.Errorf("createIdFacebook. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateIdpFacebook(ida string, IdFacebook api.FacebookOp
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIdpFacebook(ctx)
-	req = req.StoreIdpFacebookReq(api.StoreIdpFacebookReq{IdaName: &ida, Idp: &IdFacebook})
+	req = req.StoreIdpFacebookReq(api.StoreIdpFacebookReq{IdOrName: &ida, Idp: &IdFacebook})
 	res, _, err := c.apiClient.DefaultApi.UpdateIdpFacebookExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateIdFacebook. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteIdpFacebook(ida string, IdFacebook string) (bool,
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIdpFacebook(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &IdFacebook})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &IdFacebook})
 	res, _, err := c.apiClient.DefaultApi.DeleteIdpFacebookExecute(req)
 
 	if err != nil {
@@ -119,7 +119,7 @@ func (c *IdbusApiClient) GetIdpFacebook(ida string, IdFacebook string) (api.Face
 	}
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdpFacebook(ctx)
-	req = req.GetIdpFacebookReq(api.GetIdpFacebookReq{IdaName: &ida, Name: &IdFacebook})
+	req = req.GetIdpFacebookReq(api.GetIdpFacebookReq{IdOrName: &ida, Name: &IdFacebook})
 	res, _, err := c.apiClient.DefaultApi.GetIdpFacebookExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdFacebook. Error %v", err)
@@ -158,7 +158,7 @@ func (c *IdbusApiClient) GetIdpFacebooks(ida string) ([]api.FacebookOpenIDConnec
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdpFacebooks(ctx)
-	req = req.GetIdpFacebookReq(api.GetIdpFacebookReq{IdaName: &ida})
+	req = req.GetIdpFacebookReq(api.GetIdpFacebookReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIdpFacebooksExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdpFacebooks. Error %v", err)

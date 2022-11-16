@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateIdp(ida string, idp api.IdentityProviderDTO) (api
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIdP(ctx)
-	req = req.StoreIdPReq(api.StoreIdPReq{IdaName: &ida, Idp: &idp})
+	req = req.StoreIdPReq(api.StoreIdPReq{IdOrName: &ida, Idp: &idp})
 	res, _, err := c.apiClient.DefaultApi.CreateIdPExecute(req)
 	if err != nil {
 		c.logger.Errorf("createIdP. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateIdp(ida string, idp api.IdentityProviderDTO) (api
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIdP(ctx)
-	req = req.StoreIdPReq(api.StoreIdPReq{IdaName: &ida, Idp: &idp})
+	req = req.StoreIdPReq(api.StoreIdPReq{IdOrName: &ida, Idp: &idp})
 	res, _, err := c.apiClient.DefaultApi.UpdateIdPExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateIdP. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteIdp(ida string, idp string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIdP(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &idp})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &idp})
 	res, _, err := c.apiClient.DefaultApi.DeleteIdPExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetIdp(ida string, idp string) (api.IdentityProviderDTO
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdP(ctx)
-	req = req.GetIdPReq(api.GetIdPReq{IdaName: &ida, Name: &idp})
+	req = req.GetIdPReq(api.GetIdPReq{IdOrName: &ida, Name: &idp})
 	res, _, err := c.apiClient.DefaultApi.GetIdPExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdP. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetIdps(ida string) ([]api.IdentityProviderDTO, error) 
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdPs(ctx)
-	req = req.GetIdPReq(api.GetIdPReq{IdaName: &ida})
+	req = req.GetIdPReq(api.GetIdPReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIdPsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdPs. Error %v", err)

@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateSharePointresource(ida string, sharepoint api.Sha
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateSharepointRs(ctx)
-	req = req.StoreSharepointRsReq(api.StoreSharepointRsReq{IdaName: &ida, Resource: &sharepoint})
+	req = req.StoreSharepointRsReq(api.StoreSharepointRsReq{IdOrName: &ida, Resource: &sharepoint})
 	res, _, err := c.apiClient.DefaultApi.CreateSharepointRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreateSharePointresource. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateSharePointResource(ida string, sp api.SharepointR
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateSharepointRs(ctx)
-	req = req.StoreSharepointRsReq(api.StoreSharepointRsReq{IdaName: &ida, Resource: &sp})
+	req = req.StoreSharepointRsReq(api.StoreSharepointRsReq{IdOrName: &ida, Resource: &sp})
 	res, _, err := c.apiClient.DefaultApi.UpdateSharepointRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("UpdateSharePointResource. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteSharePointResource(ida string, sp string) (bool, 
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteSharepointRs(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &sp})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &sp})
 	res, _, err := c.apiClient.DefaultApi.DeleteSharepointRsExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetSharePointResource(ida string, resource string) (api
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetSharepointRs(ctx)
-	req = req.GetSharepointRsReq(api.GetSharepointRsReq{IdaName: &ida, Name: &resource})
+	req = req.GetSharepointRsReq(api.GetSharepointRsReq{IdOrName: &ida, Name: &resource})
 	res, _, err := c.apiClient.DefaultApi.GetSharepointRsExecute(req)
 	if err != nil {
 		c.logger.Errorf("GetSharePointResource. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetSharePointResources(ida string) ([]api.SharepointRes
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetSharepointRss(ctx)
-	req = req.GetSharepointRsReq(api.GetSharepointRsReq{IdaName: &ida})
+	req = req.GetSharepointRsReq(api.GetSharepointRsReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetSharepointRssExecute(req)
 	if err != nil {
 		c.logger.Errorf("getSharePointResources. Error %v", err)

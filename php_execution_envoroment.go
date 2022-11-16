@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreatePhpExeEnv(ida string, php api.PHPExecutionEnviron
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreatePhpExecEnv(ctx)
-	req = req.StorePhpExecEnvReq(api.StorePhpExecEnvReq{IdaName: &ida, PhpExecEnv: &php})
+	req = req.StorePhpExecEnvReq(api.StorePhpExecEnvReq{IdOrName: &ida, PhpExecEnv: &php})
 	res, _, err := c.apiClient.DefaultApi.CreatePhpExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreatePhpExeEnv. Error %v", err)
@@ -59,7 +59,7 @@ func (c *IdbusApiClient) UpdatePhpExeEnv(ida string, php api.PHPExecutionEnviron
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdatePhpExecEnv(ctx)
-	req = req.StorePhpExecEnvReq(api.StorePhpExecEnvReq{IdaName: &ida, PhpExecEnv: &php})
+	req = req.StorePhpExecEnvReq(api.StorePhpExecEnvReq{IdOrName: &ida, PhpExecEnv: &php})
 	res, _, err := c.apiClient.DefaultApi.UpdatePhpExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("updatePhpExeEnv. Error %v", err)
@@ -92,7 +92,7 @@ func (c *IdbusApiClient) DeletePhpExeEnv(ida string, Php string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeletePhpExecEnv(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &Php})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &Php})
 	res, _, err := c.apiClient.DefaultApi.DeletePhpExecEnvExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetPhpExeEnv(ida string, Php string) (api.PHPExecutionE
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetPhpExecEnv(ctx)
-	req = req.GetPhpExecEnvReq(api.GetPhpExecEnvReq{IdaName: &ida, Name: &Php})
+	req = req.GetPhpExecEnvReq(api.GetPhpExecEnvReq{IdOrName: &ida, Name: &Php})
 	res, _, err := c.apiClient.DefaultApi.GetPhpExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("getPhp. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetPhpExeEnvs(ida string) ([]api.PHPExecutionEnvironmen
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetPhpExecEnvs(ctx)
-	req = req.GetPhpExecEnvReq(api.GetPhpExecEnvReq{IdaName: &ida})
+	req = req.GetPhpExecEnvReq(api.GetPhpExecEnvReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetPhpExecEnvsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getPhpExeEnvs. Error %v", err)

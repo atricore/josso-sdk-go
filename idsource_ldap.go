@@ -21,7 +21,7 @@ func (c *IdbusApiClient) CreateIdSourceLdap(ida string, idSourceLdap api.LdapIde
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIdSourceLdap(ctx)
-	req = req.StoreIdSourceLdapReq(api.StoreIdSourceLdapReq{IdaName: &ida, IdSourceLdap: &idSourceLdap})
+	req = req.StoreIdSourceLdapReq(api.StoreIdSourceLdapReq{IdOrName: &ida, IdSourceLdap: &idSourceLdap})
 	res, _, err := c.apiClient.DefaultApi.CreateIdSourceLdapExecute(req)
 	if err != nil {
 		c.logger.Errorf("createIdSourceLdap. Error %v", err)
@@ -58,7 +58,7 @@ func (c *IdbusApiClient) UpdateIdSourceLdap(ida string, idSourceLdap api.LdapIde
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIdSourceLdap(ctx)
-	req = req.StoreIdSourceLdapReq(api.StoreIdSourceLdapReq{IdaName: &ida, IdSourceLdap: &idSourceLdap})
+	req = req.StoreIdSourceLdapReq(api.StoreIdSourceLdapReq{IdOrName: &ida, IdSourceLdap: &idSourceLdap})
 	res, _, err := c.apiClient.DefaultApi.UpdateIdSourceLdapExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateIdSourceLdap. Error %v", err)
@@ -91,7 +91,7 @@ func (c *IdbusApiClient) DeleteIdSourceLdap(ida string, idSourceLdap string) (bo
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIdSourceLdap(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &idSourceLdap})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &idSourceLdap})
 	res, _, err := c.apiClient.DefaultApi.DeleteIdSourceLdapExecute(req)
 
 	if err != nil {
@@ -120,7 +120,7 @@ func (c *IdbusApiClient) GetIdSourceLdap(ida string, idSourceLdap string) (api.L
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdSourceLdap(ctx)
-	req = req.GetIdSourceLdapReq(api.GetIdSourceLdapReq{IdaName: &ida, Name: &idSourceLdap})
+	req = req.GetIdSourceLdapReq(api.GetIdSourceLdapReq{IdOrName: &ida, Name: &idSourceLdap})
 	res, _, err := c.apiClient.DefaultApi.GetIdSourceLdapExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdSourceLdap. Error %v", err)
@@ -159,7 +159,7 @@ func (c *IdbusApiClient) GetIdSourceLdaps(ida string) ([]api.LdapIdentitySourceD
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIdSourceLdaps(ctx)
-	req = req.GetIdSourceLdapReq(api.GetIdSourceLdapReq{IdaName: &ida})
+	req = req.GetIdSourceLdapReq(api.GetIdSourceLdapReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIdSourceLdapsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIdSourceLdaps. Error %v", err)

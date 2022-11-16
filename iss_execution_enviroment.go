@@ -22,7 +22,7 @@ func (c *IdbusApiClient) CreateIssExeEnv(ida string, iss api.WindowsIISExecution
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.CreateIisExecEnv(ctx)
-	req = req.StoreIisExecEnvReq(api.StoreIisExecEnvReq{IdaName: &ida, IisExecEnv: &iss})
+	req = req.StoreIisExecEnvReq(api.StoreIisExecEnvReq{IdOrName: &ida, IisExecEnv: &iss})
 	res, _, err := c.apiClient.DefaultApi.CreateIisExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("CreateIssExeEnv. Error %v", err)
@@ -59,7 +59,7 @@ func (c *IdbusApiClient) UpdateIssExeEnv(ida string, iss api.WindowsIISExecution
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.UpdateIisExecEnv(ctx)
-	req = req.StoreIisExecEnvReq(api.StoreIisExecEnvReq{IdaName: &ida, IisExecEnv: &iss})
+	req = req.StoreIisExecEnvReq(api.StoreIisExecEnvReq{IdOrName: &ida, IisExecEnv: &iss})
 	res, _, err := c.apiClient.DefaultApi.UpdateIisExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("updateIssExeEnv. Error %v", err)
@@ -92,7 +92,7 @@ func (c *IdbusApiClient) DeleteIssExeEnv(ida string, Iss string) (bool, error) {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.DeleteIisExecEnv(ctx)
-	req = req.DeleteReq(api.DeleteReq{IdaName: &ida, Name: &Iss})
+	req = req.DeleteReq(api.DeleteReq{IdOrName: &ida, Name: &Iss})
 	res, _, err := c.apiClient.DefaultApi.DeleteIisExecEnvExecute(req)
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *IdbusApiClient) GetIssExeEnv(ida string, Iss string) (api.WindowsIISExe
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIisExecEnv(ctx)
-	req = req.GetIisExecEnvReq(api.GetIisExecEnvReq{IdaName: &ida, Name: &Iss})
+	req = req.GetIisExecEnvReq(api.GetIisExecEnvReq{IdOrName: &ida, Name: &Iss})
 	res, _, err := c.apiClient.DefaultApi.GetIisExecEnvExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIss. Error %v", err)
@@ -160,7 +160,7 @@ func (c *IdbusApiClient) GetIssExeEnvs(ida string) ([]api.WindowsIISExecutionEnv
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.GetIisExecEnvs(ctx)
-	req = req.GetIisExecEnvReq(api.GetIisExecEnvReq{IdaName: &ida})
+	req = req.GetIisExecEnvReq(api.GetIisExecEnvReq{IdOrName: &ida})
 	res, _, err := c.apiClient.DefaultApi.GetIisExecEnvsExecute(req)
 	if err != nil {
 		c.logger.Errorf("getIssExeEnvs. Error %v", err)

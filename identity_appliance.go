@@ -211,7 +211,7 @@ func (c *IdbusApiClient) StartAppliance(name string) error {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.StartAppliance(ctx)
-	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdaName: &name})
+	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdOrName: &name})
 	res, _, err := c.apiClient.DefaultApi.StartApplianceExecute(req)
 
 	if err != nil {
@@ -242,7 +242,7 @@ func (c *IdbusApiClient) StopAppliance(name string) error {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.StopAppliance(ctx)
-	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdaName: &name})
+	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdOrName: &name})
 	res, _, err := c.apiClient.DefaultApi.StopApplianceExecute(req)
 
 	if err != nil {
@@ -271,7 +271,7 @@ func (c *IdbusApiClient) ValidateAppliance(name string) error {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.ValidateAppliance(ctx)
-	req = req.GetApplianceReq(api.GetApplianceReq{IdaName: &name})
+	req = req.GetApplianceReq(api.GetApplianceReq{IdOrName: &name})
 	res, _, err := c.apiClient.DefaultApi.ValidateApplianceExecute(req)
 
 	if err != nil {
@@ -300,7 +300,7 @@ func (c *IdbusApiClient) BuildAppliance(name string) error {
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.BuildAppliance(ctx)
-	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdaName: &name})
+	req = req.SetApplianceStateReq(api.SetApplianceStateReq{IdOrName: &name})
 	res, _, err := c.apiClient.DefaultApi.BuildApplianceExecute(req)
 
 	if err != nil {

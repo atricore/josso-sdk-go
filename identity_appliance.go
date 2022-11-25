@@ -260,13 +260,13 @@ func (c *IdbusApiClient) StopAppliance(name string) error {
 	return err
 }
 
-func (c *IdbusApiClient) ValidateAppliance(name string) error {
+func (c *IdbusApiClient) ValidateAppliance(name string) (error, []string) {
 
 	c.logger.Debugf("validateAppliance id: %s", name)
 	sc, err := c.IdbusServerForOperation("DefaultApiService.validateAppliance") // Also hard-coded in generated client
 	if err != nil {
 		c.logger.Errorf("validateAppliance. Error %v", err)
-		return err
+		return err, []string{}
 	}
 
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
@@ -276,17 +276,17 @@ func (c *IdbusApiClient) ValidateAppliance(name string) error {
 
 	if err != nil {
 		c.logger.Errorf("validateAppliance. Error %v", err)
-		return err
+		return err, []string{}
 	}
 
 	if res.Error != nil {
 		c.logger.Errorf("validateAppliance. Error %v", *res.Error)
-		return errors.New(*res.Error)
+		return errors.New(*res.Error), res.ValidationErrors
 	}
 
 	c.logger.Debugf("validateAppliance. OK %s", name)
 
-	return err
+	return err, []string{}
 }
 
 func (c *IdbusApiClient) BuildAppliance(name string) error {

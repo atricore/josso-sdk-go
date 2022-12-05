@@ -8,13 +8,44 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-func (c *IdbusApiClient) ImportAppliance(applianceJson string) (api.IdentityApplianceDefinitionDTO, error) {
+func (c *IdbusApiClient) ExportAppliance(idOrName string, format string) (string, error) {
+	var result string
+	c.logger.Debugf("Export appliance, format %s", format)
+
+	sc, err := c.IdbusServerForOperation("DefaultApiService.ExportAppliance") // Also hard-coded in generated client
+	if err != nil {
+		return result, err
+	}
+	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
+	req := c.apiClient.DefaultApi.ExportAppliance(ctx)
+	req = req.ExportApplianceReq(api.ExportApplianceReq{
+		Format:   &format,
+		IdOrName: &idOrName,
+	})
+	res, _, err := c.apiClient.DefaultApi.ExportApplianceExecute(req)
+	if err != nil {
+		c.logger.Errorf("exportAppliance. Error %v", err)
+		return result, err
+
+	}
+	if res.Error != nil {
+		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
+		c.logger.Errorf("exportAppliance. Error %s", msg)
+		return result, errors.New(msg)
+	}
+	c.logger.Debugf("exportAppliance. ID: size: %d", len(res.GetBase64value()))
+
+	result = res.GetBase64value()
+	return result, err
+}
+
+func (c *IdbusApiClient) ImportAppliance(appliance []byte, format string) (api.IdentityApplianceDefinitionDTO, error) {
 
 	var result api.IdentityApplianceDefinitionDTO
 
-	c.logger.Debugf("Importing appliance from JSON")
+	c.logger.Debugf("Importing appliance, format %s", format)
 
-	encoded := b64.StdEncoding.EncodeToString([]byte(applianceJson))
+	encoded := b64.StdEncoding.EncodeToString(appliance)
 
 	sc, err := c.IdbusServerForOperation("DefaultApiService.ImportAppliance") // Also hard-coded in generated client
 	if err != nil {
@@ -23,8 +54,9 @@ func (c *IdbusApiClient) ImportAppliance(applianceJson string) (api.IdentityAppl
 	ctx := context.WithValue(context.Background(), api.ContextAccessToken, sc.Authn.AccessToken)
 	req := c.apiClient.DefaultApi.ImportAppliance(ctx)
 	req = req.ImportApplianceReq(api.ImportApplianceReq{
-		Base64Json: &encoded,
-		Modify:     PtrBool(false),
+		Base64Value: &encoded,
+		Format:      &format,
+		Modify:      PtrBool(false),
 	})
 	res, _, err := c.apiClient.DefaultApi.ImportApplianceExecute(req)
 	if err != nil {

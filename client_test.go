@@ -34,7 +34,7 @@ func (s *AccTestSuite) ImportAppliance(file string) (api.IdentityApplianceDefini
 		return res, err
 	}
 
-	res, err = s.client.ImportAppliance(string(dat))
+	res, err = s.client.ImportAppliance(dat, "json")
 	if err != nil {
 		return res, err
 	}

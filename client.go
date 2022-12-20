@@ -142,12 +142,7 @@ func (c *IdbusApiClient) Authn() error {
 
 }
 
-func ServerVersion() (string, error) {
-
-	cfg, err := GetServerConfigFromEnv()
-	if err != nil {
-		return "", fmt.Errorf("cannot get version from IAMTF/JOSSO server [%s]: %v", cfg.Config.URL, err)
-	}
+func ServerVersion(cfg *IdbusServer) (string, error) {
 
 	c1, err := CreateClient(cfg, false)
 	if err != nil {
@@ -204,7 +199,7 @@ func CreateClient(s *IdbusServer, authn bool) (*IdbusApiClient, error) {
 		trace = false
 	}
 
-	l := DefaultLogger{debug: true}
+	l := DefaultLogger{debug: trace}
 
 	c := NewIdbusApiClient(&l, trace)
 	err = c.RegisterServer(s, "")

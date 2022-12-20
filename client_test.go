@@ -144,9 +144,16 @@ func TestMarshalJSON(t *testing.T) {
 
 func (s *AccTestSuite) TestVersion() {
 	var t = s.T()
-	v, err := ServerVersion()
+
+	cfg, err := GetServerConfigFromEnv()
 	if err != nil {
-		s.client.Logger().Errorf("cannot get test appliance %v", err)
+		s.client.Logger().Errorf("cannot get server config %v", err)
+		t.Error(err)
+		return
+	}
+	v, err := ServerVersion(cfg)
+	if err != nil {
+		s.client.Logger().Errorf("cannot get server version %v", err)
 		t.Error(err)
 		return
 	}

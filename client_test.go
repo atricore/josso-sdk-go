@@ -70,7 +70,7 @@ func (s *AccTestSuite) SetupSuite() {
 
 	t.Log("creating client")
 
-	s.client, err = createClient()
+	s.client, err = createClient(true)
 	if err != nil {
 		t.Fatalf("failed to create client: %v", err)
 		return
@@ -142,15 +142,27 @@ func TestMarshalJSON(t *testing.T) {
 
 // ----------------------------------
 
+func (s *AccTestSuite) TestVersion() {
+	var t = s.T()
+	v, err := ServerVersion()
+	if err != nil {
+		s.client.Logger().Errorf("cannot get test appliance %v", err)
+		t.Error(err)
+		return
+	}
+	fmt.Printf("SERVER VERSION: %s\n", v)
+
+}
+
 // Creates a new TEST client.  You can enable/disable debugging and message exchage tracing
-func createClient() (*IdbusApiClient, error) {
+func createClient(authn bool) (*IdbusApiClient, error) {
 
 	s, err := GetServerConfigFromEnv()
 	if err != nil {
 		return nil, err
 	}
 
-	return CreateClient(s)
+	return CreateClient(s, authn)
 }
 
 func createTestApplianceName(t *testing.T) string {

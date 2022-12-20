@@ -3,7 +3,7 @@ module github.com/atricore/josso-sdk-go
 go 1.16
 
 require (
-	github.com/atricore/josso-api-go v0.4.1
+	github.com/atricore/josso-api-go v0.4.2
 	github.com/google/go-cmp v0.5.4 // indirect
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/kr/pretty v0.3.0 // indirect
@@ -13,4 +13,4 @@ require (
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
 
-replace github.com/atricore/josso-api-go => ../josso-api-go
+//replace github.com/atricore/josso-api-go => ../josso-api-go

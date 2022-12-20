@@ -142,6 +142,39 @@ func (c *IdbusApiClient) Authn() error {
 
 }
 
+func ServerVersion() (string, error) {
+
+	cfg, err := GetServerConfigFromEnv()
+	if err != nil {
+		return "", fmt.Errorf("cannot get version from IAMTF/JOSSO server [%s]: %v", cfg.Config.URL, err)
+	}
+
+	c1, err := CreateClient(cfg, false)
+	if err != nil {
+		return "", fmt.Errorf("cannot get version from IAMTF/JOSSO server [%s]: %v", cfg.Config.URL, err)
+	}
+
+	sc, err := c1.IdbusServerForOperation("DefaultApiService.ServerVersion") // Also hard-coded in generated openapi
+	if err != nil {
+		return "", err
+	}
+
+	req := c1.apiClient.DefaultApi.Version(context.Background())
+	req = req.ServerVersionRequest(api.ServerVersionRequest{})
+
+	res, _, err := c1.apiClient.DefaultApi.VersionExecute(req)
+	if err != nil {
+		return "", fmt.Errorf("cannot get version from IAMTF/JOSSO server [%s]: %v", sc.Server.Config.URL, err)
+	}
+
+	if res.Version == nil {
+		return "", fmt.Errorf("cannot get version from IAMTF/JOSSO server [%s]: response is nil", sc.Server.Config.URL)
+	}
+
+	return *res.Version, nil
+
+}
+
 func GetServerConfigFromEnv() (*IdbusServer, error) {
 
 	clientSecret := os.Getenv("JOSSO_API_SECRET")
@@ -164,7 +197,7 @@ func GetServerConfigFromEnv() (*IdbusServer, error) {
 	return &s, nil
 }
 
-func CreateClient(s *IdbusServer) (*IdbusApiClient, error) {
+func CreateClient(s *IdbusServer, authn bool) (*IdbusApiClient, error) {
 
 	trace, err := GetenvBool("JOSSO_API_TRACE")
 	if err != nil {
@@ -179,9 +212,11 @@ func CreateClient(s *IdbusServer) (*IdbusApiClient, error) {
 		return nil, err
 	}
 
-	err = c.Authn()
-	if err != nil {
-		return nil, err
+	if authn {
+		err = c.Authn()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return c, nil

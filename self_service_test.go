@@ -78,7 +78,7 @@ func (s *AccTestSuite) TestAccCliSelfServiceResource_crud() {
 	}
 
 	// Test empty list
-	listOfAll, err := s.client.GetIdpGoogles(*appliance.Name)
+	listOfAll, err := s.client.GetSelfServiceResources(*appliance.Name)
 	if err != nil {
 		t.Error(err)
 		return

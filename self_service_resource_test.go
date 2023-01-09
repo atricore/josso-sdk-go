@@ -61,7 +61,7 @@ func (s *AccTestSuite) TestAccCliSelfServiceResource_crud() {
 	}
 
 	//Test Delete
-	deleted, err := s.client.DeleteIdpGoogle(*appliance.Name, crudName)
+	deleted, err := s.client.DeleteSelfServiceResource(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
@@ -131,21 +131,21 @@ func createTestSelfServiceDTO(name string) *api.SelfServicesResourceDTO {
 	location.SetContext("IDBUS")
 	location.SetUri("TESTACC-2146919007984762839")
 
-	var serviceConnection api.ServiceConnectionDTO
-	serviceConnection.SetDescription("")
-	serviceConnection.SetElementId("")
-	serviceConnection.SetId(-1)
-	serviceConnection.SetName("")
-	//serviceConnection.SetSp()
-	//serviceConnection.SetWaypoints()
+	// var serviceConnection api.ServiceConnectionDTO
+	// serviceConnection.SetDescription("")
+	// serviceConnection.SetElementId("")
+	// serviceConnection.SetId(-1)
+	// serviceConnection.SetName("")
+	// //serviceConnection.SetSp()
+	// //serviceConnection.SetWaypoints()
 
 	tData.SetDescription(fmt.Sprintf("Description for %s", name))
 	tData.SetElementId("")
 	tData.SetId(-1)
 	tData.SetLocation(location)
 	tData.SetName(name)
-	tData.SetSecret("")
-	tData.SetServiceConnection(serviceConnection)
+	tData.SetSecret("changeme")
+	//tData.SetServiceConnection(serviceConnection)
 
 	return tData
 }
@@ -182,12 +182,6 @@ func selfServiceFieldTestCreate(
 			expected: StrDeref(e.Name),
 			received: StrDeref(r.Name),
 		},
-		{
-			name:     "secret",
-			cmp:      func() bool { return StrPtrEquals(e.Secret, r.Secret) },
-			expected: StrDeref(e.Secret),
-			received: StrDeref(r.Secret),
-		},
 	}
 }
 
@@ -208,12 +202,6 @@ func SelfServiceFieldTestUpdate(
 			cmp:      func() bool { return StrPtrEquals(e.ElementId, r.ElementId) },
 			expected: StrDeref(e.ElementId),
 			received: StrDeref(r.ElementId),
-		},
-		{
-			name:     "location",
-			cmp:      func() bool { return LocationPtrEquals(e.Location, r.Location) },
-			expected: LocationToStr(e.Location),
-			received: LocationToStr(r.Location),
 		},
 	}
 

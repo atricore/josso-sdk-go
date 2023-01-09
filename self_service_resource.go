@@ -8,12 +8,12 @@ import (
 )
 
 // Creates a new SelfServiceResource in the provided identity appliance. It receives the appliance name or id and the SP dto to use as template
-func (c *IdbusApiClient) CreateSelfServiceresource(ida string, SelfService api.SelfServicesResourceDTO) (api.SelfServicesResourceDTO, error) {
+func (c *IdbusApiClient) CreateSelfServiceResource(ida string, SelfService api.SelfServicesResourceDTO) (api.SelfServicesResourceDTO, error) {
 	var result api.SelfServicesResourceDTO
 	l := c.Logger()
 
-	l.Debugf("CreateSelfServiceresource : %s [%s]", *SelfService.Name, ida)
-	sc, err := c.IdbusServerForOperation("DefaultApiService.CreateSelfServiceresource") // Also hard-coded in generated client
+	l.Debugf("CreateSelfServiceResource : %s [%s]", *SelfService.Name, ida)
+	sc, err := c.IdbusServerForOperation("DefaultApiService.CreateSelfServiceResource") // Also hard-coded in generated client
 	if err != nil {
 		return result, err
 	}
@@ -25,13 +25,13 @@ func (c *IdbusApiClient) CreateSelfServiceresource(ida string, SelfService api.S
 	req = req.StoreSelfSvcRsReq(api.StoreSelfSvcRsReq{IdOrName: &ida, Resource: &SelfService})
 	res, _, err := c.apiClient.DefaultApi.CreateSelfSvcsExecute(req)
 	if err != nil {
-		c.logger.Errorf("CreateSelfServiceresource. Error %v", err)
+		c.logger.Errorf("CreateSelfServiceResource. Error %v", err)
 		return result, err
 	}
 
 	if res.Error != nil {
 		msg := buildErrorMsg(*res.Error, res.ValidationErrors)
-		c.logger.Errorf("CreateSelfServiceresource. Error %s", msg)
+		c.logger.Errorf("CreateSelfServiceResource. Error %s", msg)
 		return result, errors.New(msg)
 	}
 
@@ -73,7 +73,7 @@ func (c *IdbusApiClient) UpdateSelfServiceResource(ida string, sp api.SelfServic
 	}
 
 	if res.Resource == nil {
-		return result, errors.New("no SelfServiceResource received after update")
+		return result, errors.New("no SelfSeServiceResourcerviceResource received after update")
 	}
 
 	result = *res.Resource

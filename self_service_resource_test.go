@@ -19,19 +19,13 @@ func (s *AccTestSuite) TestAccCliSelfServiceResource_crud() {
 		return
 	}
 
-	_, err = s.client.GetIdpGoogles(*appliance.Name)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
 	crudName := "selfService-a"
 	var orig *api.SelfServicesResourceDTO
 	var created api.SelfServicesResourceDTO
 	orig = createTestSelfServiceDTO(crudName)
 
 	// Test CREATE
-	created, err = s.client.CreateSelfServiceresource(*appliance.Name, *orig)
+	created, err = s.client.CreateSelfServiceResource(*appliance.Name, *orig)
 	if err != nil {
 		t.Error(err)
 		return
@@ -93,10 +87,10 @@ func (s *AccTestSuite) TestAccCliSelfServiceResource_crud() {
 	var listOfCreated [2]api.SelfServicesResourceDTO
 	// Test list of #2 elements
 	element1 := createTestSelfServiceDTO("selfService-1")
-	listOfCreated[0], _ = s.client.CreateSelfServiceresource(*appliance.Name, *element1)
+	listOfCreated[0], _ = s.client.CreateSelfServiceResource(*appliance.Name, *element1)
 
 	element2 := createTestSelfServiceDTO("selfService-2")
-	listOfCreated[1], _ = s.client.CreateSelfServiceresource(*appliance.Name, *element2)
+	listOfCreated[1], _ = s.client.CreateSelfServiceResource(*appliance.Name, *element2)
 
 	// Get list from server
 	listOfRead, err := s.client.GetSelfServiceResources(*appliance.Name)

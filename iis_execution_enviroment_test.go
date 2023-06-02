@@ -9,7 +9,7 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
-func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
+func (s *AccTestSuite) TestAccCliIISExecEnv_crud() {
 	var t = s.T()
 
 	appliance, err := getTestAppliance(s.T(), s.client)
@@ -18,10 +18,10 @@ func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
 		t.Error(err)
 		return
 	}
-	crudName := "iss-0"
+	crudName := "iis-0"
 	var orig *api.WindowsIISExecutionEnvironmentDTO
 	var created api.WindowsIISExecutionEnvironmentDTO
-	orig = createTestIssExecutionEnvironmentDTO(crudName)
+	orig = createTestIISExecutionEnvironmentDTO(crudName)
 	orig.SetIsapiExtensionPath("/isapi/agent.sso")
 	orig.SetType("LOCAL")
 	if err != nil {
@@ -30,44 +30,44 @@ func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
 	}
 
 	// Test CREATE
-	created, err = s.client.CreateIssExeEnv(*appliance.Name, *orig)
+	created, err = s.client.CreateIISExeEnv(*appliance.Name, *orig)
 
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err := IssExeEnvValidateCreate(orig, &created); err != nil {
-		t.Errorf("creating issexecenv : %v", err)
+	if err := IISExeEnvValidateCreate(orig, &created); err != nil {
+		t.Errorf("creating IIS execenv : %v", err)
 		return
 	}
 
 	// Test READ
 	var read api.WindowsIISExecutionEnvironmentDTO
-	read, err = s.client.GetIssExeEnv(*appliance.Name, crudName)
+	read, err = s.client.GetIISExeEnv(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err = IssExeEnvValidateUpdate(&read, &created); err != nil {
-		t.Errorf("creating issexecenv : %v", err)
+	if err = IISExeEnvValidateUpdate(&read, &created); err != nil {
+		t.Errorf("creating IIS execenv : %v", err)
 		return
 	}
 
 	// Test Update
 	read.Description = api.PtrString("Updated description")
 	read.DisplayName = api.PtrString("Atricore")
-	updated, err := s.client.UpdateIssExeEnv(*appliance.Name, read)
+	updated, err := s.client.UpdateIISExeEnv(*appliance.Name, read)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	if err = IssExeEnvValidateUpdate(&read, &updated); err != nil {
+	if err = IISExeEnvValidateUpdate(&read, &updated); err != nil {
 		t.Error(err)
 		return
 	}
 
 	//Test Delete
-	deleted, err := s.client.DeleteIssExeEnv(*appliance.Name, crudName)
+	deleted, err := s.client.DeleteIISExeEnv(*appliance.Name, crudName)
 	if err != nil {
 		t.Error(err)
 		return
@@ -80,7 +80,7 @@ func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
 	// ------------------------------------------------------------------------------------------------------------------
 	// Test empty list
 
-	listOfAll, err := s.client.GetIssExeEnvs(*appliance.Name)
+	listOfAll, err := s.client.GetIISExeEnvs(*appliance.Name)
 	if err != nil {
 		t.Error(err)
 		return
@@ -95,14 +95,14 @@ func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
 	// List of created elements, order by Name
 	var listOfCreated [2]api.WindowsIISExecutionEnvironmentDTO
 	// Test list of #2 elements
-	element1 := createTestIssExecutionEnvironmentDTO("iss-1")
-	listOfCreated[0], _ = s.client.CreateIssExeEnv(*appliance.Name, *element1)
+	element1 := createTestIISExecutionEnvironmentDTO("iss-1")
+	listOfCreated[0], _ = s.client.CreateIISExeEnv(*appliance.Name, *element1)
 
-	element2 := createTestIssExecutionEnvironmentDTO("iss-2")
-	listOfCreated[1], _ = s.client.CreateIssExeEnv(*appliance.Name, *element2)
+	element2 := createTestIISExecutionEnvironmentDTO("iss-2")
+	listOfCreated[1], _ = s.client.CreateIISExeEnv(*appliance.Name, *element2)
 	// ------------------------
 	// Get list from server
-	listOfRead, err := s.client.GetIssExeEnvs(*appliance.Name)
+	listOfRead, err := s.client.GetIISExeEnvs(*appliance.Name)
 	if err != nil {
 		t.Error(err)
 		return
@@ -123,7 +123,7 @@ func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
 
 	// Validate each element from the list of created with the list of read
 	for idx, r := range listOfCreated {
-		if err = IssExeEnvValidateUpdate(&r, &listOfRead[idx]); err != nil {
+		if err = IISExeEnvValidateUpdate(&r, &listOfRead[idx]); err != nil {
 			t.Error(err)
 			return
 		}
@@ -131,7 +131,7 @@ func (s *AccTestSuite) TestAccCliIssExecEnv_crud() {
 
 }
 
-func createTestIssExecutionEnvironmentDTO(name string) *api.WindowsIISExecutionEnvironmentDTO {
+func createTestIISExecutionEnvironmentDTO(name string) *api.WindowsIISExecutionEnvironmentDTO {
 	tData := api.NewWindowsIISExecutionEnvironmentDTO()
 
 	tData.SetName(name)
@@ -265,7 +265,7 @@ func IssExeEnvFieldTestUpdate(
 }
 
 // Compares the expected IssExeEnv with the received one.
-func IssExeEnvValidateCreate(
+func IISExeEnvValidateCreate(
 	e *api.WindowsIISExecutionEnvironmentDTO,
 	r *api.WindowsIISExecutionEnvironmentDTO) error {
 
@@ -273,7 +273,7 @@ func IssExeEnvValidateCreate(
 }
 
 // Compares the expected ExternalSaml2Sp with the received one.
-func IssExeEnvValidateUpdate(
+func IISExeEnvValidateUpdate(
 	e *api.WindowsIISExecutionEnvironmentDTO,
 	r *api.WindowsIISExecutionEnvironmentDTO) error {
 

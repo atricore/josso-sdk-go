@@ -85,7 +85,7 @@ func (s *AccTestSuite) TestAccCliSharePointResource_crud() {
 	// ------------------------------------------------------------------------------------------------------------------
 	// Test empty list
 
-	listOfAll, err := s.client.GetIssExeEnvs(*appliance.Name)
+	listOfAll, err := s.client.GetIISExeEnvs(*appliance.Name)
 	if err != nil {
 		t.Error(err)
 		return

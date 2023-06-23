@@ -9,6 +9,20 @@ import (
 	api "github.com/atricore/josso-api-go"
 )
 
+func (s *AccTestSuite) TestCustomer_read() {
+	var t = s.T()
+
+	sp, err := s.client.GetIntSaml2Sp("shrm-dev", "kafka-my-ns")
+	if err != nil {
+		s.client.Logger().Errorf("cannot get test appliance %v", err)
+		t.Error(err)
+		return
+	}
+
+	fmt.Printf("sp: %+v\n", sp.Name)
+
+}
+
 func (s *AccTestSuite) TestAccCliIntSaml2_crud() { // MODIFIED
 	var t = s.T()
 

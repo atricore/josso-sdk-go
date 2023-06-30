@@ -205,7 +205,7 @@ func GetServerConfigFromEnv() (*IdbusServer, error) {
 		return nil, errors.New("JOSSO variables must be set for acceptance tests")
 	}
 
-	if ok, err := endpointHasPath(endpoint); ok {
+	if hasPath, err := endpointHasPath(endpoint); !hasPath {
 		endpoint = endpoint + "/atricore-rest/services"
 	} else if err != nil {
 		return nil, err

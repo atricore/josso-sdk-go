@@ -34,8 +34,8 @@
               gofumpt
               terraform
             ];
-	    shellHook = ''
-            echo "JOSSO/IAM.tf GO environment"
+	        shellHook = ''
+            echo "JOSSO/IAM.tf GO environment: ${go.name} / ${terraform.name}"
             '';
           };
         }

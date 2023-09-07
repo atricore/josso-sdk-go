@@ -22,6 +22,7 @@
         {
           devShells.default = mkShell {
             buildInputs = [
+	      gnumake
               go
               terraform
             ];

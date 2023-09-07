@@ -15,7 +15,6 @@
           pkgs = import nixpkgs {
             inherit  system;
           };
- 
 
         in
         with pkgs;
@@ -35,6 +34,9 @@
               gofumpt
               terraform
             ];
+	    shellHook = ''
+            echo "JOSSO/IAM.tf GO environment"
+            '';
           };
         }
       );

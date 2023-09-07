@@ -152,7 +152,7 @@ func (s *AccTestSuite) TestAccCliIdVault_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func IdVaultFieldTestCreate(
 	e *api.EmbeddedIdentityVaultDTO,
 	r *api.EmbeddedIdentityVaultDTO) []FiledTestStruct {
@@ -179,7 +179,7 @@ func IdVaultFieldTestCreate(
 	}
 }
 
-//Fields to validate after IdVault update
+// Fields to validate after IdVault update
 func IdVaultFieldTestUpdate(
 	e *api.EmbeddedIdentityVaultDTO,
 	r *api.EmbeddedIdentityVaultDTO) []FiledTestStruct {

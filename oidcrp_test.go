@@ -181,7 +181,7 @@ func (s *AccTestSuite) TestAccCliOidcRp_updateFailOnDupName() {
 
 }
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func OidcRpFieldTestCreate(
 	e *api.ExternalOpenIDConnectRelayingPartyDTO,
 	r *api.ExternalOpenIDConnectRelayingPartyDTO) []FiledTestStruct {
@@ -293,7 +293,7 @@ func OidcRpFieldTestCreate(
 	}
 }
 
-//Fields to validate after OidcRp update
+// Fields to validate after OidcRp update
 func OidcRpFieldTestUpdate(
 	e *api.ExternalOpenIDConnectRelayingPartyDTO,
 	r *api.ExternalOpenIDConnectRelayingPartyDTO) []FiledTestStruct {

@@ -178,7 +178,7 @@ func (s *AccTestSuite) TestAccCliIdAzure_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func IdAzureFieldTestCreate(
 	e *api.AzureOpenIDConnectIdentityProviderDTO,
 	r *api.AzureOpenIDConnectIdentityProviderDTO) []FiledTestStruct {
@@ -229,7 +229,7 @@ func IdAzureFieldTestCreate(
 	}
 }
 
-//Fields to validate after IdVault update
+// Fields to validate after IdVault update
 func IdAzureFieldTestUpdate(
 	e *api.AzureOpenIDConnectIdentityProviderDTO,
 	r *api.AzureOpenIDConnectIdentityProviderDTO) []FiledTestStruct {

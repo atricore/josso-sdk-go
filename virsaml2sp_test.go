@@ -242,7 +242,7 @@ func (s *AccTestSuite) TestAccCliVirSaml2_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func VirtualSaml2SpFieldTestCreate(
 	e *api.VirtualSaml2ServiceProviderDTO,
 	r *api.VirtualSaml2ServiceProviderDTO) []FiledTestStruct {
@@ -425,7 +425,7 @@ func VirtualSaml2SpFieldTestCreate(
 	}
 }
 
-//Fields to validate after VirtualSaml2Sp update
+// Fields to validate after VirtualSaml2Sp update
 func VirtualSaml2SpFieldTestUpdate(
 	e *api.VirtualSaml2ServiceProviderDTO,
 	r *api.VirtualSaml2ServiceProviderDTO) []FiledTestStruct {

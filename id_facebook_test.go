@@ -175,7 +175,7 @@ func (s *AccTestSuite) TestAccCliIdFacebook_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func IdFacebookFieldTestCreate(
 	e *api.FacebookOpenIDConnectIdentityProviderDTO,
 	r *api.FacebookOpenIDConnectIdentityProviderDTO) []FiledTestStruct {
@@ -238,7 +238,7 @@ func IdFacebookFieldTestCreate(
 	}
 }
 
-//Fields to validate after IdVault update
+// Fields to validate after IdVault update
 func IdFacebookFieldTestUpdate(
 	e *api.FacebookOpenIDConnectIdentityProviderDTO,
 	r *api.FacebookOpenIDConnectIdentityProviderDTO) []FiledTestStruct {

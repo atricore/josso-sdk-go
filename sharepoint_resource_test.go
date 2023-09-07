@@ -187,7 +187,7 @@ func (s *AccTestSuite) TestAccSharePointExeEnvField_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func SharePointExeEnvValidateUpdate(
 	e *api.SharepointResourceDTO,
 	r *api.SharepointResourceDTO) []FiledTestStruct {
@@ -233,7 +233,7 @@ func SharePointExeEnvValidateUpdate(
 	}
 }
 
-//Fields to validate after IssExeEnv update
+// Fields to validate after IssExeEnv update
 func SharePointExeEnvFieldTestUpdate(
 	e *api.SharepointResourceDTO,
 	r *api.SharepointResourceDTO) []FiledTestStruct {

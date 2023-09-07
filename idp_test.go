@@ -383,7 +383,7 @@ func (s *AccTestSuite) TestAccCliIdP_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func IdPFieldTestCreate(
 	e *api.IdentityProviderDTO,
 	r *api.IdentityProviderDTO) []FiledTestStruct {

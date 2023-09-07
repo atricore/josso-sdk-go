@@ -158,7 +158,7 @@ func (s *AccTestSuite) TestAccPhpExeEnvField_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func PhpExeEnvFieldTestCreate(
 	e *api.PHPExecutionEnvironmentDTO,
 	r *api.PHPExecutionEnvironmentDTO) []FiledTestStruct {
@@ -239,7 +239,7 @@ func PhpExeEnvFieldTestCreate(
 	}
 }
 
-//Fields to validate after PhpExeEnv update
+// Fields to validate after PhpExeEnv update
 func PhpExeEnvFieldTestUpdate(
 	e *api.PHPExecutionEnvironmentDTO,
 	r *api.PHPExecutionEnvironmentDTO) []FiledTestStruct {

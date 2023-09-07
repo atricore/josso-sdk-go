@@ -159,7 +159,7 @@ func (s *AccTestSuite) TestAccTomcatExeEnvField_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func TomcatExeEnvFieldTestCreate(
 	e *api.TomcatExecutionEnvironmentDTO,
 	r *api.TomcatExecutionEnvironmentDTO) []FiledTestStruct {
@@ -235,7 +235,7 @@ func TomcatExeEnvFieldTestCreate(
 	}
 }
 
-//Fields to validate after TomcatExeEnv update
+// Fields to validate after TomcatExeEnv update
 func TomcatExeEnvFieldTestUpdate(
 	e *api.TomcatExecutionEnvironmentDTO,
 	r *api.TomcatExecutionEnvironmentDTO) []FiledTestStruct {

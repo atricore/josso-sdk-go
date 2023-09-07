@@ -158,7 +158,7 @@ func (s *AccTestSuite) TestAccCliIdPSaml2_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func ExternalSaml2IdPFieldTestCreate(
 	e *api.ExternalSaml2IdentityProviderDTO,
 	r *api.ExternalSaml2IdentityProviderDTO) []FiledTestStruct {
@@ -191,7 +191,7 @@ func ExternalSaml2IdPFieldTestCreate(
 	}
 }
 
-//Fields to validate after ExternalSaml2IdP update
+// Fields to validate after ExternalSaml2IdP update
 func ExternalSaml2IdPFieldTestUpdate(
 	e *api.ExternalSaml2IdentityProviderDTO,
 	r *api.ExternalSaml2IdentityProviderDTO) []FiledTestStruct {

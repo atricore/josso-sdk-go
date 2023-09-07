@@ -155,7 +155,7 @@ func (s *AccTestSuite) TestAccCliIdS_updateFailOnDupName() {
 
 }
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func IdSFieldTestCreate(
 	e *api.LdapIdentitySourceDTO,
 	r *api.LdapIdentitySourceDTO) []FiledTestStruct {
@@ -248,7 +248,7 @@ func IdSFieldTestCreate(
 	}
 }
 
-//Fields to validate after IdS update
+// Fields to validate after IdS update
 func IdSFieldTestUpdate(
 	e *api.LdapIdentitySourceDTO,
 	r *api.LdapIdentitySourceDTO) []FiledTestStruct {

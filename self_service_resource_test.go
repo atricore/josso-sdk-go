@@ -164,7 +164,7 @@ func (s *AccTestSuite) TestAccCliSelfService_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func selfServiceFieldTestCreate(
 	e *api.SelfServicesResourceDTO,
 	r *api.SelfServicesResourceDTO) []FiledTestStruct {
@@ -185,7 +185,7 @@ func selfServiceFieldTestCreate(
 	}
 }
 
-//Fields to validate after IdVault update
+// Fields to validate after IdVault update
 func SelfServiceFieldTestUpdate(
 	e *api.SelfServicesResourceDTO,
 	r *api.SelfServicesResourceDTO) []FiledTestStruct {

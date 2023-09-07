@@ -171,7 +171,7 @@ func (s *AccTestSuite) TestAccCliDbIdentitySourceDTO_crud_updateFailOnDupName() 
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func DbIdentitySourceFieldTestCreate(
 	e *api.DbIdentitySourceDTO,
 	r *api.DbIdentitySourceDTO) []FiledTestStruct {
@@ -299,7 +299,7 @@ func DbIdentitySourceFieldTestCreate(
 	}
 }
 
-//Fields to validate after DbIdentitySource update
+// Fields to validate after DbIdentitySource update
 func DbIdentitySourceFieldTestUpdate(
 	e *api.DbIdentitySourceDTO,
 	r *api.DbIdentitySourceDTO) []FiledTestStruct {

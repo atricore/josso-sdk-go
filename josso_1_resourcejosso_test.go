@@ -245,7 +245,7 @@ func (s *AccTestSuite) TestAccCliJossoResourcejosso_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func JOSSO1ResourceFieldTestCreate(
 	e *api.JOSSO1ResourceDTO,
 	r *api.JOSSO1ResourceDTO) []FiledTestStruct {
@@ -296,7 +296,7 @@ func JOSSO1ResourceFieldTestCreate(
 	}
 }
 
-//Fields to validate after Sp update
+// Fields to validate after Sp update
 func JOSSO1ResourceFieldTestUpdate(
 	e *api.JOSSO1ResourceDTO,
 	r *api.JOSSO1ResourceDTO) []FiledTestStruct {

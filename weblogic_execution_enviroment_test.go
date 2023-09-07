@@ -161,7 +161,7 @@ func (s *AccTestSuite) TestAccWLogicExeEnvField_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func WLogicExeEnvFieldTestCreate(
 	e *api.WeblogicExecutionEnvironmentDTO,
 	r *api.WeblogicExecutionEnvironmentDTO) []FiledTestStruct {
@@ -242,7 +242,7 @@ func WLogicExeEnvFieldTestCreate(
 	}
 }
 
-//Fields to validate after WLogicExeEnv update
+// Fields to validate after WLogicExeEnv update
 func WLogicExeEnvFieldTestUpdate(
 	e *api.WeblogicExecutionEnvironmentDTO,
 	r *api.WeblogicExecutionEnvironmentDTO) []FiledTestStruct {

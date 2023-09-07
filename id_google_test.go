@@ -181,7 +181,7 @@ func (s *AccTestSuite) TestAccCliIdGoogle_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func IdGoogleFieldTestCreate(
 	e *api.GoogleOpenIDConnectIdentityProviderDTO,
 	r *api.GoogleOpenIDConnectIdentityProviderDTO) []FiledTestStruct {
@@ -238,7 +238,7 @@ func IdGoogleFieldTestCreate(
 	}
 }
 
-//Fields to validate after IdVault update
+// Fields to validate after IdVault update
 func IdGoogleFieldTestUpdate(
 	e *api.GoogleOpenIDConnectIdentityProviderDTO,
 	r *api.GoogleOpenIDConnectIdentityProviderDTO) []FiledTestStruct {

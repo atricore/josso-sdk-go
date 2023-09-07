@@ -207,7 +207,7 @@ func (s *AccTestSuite) TestAccCliIntSaml2_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func InternalSaml2SpFieldTestCreate(
 	e *api.InternalSaml2ServiceProviderDTO,
 	r *api.InternalSaml2ServiceProviderDTO) []FiledTestStruct {
@@ -288,7 +288,7 @@ func InternalSaml2SpFieldTestCreate(
 	}
 }
 
-//Fields to validate after Sp update
+// Fields to validate after Sp update
 func InteralSaml2SpFieldTestUpdate(
 	e *api.InternalSaml2ServiceProviderDTO,
 	r *api.InternalSaml2ServiceProviderDTO) []FiledTestStruct {

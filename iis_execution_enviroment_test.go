@@ -160,7 +160,7 @@ func (s *AccTestSuite) TestAccIssExeEnvField_crud_updateFailOnDupName() {
 
 // --------------------------------------------------------
 
-//Fields to validate after appliance creation
+// Fields to validate after appliance creation
 func IssExeEnvFieldTestCreate(
 	e *api.WindowsIISExecutionEnvironmentDTO,
 	r *api.WindowsIISExecutionEnvironmentDTO) []FiledTestStruct {
@@ -242,7 +242,7 @@ func IssExeEnvFieldTestCreate(
 	}
 }
 
-//Fields to validate after IssExeEnv update
+// Fields to validate after IssExeEnv update
 func IssExeEnvFieldTestUpdate(
 	e *api.WindowsIISExecutionEnvironmentDTO,
 	r *api.WindowsIISExecutionEnvironmentDTO) []FiledTestStruct {
